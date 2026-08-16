@@ -29,12 +29,13 @@ jobs:
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: python scraper.py
-
+      - name: Generiraj javnu stranicu
+        run: python web.py
       - name: Spremi rezultate u repozitorij
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
-          git add -A output.html output.json output.csv .cache.json || true
+          git add -A output.html output.json output.csv .cache.json docs || true
           git diff --staged --quiet || git commit -m "Rezultati provjere $(date +'%d.%m.%Y')"
           git push || true
 
