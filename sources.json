@@ -172,5 +172,23 @@
     "url": "https://commission.europa.eu/funding-tenders/find-funding/find-calls-funding-topic/education-and-training-funding/funding-opportunities-conference-interpreting-programmes/bursaries-conference-interpreting-students_hr",
     "kategorija": "Međunarodno",
     "podrucje": "Cijela Hrvatska"
+  },
+  {
+    "naziv": "Grad Koprivnica — stipendije",
+    "url": "https://koprivnica.hr/gradani/odgoj-i-obrazovanje/stipendije/",
+    "kategorija": "Grad",
+    "podrucje": "Koprivnica"
+  },
+  {
+    "naziv": "Grad Bjelovar — stipendije",
+    "url": "https://www.bjelovar.hr/obrazovanje-i-skrb/stipendije/",
+    "kategorija": "Grad",
+    "podrucje": "Bjelovar"
+  },
+  {
+    "naziv": "Grad Dubrovnik — natječaji",
+    "url": "https://www.dubrovnik.hr/natjecaji",
+    "kategorija": "Grad",
+    "podrucje": "Dubrovnik"
   }
 ]
