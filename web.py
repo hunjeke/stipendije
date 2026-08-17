@@ -1,11 +1,18 @@
 # -*- coding: utf-8 -*-
+"""
+Generira javnu stranicu iz output.json -> docs/index.html
+Podrucje (grad/zupanija) cita iz sources.json i povezuje po URL-u,
+tako da scraper.py ne treba mijenjati.
+"""
 import json
 import os
 from datetime import datetime
 
 ULAZ = "output.json"
+IZVORI = "sources.json"
 IZLAZ_MAPA = "docs"
 IZLAZ = os.path.join(IZLAZ_MAPA, "index.html")
+SVI = "Cijela Hrvatska"
 
 
 def esc(v):
@@ -15,13 +22,19 @@ def esc(v):
             .replace(">", "&gt;").replace('"', "&quot;"))
 
 
-def kartica(r, otvorena):
-    naziv = esc(r.get("naziv"))
-    url = esc(r.get("url"))
-    iznos = esc(r.get("iznos"))
-    rok = esc(r.get("rok_tekst"))
-    uvjeti = esc(r.get("uvjeti"))
-    kat = esc(r.get("kategorija"))
+def ucitaj_podrucja():
+    """URL -> podrucje. Ako sources.json nema polje, vraca SVI."""
+    m = {}
+    if os.path.exists(IZVORI):
+        for s in json.load(open(IZVORI, encoding="utf-8")):
+            m[s["url"].rstrip("/")] = s.get("podrucje") or SVI
+    return m
+
+
+def kartica(r, otvorena, podrucje):
+    naziv, url = esc(r.get("naziv")), esc(r.get("url"))
+    iznos, rok = esc(r.get("iznos")), esc(r.get("rok_tekst"))
+    uvjeti, kat = esc(r.get("uvjeti")), esc(r.get("kategorija"))
 
     upute = r.get("upute_za_prijavu") or ""
     koraci = "".join(f"<li>{esc(k.strip())}</li>"
@@ -37,18 +50,17 @@ def kartica(r, otvorena):
 
     upute_html = ""
     if koraci and otvorena:
-        upute_html = f'<details><summary>Kako se prijaviti</summary><ol>{koraci}</ol></details>'
+        upute_html = (f'<details><summary>Kako se prijaviti</summary>'
+                      f'<ol>{koraci}</ol></details>')
 
     if otvorena:
-        oznaka = '<span class="o ok">Otvoreno za prijave</span>'
-        klasa = "k ok"
+        oznaka, klasa = '<span class="o ok">Otvoreno za prijave</span>', "k ok"
     else:
-        oznaka = '<span class="o zat">Trenutno zatvoreno</span>'
-        klasa = "k zat"
+        oznaka, klasa = '<span class="o zat">Trenutno zatvoreno</span>', "k zat"
 
-    return f"""<article class="{klasa}">
+    return f"""<article class="{klasa}" data-podrucje="{esc(podrucje)}">
   <div class="zag"><h3>{naziv}</h3>{oznaka}</div>
-  <div class="kat">{kat}</div>
+  <div class="kat">{esc(podrucje)} &middot; {kat}</div>
   {redovi}
   {upute_html}
   <a class="izv" href="{url}" target="_blank" rel="noopener">Otvori službenu stranicu &rarr;</a>
@@ -60,39 +72,49 @@ def main():
         print(f"GRESKA: nema {ULAZ}")
         return
 
-    with open(ULAZ, encoding="utf-8") as f:
-        d = json.load(f)
+    d = json.load(open(ULAZ, encoding="utf-8"))
+    podrucja_map = ucitaj_podrucja()
 
     otvorene, zatvorene = [], []
     for r in d:
-        s = (r.get("status") or "")
+        s = r.get("status") or ""
+        pod = podrucja_map.get((r.get("url") or "").rstrip("/"), SVI)
         if s.startswith("OTVORENO"):
-            otvorene.append(r)
+            otvorene.append((r, pod))
         elif s.startswith("ROK ISTEKAO") or s.startswith("NEMA AKTIVNOG"):
-            zatvorene.append(r)
+            zatvorene.append((r, pod))
+        # GRESKA / PROVJERITI se namjerno ne prikazuju javno
 
-    otvorene.sort(key=lambda r: r.get("naziv") or "")
-    zatvorene.sort(key=lambda r: r.get("naziv") or "")
+    otvorene.sort(key=lambda t: t[0].get("naziv") or "")
+    zatvorene.sort(key=lambda t: t[0].get("naziv") or "")
+
+    # popis podrucja za filtere, bez "Cijela Hrvatska" (ono je uvijek uklju\u010deno)
+    sva = sorted({p for _, p in otvorene + zatvorene if p != SVI})
+    gumbi = '<button class="f akt" data-f="sve">Sve</button>'
+    gumbi += "".join(f'<button class="f" data-f="{esc(p)}">{esc(p)}</button>'
+                     for p in sva)
 
     if otvorene:
-        sekcija_otv = ("<h2>Trenutno otvoreno "
-                       f"<span class=\"br\">{len(otvorene)}</span></h2>"
-                       + "".join(kartica(r, True) for r in otvorene))
+        sekcija_otv = (f'<h2>Trenutno otvoreno <span class="br">{len(otvorene)}</span></h2>'
+                       f'<div class="grupa">'
+                       + "".join(kartica(r, True, p) for r, p in otvorene)
+                       + '<p class="nema-rez">Nema otvorenih natječaja za odabrano područje.</p></div>')
     else:
         sekcija_otv = """<h2>Trenutno otvoreno</h2>
 <div class="prazno">
   <p><strong>Trenutno nema otvorenih natječaja.</strong></p>
-  <p>Većina natječaja za stipendije objavljuje se od rujna do prosinca.
-     Ispod su izvori koje pratimo — kad se neki otvori, pojavit će se ovdje.</p>
+  <p>Većina natječaja objavljuje se od rujna do prosinca. Ispod su izvori koje
+     pratimo — kad se neki otvori, pojavit će se ovdje.</p>
 </div>"""
 
     sekcija_zat = ""
     if zatvorene:
-        sekcija_zat = ("<h2>Izvori koje pratimo "
-                       f"<span class=\"br\">{len(zatvorene)}</span></h2>"
+        sekcija_zat = (f'<h2>Izvori koje pratimo <span class="br">{len(zatvorene)}</span></h2>'
                        '<p class="pod">Ovi natječaji trenutno nisu otvoreni. '
                        'Provjeravamo ih automatski dvaput tjedno.</p>'
-                       + "".join(kartica(r, False) for r in zatvorene))
+                       '<div class="grupa">'
+                       + "".join(kartica(r, False, p) for r, p in zatvorene)
+                       + '<p class="nema-rez">Nema izvora za odabrano područje.</p></div>')
 
     html = f"""<!DOCTYPE html>
 <html lang="hr">
@@ -110,6 +132,14 @@ header h1{{font-size:1.9rem;margin:0 0 .3rem}}
 header p{{margin:0;color:#5a6270}}
 .upoz{{background:#fff8e6;border:1px solid #f0d99b;border-radius:8px;
 padding:.9rem 1rem;margin:1.5rem 0;font-size:.88rem;color:#5c4a1a}}
+.filteri{{margin:1.5rem 0 .5rem}}
+.filteri-nasl{{font-size:.8rem;color:#6b7280;margin-bottom:.5rem;
+text-transform:uppercase;letter-spacing:.03em}}
+.f{{background:#fff;border:1px solid #d5dae0;border-radius:20px;
+padding:.4rem .9rem;font-size:.85rem;cursor:pointer;margin:0 .35rem .45rem 0;
+font-family:inherit;color:#3d4450;transition:.15s}}
+.f:hover{{border-color:#9aa4b0}}
+.f.akt{{background:#1a1d21;border-color:#1a1d21;color:#fff;font-weight:500}}
 h2{{font-size:1.15rem;margin:2.5rem 0 .3rem;display:flex;align-items:center;gap:.6rem}}
 .br{{background:#e3e6ea;color:#4a5260;font-size:.8rem;padding:.1rem .55rem;
 border-radius:20px;font-weight:600}}
@@ -121,6 +151,10 @@ padding:1.3rem;margin-top:1rem}}
 padding:1.1rem 1.2rem;margin-bottom:.9rem;border-left:4px solid #cbd2d9}}
 .k.ok{{border-left-color:#1a9c4a}}
 .k.zat{{opacity:.72}}
+.k.skriveno{{display:none}}
+.nema-rez{{display:none;background:#fff;border:1px solid #e3e6ea;
+border-radius:10px;padding:1.1rem 1.2rem;color:#6b7280;font-size:.9rem;margin:0}}
+.nema-rez.vidljivo{{display:block}}
 .zag{{display:flex;justify-content:space-between;align-items:flex-start;
 gap:.8rem;flex-wrap:wrap}}
 h3{{font-size:1rem;margin:0 0 .2rem;flex:1;min-width:200px}}
@@ -161,6 +195,11 @@ footer p{{margin:.5rem 0}}
   odluke donesene na temelju ovih podataka.
 </div>
 
+<div class="filteri">
+  <div class="filteri-nasl">Filtriraj po području</div>
+  {gumbi}
+</div>
+
 {sekcija_otv}
 {sekcija_zat}
 
@@ -170,18 +209,46 @@ footer p{{margin:.5rem 0}}
   <p>Nedostaje neka stipendija ili si uočio grešku? Javi nam.</p>
 </footer>
 </div>
+
+<script>
+(function () {{
+  var SVI = {json.dumps(SVI, ensure_ascii=False)};
+  var gumbi = document.querySelectorAll(".f");
+  var kartice = document.querySelectorAll(".k");
+
+  function filtriraj(odabir) {{
+    kartice.forEach(function (k) {{
+      var p = k.getAttribute("data-podrucje");
+      // drzavne stipendije se prikazuju uz svaki grad jer vrijede za sve
+      var pokazi = (odabir === "sve") || (p === odabir) || (p === SVI);
+      k.classList.toggle("skriveno", !pokazi);
+    }});
+    document.querySelectorAll(".grupa").forEach(function (g) {{
+      var ima = g.querySelectorAll(".k:not(.skriveno)").length > 0;
+      var poruka = g.querySelector(".nema-rez");
+      if (poruka) poruka.classList.toggle("vidljivo", !ima);
+    }});
+  }}
+
+  gumbi.forEach(function (g) {{
+    g.addEventListener("click", function () {{
+      gumbi.forEach(function (x) {{ x.classList.remove("akt"); }});
+      g.classList.add("akt");
+      filtriraj(g.getAttribute("data-f"));
+    }});
+  }});
+}})();
+</script>
 </body>
 </html>"""
 
     os.makedirs(IZLAZ_MAPA, exist_ok=True)
-    with open(IZLAZ, "w", encoding="utf-8") as f:
-        f.write(html)
+    open(IZLAZ, "w", encoding="utf-8").write(html)
 
-    skriveno = len(d) - len(otvorene) - len(zatvorene)
     print(f"Napisano {IZLAZ}")
-    print(f"  otvorenih: {len(otvorene)}")
-    print(f"  zatvorenih: {len(zatvorene)}")
-    print(f"  sakriveno: {skriveno}")
+    print(f"  otvorenih: {len(otvorene)}  zatvorenih: {len(zatvorene)}")
+    print(f"  sakriveno: {len(d) - len(otvorene) - len(zatvorene)}")
+    print(f"  filteri: Sve + {len(sva)} podrucja")
 
 
 if __name__ == "__main__":
