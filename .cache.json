@@ -350,5 +350,21 @@
       "zadnje_provjereno": "2026-08-16T09:50",
       "_ima_otvoren": false
     }
+  },
+  "https://www.hanfa.hr/raditi-u-hanfi/studentske-stipendije/": {
+    "hash": "7955babca6a9c055",
+    "result": {
+      "naziv": "HANFA — studentske stipendije",
+      "url": "https://www.hanfa.hr/raditi-u-hanfi/studentske-stipendije/",
+      "kategorija": "Ministarstvo",
+      "iznos": null,
+      "rok_tekst": "12. svibnja 2025.",
+      "uvjeti": "Student koji je upisao najmanje treću godinu prijediplomskog ili diplomskog studija ekonomije, prava, matematike ili informatike na hrvatskom visokom učilištu, s položenim svim ispitima iz prethodnih godina, aktivnim znanjem engleskog jezika, hrvatskim državljanstvom i bez primanja druge stipendije.",
+      "upute_za_prijavu": null,
+      "napomena": "Natječaj za akademsku godinu 2025./2026. je već završen (12. svibnja 2025. - objava, sa odlukom o dodjeli stipendija) - stranica prikazuje ishod natječaja s dodjeljenim stipendistima. Redovito se objavljuje krajem ljetnog semestra. Iznos stipendije nije specificiran na stranici.",
+      "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
+      "zadnje_provjereno": "2026-08-17T07:44",
+      "_ima_otvoren": false
+    }
   }
 }
