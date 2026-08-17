@@ -366,5 +366,165 @@
       "zadnje_provjereno": "2026-08-17T07:44",
       "_ima_otvoren": false
     }
+  },
+  "https://www.sibenik.hr/stranice/stipendije/135.html": {
+    "hash": "4ac7568b11e38852",
+    "result": {
+      "naziv": "Grad Šibenik — stipendije",
+      "url": "https://www.sibenik.hr/stranice/stipendije/135.html",
+      "kategorija": "Grad",
+      "iznos": null,
+      "rok_tekst": null,
+      "uvjeti": null,
+      "upute_za_prijavu": null,
+      "napomena": null,
+      "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
+      "zadnje_provjereno": "2026-08-17T10:10",
+      "_ima_otvoren": false
+    }
+  },
+  "https://www.karlovac.hr/natjecaji_pozivi/": {
+    "hash": "e8017795e3a08a44",
+    "result": {
+      "naziv": "Grad Karlovac — natječaji i pozivi",
+      "url": "https://www.karlovac.hr/natjecaji_pozivi/",
+      "kategorija": "Grad",
+      "iznos": null,
+      "rok_tekst": null,
+      "uvjeti": null,
+      "upute_za_prijavu": null,
+      "napomena": null,
+      "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
+      "zadnje_provjereno": "2026-08-17T10:10",
+      "_ima_otvoren": false
+    }
+  },
+  "https://www.pula.hr/hr/novosti/": {
+    "hash": "e154901e00e3e815",
+    "result": {
+      "naziv": "Grad Pula — novosti i natječaji",
+      "url": "https://www.pula.hr/hr/novosti/",
+      "kategorija": "Grad",
+      "iznos": null,
+      "rok_tekst": null,
+      "uvjeti": null,
+      "upute_za_prijavu": null,
+      "napomena": null,
+      "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
+      "zadnje_provjereno": "2026-08-17T10:10",
+      "_ima_otvoren": false
+    }
+  },
+  "https://kazup.hr/index.php/natjecaji-i-javni-pozivi/javni-pozivi-uo-za-drustvene-djelatnosti/": {
+    "hash": "2f1bad9738697291",
+    "result": {
+      "naziv": "Karlovačka županija — javni pozivi (društvene djelatnosti)",
+      "url": "https://kazup.hr/index.php/natjecaji-i-javni-pozivi/javni-pozivi-uo-za-drustvene-djelatnosti/",
+      "kategorija": "Županija",
+      "iznos": null,
+      "rok_tekst": "31. siječnja 2026. godine",
+      "uvjeti": "Stranka i članovi njezine obitelji koji žive u zajedničkom kućanstvu, bez druge useljive obiteljske kuće ili stana odgovarajuće stambene površine u vlasništvu ili suvlasništvu, niti u drugim državama, te nisu stekli pravni položaj zaštićenog najmoprimca.",
+      "upute_za_prijavu": "Registrirajte se na https://som-natjecaj.eu/authentication/register | Prijavite se na https://som-natjecaj.eu/authentication/login | Popunite obrazac Prijave za stambeno zbrinjavanje | Priložite sve potrebne dokaze za bodovanje | Pošaljite do 31. siječnja 2026. | Ili predajte osobno ili poštom na adresu Karlovačke županije",
+      "napomena": "Rad sa strankama obavlja se svakim radnim danom od 8:00 do 14:00 sati. Tehnička podrška dostupna je e-mailom ili na telefonu 091/618-8694 (08:00-16:00). Prijave se mogu predati elektronički, poštom ili osobno.",
+      "status": "ROK ISTEKAO (2026-01-31) — čeka se novi ciklus",
+      "zadnje_provjereno": "2026-08-17T10:10",
+      "_ima_otvoren": true
+    }
+  },
+  "https://www.hep.hr/ljudski-potencijali/praksa-i-stipendije/natjecaji-za-skol-god-akad-god-2025-2026/3865": {
+    "hash": "3e77540c8f666bea",
+    "result": {
+      "naziv": "HEP — praksa i stipendije",
+      "url": "https://www.hep.hr/ljudski-potencijali/praksa-i-stipendije/natjecaji-za-skol-god-akad-god-2025-2026/3865",
+      "kategorija": "Tvrtka",
+      "iznos": null,
+      "rok_tekst": "od 27. listopada 2025. do 16. studenog 2025. godine",
+      "uvjeti": "Za učenike: redovni učenici srednjih škola tehničkih usmjerenja koji su upisali predzavršni ili završni razred. Za studente: redovni studenti visokih učilišta na 3. godini prijediplomskog ili 1./2. godini diplomskog studija tehničkih znanosti.",
+      "upute_za_prijavu": "Preuzmi obrazac za prijavu | Ispuni i priloži tražene dokumente | Pošalji prijavu u roku od 27. listopada do 16. studenog 2025. | Čekaj objavu rezultata",
+      "napomena": "Raspisana su dva odvojena natječaja: 133 stipendije za učenike i 62 stipendije za studente. Iznos stipendije nije naveden na ovoj stranici.",
+      "status": "ROK ISTEKAO (2025-10-27) — čeka se novi ciklus",
+      "zadnje_provjereno": "2026-08-17T10:11",
+      "_ima_otvoren": true
+    }
+  },
+  "https://www.ampeu.hr/": {
+    "hash": "3994f8990b93b4ce",
+    "result": {
+      "naziv": "AMPEU — Erasmus+ i programi mobilnosti",
+      "url": "https://www.ampeu.hr/",
+      "kategorija": "Međunarodno",
+      "iznos": null,
+      "rok_tekst": null,
+      "uvjeti": null,
+      "upute_za_prijavu": null,
+      "napomena": null,
+      "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
+      "zadnje_provjereno": "2026-08-17T10:11",
+      "_ima_otvoren": false
+    }
+  },
+  "https://commission.europa.eu/funding-tenders/find-funding/find-calls-funding-topic/education-and-training-funding/funding-opportunities-conference-interpreting-programmes/bursaries-conference-interpreting-students_hr": {
+    "hash": "f32ea4008b00d52a",
+    "result": {
+      "naziv": "Europska komisija — stipendije za konferencijsko prevođenje",
+      "url": "https://commission.europa.eu/funding-tenders/find-funding/find-calls-funding-topic/education-and-training-funding/funding-opportunities-conference-interpreting-programmes/bursaries-conference-interpreting-students_hr",
+      "kategorija": "Međunarodno",
+      "iznos": "do 3000 eura (jednokratna potpora za diplomske/poslijediplomske studije, do iznosa upisnine za akademsku godinu 2026./2027.)",
+      "rok_tekst": "petak 25. rujna 2026. u ponoć po srednjoeuropskom vremenu",
+      "uvjeti": "Studenti diplomskih/poslijediplomskih studija konferencijskog prevođenja. Detaljni kriteriji dostupni u pozivu za prijave.",
+      "upute_za_prijavu": "Pročitaj poziv za prijave (Call for applications) | Provjeri detaljne kriterije i uvjete | Pripremi potrebnu dokumentaciju | Podnesi prijavu do roka | Kontaktiraj Direktorat za usmeno prevođenje na scic-bursaries@ec.europa.eu ako imaš pitanja",
+      "napomena": "期間は 2026 年 6 月 22 日に公開された公募（Call for applications）に基づきます。FAQ документ такође dostupan za preuzimanje.",
+      "status": "OTVORENO (rok 2026-09-25)",
+      "zadnje_provjereno": "2026-08-17T10:11",
+      "_ima_otvoren": true
+    }
+  },
+  "https://koprivnica.hr/gradani/odgoj-i-obrazovanje/stipendije/": {
+    "hash": "a0c059f33e77e5e4",
+    "result": {
+      "naziv": "Grad Koprivnica — stipendije",
+      "url": "https://koprivnica.hr/gradani/odgoj-i-obrazovanje/stipendije/",
+      "kategorija": "Grad",
+      "iznos": "130,00 EUR mjesečno (studenti u RH), 210,00 EUR (studenti izvan RH), 170,00 EUR (studenti s invaliditetom >50% u RH), 290,00 EUR (studenti s invaliditetom >50% izvan RH), 300,00 EUR (studenti za deficitarna zanimanja); isplate do 10. u mjesecu za prethodni mjesec u 12 jednakih mjesečnih rata",
+      "rok_tekst": null,
+      "uvjeti": "Redoviti studenti s prebivalištem na području Grada Koprivnice upisani na prijediplomski i diplomski studij. Mogu se prijaviti i studenti poslijediplomskih sveučilišnih i specijalističkih studija koji ih upisuju odmah nakon diplomskog studija, pod uvjetom da nisu u radnom odnosu.",
+      "upute_za_prijavu": null,
+      "napomena": "Stranica opisuje program i pravila, ali ne navodi konkretne datume natječaja. Natječaj se raspisuje najmanje 15 dana i objavljuje na službenoj web stranici Grada Koprivnice. Studenti moraju dostaviti potvrdu o upisu do 31. listopada za narednu godinu ili do 15. ožujka za ljetni semestar.",
+      "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
+      "zadnje_provjereno": "2026-08-17T10:11",
+      "_ima_otvoren": false
+    }
+  },
+  "https://www.bjelovar.hr/obrazovanje-i-skrb/stipendije/": {
+    "hash": "bd0eb19b14d9216a",
+    "result": {
+      "naziv": "Grad Bjelovar — stipendije",
+      "url": "https://www.bjelovar.hr/obrazovanje-i-skrb/stipendije/",
+      "kategorija": "Grad",
+      "iznos": "130,00 eura na mjesec",
+      "rok_tekst": null,
+      "uvjeti": "Studenti s prebivalištem na području Grada Bjelovara koji zadovolje uvjete i kriterije natječaja te redovno upisuju svaku akademsku godinu.",
+      "upute_za_prijavu": null,
+      "napomena": "Studenti u prvoj godini primanja dobivaju 7 stipendija (1. siječnja - 31. srpnja), u slajedećim godinama 10 stipendija (1. listopada - 31. srpnja). Kontakt: szdunic@bjelovar.hr, 043/622-076. Prijava na eobrasci.bjelovar.hr/App/",
+      "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
+      "zadnje_provjereno": "2026-08-17T10:11",
+      "_ima_otvoren": false
+    }
+  },
+  "https://www.dubrovnik.hr/natjecaji": {
+    "hash": "b6ce16b616a6557e",
+    "result": {
+      "naziv": "Grad Dubrovnik — natječaji",
+      "url": "https://www.dubrovnik.hr/natjecaji",
+      "kategorija": "Grad",
+      "iznos": null,
+      "rok_tekst": null,
+      "uvjeti": null,
+      "upute_za_prijavu": null,
+      "napomena": null,
+      "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
+      "zadnje_provjereno": "2026-08-17T10:11",
+      "_ima_otvoren": false
+    }
   }
 }
