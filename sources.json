@@ -22,5 +22,8 @@
   {"naziv": "Zaklada Adris — natječaji", "url": "https://www.adris.hr/odnosi-s-javnoscu/zaklada-adris/natjecaji/", "kategorija": "Zaklada", "podrucje": "Cijela Hrvatska"},
   {"naziv": "HEP — praksa i stipendije", "url": "https://www.hep.hr/ljudski-potencijali/praksa-i-stipendije/natjecaji-za-skol-god-akad-god-2025-2026/3865", "kategorija": "Tvrtka", "podrucje": "Cijela Hrvatska"},
   {"naziv": "INA Grupa — INA i mladi (stipendije)", "url": "https://karijera.ina.hr/hr/ina-i-mladi", "kategorija": "Tvrtka", "podrucje": "Cijela Hrvatska"},
-  {"naziv": "AMPEU — Erasmus+ i programi mobilnosti", "url": "https://www.ampeu.hr/", "kategorija": "Međunarodno", "podrucje": "Cijela Hrvatska"}
+  {"naziv": "AMPEU — Erasmus+ i programi mobilnosti", "url": "https://www.ampeu.hr/", "kategorija": "Međunarodno", "podrucje": "Cijela Hrvatska"},
+  {"naziv": "Grad Karlovac — natječaji i pozivi", "url": "https://www.karlovac.hr/natjecaji_pozivi/", "kategorija": "Grad",+ "podrucje": "Karlovac"},
+  {"naziv": "Karlovačka županija — javni pozivi (društvene djelatnosti)", "url": "https://kazup.hr/index.php/natjecaji-i-javni-pozivi/javni-pozivi-uo-za-drustvene-djelatnosti/", "kategorija": "Županija", "podrucje": "Karlovačka županija"},
+  {"naziv": "Grad Pula — novosti i natječaji", "url": "https://www.pula.hr/hr/novosti/", "kategorija": "Grad", "podrucje": "Pula"}
 ]
