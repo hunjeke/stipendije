@@ -14,6 +14,10 @@ IZLAZ_MAPA = "docs"
 IZLAZ = os.path.join(IZLAZ_MAPA, "index.html")
 SVI = "Cijela Hrvatska"
 
+# ---- PODACI KOJE MIJENJAS PO POTREBI ----
+EMAIL = "erik.hunjek@gmail.com"
+DOMENA = "stipendije.hr"
+
 
 def esc(v):
     if v is None or str(v).strip() == "":
@@ -174,9 +178,20 @@ details li{{margin-bottom:.35rem}}
 .izv{{display:inline-block;margin-top:.8rem;color:#1558d6;
 text-decoration:none;font-size:.88rem;font-weight:500}}
 .izv:hover{{text-decoration:underline}}
+.vodic{{margin-top:3.5rem;background:#fff;border:1px solid #e3e6ea;
+border-radius:10px;padding:1.4rem}}
+.vodic h2{{margin:0 0 .2rem}}
+.vodic details{{border-top:1px solid #eef0f3;padding:.75rem 0 .3rem;margin:0}}
+.vodic details:first-of-type{{border-top:none}}
+.vodic summary{{color:#1a1d21;font-weight:600;font-size:.94rem}}
+.vodic details p{{font-size:.89rem;color:#3d4450;margin:.6rem 0}}
+.vodic details ul{{font-size:.89rem;color:#3d4450;padding-left:1.3rem;margin:.6rem 0}}
+.vodic details li{{margin-bottom:.3rem}}
 footer{{margin-top:3rem;padding-top:1.5rem;border-top:1px solid #e3e6ea;
-font-size:.82rem;color:#6b7280}}
-footer p{{margin:.5rem 0}}
+font-size:.86rem;color:#4a5260}}
+footer p{{margin:.6rem 0}}
+footer a{{color:#1558d6}}
+footer .meta{{font-size:.78rem;color:#8a919c;margin-top:1.2rem}}
 @media(max-width:520px){{.r{{grid-template-columns:1fr}}.r span{{font-size:.8rem}}}}
 </style>
 </head>
@@ -203,10 +218,91 @@ footer p{{margin:.5rem 0}}
 {sekcija_otv}
 {sekcija_zat}
 
+<section class="vodic">
+  <h2>Kako do stipendije</h2>
+  <p class="pod">Ako prvi put tražiš stipendiju, ovo je ono što ti nitko ne kaže unaprijed.</p>
+
+  <details>
+    <summary>Kada se natječaji objavljuju</summary>
+    <p>Većina natječaja otvara se <strong>od rujna do prosinca</strong>, za akademsku
+    godinu koja je već počela. Rokovi su često kratki — nerijetko 15 dana od objave.</p>
+    <p>Manji dio programa ide drugim ritmom: neki se objavljuju u <strong>svibnju
+    i lipnju</strong>, prema kraju ljetnog semestra. Zato vrijedi provjeravati
+    i izvan jeseni.</p>
+  </details>
+
+  <details>
+    <summary>Ne možeš primati dvije javne stipendije istovremeno</summary>
+    <p>Kod državnih stipendija vrijedi pravilo da za vrijeme primanja državne stipendije
+    student ne može primati drugu stipendiju financiranu iz javnih izvora. Slično
+    ograničenje traže i mnogi gradovi i županije — obično moraš potpisati izjavu
+    da ne primaš drugu stipendiju.</p>
+    <p>Praktično: ako se prijavljuješ na više njih, provjeri u tekstu svakog natječaja
+    što se smije kombinirati. Privatne i korporativne stipendije nisu uvijek u istoj
+    kategoriji kao javne, ali to piše u natječaju.</p>
+  </details>
+
+  <details>
+    <summary>Što znači „deficitarno zanimanje"</summary>
+    <p>Zanimanja za kojima postoji manjak kadra. Ako studiraš nešto s tog popisa,
+    često imaš <strong>veće šanse i veći iznos</strong> — ponegdje su i pragovi
+    prosjeka ocjena niži.</p>
+    <p>Popis nije jedinstven: svaki grad i županija utvrđuje svoj, prema potrebama
+    lokalnog tržišta rada. Isti studij može biti deficitaran u jednom gradu, a ne
+    i u drugom. Popis je uvijek priložen natječaju.</p>
+  </details>
+
+  <details>
+    <summary>Prebivalište je najčešći uvjet</summary>
+    <p>Gradske i županijske stipendije gotovo uvijek traže prijavljeno prebivalište
+    na njihovom području, često i određeno vrijeme unaprijed (npr. najmanje godinu
+    dana prije objave natječaja).</p>
+    <p>Bitno: mjesto <em>studiranja</em> i mjesto <em>prebivališta</em> su različite
+    stvari. Možeš studirati u Zagrebu i primati stipendiju svog rodnog grada — kod
+    nekih gradova iznos je čak <strong>veći</strong> ako studiraš izvan njih.</p>
+  </details>
+
+  <details>
+    <summary>Što je SOM aplikacija</summary>
+    <p>Više gradova i županija prijave prima preko vanjske aplikacije „SOM natječaji".
+    Trebaš napraviti korisnički račun, pa se kroz njega prijaviti na natječaj.</p>
+    <p>Račun napraviš jednom i koristiš ga za sve institucije koje taj sustav koriste.
+    Nakon prijave u sustavu odabereš instituciju čiji natječaj tražiš.</p>
+  </details>
+
+  <details>
+    <summary>Dokumentacija koju obično treba pripremiti</summary>
+    <p>Razlikuje se po natječaju, ali ovo se traži najčešće:</p>
+    <ul>
+      <li>potvrda o upisu na studij</li>
+      <li>prijepis ocjena ili potvrda o prosjeku</li>
+      <li>uvjerenje o prebivalištu</li>
+      <li>izjava da ne primaš drugu stipendiju</li>
+      <li>dokazi o posebnim postignućima, ako se boduju</li>
+      <li>za socijalne kategorije: potvrde o prihodima članova kućanstva</li>
+    </ul>
+    <p>Neke potvrde traju danima da ih dobiješ. Ako znaš da ti se natječaj otvara
+    u listopadu, ima smisla pripremiti ih ranije.</p>
+  </details>
+
+  <details>
+    <summary>Nepotpuna prijava = odbijena prijava</summary>
+    <p>Gotovo svi natječaji izričito pišu da se nepotpune prijave i one predane
+    nakon roka <strong>ne razmatraju</strong>. Nema dopunjavanja naknadno.</p>
+    <p>Također provjeri <em>način</em> predaje — neki primaju samo elektronički,
+    neki samo poštom ili osobno u pisarnici. Prijava poslana na pogrešan način
+    tretira se kao da nije poslana.</p>
+  </details>
+</section>
+
 <footer>
-  <p>Zadnja provjera: {datetime.now().strftime('%d.%m.%Y. u %H:%M')}</p>
-  <p>Pratimo {len(otvorene) + len(zatvorene)} izvora. Popis se stalno dopunjuje.</p>
-  <p>Nedostaje neka stipendija ili si uočio grešku? Javi nam.</p>
+  <p><strong>Kontakt:</strong> <a href="mailto:{EMAIL}">{EMAIL}</a></p>
+  <p>Nedostaje neka stipendija, ili si uočio netočan podatak? Piši nam — ispravljamo
+     u najkraćem roku. Posebno nam je važno ako je <strong>rok prijave</strong> netočan.</p>
+  <p>Ne dajemo osobne savjete o tome imaš li šanse za pojedinu stipendiju — za to se
+     obrati instituciji koja je natječaj objavila.</p>
+  <p class="meta">Zadnja provjera: {datetime.now().strftime('%d.%m.%Y. u %H:%M')} &middot;
+     Pratimo {len(otvorene) + len(zatvorene)} izvora, popis se stalno dopunjuje.</p>
 </footer>
 </div>
 
