@@ -222,5 +222,236 @@
     "kategorija": "Grad",
     "podrucje": "Dubrovnik",
     "zupanija": "Dubrovačko-neretvanska županija"
+  },
+  {
+    "naziv": "Bjelovarsko-bilogorska županija — stipendije",
+    "url": "https://bbz.hr/uo-obrazovanje-stipendije/",
+    "kategorija": "Županija",
+    "podrucje": "Bjelovarsko-bilogorska županija",
+    "zupanija": "Bjelovarsko-bilogorska županija"
+  },
+  {
+    "naziv": "Požeško-slavonska županija — otvoreni natječaji",
+    "url": "https://www.pszupanija.hr/natjecaji/otvoreni-natjecaji",
+    "kategorija": "Županija",
+    "podrucje": "Požeško-slavonska županija",
+    "zupanija": "Požeško-slavonska županija"
+  },
+  {
+    "naziv": "Dubrovačko-neretvanska županija — stipendije",
+    "url": "https://www.dnz.hr/stipendije/",
+    "kategorija": "Županija",
+    "podrucje": "Dubrovačko-neretvanska županija",
+    "zupanija": "Dubrovačko-neretvanska županija"
+  },
+  {
+    "naziv": "Koprivničko-križevačka županija — stipendije",
+    "url": "https://stipendije.kckzz.hr/",
+    "kategorija": "Županija",
+    "podrucje": "Koprivničko-križevačka županija",
+    "zupanija": "Koprivničko-križevačka županija"
+  },
+  {
+    "naziv": "Ličko-senjska županija — natječaji i pozivi",
+    "url": "https://licko-senjska.hr/natjecaji-i-pozivi/",
+    "kategorija": "Županija",
+    "podrucje": "Ličko-senjska županija",
+    "zupanija": "Ličko-senjska županija"
+  },
+  {
+    "naziv": "Virovitičko-podravska županija — natječaji",
+    "url": "https://www.vpz.hr/",
+    "kategorija": "Županija",
+    "podrucje": "Virovitičko-podravska županija",
+    "zupanija": "Virovitičko-podravska županija"
+  },
+  {
+    "naziv": "Brodsko-posavska županija — natječaji",
+    "url": "https://www.bpz.hr/natje%C4%8Daji-21",
+    "kategorija": "Županija",
+    "podrucje": "Brodsko-posavska županija",
+    "zupanija": "Brodsko-posavska županija"
+  },
+  {
+    "naziv": "Krapinsko-zagorska županija — natječaji",
+    "url": "https://kzz.hr/natjecaj/",
+    "kategorija": "Županija",
+    "podrucje": "Krapinsko-zagorska županija",
+    "zupanija": "Krapinsko-zagorska županija"
+  },
+  {
+    "naziv": "Grad Umag — studiranje i sustav stipendiranja",
+    "url": "https://umag.hr/informacije/studiranje-na-visokim-ucilistima-i-sustav-stipendiranja-62",
+    "kategorija": "Grad",
+    "podrucje": "Cijela Hrvatska",
+    "zupanija": ""
+  },
+  {
+    "naziv": "Grad Makarska — natječaji i javni pozivi",
+    "url": "https://makarska.hr/natjecaji-i-javni-pozivi",
+    "kategorija": "Grad",
+    "podrucje": "Makarska",
+    "zupanija": "Splitsko-dalmatinska županija"
+  },
+  {
+    "naziv": "Grad Novi Vinodolski — stipendije",
+    "url": "https://novi-vinodolski.hr/oznaka/stipendije/",
+    "kategorija": "Grad",
+    "podrucje": "Novi Vinodolski",
+    "zupanija": "Primorsko-goranska županija"
+  },
+  {
+    "naziv": "Grad Poreč — stipendije i subvencije",
+    "url": "https://www.porec.hr/prva.aspx?stranica=84",
+    "kategorija": "Grad",
+    "podrucje": "Poreč",
+    "zupanija": "Istarska županija"
+  },
+  {
+    "naziv": "Grad Rovinj — stipendije",
+    "url": "https://www.rovinj-rovigno.hr/odgoj-i-obrazovanje/stipendije/",
+    "kategorija": "Grad",
+    "podrucje": "Rovinj",
+    "zupanija": "Istarska županija"
+  },
+  {
+    "naziv": "Grad Križevci — dokumenti i natječaji",
+    "url": "https://krizevci.hr/dokumenti/",
+    "kategorija": "Grad",
+    "podrucje": "Križevci",
+    "zupanija": "Koprivničko-križevačka županija"
+  },
+  {
+    "naziv": "Općina Medulin — odgoj i obrazovanje",
+    "url": "https://medulin.hr/odgoj-obrazovanje",
+    "kategorija": "Općina",
+    "podrucje": "Medulin",
+    "zupanija": "Istarska županija"
+  },
+  {
+    "naziv": "Općina Tučepi — natječaji",
+    "url": "https://www.tucepi.hr/",
+    "kategorija": "Općina",
+    "podrucje": "Tučepi",
+    "zupanija": "Splitsko-dalmatinska županija"
+  },
+  {
+    "naziv": "Općina Baška — službene stranice",
+    "url": "https://www.baska.hr/",
+    "kategorija": "Općina",
+    "podrucje": "Baška",
+    "zupanija": "Primorsko-goranska županija"
+  },
+  {
+    "naziv": "Grad Opatija — natječaji za stipendije",
+    "url": "https://opatija.hr/?s=stipendij",
+    "kategorija": "Grad",
+    "podrucje": "Opatija",
+    "zupanija": "Primorsko-goranska županija"
+  },
+  {
+    "naziv": "Grad Krk — natječaji",
+    "url": "https://www.grad-krk.hr/natjecaji",
+    "kategorija": "Grad",
+    "podrucje": "Krk",
+    "zupanija": "Primorsko-goranska županija"
+  },
+  {
+    "naziv": "Grad Kutina — natječaji",
+    "url": "https://www.kutina.hr/",
+    "kategorija": "Grad",
+    "podrucje": "Kutina",
+    "zupanija": "Sisačko-moslavačka županija"
+  },
+  {
+    "naziv": "Grad Daruvar — stipendije",
+    "url": "https://daruvar.hr/stipendije/",
+    "kategorija": "Grad",
+    "podrucje": "Daruvar",
+    "zupanija": "Bjelovarsko-bilogorska županija"
+  },
+  {
+    "naziv": "Grad Trogir — stipendije za đake i studente",
+    "url": "https://trogir.hr/stipendije-za-dake-i-studente/",
+    "kategorija": "Grad",
+    "podrucje": "Trogir",
+    "zupanija": "Splitsko-dalmatinska županija"
+  },
+  {
+    "naziv": "Grad Biograd na Moru — natječaji",
+    "url": "https://www.biogradnamoru.hr/hr/natje%C4%8Daji",
+    "kategorija": "Grad",
+    "podrucje": "Biograd na Moru",
+    "zupanija": "Zadarska županija"
+  },
+  {
+    "naziv": "Grad Labin — stipendiranje učenika i studenata",
+    "url": "https://labin.hr/za-gradane/odgoj-i-obrazovanje/stipendiranje-ucenika-i-studenata",
+    "kategorija": "Grad",
+    "podrucje": "Labin",
+    "zupanija": "Istarska županija"
+  },
+  {
+    "naziv": "Grad Slavonski Brod — natječaji",
+    "url": "https://www.slavonski-brod.hr/",
+    "kategorija": "Grad",
+    "podrucje": "Slavonski Brod",
+    "zupanija": "Brodsko-posavska županija"
+  },
+  {
+    "naziv": "Grad Metković — natječaji",
+    "url": "https://grad-metkovic.hr/category/natjecaji/",
+    "kategorija": "Grad",
+    "podrucje": "Metković",
+    "zupanija": "Dubrovačko-neretvanska županija"
+  },
+  {
+    "naziv": "Grad Đakovo — natječaji",
+    "url": "https://djakovo.hr/index.php/natje%C4%8Daji.html",
+    "kategorija": "Grad",
+    "podrucje": "Đakovo",
+    "zupanija": "Osječko-baranjska županija"
+  },
+  {
+    "naziv": "Grad Ivanić-Grad — javni natječaji",
+    "url": "https://ivanic-grad.hr/javni-natjecaji",
+    "kategorija": "Grad",
+    "podrucje": "Ivanić-Grad",
+    "zupanija": "Zagrebačka županija"
+  },
+  {
+    "naziv": "Grad Jastrebarsko — natječaji",
+    "url": "https://www.jastrebarsko.hr/",
+    "kategorija": "Grad",
+    "podrucje": "Jastrebarsko",
+    "zupanija": "Zagrebačka županija"
+  },
+  {
+    "naziv": "Grad Virovitica — stipendije",
+    "url": "https://www.virovitica.hr/",
+    "kategorija": "Grad",
+    "podrucje": "Virovitica",
+    "zupanija": "Virovitičko-podravska županija"
+  },
+  {
+    "naziv": "Grad Hvar — natječaji",
+    "url": "https://www.hvar.hr/portal/",
+    "kategorija": "Grad",
+    "podrucje": "Hvar",
+    "zupanija": "Splitsko-dalmatinska županija"
+  },
+  {
+    "naziv": "Grad Stari Grad — novosti i natječaji",
+    "url": "https://stari-grad.hr/novosti/",
+    "kategorija": "Grad",
+    "podrucje": "Stari Grad",
+    "zupanija": "Splitsko-dalmatinska županija"
+  },
+  {
+    "naziv": "Grad Samobor — natječaji",
+    "url": "https://www.samobor.hr/",
+    "kategorija": "Grad",
+    "podrucje": "Samobor",
+    "zupanija": "Zagrebačka županija"
   }
 ]
