@@ -453,5 +453,19 @@
     "kategorija": "Grad",
     "podrucje": "Samobor",
     "zupanija": "Zagrebačka županija"
+    },
+  {
+    "naziv": "Grad Velika Gorica — natječaji",
+    "url": "https://gorica.hr/category/sluzbene-obavijesti/natjecaji/",
+    "kategorija": "Grad",
+    "podrucje": "Velika Gorica",
+    "zupanija": "Zagrebačka županija"
+    },
+  {
+    "naziv": "Grad Gospić — stipendije",
+    "url": "https://gospic.hr/gradski-programi/stipendije-grada-gospica/",
+    "kategorija": "Grad",
+    "podrucje": "Gospić",
+    "zupanija": "Ličko-senjska županija"
   }
 ]
