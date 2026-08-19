@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Impressum — stipendije.hr</title>
+<meta name="description" content="Podaci o pružatelju usluge i uvjeti korištenja stranice stipendije.hr.">
+<meta property="og:title" content="Impressum — stipendije.hr">
+<meta property="og:description" content="Podaci o pružatelju usluge i uvjeti korištenja stranice stipendije.hr.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --papir:#EFF1EC;      /* hladan papir, ne krem */
+  --karta:#FFFFFF;
+  --tinta:#1E2230;      /* duboka tinta */
+  --tinta-2:#5B6274;    /* prigusena */
+  --linija:#D9DCD3;
+  --otvoreno:#1B6B41;   /* borova zelena */
+  --hitno:#A6331E;      /* pecatno crvena */
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--papir);color:var(--tinta);
+  font-family:"IBM Plex Sans",system-ui,sans-serif;font-size:16px;line-height:1.6;
+  -webkit-font-smoothing:antialiased}
+.w{max-width:780px;margin:0 auto;padding:0 1.15rem}
+
+/* --- navigacija --- */
+.vrh{border-bottom:1px solid var(--linija);background:var(--papir);
+  position:sticky;top:0;z-index:30}
+.vrh .w{display:flex;align-items:center;justify-content:space-between;
+  gap:1rem;padding-top:.85rem;padding-bottom:.85rem}
+.logo{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;
+  font-size:1.02rem;letter-spacing:-.02em;text-decoration:none;color:var(--tinta)}
+.logo span{color:var(--otvoreno)}
+.nav{display:flex;gap:1.15rem}
+.nav a{font-size:.86rem;color:var(--tinta-2);text-decoration:none;
+  padding-bottom:2px;border-bottom:1.5px solid transparent}
+.nav a:hover{color:var(--tinta)}
+.nav a.tu{color:var(--tinta);border-bottom-color:var(--tinta)}
+
+/* --- tipografija --- */
+h1{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;
+  font-size:clamp(1.9rem,5.5vw,2.7rem);line-height:1.08;letter-spacing:-.028em;
+  margin:0 0 .5rem}
+h2{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;
+  font-size:1.18rem;letter-spacing:-.015em;margin:0}
+h3{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;
+  font-size:1.04rem;letter-spacing:-.012em;margin:0 0 .15rem;line-height:1.28}
+.meta{font-family:"IBM Plex Mono",monospace;font-size:.7rem;
+  letter-spacing:.09em;text-transform:uppercase;color:var(--tinta-2)}
+
+/* --- sekcije --- */
+.sek{padding:2.6rem 0 0}
+.sek-vrh{display:flex;align-items:baseline;gap:.7rem;
+  padding-bottom:.7rem;border-bottom:1.5px solid var(--tinta);margin-bottom:1.1rem}
+.sek-vrh .broj{font-family:"IBM Plex Mono",monospace;font-size:.78rem;
+  color:var(--tinta-2);margin-left:auto}
+.uvod{color:var(--tinta-2);font-size:.92rem;margin:-.5rem 0 1.2rem}
+
+/* --- podnozje --- */
+footer{margin-top:3.5rem;border-top:1px solid var(--linija);
+  padding:1.8rem 0 3rem;font-size:.87rem;color:var(--tinta-2)}
+footer p{margin:.55rem 0}
+footer a{color:var(--otvoreno)}
+footer .sitno{font-family:"IBM Plex Mono",monospace;font-size:.7rem;
+  letter-spacing:.05em;margin-top:1.4rem;color:#8A909E}
+
+/* --- upozorenje --- */
+.upoz{border-left:3px solid var(--tinta);padding:.2rem 0 .2rem 1rem;
+  margin:1.6rem 0 0;font-size:.87rem;color:var(--tinta-2)}
+.upoz strong{color:var(--tinta)}
+
+a:focus-visible,button:focus-visible,summary:focus-visible,
+input:focus-visible{outline:2px solid var(--otvoreno);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+}
+
+.tekst{padding:2.6rem 0 0}
+.tekst h1{margin-bottom:.6rem}
+.lead{font-size:1.02rem;color:var(--tinta-2);max-width:52ch;margin:0 0 2rem}
+.q{border-top:1px solid var(--linija);padding:1.15rem 0}
+.q:last-of-type{border-bottom:1px solid var(--linija)}
+.q h3{margin-bottom:.4rem}
+.q p{margin:.5rem 0;font-size:.94rem;color:var(--tinta-2)}
+.q ul{margin:.5rem 0;padding-left:1.2rem;font-size:.94rem;color:var(--tinta-2)}
+.q li{margin-bottom:.3rem}
+.q strong{color:var(--tinta)}
+.redak{display:grid;grid-template-columns:11rem 1fr;gap:.3rem 1rem;
+  padding:.65rem 0;border-top:1px solid var(--linija);font-size:.93rem}
+.redak dt{color:var(--tinta-2)}
+.redak dd{margin:0}
+.popuni{background:#FBF3D8;padding:.1rem .35rem;
+  font-family:"IBM Plex Mono",monospace;font-size:.85rem}
+@media(max-width:560px){.redak{grid-template-columns:1fr;gap:.1rem}}
+</style>
+</head>
+<body><header class="vrh"><div class="w">
+  <a class="logo" href="./">stipendije<span>.hr</span></a>
+  <nav class="nav">
+    <a href="./">Natječaji</a>
+    <a href="vodic.html">Vodič</a>
+    <a href="impressum.html" class="tu">Impressum</a>
+  </nav>
+</div></header><main class="w"><section class="tekst">
+<h1>Impressum</h1>
+<p class="lead">Podaci o pružatelju usluge i uvjetima pod kojima se
+podaci na ovoj stranici objavljuju.</p>
+
+<h3>Pružatelj usluge</h3>
+<dl class="redak">
+  <dt>Naziv</dt><dd><span class="popuni">popuniti</span></dd>
+  <dt>Sjedište</dt><dd><span class="popuni">popuniti</span></dd>
+  <dt>OIB</dt><dd><span class="popuni">popuniti</span></dd>
+  <dt>Odgovorna osoba</dt><dd><span class="popuni">popuniti</span></dd>
+  <dt>E-pošta</dt><dd><a href="mailto:erik.hunjek@gmail.com">erik.hunjek@gmail.com</a></dd>
+</dl>
+
+<div class="q"><h3>Odakle podaci</h3>
+<p>Podatke o natječajima automatski prikupljamo sa službenih stranica institucija
+koje stipendije dodjeljuju — gradova, županija, ministarstava, sveučilišta,
+zaklada i tvrtki. Uz svaki unos stoji poveznica na izvorni natječaj.</p>
+<p>Provjera se pokreće automatski dvaput tjedno. Prikazani podaci odgovaraju
+onome što je u trenutku provjere pisalo na izvornoj stranici.</p></div>
+
+<div class="q"><h3>Ograničenje odgovornosti</h3>
+<p>Podaci su informativni. Rokovi, iznosi i uvjeti mogu se promijeniti nakon naše
+zadnje provjere, a moguće su i greške u automatskom prikupljanju.</p>
+<p><strong>Mjerodavan je isključivo tekst natječaja na stranici institucije koja ga
+je objavila.</strong> Ne odgovaramo za propuštene rokove, odbijene prijave ni druge
+posljedice odluka donesenih na temelju podataka s ove stranice.</p></div>
+
+<div class="q"><h3>Prijava greške</h3>
+<p>Uočiš li netočan podatak, javi na <a href="mailto:erik.hunjek@gmail.com">erik.hunjek@gmail.com</a>.
+Netočne rokove ispravljamo prve.</p></div>
+
+<div class="q"><h3>Autorska prava</h3>
+<p>Tekstovi natječaja pripadaju institucijama koje su ih objavile. Ova stranica
+prikazuje sažetke i poveznice na izvore.</p></div>
+</section></main><footer><div class="w">
+  <p><strong>Kontakt:</strong> <a href="mailto:erik.hunjek@gmail.com">erik.hunjek@gmail.com</a></p>
+  <p>Nedostaje neka stipendija ili je podatak netočan? Javi nam — ispravljamo brzo.
+     Posebno nam je važno ako je netočan <strong>rok prijave</strong>.</p>
+  <p>Ne procjenjujemo tvoje šanse za pojedinu stipendiju. Za to pitaj instituciju
+     koja je natječaj objavila.</p>
+  <p class="sitno">Zadnja provjera 19.08.2026. &nbsp;·&nbsp; 62 izvora &nbsp;·&nbsp; podaci prikupljeni automatski</p>
+</div></footer>
+</body>
+</html>

@@ -240,9 +240,9 @@
     }
   },
   "https://www.grad-zadar.hr/vijesti/odgoj-i-skolstvo--stipendiranje--natjecaji-i-obrasci-59/": {
-    "hash": "99b9cf34dab19106",
+    "hash": "7266c2ea38202ae3",
     "result": {
-      "naziv": "Grad Zadar — stipendije",
+      "naziv": "Grad Zadar — stipendiranje, natječaji i obrasci",
       "url": "https://www.grad-zadar.hr/vijesti/odgoj-i-skolstvo--stipendiranje--natjecaji-i-obrasci-59/",
       "kategorija": "Grad",
       "iznos": null,
@@ -251,7 +251,7 @@
       "upute_za_prijavu": null,
       "napomena": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-08-16T09:49",
+      "zadnje_provjereno": "2026-08-19T18:01",
       "_ima_otvoren": false
     }
   },
@@ -336,7 +336,7 @@
     }
   },
   "https://www.dalmacija.hr/natjecaji": {
-    "hash": "ef97a9e518852511",
+    "hash": "cf3b754d5fdc60e6",
     "result": {
       "naziv": "Splitsko-dalmatinska županija — natječaji",
       "url": "https://www.dalmacija.hr/natjecaji",
@@ -347,7 +347,7 @@
       "upute_za_prijavu": null,
       "napomena": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-08-16T09:50",
+      "zadnje_provjereno": "2026-08-19T18:01",
       "_ima_otvoren": false
     }
   },
@@ -400,7 +400,7 @@
     }
   },
   "https://www.pula.hr/hr/novosti/": {
-    "hash": "e154901e00e3e815",
+    "hash": "a9348da6b69ca2b8",
     "result": {
       "naziv": "Grad Pula — novosti i natječaji",
       "url": "https://www.pula.hr/hr/novosti/",
@@ -411,7 +411,7 @@
       "upute_za_prijavu": null,
       "napomena": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-08-17T10:10",
+      "zadnje_provjereno": "2026-08-19T18:01",
       "_ima_otvoren": false
     }
   },
@@ -512,7 +512,7 @@
     }
   },
   "https://www.dubrovnik.hr/natjecaji": {
-    "hash": "b6ce16b616a6557e",
+    "hash": "18ab0004c2ade454",
     "result": {
       "naziv": "Grad Dubrovnik — natječaji",
       "url": "https://www.dubrovnik.hr/natjecaji",
@@ -523,7 +523,503 @@
       "upute_za_prijavu": null,
       "napomena": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-08-17T10:11",
+      "zadnje_provjereno": "2026-08-19T18:02",
+      "_ima_otvoren": false
+    }
+  },
+  "https://bbz.hr/uo-obrazovanje-stipendije/": {
+    "hash": "4f25aeb548a7023b",
+    "result": {
+      "naziv": "Bjelovarsko-bilogorska županija — stipendije",
+      "url": "https://bbz.hr/uo-obrazovanje-stipendije/",
+      "kategorija": "Županija",
+      "iznos": null,
+      "rok_tekst": null,
+      "uvjeti": null,
+      "upute_za_prijavu": null,
+      "napomena": null,
+      "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
+      "zadnje_provjereno": "2026-08-19T18:02",
+      "_ima_otvoren": false
+    }
+  },
+  "https://www.pszupanija.hr/natjecaji/otvoreni-natjecaji": {
+    "hash": "a8bc2fb886e70d39",
+    "result": {
+      "naziv": "Požeško-slavonska županija — otvoreni natječaji",
+      "url": "https://www.pszupanija.hr/natjecaji/otvoreni-natjecaji",
+      "kategorija": "Županija",
+      "iznos": null,
+      "rok_tekst": null,
+      "uvjeti": null,
+      "upute_za_prijavu": null,
+      "napomena": null,
+      "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
+      "zadnje_provjereno": "2026-08-19T18:02",
+      "_ima_otvoren": false
+    }
+  },
+  "https://www.dnz.hr/stipendije/": {
+    "hash": "d23b39d4430fe8b0",
+    "result": {
+      "naziv": "Dubrovačko-neretvanska županija — stipendije",
+      "url": "https://www.dnz.hr/stipendije/",
+      "kategorija": "Županija",
+      "iznos": "88,00 EUR mjesečno (učenici, 10 mjeseci) ili 146,00 EUR mjesečno (studenti)",
+      "rok_tekst": null,
+      "uvjeti": "Daroviti učenici i studenti, ili učenici i studenti koji se obrazuju za deficitarna zanimanja utvrđena posebnom odlukom župana.",
+      "upute_za_prijavu": null,
+      "napomena": "Natječaj se objavljuje u mjesecu listopadu, otvoren je 14 dana od objave. Stranica sadrži samo opće informacije o programu bez konkretnog trenutnog natječaja.",
+      "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
+      "zadnje_provjereno": "2026-08-19T18:02",
+      "_ima_otvoren": false
+    }
+  },
+  "https://stipendije.kckzz.hr/": {
+    "hash": "9a2b56848443469c",
+    "result": {
+      "naziv": "Koprivničko-križevačka županija — stipendije",
+      "url": "https://stipendije.kckzz.hr/",
+      "kategorija": "Županija",
+      "iznos": null,
+      "rok_tekst": "1. listopada 2025. godine do zaključno 17. listopada 2025. godine",
+      "uvjeti": "Studenti s područja Koprivničko-križevačke županije koji redovito studiraju. Boduju se akademski uspjeh, volontiranje, dostignuća na natjecanjima te socijalni status.",
+      "upute_za_prijavu": "Prikupiti osnovne dokumente (dokaz upisa, prijepis ocjena, uvjerenje o prebivalištu) | Prikupiti dodatne dokumente za bonusne bodove (za volontiranje, nagrade, socijalnu ugroženost) | Popuniti prijavu | Dostaviti sve dokumente u roku 1.-17. listopada 2025. | Pratiti objavu rezultata i Liste reda prvenstva",
+      "napomena": "Rok prijave je doslovno naveden kao 1.-17. listopada 2025. (već je prošao); stranica sadrži i informacije o obvezama korisnika stipendije i procesu za 2025./2026. akademsku godinu",
+      "status": "ROK ISTEKAO (2025-10-01) — čeka se novi ciklus",
+      "zadnje_provjereno": "2026-08-19T18:02",
+      "_ima_otvoren": true
+    }
+  },
+  "https://licko-senjska.hr/natjecaji-i-pozivi/": {
+    "hash": "f94eb9684114f24e",
+    "result": {
+      "naziv": "Ličko-senjska županija — natječaji i pozivi",
+      "url": "https://licko-senjska.hr/natjecaji-i-pozivi/",
+      "kategorija": "Županija",
+      "iznos": null,
+      "rok_tekst": null,
+      "uvjeti": null,
+      "upute_za_prijavu": null,
+      "napomena": null,
+      "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
+      "zadnje_provjereno": "2026-08-19T18:02",
+      "_ima_otvoren": false
+    }
+  },
+  "https://www.vpz.hr/": {
+    "hash": "f1395c4547ba355c",
+    "result": {
+      "naziv": "Virovitičko-podravska županija — natječaji",
+      "url": "https://www.vpz.hr/",
+      "kategorija": "Županija",
+      "iznos": null,
+      "rok_tekst": null,
+      "uvjeti": null,
+      "upute_za_prijavu": null,
+      "napomena": null,
+      "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
+      "zadnje_provjereno": "2026-08-19T18:02",
+      "_ima_otvoren": false
+    }
+  },
+  "https://www.bpz.hr/natje%C4%8Daji-21": {
+    "hash": "ca7886a8cee9658f",
+    "result": {
+      "naziv": "Brodsko-posavska županija — natječaji",
+      "url": "https://www.bpz.hr/natje%C4%8Daji-21",
+      "kategorija": "Županija",
+      "iznos": null,
+      "rok_tekst": null,
+      "uvjeti": null,
+      "upute_za_prijavu": null,
+      "napomena": "Stranica sadrži samo listu svih natječaja Brodsko-posavske županije s njihovim statusima (većina zatvorenih). Nije objavljen konkretan natječaj o stipendijama s detaljima.",
+      "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
+      "zadnje_provjereno": "2026-08-19T18:02",
+      "_ima_otvoren": false
+    }
+  },
+  "https://kzz.hr/natjecaj/": {
+    "hash": "9cea19ae80d9b2fc",
+    "result": {
+      "naziv": "Krapinsko-zagorska županija — natječaji",
+      "url": "https://kzz.hr/natjecaj/",
+      "kategorija": "Županija",
+      "iznos": null,
+      "rok_tekst": null,
+      "uvjeti": null,
+      "upute_za_prijavu": null,
+      "napomena": null,
+      "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
+      "zadnje_provjereno": "2026-08-19T18:02",
+      "_ima_otvoren": false
+    }
+  },
+  "https://umag.hr/informacije/studiranje-na-visokim-ucilistima-i-sustav-stipendiranja-62": {
+    "hash": "8636640cd4d7f6b3",
+    "result": {
+      "naziv": "Grad Umag — studiranje i sustav stipendiranja",
+      "url": "https://umag.hr/informacije/studiranje-na-visokim-ucilistima-i-sustav-stipendiranja-62",
+      "kategorija": "Grad",
+      "iznos": "mjesečno tijekom deset mjeseci kalendarske godine (siječanj-listopad)",
+      "rok_tekst": null,
+      "uvjeti": "Izvrsni studenti preddiplomskih i integriranih sveučilišnih studija, diplomskih sveučilišnih i stručnih te specijalističkih diplomskih stručnih studija u Hrvatskoj ili izjednačenim studijima u inozemstvu. Boduju se prema uspjehu u obrazovanju i priznatim postignućima.",
+      "upute_za_prijavu": null,
+      "napomena": "Natječaj se raspisuje tijekom mjeseca studenog tekuće godine. Odlukom Gradonačelnika određuju se broj stipendija i vrijednost bodova za godinu. Posebna stipendija 'Niki Fachin' dodjeljuje se studentu s najviše bodova.",
+      "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
+      "zadnje_provjereno": "2026-08-19T18:02",
+      "_ima_otvoren": false
+    }
+  },
+  "https://makarska.hr/natjecaji-i-javni-pozivi": {
+    "hash": "94ade908de41dd4b",
+    "result": {
+      "naziv": "Grad Makarska — natječaji i javni pozivi",
+      "url": "https://makarska.hr/natjecaji-i-javni-pozivi",
+      "kategorija": "Grad",
+      "iznos": null,
+      "rok_tekst": null,
+      "uvjeti": null,
+      "upute_za_prijavu": null,
+      "napomena": null,
+      "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
+      "zadnje_provjereno": "2026-08-19T18:03",
+      "_ima_otvoren": false
+    }
+  },
+  "https://novi-vinodolski.hr/oznaka/stipendije/": {
+    "hash": "5994fd9cdd2bcf74",
+    "result": {
+      "naziv": "Grad Novi Vinodolski — stipendije",
+      "url": "https://novi-vinodolski.hr/oznaka/stipendije/",
+      "kategorija": "Grad",
+      "iznos": null,
+      "rok_tekst": null,
+      "uvjeti": null,
+      "upute_za_prijavu": null,
+      "napomena": "Stranica sadrži arhivu starih natječaja iz 2012. i 2013. godine, bez aktivnog trenutnog natječaja.",
+      "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
+      "zadnje_provjereno": "2026-08-19T18:03",
+      "_ima_otvoren": false
+    }
+  },
+  "https://www.porec.hr/prva.aspx?stranica=84": {
+    "hash": "508193d12008850a",
+    "result": {
+      "naziv": "Grad Poreč — stipendije i subvencije",
+      "url": "https://www.porec.hr/prva.aspx?stranica=84",
+      "kategorija": "Grad",
+      "iznos": null,
+      "rok_tekst": null,
+      "uvjeti": null,
+      "upute_za_prijavu": null,
+      "napomena": null,
+      "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
+      "zadnje_provjereno": "2026-08-19T18:03",
+      "_ima_otvoren": false
+    }
+  },
+  "https://www.rovinj-rovigno.hr/odgoj-i-obrazovanje/stipendije/": {
+    "hash": "845c734a1b1752f0",
+    "result": {
+      "naziv": "Grad Rovinj — stipendije",
+      "url": "https://www.rovinj-rovigno.hr/odgoj-i-obrazovanje/stipendije/",
+      "kategorija": "Grad",
+      "iznos": null,
+      "rok_tekst": null,
+      "uvjeti": null,
+      "upute_za_prijavu": null,
+      "napomena": null,
+      "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
+      "zadnje_provjereno": "2026-08-19T18:03",
+      "_ima_otvoren": false
+    }
+  },
+  "https://krizevci.hr/dokumenti/": {
+    "hash": "a943976cfbda195b",
+    "result": {
+      "naziv": "Grad Križevci — dokumenti i natječaji",
+      "url": "https://krizevci.hr/dokumenti/",
+      "kategorija": "Grad",
+      "iznos": null,
+      "rok_tekst": null,
+      "uvjeti": null,
+      "upute_za_prijavu": null,
+      "napomena": null,
+      "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
+      "zadnje_provjereno": "2026-08-19T18:03",
+      "_ima_otvoren": false
+    }
+  },
+  "https://medulin.hr/odgoj-obrazovanje": {
+    "hash": "8e0a72b2917c482c",
+    "result": {
+      "naziv": "Općina Medulin — odgoj i obrazovanje",
+      "url": "https://medulin.hr/odgoj-obrazovanje",
+      "kategorija": "Općina",
+      "iznos": "Učenička stipendija 100,00 EUR mjesečno; Studentska stipendija 150,00 EUR mjesečno (Istra) ili 200,00 EUR mjesečno (van Istre)",
+      "rok_tekst": null,
+      "uvjeti": "Za učenike: državljani RH, prebivalište na području Općine Medulin, redovito upisani u srednju školu, primaju dječji doplatak. Za studente: državljani RH, prebivalište na području Općine Medulin najmanje 1 godinu bez prekida, svi članovi domaćinstva s istim boravištem, nisu korisnici drugih stipendija, ostvareni minimalni prosječni ocjene (4,00 za I. godinu ili 3,00 za više godine + 45 ECTS).",
+      "upute_za_prijavu": null,
+      "napomena": "Stranica opisuje opće programe stipendiranja za školsku godinu 2024/2025, ali nema konkretnog trenutnog natječaja s rokom prijave. Potrebno kontaktirati Nenad Vojnić (nenad.vojnic@medulin.hr, 052-385-676) za informacije o otvorenim natječajima.",
+      "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
+      "zadnje_provjereno": "2026-08-19T18:03",
+      "_ima_otvoren": false
+    }
+  },
+  "https://www.tucepi.hr/": {
+    "hash": "624d7f1e9ad07002",
+    "result": {
+      "naziv": "Općina Tučepi — natječaji",
+      "url": "https://www.tucepi.hr/",
+      "kategorija": "Općina",
+      "iznos": null,
+      "rok_tekst": null,
+      "uvjeti": null,
+      "upute_za_prijavu": null,
+      "napomena": null,
+      "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
+      "zadnje_provjereno": "2026-08-19T18:03",
+      "_ima_otvoren": false
+    }
+  },
+  "https://www.baska.hr/": {
+    "hash": "0982f03d979cde7f",
+    "result": {
+      "naziv": "Općina Baška — službene stranice",
+      "url": "https://www.baska.hr/",
+      "kategorija": "Općina",
+      "iznos": null,
+      "rok_tekst": null,
+      "uvjeti": null,
+      "upute_za_prijavu": null,
+      "napomena": null,
+      "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
+      "zadnje_provjereno": "2026-08-19T18:03",
+      "_ima_otvoren": false
+    }
+  },
+  "https://opatija.hr/?s=stipendij": {
+    "hash": "a252f54e950e1370",
+    "result": {
+      "naziv": "Grad Opatija — natječaji za stipendije",
+      "url": "https://opatija.hr/?s=stipendij",
+      "kategorija": "Grad",
+      "iznos": null,
+      "rok_tekst": null,
+      "uvjeti": null,
+      "upute_za_prijavu": null,
+      "napomena": null,
+      "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
+      "zadnje_provjereno": "2026-08-19T18:03",
+      "_ima_otvoren": false
+    }
+  },
+  "https://www.grad-krk.hr/natjecaji": {
+    "hash": "d31fe727ad19ac6c",
+    "result": {
+      "naziv": "Grad Krk — natječaji",
+      "url": "https://www.grad-krk.hr/natjecaji",
+      "kategorija": "Grad",
+      "iznos": null,
+      "rok_tekst": null,
+      "uvjeti": null,
+      "upute_za_prijavu": null,
+      "napomena": null,
+      "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
+      "zadnje_provjereno": "2026-08-19T18:03",
+      "_ima_otvoren": false
+    }
+  },
+  "https://www.kutina.hr/": {
+    "hash": "7f8cbea7b30a1a09",
+    "result": {
+      "naziv": "Grad Kutina — natječaji",
+      "url": "https://www.kutina.hr/",
+      "kategorija": "Grad",
+      "iznos": null,
+      "rok_tekst": null,
+      "uvjeti": null,
+      "upute_za_prijavu": null,
+      "napomena": null,
+      "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
+      "zadnje_provjereno": "2026-08-19T18:03",
+      "_ima_otvoren": false
+    }
+  },
+  "https://daruvar.hr/stipendije/": {
+    "hash": "4c1966683c046477",
+    "result": {
+      "naziv": "Grad Daruvar — stipendije",
+      "url": "https://daruvar.hr/stipendije/",
+      "kategorija": "Grad",
+      "iznos": null,
+      "rok_tekst": "05. listopada tekuće godine",
+      "uvjeti": null,
+      "upute_za_prijavu": null,
+      "napomena": "Stranica sadrži samo opće informacije o programu stipendija i linkove na dokumenta iz prethodnih godina. Konkretni natječaj za tekuću godinu nije detaljno opisan. Natječaj se raspisuje svake godine najkasnije do 05. listopada i traje 15 dana.",
+      "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
+      "zadnje_provjereno": "2026-08-19T18:04",
+      "_ima_otvoren": false
+    }
+  },
+  "https://trogir.hr/stipendije-za-dake-i-studente/": {
+    "hash": "40c749bb49145095",
+    "result": {
+      "naziv": "Grad Trogir — stipendije za đake i studente",
+      "url": "https://trogir.hr/stipendije-za-dake-i-studente/",
+      "kategorija": "Grad",
+      "iznos": "200 EUR za studente, 100 EUR za učenike",
+      "rok_tekst": null,
+      "uvjeti": "Učenici i studenti grada Trogira. Natječaj se objavljuje u listopadu.",
+      "upute_za_prijavu": null,
+      "napomena": "Natječaj za školsku i akademsku 2024./2025. godinu je aktivan. Dostupni su PDF i WORD obrasci za prijavu. Zaključenje ugovora planira se u prosincu.",
+      "status": "PROVJERITI RUČNO (rok nije jasno parsiran)",
+      "zadnje_provjereno": "2026-08-19T18:04",
+      "_ima_otvoren": true
+    }
+  },
+  "https://labin.hr/za-gradane/odgoj-i-obrazovanje/stipendiranje-ucenika-i-studenata": {
+    "hash": "c028b79f06329c24",
+    "result": {
+      "naziv": "Grad Labin — stipendiranje učenika i studenata",
+      "url": "https://labin.hr/za-gradane/odgoj-i-obrazovanje/stipendiranje-ucenika-i-studenata",
+      "kategorija": "Grad",
+      "iznos": "125,00 do 150,00 EUR mjesečno (učenici), 200,00 do 250,00 EUR mjesečno (studenti)",
+      "rok_tekst": null,
+      "uvjeti": "Učenici srednjih škola i studenti s prebivalištem na području Grada Labina najmanje 12 mjeseci, redovno školovanje/studiranje izvan mjesta prebivališta, bez druge stipendije (osim manje privatne), stariji do 26 godina.",
+      "upute_za_prijavu": null,
+      "napomena": "Natječaj za 2025./2026. je zatvoren - konačne liste objavljene su 2. veljače 2026. Dodatni natječaj za studente 2.-6. godine po kriteriju izvrsnosti imao je rok do 13. veljače 2026.",
+      "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
+      "zadnje_provjereno": "2026-08-19T18:05",
+      "_ima_otvoren": false
+    }
+  },
+  "https://www.slavonski-brod.hr/": {
+    "hash": "abf1c1a695c0e1cf",
+    "result": {
+      "naziv": "Grad Slavonski Brod — natječaji",
+      "url": "https://www.slavonski-brod.hr/",
+      "kategorija": "Grad",
+      "iznos": null,
+      "rok_tekst": null,
+      "uvjeti": null,
+      "upute_za_prijavu": null,
+      "napomena": null,
+      "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
+      "zadnje_provjereno": "2026-08-19T18:05",
+      "_ima_otvoren": false
+    }
+  },
+  "https://djakovo.hr/index.php/natje%C4%8Daji.html": {
+    "hash": "b0f9bbb14e8f9c2b",
+    "result": {
+      "naziv": "Grad Đakovo — natječaji",
+      "url": "https://djakovo.hr/index.php/natje%C4%8Daji.html",
+      "kategorija": "Grad",
+      "iznos": null,
+      "rok_tekst": null,
+      "uvjeti": null,
+      "upute_za_prijavu": null,
+      "napomena": null,
+      "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
+      "zadnje_provjereno": "2026-08-19T18:06",
+      "_ima_otvoren": false
+    }
+  },
+  "https://www.jastrebarsko.hr/": {
+    "hash": "1cb27da789bb5d2e",
+    "result": {
+      "naziv": "Grad Jastrebarsko — natječaji",
+      "url": "https://www.jastrebarsko.hr/",
+      "kategorija": "Grad",
+      "iznos": null,
+      "rok_tekst": null,
+      "uvjeti": null,
+      "upute_za_prijavu": null,
+      "napomena": null,
+      "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
+      "zadnje_provjereno": "2026-08-19T18:06",
+      "_ima_otvoren": false
+    }
+  },
+  "https://www.virovitica.hr/": {
+    "hash": "f7276e91d7484442",
+    "result": {
+      "naziv": "Grad Virovitica — stipendije",
+      "url": "https://www.virovitica.hr/",
+      "kategorija": "Grad",
+      "iznos": null,
+      "rok_tekst": null,
+      "uvjeti": null,
+      "upute_za_prijavu": null,
+      "napomena": null,
+      "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
+      "zadnje_provjereno": "2026-08-19T18:06",
+      "_ima_otvoren": false
+    }
+  },
+  "https://www.hvar.hr/portal/": {
+    "hash": "0dc9da11e27e29d0",
+    "result": {
+      "naziv": "Grad Hvar — natječaji",
+      "url": "https://www.hvar.hr/portal/",
+      "kategorija": "Grad",
+      "iznos": null,
+      "rok_tekst": null,
+      "uvjeti": null,
+      "upute_za_prijavu": null,
+      "napomena": null,
+      "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
+      "zadnje_provjereno": "2026-08-19T18:06",
+      "_ima_otvoren": false
+    }
+  },
+  "https://stari-grad.hr/novosti/": {
+    "hash": "28188296ba3d55c6",
+    "result": {
+      "naziv": "Grad Stari Grad — novosti i natječaji",
+      "url": "https://stari-grad.hr/novosti/",
+      "kategorija": "Grad",
+      "iznos": null,
+      "rok_tekst": null,
+      "uvjeti": null,
+      "upute_za_prijavu": null,
+      "napomena": null,
+      "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
+      "zadnje_provjereno": "2026-08-19T18:06",
+      "_ima_otvoren": false
+    }
+  },
+  "https://www.samobor.hr/": {
+    "hash": "132c604a6b3e765c",
+    "result": {
+      "naziv": "Grad Samobor — natječaji",
+      "url": "https://www.samobor.hr/",
+      "kategorija": "Grad",
+      "iznos": null,
+      "rok_tekst": null,
+      "uvjeti": null,
+      "upute_za_prijavu": null,
+      "napomena": null,
+      "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
+      "zadnje_provjereno": "2026-08-19T18:06",
+      "_ima_otvoren": false
+    }
+  },
+  "https://gorica.hr/category/sluzbene-obavijesti/natjecaji/": {
+    "hash": "d55b24fe9bfc7a73",
+    "result": {
+      "naziv": "Grad Velika Gorica — natječaji",
+      "url": "https://gorica.hr/category/sluzbene-obavijesti/natjecaji/",
+      "kategorija": "Grad",
+      "iznos": null,
+      "rok_tekst": null,
+      "uvjeti": null,
+      "upute_za_prijavu": null,
+      "napomena": null,
+      "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
+      "zadnje_provjereno": "2026-08-19T18:06",
       "_ima_otvoren": false
     }
   }
