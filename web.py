@@ -1,22 +1,23 @@
 # -*- coding: utf-8 -*-
 """
-Generira javnu stranicu iz output.json -> docs/index.html
+Gradi javnu stranicu iz output.json:
+  docs/index.html      natjecaji + filter
+  docs/vodic.html      kako do stipendije
+  docs/impressum.html  podaci o pruzatelju
 
-Podrucje i zupaniju cita iz sources.json (povezuje po URL-u), pa scraper.py
-ne treba mijenjati. Tehnicki statusi (GRESKA, PROVJERITI) se NE prikazuju javno.
+Tehnicki statusi (GRESKA, PROVJERITI) se NE prikazuju javno.
 """
 import json
 import os
+import re
 from datetime import datetime
+
+from zajednicko import glava, navigacija, podnozje, oblik, EMAIL, DOMENA
 
 ULAZ = "output.json"
 IZVORI = "sources.json"
-IZLAZ_MAPA = "docs"
-IZLAZ = os.path.join(IZLAZ_MAPA, "index.html")
+MAPA = "docs"
 SVI = "Cijela Hrvatska"
-
-# ---- PODACI KOJE MIJENJAS PO POTREBI ----
-EMAIL = "erik.hunjek@gmail.com"
 
 
 def esc(v):
@@ -26,8 +27,12 @@ def esc(v):
             .replace(">", "&gt;").replace('"', "&quot;"))
 
 
+def iso_rok(status):
+    m = re.search(r"(\d{4}-\d{2}-\d{2})", status or "")
+    return m.group(1) if m else ""
+
+
 def ucitaj_izvore():
-    """Vraca (URL -> podrucje, URL -> zupanija)."""
     p, z = {}, {}
     if os.path.exists(IZVORI):
         for s in json.load(open(IZVORI, encoding="utf-8")):
@@ -37,324 +42,213 @@ def ucitaj_izvore():
     return p, z
 
 
+CSS_INDEX = """
+/* --- hero --- */
+.hero{padding:3.2rem 0 .4rem}
+.hero .oznaka{display:inline-block;margin-bottom:1rem}
+.hero p.teza{font-size:1.06rem;color:var(--tinta-2);max-width:46ch;margin:.4rem 0 0}
+
+/* --- signature: traka roka --- */
+.rok-traka{margin-top:1.8rem;border:1.5px solid var(--tinta);background:var(--karta)}
+.rok-traka .gornje{display:flex;justify-content:space-between;align-items:baseline;
+  gap:1rem;padding:.8rem 1.1rem .55rem;flex-wrap:wrap}
+.rok-traka .naslov{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;
+  font-size:1.02rem;letter-spacing:-.01em}
+.odbroj{font-family:"IBM Plex Mono",monospace;font-weight:500;
+  font-size:2.6rem;line-height:1;letter-spacing:-.04em;padding:0 1.1rem .1rem}
+.odbroj .jed{font-size:.85rem;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--tinta-2);margin-left:.5rem}
+.rok-traka .donje{padding:.35rem 1.1rem 1rem;font-size:.88rem;color:var(--tinta-2)}
+.mjerka{height:5px;background:var(--linija);position:relative;overflow:hidden}
+.mjerka i{position:absolute;inset:0 auto 0 0;background:var(--otvoreno);display:block}
+.rok-traka.hitno{border-color:var(--hitno)}
+.rok-traka.hitno .odbroj{color:var(--hitno)}
+.rok-traka.hitno .mjerka i{background:var(--hitno)}
+
+/* prazno stanje */
+.prazno{margin-top:1.8rem;border:1.5px solid var(--tinta);background:var(--karta);
+  padding:1.3rem 1.15rem}
+.prazno .kad{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;
+  font-size:1.35rem;letter-spacing:-.02em;margin:0 0 .35rem}
+.prazno p{margin:.35rem 0;font-size:.92rem;color:var(--tinta-2)}
+
+/* --- filter --- */
+.filteri{margin:2.4rem 0 0}
+.oznaka-f{display:block;font-family:"IBM Plex Mono",monospace;font-size:.7rem;
+  letter-spacing:.09em;text-transform:uppercase;color:var(--tinta-2);
+  margin-bottom:.45rem}
+#zupanija{width:100%;max-width:420px;background:var(--karta);
+  border:1.5px solid var(--tinta);border-radius:0;padding:.7rem 2.4rem .7rem .85rem;
+  font-family:"IBM Plex Sans",sans-serif;font-size:.98rem;color:var(--tinta);
+  cursor:pointer;appearance:none;-webkit-appearance:none;
+  background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='7'%3E%3Cpath d='M1 1l4.5 4.5L10 1' stroke='%235B6274' stroke-width='1.6' fill='none'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right .9rem center}
+#zupanija:hover{border-color:var(--otvoreno)}
+.pojasnjenje{margin:.55rem 0 0;font-size:.83rem;color:var(--tinta-2);max-width:44ch}
+
+/* --- kartice --- */
+.k{background:var(--karta);border:1px solid var(--linija);
+  padding:1.05rem 1.15rem;margin-bottom:.75rem}
+.k.otv{border-left:3px solid var(--otvoreno)}
+.k.skriveno{display:none}
+.k .zag{display:flex;justify-content:space-between;gap:.9rem;
+  align-items:flex-start;flex-wrap:wrap}
+.znak{font-family:"IBM Plex Mono",monospace;font-size:.66rem;letter-spacing:.09em;
+  text-transform:uppercase;padding:.2rem .5rem;white-space:nowrap;flex-shrink:0}
+.znak.otv{background:#E2F0E7;color:var(--otvoreno)}
+.znak.zat{background:var(--papir);color:var(--tinta-2)}
+.znak.hitno{background:#F7E3DF;color:var(--hitno)}
+.k .izvor{font-family:"IBM Plex Mono",monospace;font-size:.68rem;
+  letter-spacing:.06em;text-transform:uppercase;color:var(--tinta-2);
+  margin-bottom:.55rem}
+.polja{display:grid;grid-template-columns:8.5rem 1fr;gap:.28rem .9rem;
+  font-size:.9rem;margin:.5rem 0 0}
+.polja dt{color:var(--tinta-2)}
+.polja dd{margin:0}
+.polja dd.iznos{font-family:"IBM Plex Mono",monospace;font-weight:500}
+.k details{margin-top:.75rem;font-size:.88rem}
+.k summary{cursor:pointer;color:var(--otvoreno);font-weight:500}
+.k details ol{margin:.55rem 0 0;padding-left:1.25rem;color:var(--tinta-2)}
+.k details li{margin-bottom:.3rem}
+.veza{display:inline-block;margin-top:.8rem;font-size:.88rem;font-weight:500;
+  color:var(--tinta);text-decoration:none;border-bottom:1.5px solid var(--otvoreno);
+  padding-bottom:1px}
+.veza:hover{color:var(--otvoreno)}
+.nema-rez{display:none;border:1px dashed var(--linija);padding:1.05rem 1.15rem;
+  color:var(--tinta-2);font-size:.9rem;margin:0}
+.nema-rez.vidljivo{display:block}
+.zatvoreni-omot{margin-top:.4rem}
+@media(max-width:560px){
+  .polja{grid-template-columns:1fr;gap:.05rem}
+  .polja dt{font-size:.78rem;margin-top:.35rem}
+  .otvori{min-width:100%}.panel{width:100%}
+  .odbroj{font-size:2.2rem}
+}
+"""
+
+
 def kartica(r, otvorena, podrucje, zupanija):
     naziv, url = esc(r.get("naziv")), esc(r.get("url"))
     iznos, rok = esc(r.get("iznos")), esc(r.get("rok_tekst"))
-    uvjeti, kat = esc(r.get("uvjeti")), esc(r.get("kategorija"))
+    uvjeti = esc(r.get("uvjeti"))
+    iso = iso_rok(r.get("status") or "")
+
+    polja = ""
+    if iznos:
+        polja += f'<dt>Iznos</dt><dd class="iznos">{iznos}</dd>'
+    if rok and otvorena:
+        polja += f'<dt>Rok prijave</dt><dd>{rok}</dd>'
+    if uvjeti:
+        polja += f'<dt>Tko se prijavljuje</dt><dd>{uvjeti}</dd>'
+    polja = f'<dl class="polja">{polja}</dl>' if polja else ""
 
     upute = r.get("upute_za_prijavu") or ""
-    koraci = "".join("<li>%s</li>" % esc(k.strip())
+    koraci = "".join(f"<li>{esc(k.strip())}</li>"
                      for k in upute.split("|") if k.strip())
-
-    redovi = ""
-    if iznos:
-        redovi += '<div class="r"><span>Iznos</span><b>%s</b></div>' % iznos
-    if rok and otvorena:
-        redovi += '<div class="r"><span>Rok prijave</span><b>%s</b></div>' % rok
-    if uvjeti:
-        redovi += ('<div class="r"><span>Tko se može prijaviti</span>'
-                   '<b>%s</b></div>' % uvjeti)
-
-    upute_html = ""
-    if koraci and otvorena:
-        upute_html = ('<details><summary>Kako se prijaviti</summary>'
-                      '<ol>%s</ol></details>' % koraci)
+    upute_html = (f'<details><summary>Kako se prijaviti</summary><ol>{koraci}</ol></details>'
+                  if koraci and otvorena else "")
 
     if otvorena:
-        oznaka = '<span class="o ok">Otvoreno za prijave</span>'
-        klasa = "k ok"
+        znak = '<span class="znak otv" data-znak>Otvoreno</span>'
+        klasa = "k otv"
     else:
-        oznaka = '<span class="o zat">Trenutno zatvoreno</span>'
-        klasa = "k zat"
+        znak = '<span class="znak zat">Zatvoreno</span>'
+        klasa = "k"
 
-    return ('<article class="%s" data-podrucje="%s" data-zupanija="%s">'
-            '<div class="zag"><h3>%s</h3>%s</div>'
-            '<div class="kat">%s &middot; %s</div>'
-            '%s%s'
-            '<a class="izv" href="%s" target="_blank" rel="noopener">'
-            'Otvori službenu stranicu &rarr;</a></article>') % (
-        klasa, esc(podrucje), esc(zupanija), naziv, oznaka,
-        esc(podrucje), kat, redovi, upute_html, url)
+    return (f'<article class="{klasa}" data-podrucje="{esc(podrucje)}" '
+            f'data-zupanija="{esc(zupanija)}" data-rok="{iso}">'
+            f'<div class="zag"><h3>{naziv}</h3>{znak}</div>'
+            f'<div class="izvor">{esc(podrucje)}</div>'
+            f'{polja}{upute_html}'
+            f'<a class="veza" href="{url}" target="_blank" rel="noopener">'
+            f'Službeni natječaj &rarr;</a></article>')
 
 
-def izbornik(zup_od):
-    """Gradi stavke izbornika: gradovi grupirani pod svoje zupanije."""
-    grupe, samostalne = {}, []
-    for p, z in sorted(zup_od.items()):
-        if "županija" in p:
-            grupe.setdefault(p, [])
-        elif z:
-            grupe.setdefault(z, []).append(p)
-        else:
-            samostalne.append(p)
+# hrvatski abecedni red: ... S, Š, T, U, V, Z, Ž
+_ABC = "aábcčćdđefghijklmnoprsštuvzž"
+_RANG = {z: i for i, z in enumerate(_ABC)}
 
-    def kv(vrijednost, tekst, uvuceno=False):
-        kl = " uvuceno" if uvuceno else ""
-        return ('<label class="stavka%s"><input type="checkbox" value="%s">'
-                '<span>%s</span></label>' % (kl, esc(vrijednost), esc(tekst)))
 
-    out = ""
-    for p in samostalne:
-        out += kv(p, p)
-    for z in sorted(grupe):
-        out += '<div class="grupa-nasl">%s</div>' % esc(z)
-        if z in zup_od:
-            out += kv(z, "Cijela županija", True)
-        for g in sorted(grupe[z]):
-            out += kv(g, g, True)
+def hr_kljuc(s):
+    """Sortiranje po hrvatskoj abecedi umjesto po kodovima znakova."""
+    out = []
+    for z in s.lower():
+        out.append(_RANG.get(z, 99 + ord(z) % 50))
     return out
 
 
-VODIC = """<section class="vodic">
-  <h2>Kako do stipendije</h2>
-  <p class="pod">Ako prvi put tražiš stipendiju, ovo je ono što ti nitko ne kaže unaprijed.</p>
-
-  <details>
-    <summary>Kada se natječaji objavljuju</summary>
-    <p>Većina natječaja otvara se <strong>od rujna do prosinca</strong>, za akademsku
-    godinu koja je već počela. Rokovi su često kratki &mdash; nerijetko 15 dana od objave.</p>
-    <p>Manji dio programa ide drugim ritmom: neki se objavljuju u <strong>svibnju
-    i lipnju</strong>, prema kraju ljetnog semestra. Zato vrijedi provjeravati
-    i izvan jeseni.</p>
-  </details>
-
-  <details>
-    <summary>Ne možeš primati dvije javne stipendije istovremeno</summary>
-    <p>Kod državnih stipendija vrijedi pravilo da za vrijeme primanja državne stipendije
-    student ne može primati drugu stipendiju financiranu iz javnih izvora. Slično
-    ograničenje traže i mnogi gradovi i županije &mdash; obično moraš potpisati izjavu
-    da ne primaš drugu stipendiju.</p>
-    <p>Praktično: ako se prijavljuješ na više njih, provjeri u tekstu svakog natječaja
-    što se smije kombinirati.</p>
-  </details>
-
-  <details>
-    <summary>Što znači &bdquo;deficitarno zanimanje&ldquo;</summary>
-    <p>Zanimanja za kojima postoji manjak kadra. Ako studiraš nešto s tog popisa,
-    često imaš <strong>veće šanse i veći iznos</strong> &mdash; ponegdje su i pragovi
-    prosjeka ocjena niži.</p>
-    <p>Popis nije jedinstven: svaki grad i županija utvrđuje svoj, prema potrebama
-    lokalnog tržišta rada. Isti studij može biti deficitaran u jednom gradu, a ne
-    i u drugom. Popis je uvijek priložen natječaju.</p>
-  </details>
-
-  <details>
-    <summary>Prebivalište je najčešći uvjet</summary>
-    <p>Gradske i županijske stipendije gotovo uvijek traže prijavljeno prebivalište
-    na njihovom području, često i određeno vrijeme unaprijed (npr. najmanje godinu
-    dana prije objave natječaja).</p>
-    <p>Bitno: mjesto <em>studiranja</em> i mjesto <em>prebivališta</em> su različite
-    stvari. Možeš studirati u Zagrebu i primati stipendiju svog rodnog grada &mdash; kod
-    nekih gradova iznos je čak <strong>veći</strong> ako studiraš izvan njih.</p>
-  </details>
-
-  <details>
-    <summary>Što je SOM aplikacija</summary>
-    <p>Više gradova i županija prijave prima preko vanjske aplikacije
-    &bdquo;SOM natječaji&ldquo;. Trebaš napraviti korisnički račun, pa se kroz njega
-    prijaviti na natječaj.</p>
-    <p>Račun napraviš jednom i koristiš ga za sve institucije koje taj sustav koriste.
-    Nakon prijave u sustavu odabereš instituciju čiji natječaj tražiš.</p>
-  </details>
-
-  <details>
-    <summary>Dokumentacija koju obično treba pripremiti</summary>
-    <p>Razlikuje se po natječaju, ali ovo se traži najčešće:</p>
-    <ul>
-      <li>potvrda o upisu na studij</li>
-      <li>prijepis ocjena ili potvrda o prosjeku</li>
-      <li>uvjerenje o prebivalištu</li>
-      <li>izjava da ne primaš drugu stipendiju</li>
-      <li>dokazi o posebnim postignućima, ako se boduju</li>
-      <li>za socijalne kategorije: potvrde o prihodima članova kućanstva</li>
-    </ul>
-    <p>Neke potvrde traju danima da ih dobiješ. Ako znaš da ti se natječaj otvara
-    u listopadu, ima smisla pripremiti ih ranije.</p>
-  </details>
-
-  <details>
-    <summary>Nepotpuna prijava = odbijena prijava</summary>
-    <p>Gotovo svi natječaji izričito pišu da se nepotpune prijave i one predane
-    nakon roka <strong>ne razmatraju</strong>. Nema dopunjavanja naknadno.</p>
-    <p>Također provjeri <em>način</em> predaje &mdash; neki primaju samo elektronički,
-    neki samo poštom ili osobno u pisarnici. Prijava poslana na pogrešan način
-    tretira se kao da nije poslana.</p>
-  </details>
-</section>"""
+def izbornik(podrucja):
+    """Padajuci izbornik zupanija. Podrucje koje ne pripada nijednoj zupaniji
+    (Grad Zagreb) stoji samo, s jasnom oznakom da je grad."""
+    opcije = '<option value="">Sve stipendije u Hrvatskoj</option>'
+    for p in sorted(podrucja, key=hr_kljuc):
+        naziv = p if "županija" in p else f"Grad {p}"
+        opcije += f'<option value="{esc(p)}">{esc(naziv)}</option>'
+    return opcije
 
 
-CSS = """*{box-sizing:border-box}
-body{margin:0;font-family:-apple-system,"Segoe UI",Roboto,sans-serif;
-background:#f5f6f8;color:#1a1d21;line-height:1.55}
-.w{max-width:820px;margin:0 auto;padding:2rem 1rem 4rem}
-header h1{font-size:1.9rem;margin:0 0 .3rem}
-header p{margin:0;color:#5a6270}
-.upoz{background:#fff8e6;border:1px solid #f0d99b;border-radius:8px;
-padding:.9rem 1rem;margin:1.5rem 0;font-size:.88rem;color:#5c4a1a}
-.filteri{margin:1.5rem 0 .5rem;position:relative;display:flex;
-gap:.5rem;align-items:center;flex-wrap:wrap}
-.otvori{background:#fff;border:1px solid #d5dae0;border-radius:8px;
-padding:.6rem .9rem;font-size:.92rem;font-family:inherit;color:#1a1d21;
-cursor:pointer;display:flex;align-items:center;gap:.6rem;min-width:240px;
-justify-content:space-between;text-align:left}
-.otvori:hover{border-color:#9aa4b0}
-.otvori[aria-expanded="true"]{border-color:#1a1d21}
-.strelica{color:#8a919c;font-size:.8rem}
-.ocisti{background:none;border:none;color:#1558d6;font-size:.85rem;
-cursor:pointer;font-family:inherit;padding:.4rem}
-.ocisti:hover{text-decoration:underline}
-.panel{position:absolute;top:100%;left:0;z-index:20;margin-top:.4rem;
-background:#fff;border:1px solid #d5dae0;border-radius:10px;
-box-shadow:0 8px 24px rgba(0,0,0,.12);width:min(430px,100%);
-max-height:min(60vh,430px);overflow-y:auto}
-.napomena{margin:0;padding:.85rem 1rem;font-size:.8rem;color:#6b7280;
-border-bottom:1px solid #eef0f3;line-height:1.45}
-.stavke{padding:.4rem 0 .6rem}
-.grupa-nasl{font-size:.74rem;color:#8a919c;text-transform:uppercase;
-letter-spacing:.04em;padding:.7rem 1rem .25rem;font-weight:600}
-.stavka{display:flex;align-items:center;gap:.6rem;padding:.42rem 1rem;
-font-size:.9rem;cursor:pointer}
-.stavka:hover{background:#f5f6f8}
-.stavka.uvuceno{padding-left:1.6rem}
-.stavka input{width:16px;height:16px;accent-color:#1a1d21;cursor:pointer;
-flex-shrink:0;margin:0}
-h2{font-size:1.15rem;margin:2.5rem 0 .3rem;display:flex;align-items:center;gap:.6rem}
-.br{background:#e3e6ea;color:#4a5260;font-size:.8rem;padding:.1rem .55rem;
-border-radius:20px;font-weight:600}
-.pod{margin:.2rem 0 1.2rem;color:#6b7280;font-size:.88rem}
-.prazno{background:#fff;border:1px solid #e3e6ea;border-radius:10px;
-padding:1.3rem;margin-top:1rem}
-.prazno p{margin:.4rem 0;font-size:.93rem}
-.k{background:#fff;border:1px solid #e3e6ea;border-radius:10px;
-padding:1.1rem 1.2rem;margin-bottom:.9rem;border-left:4px solid #cbd2d9}
-.k.ok{border-left-color:#1a9c4a}
-.k.zat{opacity:.72}
-.k.skriveno{display:none}
-.nema-rez{display:none;background:#fff;border:1px solid #e3e6ea;
-border-radius:10px;padding:1.1rem 1.2rem;color:#6b7280;font-size:.9rem;margin:0}
-.nema-rez.vidljivo{display:block}
-.zag{display:flex;justify-content:space-between;align-items:flex-start;
-gap:.8rem;flex-wrap:wrap}
-h3{font-size:1rem;margin:0 0 .2rem;flex:1;min-width:200px}
-.o{font-size:.72rem;padding:.22rem .6rem;border-radius:20px;
-font-weight:600;white-space:nowrap}
-.o.ok{background:#d8f3e2;color:#0d6b32}
-.o.zat{background:#eceef1;color:#5a6270}
-.kat{font-size:.75rem;color:#8a919c;margin-bottom:.6rem}
-.r{display:grid;grid-template-columns:150px 1fr;gap:.3rem .8rem;
-font-size:.89rem;padding:.22rem 0}
-.r span{color:#6b7280}
-.r b{font-weight:500}
-details{margin-top:.7rem;font-size:.88rem}
-summary{cursor:pointer;color:#1558d6;font-weight:500}
-details ol{margin:.6rem 0 0;padding-left:1.3rem;color:#3d4450}
-details li{margin-bottom:.35rem}
-.izv{display:inline-block;margin-top:.8rem;color:#1558d6;
-text-decoration:none;font-size:.88rem;font-weight:500}
-.izv:hover{text-decoration:underline}
-.vodic{margin-top:3.5rem;background:#fff;border:1px solid #e3e6ea;
-border-radius:10px;padding:1.4rem}
-.vodic h2{margin:0 0 .2rem}
-.vodic details{border-top:1px solid #eef0f3;padding:.75rem 0 .3rem;margin:0}
-.vodic details:first-of-type{border-top:none}
-.vodic summary{color:#1a1d21;font-weight:600;font-size:.94rem}
-.vodic details p{font-size:.89rem;color:#3d4450;margin:.6rem 0}
-.vodic details ul{font-size:.89rem;color:#3d4450;padding-left:1.3rem;margin:.6rem 0}
-.vodic details li{margin-bottom:.3rem}
-footer{margin-top:3rem;padding-top:1.5rem;border-top:1px solid #e3e6ea;
-font-size:.86rem;color:#4a5260}
-footer p{margin:.6rem 0}
-footer a{color:#1558d6}
-footer .meta{font-size:.78rem;color:#8a919c;margin-top:1.2rem}
-@media(max-width:520px){.r{grid-template-columns:1fr}.r span{font-size:.8rem}
-.otvori{min-width:100%}.panel{width:100%}}"""
+JS = """
+(function(){
+  var SVI="Cijela Hrvatska";
 
-
-JS = """(function () {
-  var SVI = "Cijela Hrvatska";
-  var ZUP_OD = __ZUP_OD__;   // grad -> zupanija kojoj pripada
-  var panel = document.getElementById("panel");
-  var otvori = document.getElementById("otvori");
-  var oznaka = document.getElementById("oznaka");
-  var ocisti = document.getElementById("ocisti");
-  var polja = panel.querySelectorAll("input[type=checkbox]");
-  var kartice = document.querySelectorAll(".k");
-
-  function odabrano() {
-    var v = [];
-    polja.forEach(function (p) { if (p.checked) v.push(p.value); });
-    return v;
+  // 1 dan / 2-4 dana / 5+ dana; pazi na 11-14 i na 21, 31...
+  function oblik(n,jd,gjd,gmn){
+    var z=Math.abs(n)%10, d=Math.abs(n)%100;
+    if(d>=11&&d<=14) return gmn;
+    if(z===1) return jd;
+    if(z>=2&&z<=4) return gjd;
+    return gmn;
   }
 
-  function prosiri(sel) {
-    // ako je odabran grad, ukljuci i njegovu zupaniju
-    var out = sel.slice();
-    sel.forEach(function (s) {
-      var z = ZUP_OD[s];
-      if (z && out.indexOf(z) === -1) out.push(z);
-    });
-    return out;
+  function dana(iso){
+    if(!iso) return null;
+    return Math.ceil((new Date(iso+"T23:59:59") - new Date())/86400000);
   }
 
-  function osvjezi() {
-    var izvorni = odabrano();
-    var sel = prosiri(izvorni);
+  document.querySelectorAll("[data-rok]").forEach(function(k){
+    var n=dana(k.getAttribute("data-rok")), z=k.querySelector("[data-znak]");
+    if(n===null||!z) return;
+    if(n<=7){ z.className="znak hitno";
+      z.textContent = n<=0 ? "Zadnji dan" : ("Još "+n+" "+oblik(n,"dan","dana","dana")); }
+    else if(n<=21){ z.textContent="Još "+n+" "+oblik(n,"dan","dana","dana"); }
+  });
 
-    if (izvorni.length === 0) {
-      oznaka.textContent = "Sva podru\\u010dja";
-      ocisti.hidden = true;
-    } else if (izvorni.length === 1) {
-      oznaka.textContent = izvorni[0];
-      ocisti.hidden = false;
-    } else {
-      oznaka.textContent = izvorni.length + " odabrano";
-      ocisti.hidden = false;
+  var t=document.getElementById("traka");
+  if(t){
+    var n=dana(t.getAttribute("data-rok"));
+    if(n!==null){
+      document.getElementById("brojka").textContent = n<0?0:n;
+      document.getElementById("jedinica").textContent =
+        oblik(n,"dan","dana","dana")+" do roka";
+      document.getElementById("mjerka").style.width =
+        Math.max(0,Math.min(100,(n/30)*100))+"%";
+      if(n<=7) t.classList.add("hitno");
     }
-
-    kartice.forEach(function (k) {
-      var p = k.getAttribute("data-podrucje");
-      var z = k.getAttribute("data-zupanija") || "";
-      var pokazi;
-      if (izvorni.length === 0) {
-        pokazi = true;
-      } else {
-        pokazi = (p === SVI) || sel.indexOf(p) !== -1 ||
-                 (z !== "" && sel.indexOf(z) !== -1);
-      }
-      k.classList.toggle("skriveno", !pokazi);
-    });
-
-    document.querySelectorAll(".grupa").forEach(function (g) {
-      var ima = g.querySelectorAll(".k:not(.skriveno)").length > 0;
-      var poruka = g.querySelector(".nema-rez");
-      if (poruka) poruka.classList.toggle("vidljivo", !ima);
-    });
   }
 
-  otvori.addEventListener("click", function (e) {
-    e.stopPropagation();
-    var otv = panel.hidden;
-    panel.hidden = !otv;
-    otvori.setAttribute("aria-expanded", otv ? "true" : "false");
-  });
+  var izbor=document.getElementById("zupanija");
+  if(!izbor) return;
+  var kartice=document.querySelectorAll(".k");
 
-  panel.addEventListener("click", function (e) { e.stopPropagation(); });
-
-  document.addEventListener("click", function () {
-    panel.hidden = true;
-    otvori.setAttribute("aria-expanded", "false");
-  });
-
-  polja.forEach(function (p) { p.addEventListener("change", osvjezi); });
-
-  ocisti.addEventListener("click", function (e) {
-    e.stopPropagation();
-    polja.forEach(function (p) { p.checked = false; });
-    osvjezi();
-  });
-
+  function osvjezi(){
+    var z=izbor.value;
+    kartice.forEach(function(k){
+      var p=k.getAttribute("data-podrucje"),
+          zk=k.getAttribute("data-zupanija")||"";
+      // bez odabira sve; inace: drzavne uvijek + sve iz odabrane zupanije
+      var ok = !z || p===SVI || zk===z || p===z;
+      k.classList.toggle("skriveno",!ok);
+    });
+    document.querySelectorAll(".grupa").forEach(function(g){
+      var ima=g.querySelectorAll(".k:not(.skriveno)").length>0;
+      var por=g.querySelector(".nema-rez");
+      if(por)por.classList.toggle("vidljivo",!ima);
+    });
+  }
+  izbor.addEventListener("change",osvjezi);
   osvjezi();
-})();"""
+})();
+"""
 
 
 def main():
@@ -375,117 +269,112 @@ def main():
         elif s.startswith("ROK ISTEKAO") or s.startswith("NEMA AKTIVNOG"):
             zatvorene.append(par)
 
-    otvorene.sort(key=lambda t: t[0].get("naziv") or "")
+    # najhitniji prvi
+    otvorene.sort(key=lambda t: (iso_rok(t[0].get("status") or "") or "9999",
+                                 t[0].get("naziv") or ""))
     zatvorene.sort(key=lambda t: t[0].get("naziv") or "")
 
-    zup_od = {}
+    # popis za izbornik: zupanije + podrucja koja ne pripadaju nijednoj (npr. Grad Zagreb)
+    podrucja = set()
     for _, p, z in otvorene + zatvorene:
-        if p != SVI:
-            zup_od.setdefault(p, z)
-    stavke = izbornik(zup_od)
+        if p == SVI:
+            continue
+        podrucja.add(z if z else p)
 
-    # mapa grad -> zupanija za JS (samo gradovi, ne same zupanije)
-    mapa = {p: z for p, z in zup_od.items() if z and z != p}
-    js = JS.replace("__ZUP_OD__", json.dumps(mapa, ensure_ascii=False))
+    vrijeme = datetime.now().strftime("%d.%m.%Y.")
+    ukupno = len(otvorene) + len(zatvorene)
 
+    # ---------- hero ----------
     if otvorene:
-        sek_otv = ('<h2>Trenutno otvoreno <span class="br">%d</span></h2>'
-                   '<div class="grupa">%s'
-                   '<p class="nema-rez">Nema otvorenih natječaja za odabrano '
-                   'područje.</p></div>') % (
-            len(otvorene), "".join(kartica(r, True, p, z) for r, p, z in otvorene))
-    else:
-        sek_otv = """<h2>Trenutno otvoreno</h2>
-<div class="prazno">
-  <p><strong>Trenutno nema otvorenih natječaja.</strong></p>
-  <p>Većina natječaja objavljuje se od rujna do prosinca. Ispod su izvori koje
-     pratimo &mdash; kad se neki otvori, pojavit će se ovdje.</p>
+        prvi = otvorene[0]
+        iso = iso_rok(prvi[0].get("status") or "")
+        hero = f"""<div class="rok-traka" id="traka" data-rok="{iso}">
+  <div class="gornje">
+    <span class="naslov">{esc(prvi[0].get('naziv'))}</span>
+    <span class="meta">najbliži rok</span>
+  </div>
+  <div class="odbroj"><span id="brojka">—</span><span class="jed" id="jedinica">do roka</span></div>
+  <div class="donje">{esc(prvi[0].get('iznos') or 'iznos nije naveden')}</div>
+  <div class="mjerka"><i id="mjerka" style="width:0"></i></div>
 </div>"""
+        n = len(otvorene)
+        im = oblik(n, "natječaj", "natječaja", "natječaja")
+        gl = oblik(n, "otvoren je", "otvorena su", "otvoreno je")
+        podnaslov = f"Upravo sada {gl} {n} {im}."
+    else:
+        hero = """<div class="prazno">
+  <p class="kad">Sezona kreće u rujnu.</p>
+  <p>Većina gradova, županija i sveučilišta natječaje objavljuje između rujna
+     i prosinca. Rokovi su kratki, često 15 dana od objave.</p>
+  <p>Izvore provjeravamo automatski dvaput tjedno. Čim se neki natječaj otvori,
+     pojavit će se ovdje na vrhu.</p>
+</div>"""
+        podnaslov = "Trenutno nema otvorenih natječaja."
+
+    # ---------- sekcije ----------
+    sek_otv = ""
+    if otvorene:
+        sek_otv = (f'<section class="sek"><div class="sek-vrh"><h2>Otvoreno za prijave</h2>'
+                   f'<span class="broj">{len(otvorene)} '
+                   f'{oblik(len(otvorene), "natječaj", "natječaja", "natječaja")}'
+                   f'</span></div>'
+                   f'<div class="grupa">'
+                   + "".join(kartica(r, True, p, z) for r, p, z in otvorene)
+                   + '<p class="nema-rez">Za odabrano područje nema otvorenih natječaja. '
+                     'Pogledaj popis izvora ispod.</p></div></section>')
 
     sek_zat = ""
     if zatvorene:
-        sek_zat = ('<h2>Izvori koje pratimo <span class="br">%d</span></h2>'
-                   '<p class="pod">Ovi natječaji trenutno nisu otvoreni. '
-                   'Provjeravamo ih automatski dvaput tjedno.</p>'
-                   '<div class="grupa">%s'
-                   '<p class="nema-rez">Nema izvora za odabrano područje.</p>'
-                   '</div>') % (
-            len(zatvorene), "".join(kartica(r, False, p, z) for r, p, z in zatvorene))
+        sek_zat = (f'<section class="sek"><div class="sek-vrh"><h2>Izvori koje pratimo</h2>'
+                   f'<span class="broj">{len(zatvorene)} '
+                   f'{oblik(len(zatvorene), "izvor", "izvora", "izvora")}'
+                   f'</span></div>'
+                   f'<p class="uvod">Ovdje natječaj trenutno nije otvoren. '
+                   f'Provjeravamo ih automatski svaki ponedjeljak i četvrtak.</p>'
+                   f'<div class="grupa zatvoreni-omot">'
+                   + "".join(kartica(r, False, p, z) for r, p, z in zatvorene)
+                   + '<p class="nema-rez">Za odabrano područje nemamo izvora. '
+                     'Ako znaš neki, javi nam.</p></div></section>')
 
-    html = """<!DOCTYPE html>
-<html lang="hr">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>stipendije.hr &mdash; stipendije u Hrvatskoj na jednom mjestu</title>
-<meta name="description" content="Pregled aktivnih natječaja za stipendije u Hrvatskoj — iznosi, rokovi i upute za prijavu.">
-<meta property="og:title" content="stipendije.hr">
-<meta property="og:description" content="Aktivni natječaji za stipendije u Hrvatskoj na jednom mjestu.">
-<meta property="og:type" content="website">
-<style>
-%s
-</style>
-</head>
-<body>
-<div class="w">
-<header>
-  <h1>stipendije.hr</h1>
-  <p>Stipendije u Hrvatskoj na jednom mjestu &mdash; iznosi, rokovi i upute za prijavu.</p>
-</header>
+    js = JS
 
-<div class="upoz">
-  <strong>Važno:</strong> podaci se prikupljaju automatski i služe isključivo
-  kao informacija. Rokovi i uvjeti mogu se promijeniti, a moguće su i greške u
-  prikupljanju. <strong>Prije prijave uvijek provjerite službenu stranicu</strong>
-  koja je linkana uz svaki natječaj. Ne odgovaramo za propuštene rokove ni za
-  odluke donesene na temelju ovih podataka.
-</div>
-
-<div class="filteri">
-  <button class="otvori" id="otvori" aria-expanded="false">
-    <span id="oznaka">Sva područja</span>
-    <span class="strelica">&#9662;</span>
-  </button>
-  <button class="ocisti" id="ocisti" hidden>Očisti</button>
-  <div class="panel" id="panel" hidden>
-    <p class="napomena">Odaberi svoj grad ili županiju &mdash; možeš označiti više njih.
-       Državne stipendije prikazuju se uvijek, a uz grad automatski dobivaš
-       i stipendije njegove županije.</p>
-    <div class="stavke">%s</div>
+    html = glava(
+        "stipendije.hr — stipendije u Hrvatskoj na jednom mjestu",
+        "Otvoreni natječaji za stipendije u Hrvatskoj: iznosi, rokovi i upute za prijavu.",
+        CSS_INDEX)
+    html += navigacija("natjecaji")
+    html += f"""<main>
+<section class="hero"><div class="w">
+  <span class="meta oznaka">Ažurirano {vrijeme}</span>
+  <h1>Sve stipendije u Hrvatskoj,<br>s rokovima koji vrijede.</h1>
+  <p class="teza">{podnaslov}</p>
+  {hero}
+  <div class="filteri">
+    <label class="oznaka-f" for="zupanija">Odaberi županiju</label>
+    <select id="zupanija">{izbornik(podrucja)}</select>
+    <p class="pojasnjenje">Prikazuju se stipendije te županije, svih njezinih
+      gradova i one državne, na koje imaju pravo svi.</p>
   </div>
-</div>
+  <p class="upoz"><strong>Provjeri prije prijave.</strong> Podatke prikupljamo
+    automatski, pa su greške moguće. Vrijede rok i uvjeti sa službene stranice
+    natječaja, na koju vodi poveznica uz svaki unos.</p>
+</div></section>
+<div class="w">{sek_otv}{sek_zat}</div>
+</main>
+<script>{js}</script>"""
+    html += podnozje(ukupno, vrijeme)
 
-%s
-%s
-%s
+    os.makedirs(MAPA, exist_ok=True)
+    open(os.path.join(MAPA, "index.html"), "w", encoding="utf-8").write(html)
 
-<footer>
-  <p><strong>Kontakt:</strong> <a href="mailto:%s">%s</a></p>
-  <p>Nedostaje neka stipendija, ili si uočio netočan podatak? Piši nam &mdash;
-     ispravljamo u najkraćem roku. Posebno nam je važno ako je
-     <strong>rok prijave</strong> netočan.</p>
-  <p>Ne dajemo osobne savjete o tome imaš li šanse za pojedinu stipendiju &mdash;
-     za to se obrati instituciji koja je natječaj objavila.</p>
-  <p class="meta">Zadnja provjera: %s &middot; Pratimo %d izvora,
-     popis se stalno dopunjuje.</p>
-</footer>
-</div>
+    from stranice import vodic, impressum
+    vodic(MAPA, ukupno, vrijeme)
+    impressum(MAPA, ukupno, vrijeme)
 
-<script>
-%s
-</script>
-</body>
-</html>""" % (CSS, stavke, sek_otv, sek_zat, VODIC, EMAIL, EMAIL,
-              datetime.now().strftime("%d.%m.%Y. u %H:%M"),
-              len(otvorene) + len(zatvorene), js)
-
-    os.makedirs(IZLAZ_MAPA, exist_ok=True)
-    open(IZLAZ, "w", encoding="utf-8").write(html)
-
-    print("Napisano %s" % IZLAZ)
-    print("  otvorenih: %d  zatvorenih: %d" % (len(otvorene), len(zatvorene)))
-    print("  sakriveno: %d" % (len(d) - len(otvorene) - len(zatvorene)))
-    print("  izbornik: %d podrucja" % len(zup_od))
+    print("Napisano %s/index.html, vodic.html, impressum.html" % MAPA)
+    print("  otvorenih: %d  zatvorenih: %d  sakriveno: %d"
+          % (len(otvorene), len(zatvorene), len(d) - ukupno))
+    print("  izbornik: %d zupanija" % len(podrucja))
 
 
 if __name__ == "__main__":
