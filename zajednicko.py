@@ -37,11 +37,11 @@ body{margin:0;background:var(--papir);color:var(--tinta);
   position:sticky;top:0;z-index:30}
 .vrh .w{display:flex;align-items:center;justify-content:space-between;
   gap:1rem;padding-top:.85rem;padding-bottom:.85rem}
-.logo{display:flex;align-items:center;gap:.5rem;text-decoration:none;
+.logo{display:flex;align-items:center;gap:.6rem;text-decoration:none;
   color:var(--tinta)}
-.znak{width:22px;height:22px;flex-shrink:0;display:block}
+.znak{width:34px;height:34px;flex-shrink:0;display:block}
 .ime{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;
-  font-size:1.02rem;letter-spacing:-.02em}
+  font-size:1.14rem;letter-spacing:-.02em}
 .ime span{color:var(--otvoreno)}
 .nav{display:flex;gap:1.15rem}
 .nav a{font-size:.86rem;color:var(--tinta-2);text-decoration:none;
@@ -142,7 +142,7 @@ def navigacija(tu):
       <path d="M62 0 L100 38 H62 Z" fill="#1B6B41"/>
       <text x="43" y="50" text-anchor="middle" dominant-baseline="central"
             font-family="'IBM Plex Sans',sans-serif" font-weight="700"
-            font-size="52" fill="#EFF1EC">S</text>
+            font-size="58" fill="#EFF1EC">S</text>
     </svg>
     <span class="ime">stipendije<span>.hr</span></span>
   </a>
