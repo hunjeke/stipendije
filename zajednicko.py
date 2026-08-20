@@ -4,6 +4,10 @@
 EMAIL = "erik.hunjek@gmail.com"
 DOMENA = "stipendije.hr"
 
+# Puna adresa stranice — koristi se za sliku u pregledu linka.
+# Kad domena proradi, promijeni u "https://stipendije.hr"
+BAZA = "https://hunjeke.github.io/stipendije"
+
 FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com">'
          '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>'
          '<link href="https://fonts.googleapis.com/css2?'
@@ -33,9 +37,12 @@ body{margin:0;background:var(--papir);color:var(--tinta);
   position:sticky;top:0;z-index:30}
 .vrh .w{display:flex;align-items:center;justify-content:space-between;
   gap:1rem;padding-top:.85rem;padding-bottom:.85rem}
-.logo{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;
-  font-size:1.02rem;letter-spacing:-.02em;text-decoration:none;color:var(--tinta)}
-.logo span{color:var(--otvoreno)}
+.logo{display:flex;align-items:center;gap:.5rem;text-decoration:none;
+  color:var(--tinta)}
+.znak{width:22px;height:22px;flex-shrink:0;display:block}
+.ime{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;
+  font-size:1.02rem;letter-spacing:-.02em}
+.ime span{color:var(--otvoreno)}
 .nav{display:flex;gap:1.15rem}
 .nav a{font-size:.86rem;color:var(--tinta-2);text-decoration:none;
   padding-bottom:2px;border-bottom:1.5px solid transparent}
@@ -106,6 +113,18 @@ def glava(naslov, opis, dodatni_css="", dodatni_head=""):
 <meta property="og:title" content="{naslov}">
 <meta property="og:description" content="{opis}">
 <meta property="og:type" content="website">
+<meta property="og:image" content="{BAZA}/pregled.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="hr_HR">
+<meta property="og:site_name" content="stipendije.hr">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="{BAZA}/pregled.png">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#1E2230">
 {FONTS}
 {dodatni_head}
 <style>{CSS}{dodatni_css}</style>
@@ -117,7 +136,16 @@ def navigacija(tu):
     def k(s):
         return ' class="tu"' if s == tu else ""
     return f"""<header class="vrh"><div class="w">
-  <a class="logo" href="./">stipendije<span>.hr</span></a>
+  <a class="logo" href="./" aria-label="stipendije.hr, početna">
+    <svg class="znak" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+      <path d="M0 0 H62 L100 38 V100 H0 Z" fill="#1E2230"/>
+      <path d="M62 0 L100 38 H62 Z" fill="#1B6B41"/>
+      <text x="43" y="50" text-anchor="middle" dominant-baseline="central"
+            font-family="'IBM Plex Sans',sans-serif" font-weight="700"
+            font-size="52" fill="#EFF1EC">S</text>
+    </svg>
+    <span class="ime">stipendije<span>.hr</span></span>
+  </a>
   <nav class="nav">
     <a href="./"{k('natjecaji')}>Natječaji</a>
     <a href="vodic.html"{k('vodic')}>Vodič</a>
