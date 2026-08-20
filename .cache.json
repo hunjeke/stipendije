@@ -96,7 +96,7 @@
     }
   },
   "https://www.osijek.hr/natjecaji/": {
-    "hash": "ae9bcc7acab061d5",
+    "hash": "9002977ac7ea2147",
     "result": {
       "naziv": "Grad Osijek — natječaji",
       "url": "https://www.osijek.hr/natjecaji/",
@@ -107,7 +107,7 @@
       "upute_za_prijavu": null,
       "napomena": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-08-16T09:49",
+      "zadnje_provjereno": "2026-08-20T12:09",
       "_ima_otvoren": false
     }
   },
@@ -368,7 +368,7 @@
     }
   },
   "https://www.sibenik.hr/stranice/stipendije/135.html": {
-    "hash": "4ac7568b11e38852",
+    "hash": "be3085ff23395125",
     "result": {
       "naziv": "Grad Šibenik — stipendije",
       "url": "https://www.sibenik.hr/stranice/stipendije/135.html",
@@ -379,7 +379,7 @@
       "upute_za_prijavu": null,
       "napomena": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-08-17T10:10",
+      "zadnje_provjereno": "2026-08-20T12:09",
       "_ima_otvoren": false
     }
   },
@@ -400,7 +400,7 @@
     }
   },
   "https://www.pula.hr/hr/novosti/": {
-    "hash": "a9348da6b69ca2b8",
+    "hash": "f7bc074a186c67fe",
     "result": {
       "naziv": "Grad Pula — novosti i natječaji",
       "url": "https://www.pula.hr/hr/novosti/",
@@ -411,7 +411,7 @@
       "upute_za_prijavu": null,
       "napomena": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-08-19T18:01",
+      "zadnje_provjereno": "2026-08-20T12:09",
       "_ima_otvoren": false
     }
   },
@@ -896,7 +896,7 @@
     }
   },
   "https://www.slavonski-brod.hr/": {
-    "hash": "5d12cd707c1c3c36",
+    "hash": "b31492ca45de671b",
     "result": {
       "naziv": "Grad Slavonski Brod — natječaji",
       "url": "https://www.slavonski-brod.hr/",
@@ -907,7 +907,7 @@
       "upute_za_prijavu": null,
       "napomena": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-08-20T07:35",
+      "zadnje_provjereno": "2026-08-20T12:12",
       "_ima_otvoren": false
     }
   },
@@ -928,7 +928,7 @@
     }
   },
   "https://www.jastrebarsko.hr/": {
-    "hash": "1cb27da789bb5d2e",
+    "hash": "66c929ff490ff5e2",
     "result": {
       "naziv": "Grad Jastrebarsko — natječaji",
       "url": "https://www.jastrebarsko.hr/",
@@ -939,7 +939,7 @@
       "upute_za_prijavu": null,
       "napomena": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-08-19T18:06",
+      "zadnje_provjereno": "2026-08-20T12:13",
       "_ima_otvoren": false
     }
   },
@@ -976,7 +976,7 @@
     }
   },
   "https://stari-grad.hr/novosti/": {
-    "hash": "b732de819dbe712b",
+    "hash": "02c23cebbb877a9e",
     "result": {
       "naziv": "Grad Stari Grad — novosti i natječaji",
       "url": "https://stari-grad.hr/novosti/",
@@ -987,7 +987,7 @@
       "upute_za_prijavu": null,
       "napomena": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-08-20T07:36",
+      "zadnje_provjereno": "2026-08-20T12:13",
       "_ima_otvoren": false
     }
   },
