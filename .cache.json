@@ -240,7 +240,7 @@
     }
   },
   "https://www.grad-zadar.hr/vijesti/odgoj-i-skolstvo--stipendiranje--natjecaji-i-obrasci-59/": {
-    "hash": "7266c2ea38202ae3",
+    "hash": "99b9cf34dab19106",
     "result": {
       "naziv": "Grad Zadar — stipendiranje, natječaji i obrasci",
       "url": "https://www.grad-zadar.hr/vijesti/odgoj-i-skolstvo--stipendiranje--natjecaji-i-obrasci-59/",
@@ -251,7 +251,7 @@
       "upute_za_prijavu": null,
       "napomena": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-08-19T18:01",
+      "zadnje_provjereno": "2026-08-20T07:33",
       "_ima_otvoren": false
     }
   },
@@ -608,7 +608,7 @@
     }
   },
   "https://www.vpz.hr/": {
-    "hash": "f1395c4547ba355c",
+    "hash": "0150cfa8bac3abaa",
     "result": {
       "naziv": "Virovitičko-podravska županija — natječaji",
       "url": "https://www.vpz.hr/",
@@ -619,7 +619,7 @@
       "upute_za_prijavu": null,
       "napomena": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-08-19T18:02",
+      "zadnje_provjereno": "2026-08-20T07:34",
       "_ima_otvoren": false
     }
   },
@@ -640,7 +640,7 @@
     }
   },
   "https://kzz.hr/natjecaj/": {
-    "hash": "9cea19ae80d9b2fc",
+    "hash": "072142f0ac800665",
     "result": {
       "naziv": "Krapinsko-zagorska županija — natječaji",
       "url": "https://kzz.hr/natjecaj/",
@@ -651,7 +651,7 @@
       "upute_za_prijavu": null,
       "napomena": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-08-19T18:02",
+      "zadnje_provjereno": "2026-08-20T07:34",
       "_ima_otvoren": false
     }
   },
@@ -896,7 +896,7 @@
     }
   },
   "https://www.slavonski-brod.hr/": {
-    "hash": "abf1c1a695c0e1cf",
+    "hash": "5d12cd707c1c3c36",
     "result": {
       "naziv": "Grad Slavonski Brod — natječaji",
       "url": "https://www.slavonski-brod.hr/",
@@ -907,7 +907,7 @@
       "upute_za_prijavu": null,
       "napomena": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-08-19T18:05",
+      "zadnje_provjereno": "2026-08-20T07:35",
       "_ima_otvoren": false
     }
   },
@@ -944,7 +944,7 @@
     }
   },
   "https://www.virovitica.hr/": {
-    "hash": "f7276e91d7484442",
+    "hash": "fffe6aae3df1a57f",
     "result": {
       "naziv": "Grad Virovitica — stipendije",
       "url": "https://www.virovitica.hr/",
@@ -955,12 +955,12 @@
       "upute_za_prijavu": null,
       "napomena": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-08-19T18:06",
+      "zadnje_provjereno": "2026-08-20T07:36",
       "_ima_otvoren": false
     }
   },
   "https://www.hvar.hr/portal/": {
-    "hash": "0dc9da11e27e29d0",
+    "hash": "fee591e03573bfb7",
     "result": {
       "naziv": "Grad Hvar — natječaji",
       "url": "https://www.hvar.hr/portal/",
@@ -971,12 +971,12 @@
       "upute_za_prijavu": null,
       "napomena": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-08-19T18:06",
+      "zadnje_provjereno": "2026-08-20T07:36",
       "_ima_otvoren": false
     }
   },
   "https://stari-grad.hr/novosti/": {
-    "hash": "28188296ba3d55c6",
+    "hash": "b732de819dbe712b",
     "result": {
       "naziv": "Grad Stari Grad — novosti i natječaji",
       "url": "https://stari-grad.hr/novosti/",
@@ -987,7 +987,7 @@
       "upute_za_prijavu": null,
       "napomena": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-08-19T18:06",
+      "zadnje_provjereno": "2026-08-20T07:36",
       "_ima_otvoren": false
     }
   },
@@ -1020,6 +1020,38 @@
       "napomena": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
       "zadnje_provjereno": "2026-08-19T18:06",
+      "_ima_otvoren": false
+    }
+  },
+  "https://www.biogradnamoru.hr/hr/natje%C4%8Daji": {
+    "hash": "ca331f3ababdb9ae",
+    "result": {
+      "naziv": "Grad Biograd na Moru — natječaji",
+      "url": "https://www.biogradnamoru.hr/hr/natje%C4%8Daji",
+      "kategorija": "Grad",
+      "iznos": null,
+      "rok_tekst": null,
+      "uvjeti": null,
+      "upute_za_prijavu": null,
+      "napomena": null,
+      "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
+      "zadnje_provjereno": "2026-08-20T07:35",
+      "_ima_otvoren": false
+    }
+  },
+  "https://gospic.hr/gradski-programi/stipendije-grada-gospica/": {
+    "hash": "0b548ed27b359965",
+    "result": {
+      "naziv": "Grad Gospić — stipendije",
+      "url": "https://gospic.hr/gradski-programi/stipendije-grada-gospica/",
+      "kategorija": "Grad",
+      "iznos": null,
+      "rok_tekst": null,
+      "uvjeti": "Državljani Hrvatske s najmanje 6 mjeseci prebivališta na području Grada Gospića, redovni učenici srednjih škola (do 20 godina) ili studenti (do 26 godina) bez drugih stipendija, bez zaostajanja u školovanju.",
+      "upute_za_prijavu": null,
+      "napomena": "Stranica prikazuje archivirane natječaje iz prošlih školskih godina (2021./2022., 2022./2023., 2023./2024., 2024./2025.). Nema vidljivo otvorenog trenutnog natječaja s rokom prijave. Iznos stipendije određuje gradonačelnik prema raspoloživim sredstvima.",
+      "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
+      "zadnje_provjereno": "2026-08-20T07:36",
       "_ima_otvoren": false
     }
   }
