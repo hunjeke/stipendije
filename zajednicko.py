@@ -6,7 +6,7 @@ DOMENA = "stipendije.hr"
 
 # Puna adresa stranice — koristi se za sliku u pregledu linka.
 # Kad domena proradi, promijeni u "https://stipendije.hr"
-BAZA = "https://hunjeke.github.io/stipendije"
+BAZA = "https://stipendije.hr"
 
 FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com">'
          '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>'
