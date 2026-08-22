@@ -368,7 +368,7 @@
     }
   },
   "https://www.sibenik.hr/stranice/stipendije/135.html": {
-    "hash": "be3085ff23395125",
+    "hash": "4ac7568b11e38852",
     "result": {
       "naziv": "Grad Šibenik — stipendije",
       "url": "https://www.sibenik.hr/stranice/stipendije/135.html",
@@ -379,7 +379,7 @@
       "upute_za_prijavu": null,
       "napomena": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-08-20T12:09",
+      "zadnje_provjereno": "2026-08-22T18:23",
       "_ima_otvoren": false
     }
   },
@@ -400,7 +400,7 @@
     }
   },
   "https://www.pula.hr/hr/novosti/": {
-    "hash": "f7bc074a186c67fe",
+    "hash": "32463cf7207c0c9d",
     "result": {
       "naziv": "Grad Pula — novosti i natječaji",
       "url": "https://www.pula.hr/hr/novosti/",
@@ -411,7 +411,7 @@
       "upute_za_prijavu": null,
       "napomena": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-08-20T12:09",
+      "zadnje_provjereno": "2026-08-22T18:23",
       "_ima_otvoren": false
     }
   },
@@ -512,7 +512,7 @@
     }
   },
   "https://www.dubrovnik.hr/natjecaji": {
-    "hash": "18ab0004c2ade454",
+    "hash": "ab7e9ca0ad4cdc64",
     "result": {
       "naziv": "Grad Dubrovnik — natječaji",
       "url": "https://www.dubrovnik.hr/natjecaji",
@@ -523,7 +523,7 @@
       "upute_za_prijavu": null,
       "napomena": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-08-19T18:02",
+      "zadnje_provjereno": "2026-08-22T18:23",
       "_ima_otvoren": false
     }
   },
@@ -784,7 +784,7 @@
     }
   },
   "https://www.baska.hr/": {
-    "hash": "0982f03d979cde7f",
+    "hash": "d0fdcfac4ff6f00e",
     "result": {
       "naziv": "Općina Baška — službene stranice",
       "url": "https://www.baska.hr/",
@@ -795,7 +795,7 @@
       "upute_za_prijavu": null,
       "napomena": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-08-19T18:03",
+      "zadnje_provjereno": "2026-08-22T18:25",
       "_ima_otvoren": false
     }
   },
@@ -896,7 +896,7 @@
     }
   },
   "https://www.slavonski-brod.hr/": {
-    "hash": "b31492ca45de671b",
+    "hash": "0c6fdf73da9c994b",
     "result": {
       "naziv": "Grad Slavonski Brod — natječaji",
       "url": "https://www.slavonski-brod.hr/",
@@ -907,7 +907,7 @@
       "upute_za_prijavu": null,
       "napomena": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-08-20T12:12",
+      "zadnje_provjereno": "2026-08-22T18:27",
       "_ima_otvoren": false
     }
   },
@@ -928,7 +928,7 @@
     }
   },
   "https://www.jastrebarsko.hr/": {
-    "hash": "66c929ff490ff5e2",
+    "hash": "09c06ee5fe9bf06e",
     "result": {
       "naziv": "Grad Jastrebarsko — natječaji",
       "url": "https://www.jastrebarsko.hr/",
@@ -939,12 +939,12 @@
       "upute_za_prijavu": null,
       "napomena": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-08-20T12:13",
+      "zadnje_provjereno": "2026-08-22T18:28",
       "_ima_otvoren": false
     }
   },
   "https://www.virovitica.hr/": {
-    "hash": "fffe6aae3df1a57f",
+    "hash": "b2d03e32ca1057a2",
     "result": {
       "naziv": "Grad Virovitica — stipendije",
       "url": "https://www.virovitica.hr/",
@@ -955,7 +955,7 @@
       "upute_za_prijavu": null,
       "napomena": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-08-20T07:36",
+      "zadnje_provjereno": "2026-08-22T18:28",
       "_ima_otvoren": false
     }
   },
@@ -976,7 +976,7 @@
     }
   },
   "https://stari-grad.hr/novosti/": {
-    "hash": "02c23cebbb877a9e",
+    "hash": "f2aa39dec4576985",
     "result": {
       "naziv": "Grad Stari Grad — novosti i natječaji",
       "url": "https://stari-grad.hr/novosti/",
@@ -987,7 +987,7 @@
       "upute_za_prijavu": null,
       "napomena": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-08-20T12:13",
+      "zadnje_provjereno": "2026-08-22T18:28",
       "_ima_otvoren": false
     }
   },

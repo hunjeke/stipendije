@@ -8,13 +8,13 @@
 <meta property="og:title" content="Kako do stipendije — stipendije.hr">
 <meta property="og:description" content="Rokovi, uvjeti i dokumentacija: što treba znati prije prijave na natječaj za stipendiju u Hrvatskoj.">
 <meta property="og:type" content="website">
-<meta property="og:image" content="https://hunjeke.github.io/stipendije/pregled.png">
+<meta property="og:image" content="https://stipendije.hr/pregled.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:locale" content="hr_HR">
 <meta property="og:site_name" content="stipendije.hr">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://hunjeke.github.io/stipendije/pregled.png">
+<meta name="twitter:image" content="https://stipendije.hr/pregled.png">
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
@@ -43,18 +43,35 @@ body{margin:0;background:var(--papir);color:var(--tinta);
 .vrh{border-bottom:1px solid var(--linija);background:var(--papir);
   position:sticky;top:0;z-index:30}
 .vrh .w{display:flex;align-items:center;justify-content:space-between;
-  gap:1rem;padding-top:.85rem;padding-bottom:.85rem}
-.logo{display:flex;align-items:center;gap:.5rem;text-decoration:none;
+  gap:.8rem;padding-top:.7rem;padding-bottom:.7rem}
+.logo{display:flex;align-items:center;gap:.6rem;text-decoration:none;
   color:var(--tinta)}
-.znak{width:22px;height:22px;flex-shrink:0;display:block}
+.znak{width:34px;height:34px;flex-shrink:0;display:block}
 .ime{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;
-  font-size:1.02rem;letter-spacing:-.02em}
+  font-size:1.14rem;letter-spacing:-.02em}
 .ime span{color:var(--otvoreno)}
-.nav{display:flex;gap:1.15rem}
+.nav{display:flex;gap:.2rem}
 .nav a{font-size:.86rem;color:var(--tinta-2);text-decoration:none;
-  padding-bottom:2px;border-bottom:1.5px solid transparent}
+  padding:.55rem .5rem;border-bottom:1.5px solid transparent;
+  line-height:1.2}
 .nav a:hover{color:var(--tinta)}
 .nav a.tu{color:var(--tinta);border-bottom-color:var(--tinta)}
+
+/* --- mobitel --- */
+@media(max-width:600px){
+  body{font-size:15.5px}
+  .w{padding:0 .95rem}
+  .znak{width:28px;height:28px}
+  .ime{font-size:1rem}
+  .nav{gap:0}
+  .nav a{font-size:.8rem;padding:.55rem .38rem}
+  .upoz{font-size:.84rem;padding-left:.8rem}
+  footer{font-size:.84rem}
+}
+@media(max-width:380px){
+  .ime span{display:none}          /* ".hr" ide van kad je stvarno tijesno */
+  .nav a{font-size:.76rem;padding:.55rem .3rem}
+}
 
 /* --- tipografija --- */
 h1{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;
@@ -104,13 +121,15 @@ input:focus-visible{outline:2px solid var(--otvoreno);outline-offset:2px}
 .q ul{margin:.5rem 0;padding-left:1.2rem;font-size:.94rem;color:var(--tinta-2)}
 .q li{margin-bottom:.3rem}
 .q strong{color:var(--tinta)}
-.redak{display:grid;grid-template-columns:11rem 1fr;gap:.3rem 1rem;
-  padding:.65rem 0;border-top:1px solid var(--linija);font-size:.93rem}
-.redak dt{color:var(--tinta-2)}
-.redak dd{margin:0}
-.popuni{background:#FBF3D8;padding:.1rem .35rem;
-  font-family:"IBM Plex Mono",monospace;font-size:.85rem}
-@media(max-width:560px){.redak{grid-template-columns:1fr;gap:.1rem}}
+@media(max-width:600px){
+  .tekst{padding:2rem 0 0}
+  .lead{font-size:.97rem;margin-bottom:1.5rem}
+  .q{padding:.9rem 0}
+  .q h3{font-size:1rem;line-height:1.3}
+  .q summary{padding:.3rem 0}
+  .q p,.q ul{font-size:.91rem}
+}
+
 </style>
 </head>
 <body><header class="vrh"><div class="w">
@@ -120,14 +139,13 @@ input:focus-visible{outline:2px solid var(--otvoreno);outline-offset:2px}
       <path d="M62 0 L100 38 H62 Z" fill="#1B6B41"/>
       <text x="43" y="50" text-anchor="middle" dominant-baseline="central"
             font-family="'IBM Plex Sans',sans-serif" font-weight="700"
-            font-size="52" fill="#EFF1EC">S</text>
+            font-size="58" fill="#EFF1EC">S</text>
     </svg>
     <span class="ime">stipendije<span>.hr</span></span>
   </a>
   <nav class="nav">
     <a href="./">Natječaji</a>
     <a href="vodic.html" class="tu">Vodič</a>
-    <a href="impressum.html">Impressum</a>
   </nav>
 </div></header><main class="w"><section class="tekst">
 <h1>Kako do stipendije</h1>
@@ -140,7 +158,9 @@ sitno, a odlučuje hoće li tvoja prijava proći.</p>
      Posebno nam je važno ako je netočan <strong>rok prijave</strong>.</p>
   <p>Ne procjenjujemo tvoje šanse za pojedinu stipendiju. Za to pitaj instituciju
      koja je natječaj objavila.</p>
-  <p class="sitno">Zadnja provjera 20.08.2026. &nbsp;·&nbsp; 62 izvora &nbsp;·&nbsp; podaci prikupljeni automatski</p>
+  <p class="sitno">Zadnja provjera 22.08.2026. &nbsp;·&nbsp; 61 izvor &nbsp;·&nbsp;
+     podaci prikupljeni automatski &nbsp;·&nbsp;
+     <a class="tiho" href="impressum.html">Impressum i uvjeti</a></p>
 </div></footer>
 </body>
 </html>
