@@ -118,11 +118,48 @@ CSS_INDEX = """
   color:var(--tinta-2);font-size:.9rem;margin:0}
 .nema-rez.vidljivo{display:block}
 .zatvoreni-omot{margin-top:.4rem}
-@media(max-width:560px){
+@media(max-width:600px){
+  /* hero */
+  .hero{padding:2rem 0 .4rem}
+  .hero p.teza{font-size:.98rem}
+
+  /* traka roka: brojka i tekst u dva reda da stanu */
+  .rok-traka{margin-top:1.4rem}
+  .rok-traka .gornje{padding:.7rem .85rem .45rem;gap:.4rem}
+  .rok-traka .naslov{font-size:.95rem;line-height:1.3}
+  .rok-traka .meta{font-size:.62rem}
+  .odbroj{font-size:2.5rem;padding:0 .85rem .1rem}
+  .odbroj .jed{font-size:.72rem;margin-left:.4rem}
+  .rok-traka .donje{padding:.3rem .85rem .9rem;font-size:.85rem}
+  .prazno{padding:1.05rem .95rem}
+  .prazno .kad{font-size:1.2rem}
+
+  /* filter */
+  .filteri{margin:1.9rem 0 0}
+  #zupanija{max-width:100%;font-size:1rem;padding:.75rem 2.4rem .75rem .8rem}
+  .pojasnjenje{font-size:.8rem}
+
+  /* sekcije */
+  .sek{padding:2rem 0 0}
+  h2{font-size:1.06rem}
+  .sek-vrh{gap:.5rem}
+  .sek-vrh .broj{font-size:.72rem}
+
+  /* kartice */
+  .k{padding:.95rem .9rem}
+  .k .zag{gap:.5rem}
+  h3{font-size:.97rem}
+  .znak{font-size:.62rem;padding:.18rem .45rem}
   .polja{grid-template-columns:1fr;gap:.05rem}
-  .polja dt{font-size:.78rem;margin-top:.35rem}
-  .otvori{min-width:100%}.panel{width:100%}
-  .odbroj{font-size:2.2rem}
+  .polja dt{font-size:.76rem;margin-top:.45rem;color:#8A909E}
+  .polja dd{font-size:.92rem}
+  /* veca povrsina za prst */
+  .k summary{padding:.35rem 0}
+  .veza{padding:.4rem 0 .3rem}
+}
+@media(max-width:380px){
+  .odbroj{font-size:2.1rem}
+  .rok-traka .naslov{font-size:.9rem}
 }
 """
 
