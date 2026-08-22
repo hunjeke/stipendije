@@ -36,18 +36,35 @@ body{margin:0;background:var(--papir);color:var(--tinta);
 .vrh{border-bottom:1px solid var(--linija);background:var(--papir);
   position:sticky;top:0;z-index:30}
 .vrh .w{display:flex;align-items:center;justify-content:space-between;
-  gap:1rem;padding-top:.85rem;padding-bottom:.85rem}
+  gap:.8rem;padding-top:.7rem;padding-bottom:.7rem}
 .logo{display:flex;align-items:center;gap:.6rem;text-decoration:none;
   color:var(--tinta)}
 .znak{width:34px;height:34px;flex-shrink:0;display:block}
 .ime{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;
   font-size:1.14rem;letter-spacing:-.02em}
 .ime span{color:var(--otvoreno)}
-.nav{display:flex;gap:1.15rem}
+.nav{display:flex;gap:.2rem}
 .nav a{font-size:.86rem;color:var(--tinta-2);text-decoration:none;
-  padding-bottom:2px;border-bottom:1.5px solid transparent}
+  padding:.55rem .5rem;border-bottom:1.5px solid transparent;
+  line-height:1.2}
 .nav a:hover{color:var(--tinta)}
 .nav a.tu{color:var(--tinta);border-bottom-color:var(--tinta)}
+
+/* --- mobitel --- */
+@media(max-width:600px){
+  body{font-size:15.5px}
+  .w{padding:0 .95rem}
+  .znak{width:28px;height:28px}
+  .ime{font-size:1rem}
+  .nav{gap:0}
+  .nav a{font-size:.8rem;padding:.55rem .38rem}
+  .upoz{font-size:.84rem;padding-left:.8rem}
+  footer{font-size:.84rem}
+}
+@media(max-width:380px){
+  .ime span{display:none}          /* ".hr" ide van kad je stvarno tijesno */
+  .nav a{font-size:.76rem;padding:.55rem .3rem}
+}
 
 /* --- tipografija --- */
 h1{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;
@@ -149,7 +166,6 @@ def navigacija(tu):
   <nav class="nav">
     <a href="./"{k('natjecaji')}>Natječaji</a>
     <a href="vodic.html"{k('vodic')}>Vodič</a>
-    <a href="impressum.html"{k('impressum')}>Impressum</a>
   </nav>
 </div></header>"""
 
@@ -162,7 +178,9 @@ def podnozje(broj_izvora, vrijeme):
      Posebno nam je važno ako je netočan <strong>rok prijave</strong>.</p>
   <p>Ne procjenjujemo tvoje šanse za pojedinu stipendiju. Za to pitaj instituciju
      koja je natječaj objavila.</p>
-  <p class="sitno">Zadnja provjera {vrijeme} &nbsp;·&nbsp; {broj_izvora} {imenica}&nbsp;·&nbsp; podaci prikupljeni automatski</p>
+  <p class="sitno">Zadnja provjera {vrijeme} &nbsp;·&nbsp; {broj_izvora} {imenica}&nbsp;·&nbsp;
+     podaci prikupljeni automatski &nbsp;·&nbsp;
+     <a class="tiho" href="impressum.html">Impressum i uvjeti</a></p>
 </div></footer>
 </body>
 </html>"""
