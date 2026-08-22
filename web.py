@@ -73,18 +73,19 @@ CSS_INDEX = """
 .prazno p{margin:.35rem 0;font-size:.92rem;color:var(--tinta-2)}
 
 /* --- filter --- */
-.filteri{margin:2.4rem 0 0}
-.oznaka-f{display:block;font-family:"IBM Plex Mono",monospace;font-size:.7rem;
-  letter-spacing:.09em;text-transform:uppercase;color:var(--tinta-2);
-  margin-bottom:.45rem}
-#zupanija{width:100%;max-width:420px;background:var(--karta);
-  border:1.5px solid var(--tinta);border-radius:0;padding:.7rem 2.4rem .7rem .85rem;
-  font-family:"IBM Plex Sans",sans-serif;font-size:.98rem;color:var(--tinta);
-  cursor:pointer;appearance:none;-webkit-appearance:none;
-  background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='7'%3E%3Cpath d='M1 1l4.5 4.5L10 1' stroke='%235B6274' stroke-width='1.6' fill='none'/%3E%3C/svg%3E");
-  background-repeat:no-repeat;background-position:right .9rem center}
-#zupanija:hover{border-color:var(--otvoreno)}
-.pojasnjenje{margin:.55rem 0 0;font-size:.83rem;color:var(--tinta-2);max-width:44ch}
+.filteri{margin:2.2rem 0 0;background:var(--karta);border:2px solid var(--tinta);
+  padding:1.15rem 1.2rem 1.25rem}
+.oznaka-f{display:block;font-family:"Bricolage Grotesque",sans-serif;
+  font-weight:700;font-size:1.06rem;letter-spacing:-.012em;
+  color:var(--tinta);margin-bottom:.65rem}
+#zupanija{width:100%;max-width:460px;background:var(--papir);
+  border:1.5px solid var(--tinta);border-radius:0;padding:.78rem 2.6rem .78rem .9rem;
+  font-family:"IBM Plex Sans",sans-serif;font-size:1rem;font-weight:500;
+  color:var(--tinta);cursor:pointer;appearance:none;-webkit-appearance:none;
+  background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='13' height='8'%3E%3Cpath d='M1 1l5.5 5.5L12 1' stroke='%231E2230' stroke-width='2' fill='none'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 1rem center}
+#zupanija:hover,#zupanija:focus{border-color:var(--otvoreno);background-color:#fff}
+.pojasnjenje{margin:.7rem 0 0;font-size:.85rem;color:var(--tinta-2);max-width:48ch}
 
 /* --- kartice --- */
 .k{background:var(--karta);border:1px solid var(--linija);
@@ -118,6 +119,16 @@ CSS_INDEX = """
   color:var(--tinta-2);font-size:.9rem;margin:0}
 .nema-rez.vidljivo{display:block}
 .zatvoreni-omot{margin-top:.4rem}
+/* kad je odabrana zupanija, lokalne stipendije idu prve */
+.grupa{display:flex;flex-direction:column}
+.grupa .k{order:0}
+.grupa .k.drzavna{order:1}
+.grupa .nema-rez{order:2}
+.medja{order:1;display:none;margin:.5rem 0 .9rem;
+  font-family:"IBM Plex Mono",monospace;font-size:.7rem;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--tinta-2);
+  border-top:1px solid var(--linija);padding-top:.85rem}
+.medja.vidljiva{display:block}
 @media(max-width:600px){
   /* hero */
   .hero{padding:2rem 0 .4rem}
@@ -135,9 +146,11 @@ CSS_INDEX = """
   .prazno .kad{font-size:1.2rem}
 
   /* filter */
-  .filteri{margin:1.9rem 0 0}
-  #zupanija{max-width:100%;font-size:1rem;padding:.75rem 2.4rem .75rem .8rem}
+  .filteri{margin:1.7rem 0 0;padding:1rem .9rem 1.05rem}
+  .oznaka-f{font-size:1rem}
+  #zupanija{max-width:100%;font-size:1rem;padding:.8rem 2.4rem .8rem .8rem}
   .pojasnjenje{font-size:.8rem}
+  .medja{font-size:.66rem;margin:.35rem 0 .8rem}
 
   /* sekcije */
   .sek{padding:2rem 0 0}
@@ -357,6 +370,7 @@ def main():
                    f'</span></div>'
                    f'<div class="grupa">'
                    + "".join(kartica(r, True, p, z) for r, p, z in otvorene)
+                   + '<div class="medja">Otvoreno svima u Hrvatskoj</div>'
                    + '<p class="nema-rez">Za odabrano područje nema otvorenih natječaja. '
                      'Pogledaj popis izvora ispod.</p></div></section>')
 
@@ -370,6 +384,7 @@ def main():
                    f'Provjeravamo ih automatski svaki ponedjeljak i četvrtak.</p>'
                    f'<div class="grupa zatvoreni-omot">'
                    + "".join(kartica(r, False, p, z) for r, p, z in zatvorene)
+                   + '<div class="medja">Otvoreno svima u Hrvatskoj</div>'
                    + '<p class="nema-rez">Za odabrano područje nemamo izvora. '
                      'Ako znaš neki, javi nam.</p></div></section>')
 
