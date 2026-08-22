@@ -14,13 +14,15 @@ CSS = """
 .q ul{margin:.5rem 0;padding-left:1.2rem;font-size:.94rem;color:var(--tinta-2)}
 .q li{margin-bottom:.3rem}
 .q strong{color:var(--tinta)}
-.redak{display:grid;grid-template-columns:11rem 1fr;gap:.3rem 1rem;
-  padding:.65rem 0;border-top:1px solid var(--linija);font-size:.93rem}
-.redak dt{color:var(--tinta-2)}
-.redak dd{margin:0}
-.popuni{background:#FBF3D8;padding:.1rem .35rem;
-  font-family:"IBM Plex Mono",monospace;font-size:.85rem}
-@media(max-width:560px){.redak{grid-template-columns:1fr;gap:.1rem}}
+@media(max-width:600px){
+  .tekst{padding:2rem 0 0}
+  .lead{font-size:.97rem;margin-bottom:1.5rem}
+  .q{padding:.9rem 0}
+  .q h3{font-size:1rem;line-height:1.3}
+  .q summary{padding:.3rem 0}
+  .q p,.q ul{font-size:.91rem}
+}
+
 """
 
 PITANJA = [
@@ -97,20 +99,17 @@ def impressum(mapa, broj, vrijeme):
     html = glava("Impressum — stipendije.hr",
                  "Podaci o pružatelju usluge i uvjeti korištenja stranice "
                  "stipendije.hr.", CSS)
-    html += navigacija("impressum")
+    html += navigacija("")
     html += f"""<main class="w"><section class="tekst">
 <h1>Impressum</h1>
 <p class="lead">Podaci o pružatelju usluge i uvjetima pod kojima se
 podaci na ovoj stranici objavljuju.</p>
 
-<h3>Pružatelj usluge</h3>
-<dl class="redak">
-  <dt>Naziv</dt><dd><span class="popuni">popuniti</span></dd>
-  <dt>Sjedište</dt><dd><span class="popuni">popuniti</span></dd>
-  <dt>OIB</dt><dd><span class="popuni">popuniti</span></dd>
-  <dt>Odgovorna osoba</dt><dd><span class="popuni">popuniti</span></dd>
-  <dt>E-pošta</dt><dd><a href="mailto:{EMAIL}">{EMAIL}</a></dd>
-</dl>
+<div class="q"><h3>O stranici</h3>
+<p>stipendije.hr je privatan i nekomercijalan projekt. Stranica je besplatna,
+nema oglasa i ne naplaćuje ništa.</p>
+<p>Za sva pitanja, prijave grešaka i prijedloge javi se na adresu
+u podnožju stranice.</p></div>
 
 <div class="q"><h3>Odakle podaci</h3>
 <p>Podatke o natječajima automatski prikupljamo sa službenih stranica institucija
@@ -127,8 +126,8 @@ je objavila.</strong> Ne odgovaramo za propuštene rokove, odbijene prijave ni d
 posljedice odluka donesenih na temelju podataka s ove stranice.</p></div>
 
 <div class="q"><h3>Prijava greške</h3>
-<p>Uočiš li netočan podatak, javi na <a href="mailto:{EMAIL}">{EMAIL}</a>.
-Netočne rokove ispravljamo prve.</p></div>
+<p>Uočiš li netočan podatak, javi nam. Netočne rokove ispravljamo prve, jer
+su jedina greška koja nekome može oduzeti priliku.</p></div>
 
 <div class="q"><h3>Autorska prava</h3>
 <p>Tekstovi natječaja pripadaju institucijama koje su ih objavile. Ova stranica
