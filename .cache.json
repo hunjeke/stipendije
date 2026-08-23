@@ -1054,5 +1054,37 @@
       "zadnje_provjereno": "2026-08-20T07:36",
       "_ima_otvoren": false
     }
+  },
+  "https://stari-grad.hr/stipendije": {
+    "hash": "5dddfb14b5e3ebef",
+    "result": {
+      "naziv": "Grad Stari Grad — novosti i natječaji",
+      "url": "https://stari-grad.hr/stipendije",
+      "kategorija": "Grad",
+      "iznos": null,
+      "rok_tekst": null,
+      "uvjeti": null,
+      "upute_za_prijavu": null,
+      "napomena": null,
+      "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
+      "zadnje_provjereno": "2026-08-23T09:51",
+      "_ima_otvoren": false
+    }
+  },
+  "https://www.vodnjan-dignano.hr/hr/natjecaji/": {
+    "hash": "7d3bda29ad3d4490",
+    "result": {
+      "naziv": "Grad Vodnjan — natječaji",
+      "url": "https://www.vodnjan-dignano.hr/hr/natjecaji/",
+      "kategorija": "Grad",
+      "iznos": null,
+      "rok_tekst": null,
+      "uvjeti": null,
+      "upute_za_prijavu": null,
+      "napomena": null,
+      "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
+      "zadnje_provjereno": "2026-08-23T09:51",
+      "_ima_otvoren": false
+    }
   }
 }

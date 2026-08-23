@@ -21,8 +21,29 @@
 <link rel="apple-touch-icon" href="../apple-touch-icon.png">
 <meta name="theme-color" content="#1E2230">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "CollectionPage", "name": "Stipendije u Istarskoj županiji 2026. — otvoreni natječaji", "description": "Svi natječaji za stipendije u Istarskoj županiji: iznosi, rokovi prijave i upute za prijavu. Izvore provjeravamo dvaput tjedno.", "inLanguage": "hr-HR", "url": "https://stipendije.hr/zupanija/istarska.html", "isPartOf": {"@type": "WebSite", "name": "stipendije.hr", "url": "https://stipendije.hr/"}, "mainEntity": {"@type": "ItemList", "numberOfItems": 6, "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Grad Labin — stipendiranje učenika i studenata", "url": "https://labin.hr/za-gradane/odgoj-i-obrazovanje/stipendiranje-ucenika-i-studenata"}, {"@type": "ListItem", "position": 2, "name": "Grad Poreč — stipendije i subvencije", "url": "https://www.porec.hr/prva.aspx?stranica=84"}, {"@type": "ListItem", "position": 3, "name": "Grad Pula — novosti i natječaji", "url": "https://www.pula.hr/hr/novosti/"}, {"@type": "ListItem", "position": 4, "name": "Grad Rovinj — stipendije", "url": "https://www.rovinj-rovigno.hr/odgoj-i-obrazovanje/stipendije/"}, {"@type": "ListItem", "position": 5, "name": "Istarska županija — novosti i natječaji", "url": "https://www.istra-istria.hr/hr/natjecaji/"}, {"@type": "ListItem", "position": 6, "name": "Općina Medulin — odgoj i obrazovanje", "url": "https://medulin.hr/odgoj-obrazovanje"}]}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "CollectionPage", "name": "Stipendije u Istarskoj županiji 2026. — otvoreni natječaji", "description": "Svi natječaji za stipendije u Istarskoj županiji: iznosi, rokovi prijave i upute za prijavu. Izvore provjeravamo dvaput tjedno.", "inLanguage": "hr-HR", "url": "https://stipendije.hr/zupanija/istarska.html", "isPartOf": {"@type": "WebSite", "name": "stipendije.hr", "url": "https://stipendije.hr/"}, "mainEntity": {"@type": "ItemList", "numberOfItems": 7, "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Grad Labin — stipendiranje učenika i studenata", "url": "https://labin.hr/za-gradane/odgoj-i-obrazovanje/stipendiranje-ucenika-i-studenata"}, {"@type": "ListItem", "position": 2, "name": "Grad Poreč — stipendije i subvencije", "url": "https://www.porec.hr/prva.aspx?stranica=84"}, {"@type": "ListItem", "position": 3, "name": "Grad Pula — novosti i natječaji", "url": "https://www.pula.hr/hr/novosti/"}, {"@type": "ListItem", "position": 4, "name": "Grad Rovinj — stipendije", "url": "https://www.rovinj-rovigno.hr/odgoj-i-obrazovanje/stipendije/"}, {"@type": "ListItem", "position": 5, "name": "Grad Vodnjan — natječaji", "url": "https://www.vodnjan-dignano.hr/hr/natjecaji/"}, {"@type": "ListItem", "position": 6, "name": "Istarska županija — novosti i natječaji", "url": "https://www.istra-istria.hr/hr/natjecaji/"}, {"@type": "ListItem", "position": 7, "name": "Općina Medulin — odgoj i obrazovanje", "url": "https://medulin.hr/odgoj-obrazovanje"}]}}</script>
 <style>
+.kol{position:fixed;left:0;right:0;bottom:0;z-index:80;background:var(--tinta);
+  color:#EFF1EC;padding:1rem 1.15rem;display:none}
+.kol.vidljiva{display:block}
+.kol-w{max-width:780px;margin:0 auto;display:flex;gap:1rem;
+  align-items:center;justify-content:space-between;flex-wrap:wrap}
+.kol p{margin:0;font-size:.86rem;line-height:1.5;max-width:52ch;color:#D6D9D2}
+.kol a{color:#EFF1EC;text-decoration:underline}
+.kol-gumbi{display:flex;gap:.6rem;flex-shrink:0}
+.kol button{font-family:"IBM Plex Sans",sans-serif;font-size:.87rem;
+  padding:.55rem 1rem;border:1.5px solid #EFF1EC;background:none;
+  color:#EFF1EC;cursor:pointer}
+.kol button.da{background:#EFF1EC;color:var(--tinta);font-weight:600}
+.kol button:hover{border-color:#fff}
+@media(max-width:600px){
+  .kol{padding:.9rem}
+  .kol-w{gap:.8rem}
+  .kol p{font-size:.82rem}
+  .kol-gumbi{width:100%}
+  .kol button{flex:1}
+}
+
 :root{
   --papir:#EFF1EC;      /* hladan papir, ne krem */
   --karta:#FFFFFF;
@@ -152,9 +173,9 @@ input:focus-visible{outline:2px solid var(--otvoreno);outline-offset:2px}
   <p class="sazetak">Trenutno nema otvorenih natječaja u Istarskoj županiji. Većina se objavljuje između rujna i prosinca — pratimo ih automatski i pojavit će se ovdje čim se otvore.</p>
   <div class="brojke">
     <div class="brojka"><b>0</b><span>otvoreno sada</span></div>
-    <div class="brojka"><b>6</b><span>izvora koje pratimo</span></div>
+    <div class="brojka"><b>7</b><span>izvora koje pratimo</span></div>
   </div>
-  <div class="sek-vrh" style="margin-top:2.2rem"><h2>Izvori koje pratimo</h2><span class="broj">6</span></div><article class="k" data-podrucje="Labin" data-zupanija="Istarska županija" data-rok=""><div class="zag"><h3>Grad Labin — stipendiranje učenika i studenata</h3><span class="znak zat">Zatvoreno</span></div><div class="izvor">Labin</div><dl class="polja"><dt>Iznos</dt><dd class="">125,00 do 150,00 EUR mjesečno (učenici), 200,00 do 250,00 EUR mjesečno (studenti)</dd><dt>Tko se prijavljuje</dt><dd>Učenici srednjih škola i studenti s prebivalištem na području Grada Labina najmanje 12 mjeseci, redovno školovanje/studiranje izvan mjesta prebivališta, bez druge stipendije (osim manje privatne), stariji do 26 godina.</dd></dl><a class="veza" href="https://labin.hr/za-gradane/odgoj-i-obrazovanje/stipendiranje-ucenika-i-studenata" target="_blank" rel="noopener">Službeni natječaj &rarr;</a></article><article class="k" data-podrucje="Poreč" data-zupanija="Istarska županija" data-rok=""><div class="zag"><h3>Grad Poreč — stipendije i subvencije</h3><span class="znak zat">Zatvoreno</span></div><div class="izvor">Poreč</div><a class="veza" href="https://www.porec.hr/prva.aspx?stranica=84" target="_blank" rel="noopener">Službeni natječaj &rarr;</a></article><article class="k" data-podrucje="Pula" data-zupanija="Istarska županija" data-rok=""><div class="zag"><h3>Grad Pula — novosti i natječaji</h3><span class="znak zat">Zatvoreno</span></div><div class="izvor">Pula</div><a class="veza" href="https://www.pula.hr/hr/novosti/" target="_blank" rel="noopener">Službeni natječaj &rarr;</a></article><article class="k" data-podrucje="Rovinj" data-zupanija="Istarska županija" data-rok=""><div class="zag"><h3>Grad Rovinj — stipendije</h3><span class="znak zat">Zatvoreno</span></div><div class="izvor">Rovinj</div><a class="veza" href="https://www.rovinj-rovigno.hr/odgoj-i-obrazovanje/stipendije/" target="_blank" rel="noopener">Službeni natječaj &rarr;</a></article><article class="k" data-podrucje="Istarska županija" data-zupanija="Istarska županija" data-rok=""><div class="zag"><h3>Istarska županija — novosti i natječaji</h3><span class="znak zat">Zatvoreno</span></div><div class="izvor">Istarska županija</div><a class="veza" href="https://www.istra-istria.hr/hr/natjecaji/" target="_blank" rel="noopener">Službeni natječaj &rarr;</a></article><article class="k" data-podrucje="Medulin" data-zupanija="Istarska županija" data-rok=""><div class="zag"><h3>Općina Medulin — odgoj i obrazovanje</h3><span class="znak zat">Zatvoreno</span></div><div class="izvor">Medulin</div><dl class="polja"><dt>Iznos</dt><dd class="">Učenička stipendija 100,00 EUR mjesečno; Studentska stipendija 150,00 EUR mjesečno (Istra) ili 200,00 EUR mjesečno (van Istre)</dd><dt>Tko se prijavljuje</dt><dd>Za učenike: državljani RH, prebivalište na području Općine Medulin, redovito upisani u srednju školu, primaju dječji doplatak. Za studente: državljani RH, prebivalište na području Općine Medulin najmanje 1 godinu bez prekida, svi članovi domaćinstva s istim boravištem, nisu korisnici drugih stipendija, ostvareni minimalni prosječni ocjene (4,00 za I. godinu ili 3,00 za više godine + 45 ECTS).</dd></dl><a class="veza" href="https://medulin.hr/odgoj-obrazovanje" target="_blank" rel="noopener">Službeni natječaj &rarr;</a></article>
+  <div class="sek-vrh" style="margin-top:2.2rem"><h2>Izvori koje pratimo</h2><span class="broj">7</span></div><article class="k" data-podrucje="Labin" data-zupanija="Istarska županija" data-rok=""><div class="zag"><h3>Grad Labin — stipendiranje učenika i studenata</h3><span class="znak zat">Zatvoreno</span></div><div class="izvor">Labin</div><dl class="polja"><dt>Iznos</dt><dd class="">125,00 do 150,00 EUR mjesečno (učenici), 200,00 do 250,00 EUR mjesečno (studenti)</dd><dt>Tko se prijavljuje</dt><dd>Učenici srednjih škola i studenti s prebivalištem na području Grada Labina najmanje 12 mjeseci, redovno školovanje/studiranje izvan mjesta prebivališta, bez druge stipendije (osim manje privatne), stariji do 26 godina.</dd></dl><a class="veza" href="https://labin.hr/za-gradane/odgoj-i-obrazovanje/stipendiranje-ucenika-i-studenata" target="_blank" rel="noopener">Službeni natječaj &rarr;</a></article><article class="k" data-podrucje="Poreč" data-zupanija="Istarska županija" data-rok=""><div class="zag"><h3>Grad Poreč — stipendije i subvencije</h3><span class="znak zat">Zatvoreno</span></div><div class="izvor">Poreč</div><a class="veza" href="https://www.porec.hr/prva.aspx?stranica=84" target="_blank" rel="noopener">Službeni natječaj &rarr;</a></article><article class="k" data-podrucje="Pula" data-zupanija="Istarska županija" data-rok=""><div class="zag"><h3>Grad Pula — novosti i natječaji</h3><span class="znak zat">Zatvoreno</span></div><div class="izvor">Pula</div><a class="veza" href="https://www.pula.hr/hr/novosti/" target="_blank" rel="noopener">Službeni natječaj &rarr;</a></article><article class="k" data-podrucje="Rovinj" data-zupanija="Istarska županija" data-rok=""><div class="zag"><h3>Grad Rovinj — stipendije</h3><span class="znak zat">Zatvoreno</span></div><div class="izvor">Rovinj</div><a class="veza" href="https://www.rovinj-rovigno.hr/odgoj-i-obrazovanje/stipendije/" target="_blank" rel="noopener">Službeni natječaj &rarr;</a></article><article class="k" data-podrucje="Vodnjan" data-zupanija="Istarska županija" data-rok=""><div class="zag"><h3>Grad Vodnjan — natječaji</h3><span class="znak zat">Zatvoreno</span></div><div class="izvor">Vodnjan</div><a class="veza" href="https://www.vodnjan-dignano.hr/hr/natjecaji/" target="_blank" rel="noopener">Službeni natječaj &rarr;</a></article><article class="k" data-podrucje="Istarska županija" data-zupanija="Istarska županija" data-rok=""><div class="zag"><h3>Istarska županija — novosti i natječaji</h3><span class="znak zat">Zatvoreno</span></div><div class="izvor">Istarska županija</div><a class="veza" href="https://www.istra-istria.hr/hr/natjecaji/" target="_blank" rel="noopener">Službeni natječaj &rarr;</a></article><article class="k" data-podrucje="Medulin" data-zupanija="Istarska županija" data-rok=""><div class="zag"><h3>Općina Medulin — odgoj i obrazovanje</h3><span class="znak zat">Zatvoreno</span></div><div class="izvor">Medulin</div><dl class="polja"><dt>Iznos</dt><dd class="">Učenička stipendija 100,00 EUR mjesečno; Studentska stipendija 150,00 EUR mjesečno (Istra) ili 200,00 EUR mjesečno (van Istre)</dd><dt>Tko se prijavljuje</dt><dd>Za učenike: državljani RH, prebivalište na području Općine Medulin, redovito upisani u srednju školu, primaju dječji doplatak. Za studente: državljani RH, prebivalište na području Općine Medulin najmanje 1 godinu bez prekida, svi članovi domaćinstva s istim boravištem, nisu korisnici drugih stipendija, ostvareni minimalni prosječni ocjene (4,00 za I. godinu ili 3,00 za više godine + 45 ECTS).</dd></dl><a class="veza" href="https://medulin.hr/odgoj-obrazovanje" target="_blank" rel="noopener">Službeni natječaj &rarr;</a></article>
   <div class="druge">
     <h2>Ostale županije</h2>
     <div class="popis-zup"><a href="bjelovarsko-bilogorska.html">Bjelovarsko-bilogorska</a><a href="brodsko-posavska.html">Brodsko-posavska</a><a href="dubrovacko-neretvanska.html">Dubrovačko-neretvanska</a><a href="karlovacka.html">Karlovačka</a><a href="koprivnicko-krizevacka.html">Koprivničko-križevačka</a><a href="krapinsko-zagorska.html">Krapinsko-zagorska</a><a href="licko-senjska.html">Ličko-senjska</a><a href="osjecko-baranjska.html">Osječko-baranjska</a><a href="pozesko-slavonska.html">Požeško-slavonska</a><a href="primorsko-goranska.html">Primorsko-goranska</a><a href="sisacko-moslavacka.html">Sisačko-moslavačka</a><a href="splitsko-dalmatinska.html">Splitsko-dalmatinska</a><a href="varazdinska.html">Varaždinska</a><a href="viroviticko-podravska.html">Virovitičko-podravska</a><a href="zadarska.html">Zadarska</a><a href="zagreb.html">Zagreb</a><a href="zagrebacka.html">Zagrebačka</a><a href="sibensko-kninska.html">Šibensko-kninska</a></div>
@@ -165,9 +186,51 @@ input:focus-visible{outline:2px solid var(--otvoreno);outline-offset:2px}
      Posebno nam je važno ako je netočan <strong>rok prijave</strong>.</p>
   <p>Ne procjenjujemo tvoje šanse za pojedinu stipendiju. Za to pitaj instituciju
      koja je natječaj objavila.</p>
-  <p class="sitno">Zadnja provjera 23.08.2026. &nbsp;·&nbsp; 62 izvora &nbsp;·&nbsp;
+  <p class="sitno">Zadnja provjera 23.08.2026. &nbsp;·&nbsp; 63 izvora &nbsp;·&nbsp;
      podaci prikupljeni automatski &nbsp;·&nbsp;
-     <a class="tiho" href="../impressum.html">Impressum i uvjeti</a></p>
+     <a class="tiho" href="../impressum.html">Impressum</a> &nbsp;·&nbsp;
+     <a class="tiho" href="../privatnost.html">Privatnost</a></p>
 </div></footer>
+<div class="kol" id="kol">
+  <div class="kol-w">
+    <p>Koristimo Google Analytics da vidimo koliko ljudi dolazi i što traže.
+       Bez tvog pristanka ne postavljamo nikakve kolačiće.
+       <a href="../privatnost.html">Više o tome</a>.</p>
+    <div class="kol-gumbi">
+      <button type="button" id="kol-ne">Odbij</button>
+      <button type="button" class="da" id="kol-da">Prihvaćam</button>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  var ID="G-2BPS973W81", K="kolacici-pristanak";
+  function ucitajGA(){
+    if(window.__ga_ucitan) return;
+    window.__ga_ucitan=true;
+    var s=document.createElement("script");
+    s.async=true;
+    s.src="https://www.googletagmanager.com/gtag/js?id="+ID;
+    document.head.appendChild(s);
+    window.dataLayer=window.dataLayer||[];
+    window.gtag=function(){dataLayer.push(arguments)};
+    gtag("js",new Date());
+    gtag("config",ID,{anonymize_ip:true});
+  }
+  var traka=document.getElementById("kol");
+  var izbor=null;
+  try{ izbor=localStorage.getItem(K); }catch(e){}
+  if(izbor==="da"){ ucitajGA(); }
+  else if(izbor!=="ne"){ traka.classList.add("vidljiva"); }
+  document.getElementById("kol-da").addEventListener("click",function(){
+    try{ localStorage.setItem(K,"da"); }catch(e){}
+    traka.classList.remove("vidljiva"); ucitajGA();
+  });
+  document.getElementById("kol-ne").addEventListener("click",function(){
+    try{ localStorage.setItem(K,"ne"); }catch(e){}
+    traka.classList.remove("vidljiva");
+  });
+})();
+</script>
 </body>
 </html>

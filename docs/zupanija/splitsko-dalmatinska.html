@@ -21,8 +21,29 @@
 <link rel="apple-touch-icon" href="../apple-touch-icon.png">
 <meta name="theme-color" content="#1E2230">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "CollectionPage", "name": "Stipendije u Splitsko-dalmatinskoj županiji 2026. — otvoreni natječaji", "description": "Svi natječaji za stipendije u Splitsko-dalmatinskoj županiji: iznosi, rokovi prijave i upute za prijavu. Izvore provjeravamo dvaput tjedno.", "inLanguage": "hr-HR", "url": "https://stipendije.hr/zupanija/splitsko-dalmatinska.html", "isPartOf": {"@type": "WebSite", "name": "stipendije.hr", "url": "https://stipendije.hr/"}, "mainEntity": {"@type": "ItemList", "numberOfItems": 6, "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Grad Hvar — natječaji", "url": "https://www.hvar.hr/portal/"}, {"@type": "ListItem", "position": 2, "name": "Grad Makarska — natječaji i javni pozivi", "url": "https://makarska.hr/natjecaji-i-javni-pozivi"}, {"@type": "ListItem", "position": 3, "name": "Grad Split — natječaji za stipendiranje", "url": "https://split.hr/natjecaji/natjecaji-za-stipendiranje-i-sufinanciranje-ucenika-i-studenata"}, {"@type": "ListItem", "position": 4, "name": "Grad Stari Grad — novosti i natječaji", "url": "https://stari-grad.hr/novosti/"}, {"@type": "ListItem", "position": 5, "name": "Općina Tučepi — natječaji", "url": "https://www.tucepi.hr/"}, {"@type": "ListItem", "position": 6, "name": "Splitsko-dalmatinska županija — natječaji", "url": "https://www.dalmacija.hr/natjecaji"}]}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "CollectionPage", "name": "Stipendije u Splitsko-dalmatinskoj županiji 2026. — otvoreni natječaji", "description": "Svi natječaji za stipendije u Splitsko-dalmatinskoj županiji: iznosi, rokovi prijave i upute za prijavu. Izvore provjeravamo dvaput tjedno.", "inLanguage": "hr-HR", "url": "https://stipendije.hr/zupanija/splitsko-dalmatinska.html", "isPartOf": {"@type": "WebSite", "name": "stipendije.hr", "url": "https://stipendije.hr/"}, "mainEntity": {"@type": "ItemList", "numberOfItems": 6, "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Grad Hvar — natječaji", "url": "https://www.hvar.hr/portal/"}, {"@type": "ListItem", "position": 2, "name": "Grad Makarska — natječaji i javni pozivi", "url": "https://makarska.hr/natjecaji-i-javni-pozivi"}, {"@type": "ListItem", "position": 3, "name": "Grad Split — natječaji za stipendiranje", "url": "https://split.hr/natjecaji/natjecaji-za-stipendiranje-i-sufinanciranje-ucenika-i-studenata"}, {"@type": "ListItem", "position": 4, "name": "Grad Stari Grad — novosti i natječaji", "url": "https://stari-grad.hr/stipendije"}, {"@type": "ListItem", "position": 5, "name": "Općina Tučepi — natječaji", "url": "https://www.tucepi.hr/"}, {"@type": "ListItem", "position": 6, "name": "Splitsko-dalmatinska županija — natječaji", "url": "https://www.dalmacija.hr/natjecaji"}]}}</script>
 <style>
+.kol{position:fixed;left:0;right:0;bottom:0;z-index:80;background:var(--tinta);
+  color:#EFF1EC;padding:1rem 1.15rem;display:none}
+.kol.vidljiva{display:block}
+.kol-w{max-width:780px;margin:0 auto;display:flex;gap:1rem;
+  align-items:center;justify-content:space-between;flex-wrap:wrap}
+.kol p{margin:0;font-size:.86rem;line-height:1.5;max-width:52ch;color:#D6D9D2}
+.kol a{color:#EFF1EC;text-decoration:underline}
+.kol-gumbi{display:flex;gap:.6rem;flex-shrink:0}
+.kol button{font-family:"IBM Plex Sans",sans-serif;font-size:.87rem;
+  padding:.55rem 1rem;border:1.5px solid #EFF1EC;background:none;
+  color:#EFF1EC;cursor:pointer}
+.kol button.da{background:#EFF1EC;color:var(--tinta);font-weight:600}
+.kol button:hover{border-color:#fff}
+@media(max-width:600px){
+  .kol{padding:.9rem}
+  .kol-w{gap:.8rem}
+  .kol p{font-size:.82rem}
+  .kol-gumbi{width:100%}
+  .kol button{flex:1}
+}
+
 :root{
   --papir:#EFF1EC;      /* hladan papir, ne krem */
   --karta:#FFFFFF;
@@ -154,7 +175,7 @@ input:focus-visible{outline:2px solid var(--otvoreno);outline-offset:2px}
     <div class="brojka"><b>0</b><span>otvoreno sada</span></div>
     <div class="brojka"><b>6</b><span>izvora koje pratimo</span></div>
   </div>
-  <div class="sek-vrh" style="margin-top:2.2rem"><h2>Izvori koje pratimo</h2><span class="broj">6</span></div><article class="k" data-podrucje="Hvar" data-zupanija="Splitsko-dalmatinska županija" data-rok=""><div class="zag"><h3>Grad Hvar — natječaji</h3><span class="znak zat">Zatvoreno</span></div><div class="izvor">Hvar</div><a class="veza" href="https://www.hvar.hr/portal/" target="_blank" rel="noopener">Službeni natječaj &rarr;</a></article><article class="k" data-podrucje="Makarska" data-zupanija="Splitsko-dalmatinska županija" data-rok=""><div class="zag"><h3>Grad Makarska — natječaji i javni pozivi</h3><span class="znak zat">Zatvoreno</span></div><div class="izvor">Makarska</div><a class="veza" href="https://makarska.hr/natjecaji-i-javni-pozivi" target="_blank" rel="noopener">Službeni natječaj &rarr;</a></article><article class="k" data-podrucje="Split" data-zupanija="Splitsko-dalmatinska županija" data-rok=""><div class="zag"><h3>Grad Split — natječaji za stipendiranje</h3><span class="znak zat">Zatvoreno</span></div><div class="izvor">Split</div><a class="veza" href="https://split.hr/natjecaji/natjecaji-za-stipendiranje-i-sufinanciranje-ucenika-i-studenata" target="_blank" rel="noopener">Službeni natječaj &rarr;</a></article><article class="k" data-podrucje="Stari Grad" data-zupanija="Splitsko-dalmatinska županija" data-rok=""><div class="zag"><h3>Grad Stari Grad — novosti i natječaji</h3><span class="znak zat">Zatvoreno</span></div><div class="izvor">Stari Grad</div><a class="veza" href="https://stari-grad.hr/novosti/" target="_blank" rel="noopener">Službeni natječaj &rarr;</a></article><article class="k" data-podrucje="Tučepi" data-zupanija="Splitsko-dalmatinska županija" data-rok=""><div class="zag"><h3>Općina Tučepi — natječaji</h3><span class="znak zat">Zatvoreno</span></div><div class="izvor">Tučepi</div><a class="veza" href="https://www.tucepi.hr/" target="_blank" rel="noopener">Službeni natječaj &rarr;</a></article><article class="k" data-podrucje="Splitsko-dalmatinska županija" data-zupanija="Splitsko-dalmatinska županija" data-rok=""><div class="zag"><h3>Splitsko-dalmatinska županija — natječaji</h3><span class="znak zat">Zatvoreno</span></div><div class="izvor">Splitsko-dalmatinska županija</div><a class="veza" href="https://www.dalmacija.hr/natjecaji" target="_blank" rel="noopener">Službeni natječaj &rarr;</a></article>
+  <div class="sek-vrh" style="margin-top:2.2rem"><h2>Izvori koje pratimo</h2><span class="broj">6</span></div><article class="k" data-podrucje="Hvar" data-zupanija="Splitsko-dalmatinska županija" data-rok=""><div class="zag"><h3>Grad Hvar — natječaji</h3><span class="znak zat">Zatvoreno</span></div><div class="izvor">Hvar</div><a class="veza" href="https://www.hvar.hr/portal/" target="_blank" rel="noopener">Službeni natječaj &rarr;</a></article><article class="k" data-podrucje="Makarska" data-zupanija="Splitsko-dalmatinska županija" data-rok=""><div class="zag"><h3>Grad Makarska — natječaji i javni pozivi</h3><span class="znak zat">Zatvoreno</span></div><div class="izvor">Makarska</div><a class="veza" href="https://makarska.hr/natjecaji-i-javni-pozivi" target="_blank" rel="noopener">Službeni natječaj &rarr;</a></article><article class="k" data-podrucje="Split" data-zupanija="Splitsko-dalmatinska županija" data-rok=""><div class="zag"><h3>Grad Split — natječaji za stipendiranje</h3><span class="znak zat">Zatvoreno</span></div><div class="izvor">Split</div><a class="veza" href="https://split.hr/natjecaji/natjecaji-za-stipendiranje-i-sufinanciranje-ucenika-i-studenata" target="_blank" rel="noopener">Službeni natječaj &rarr;</a></article><article class="k" data-podrucje="Stari Grad" data-zupanija="Splitsko-dalmatinska županija" data-rok=""><div class="zag"><h3>Grad Stari Grad — novosti i natječaji</h3><span class="znak zat">Zatvoreno</span></div><div class="izvor">Stari Grad</div><a class="veza" href="https://stari-grad.hr/stipendije" target="_blank" rel="noopener">Službeni natječaj &rarr;</a></article><article class="k" data-podrucje="Tučepi" data-zupanija="Splitsko-dalmatinska županija" data-rok=""><div class="zag"><h3>Općina Tučepi — natječaji</h3><span class="znak zat">Zatvoreno</span></div><div class="izvor">Tučepi</div><a class="veza" href="https://www.tucepi.hr/" target="_blank" rel="noopener">Službeni natječaj &rarr;</a></article><article class="k" data-podrucje="Splitsko-dalmatinska županija" data-zupanija="Splitsko-dalmatinska županija" data-rok=""><div class="zag"><h3>Splitsko-dalmatinska županija — natječaji</h3><span class="znak zat">Zatvoreno</span></div><div class="izvor">Splitsko-dalmatinska županija</div><a class="veza" href="https://www.dalmacija.hr/natjecaji" target="_blank" rel="noopener">Službeni natječaj &rarr;</a></article>
   <div class="druge">
     <h2>Ostale županije</h2>
     <div class="popis-zup"><a href="bjelovarsko-bilogorska.html">Bjelovarsko-bilogorska</a><a href="brodsko-posavska.html">Brodsko-posavska</a><a href="dubrovacko-neretvanska.html">Dubrovačko-neretvanska</a><a href="istarska.html">Istarska</a><a href="karlovacka.html">Karlovačka</a><a href="koprivnicko-krizevacka.html">Koprivničko-križevačka</a><a href="krapinsko-zagorska.html">Krapinsko-zagorska</a><a href="licko-senjska.html">Ličko-senjska</a><a href="osjecko-baranjska.html">Osječko-baranjska</a><a href="pozesko-slavonska.html">Požeško-slavonska</a><a href="primorsko-goranska.html">Primorsko-goranska</a><a href="sisacko-moslavacka.html">Sisačko-moslavačka</a><a href="varazdinska.html">Varaždinska</a><a href="viroviticko-podravska.html">Virovitičko-podravska</a><a href="zadarska.html">Zadarska</a><a href="zagreb.html">Zagreb</a><a href="zagrebacka.html">Zagrebačka</a><a href="sibensko-kninska.html">Šibensko-kninska</a></div>
@@ -165,9 +186,51 @@ input:focus-visible{outline:2px solid var(--otvoreno);outline-offset:2px}
      Posebno nam je važno ako je netočan <strong>rok prijave</strong>.</p>
   <p>Ne procjenjujemo tvoje šanse za pojedinu stipendiju. Za to pitaj instituciju
      koja je natječaj objavila.</p>
-  <p class="sitno">Zadnja provjera 23.08.2026. &nbsp;·&nbsp; 62 izvora &nbsp;·&nbsp;
+  <p class="sitno">Zadnja provjera 23.08.2026. &nbsp;·&nbsp; 63 izvora &nbsp;·&nbsp;
      podaci prikupljeni automatski &nbsp;·&nbsp;
-     <a class="tiho" href="../impressum.html">Impressum i uvjeti</a></p>
+     <a class="tiho" href="../impressum.html">Impressum</a> &nbsp;·&nbsp;
+     <a class="tiho" href="../privatnost.html">Privatnost</a></p>
 </div></footer>
+<div class="kol" id="kol">
+  <div class="kol-w">
+    <p>Koristimo Google Analytics da vidimo koliko ljudi dolazi i što traže.
+       Bez tvog pristanka ne postavljamo nikakve kolačiće.
+       <a href="../privatnost.html">Više o tome</a>.</p>
+    <div class="kol-gumbi">
+      <button type="button" id="kol-ne">Odbij</button>
+      <button type="button" class="da" id="kol-da">Prihvaćam</button>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  var ID="G-2BPS973W81", K="kolacici-pristanak";
+  function ucitajGA(){
+    if(window.__ga_ucitan) return;
+    window.__ga_ucitan=true;
+    var s=document.createElement("script");
+    s.async=true;
+    s.src="https://www.googletagmanager.com/gtag/js?id="+ID;
+    document.head.appendChild(s);
+    window.dataLayer=window.dataLayer||[];
+    window.gtag=function(){dataLayer.push(arguments)};
+    gtag("js",new Date());
+    gtag("config",ID,{anonymize_ip:true});
+  }
+  var traka=document.getElementById("kol");
+  var izbor=null;
+  try{ izbor=localStorage.getItem(K); }catch(e){}
+  if(izbor==="da"){ ucitajGA(); }
+  else if(izbor!=="ne"){ traka.classList.add("vidljiva"); }
+  document.getElementById("kol-da").addEventListener("click",function(){
+    try{ localStorage.setItem(K,"da"); }catch(e){}
+    traka.classList.remove("vidljiva"); ucitajGA();
+  });
+  document.getElementById("kol-ne").addEventListener("click",function(){
+    try{ localStorage.setItem(K,"ne"); }catch(e){}
+    traka.classList.remove("vidljiva");
+  });
+})();
+</script>
 </body>
 </html>
