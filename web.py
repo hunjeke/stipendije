@@ -452,14 +452,17 @@ def main():
     os.makedirs(MAPA, exist_ok=True)
     open(os.path.join(MAPA, "index.html"), "w", encoding="utf-8").write(html)
 
-    from stranice import vodic, impressum, stranica_zupanije, sitemap, slug
+    from stranice import (vodic, impressum, privatnost,
+                          stranica_zupanije, sitemap, slug)
     vodic(MAPA, ukupno, vrijeme)
     impressum(MAPA, ukupno, vrijeme)
+    privatnost(MAPA, ukupno, vrijeme)
 
     # --- zasebna stranica po zupaniji (za trazilice) ---
     sve_zup = sorted({z if z else p for _, p, z in otvorene + zatvorene
                       if p != SVI})
-    putevi = [("", "1.0"), ("vodic.html", "0.7"), ("impressum.html", "0.3")]
+    putevi = [("", "1.0"), ("vodic.html", "0.7"),
+              ("impressum.html", "0.3"), ("privatnost.html", "0.3")]
 
     for zup in sve_zup:
         otv_z = [(r, p, z) for r, p, z in otvorene
