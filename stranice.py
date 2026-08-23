@@ -268,3 +268,57 @@ def sitemap(mapa, putevi):
 
     open(os.path.join(mapa, "robots.txt"), "w", encoding="utf-8").write(
         f"User-agent: *\nAllow: /\n\nSitemap: {BAZA}/sitemap.xml\n")
+
+
+def privatnost(mapa, broj, vrijeme):
+    from zajednicko import GA_ID
+    ga_dio = ""
+    if GA_ID:
+        ga_dio = """
+<div class="q"><h3>Google Analytics</h3>
+<p>Ako pristaneš, koristimo Google Analytics kako bismo vidjeli koliko ljudi
+posjećuje stranicu, s kojih uređaja dolaze i koje stranice gledaju. To nam
+pomaže da znamo koje županije treba bolje pokriti.</p>
+<p>Google Analytics postavlja kolačiće na tvoj uređaj i podatke obrađuje Google.
+Postavili smo ga tako da se <strong>IP adresa skraćuje</strong>, pa se ne bilježi
+u punom obliku.</p>
+<p><strong>Ako odbiješ, ne postavlja se nijedan kolačić</strong> i mjerenje se
+ne pokreće. Stranica radi jednako u oba slučaja.</p></div>
+
+<div class="q"><h3>Kako promijeniti odluku</h3>
+<p>Tvoj odabir sprema se lokalno u pregledniku. Ako ga želiš promijeniti,
+obriši podatke stranice u postavkama preglednika — traka s pitanjem
+pojavit će se ponovno pri sljedećem posjetu.</p></div>
+"""
+
+    html = glava("Privatnost — stipendije.hr",
+                 "Koje podatke prikuplja stipendije.hr i kako se koriste.", CSS)
+    html += navigacija("")
+    html += f"""<main class="w"><section class="tekst">
+<h1>Privatnost</h1>
+<p class="lead">Kratko i bez pravničkog jezika: što se bilježi kad posjetiš
+ovu stranicu.</p>
+
+<div class="q"><h3>Ne tražimo nikakve podatke</h3>
+<p>Stranica nema registraciju, prijavu ni obrasce. Ne tražimo ime, e-poštu
+ni bilo što drugo. Ako nam pišeš na e-poštu, tvoju poruku vidimo samo mi
+i ne koristimo je ni za što drugo osim odgovora.</p></div>
+{ga_dio}
+<div class="q"><h3>Poslužitelj</h3>
+<p>Stranicu poslužuje GitHub Pages. Kao i svaki poslužitelj na internetu,
+GitHub bilježi tehničke podatke o zahtjevima. Na to nemamo utjecaja i te
+podatke ne vidimo.</p></div>
+
+<div class="q"><h3>Vanjske poveznice</h3>
+<p>Svaki natječaj vodi na stranicu institucije koja ga je objavila. Kad
+klikneš takvu poveznicu, vrijede pravila privatnosti te stranice, ne naša.</p></div>
+
+<div class="q"><h3>Fontovi</h3>
+<p>Stranica učitava pisma s Google Fontsa, pri čemu se tvoja IP adresa
+prosljeđuje Googleu. To je tehnički nužno za prikaz pisama.</p></div>
+
+<div class="q"><h3>Pitanja</h3>
+<p>Za sve o privatnosti javi se na adresu u podnožju stranice.</p></div>
+</section></main>"""
+    html += podnozje(broj, vrijeme)
+    open(os.path.join(mapa, "privatnost.html"), "w", encoding="utf-8").write(html)
