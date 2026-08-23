@@ -185,7 +185,12 @@ CSS_INDEX = """
 
 
 def kartica(r, otvorena, podrucje, zupanija):
-    naziv, url = esc(r.get("naziv")), esc(r.get("url"))
+    naziv = esc(r.get("naziv"))
+    # ako je scraper nasao izravnu poveznicu na natjecaj, koristi nju
+    izravna = r.get("poveznica_natjecaj")
+    url = esc(izravna or r.get("url"))
+    tekst_veze = ("Otvori natječaj" if izravna and otvorena
+                  else "Službena stranica")
     iznos, rok = esc(r.get("iznos")), esc(r.get("rok_tekst"))
     uvjeti = esc(r.get("uvjeti"))
     iso = iso_rok(r.get("status") or "")
@@ -221,7 +226,7 @@ def kartica(r, otvorena, podrucje, zupanija):
             f'<div class="izvor">{esc(podrucje)}</div>'
             f'{polja}{upute_html}'
             f'<a class="veza" href="{url}" target="_blank" rel="noopener">'
-            f'Službeni natječaj &rarr;</a></article>')
+            f'{tekst_veze} &rarr;</a></article>')
 
 
 # hrvatski abecedni red: ... S, Š, T, U, V, Z, Ž
