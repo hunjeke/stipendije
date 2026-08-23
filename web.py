@@ -12,7 +12,7 @@ import os
 import re
 from datetime import datetime
 
-from zajednicko import glava, navigacija, podnozje, oblik, EMAIL, DOMENA
+from zajednicko import glava, navigacija, podnozje, oblik, EMAIL, DOMENA, BAZA
 
 ULAZ = "output.json"
 IZVORI = "sources.json"
@@ -95,7 +95,8 @@ CSS_INDEX = """
 .k .zag{display:flex;justify-content:space-between;gap:.9rem;
   align-items:flex-start;flex-wrap:wrap}
 .znak{font-family:"IBM Plex Mono",monospace;font-size:.66rem;letter-spacing:.09em;
-  text-transform:uppercase;padding:.2rem .5rem;white-space:nowrap;flex-shrink:0}
+  text-transform:uppercase;padding:.2rem .5rem;white-space:nowrap;
+  flex-shrink:0;align-self:flex-start;max-width:100%}
 .znak.otv{background:#E2F0E7;color:var(--otvoreno)}
 .znak.zat{background:var(--papir);color:var(--tinta-2)}
 .znak.hitno{background:#F7E3DF;color:var(--hitno)}
@@ -119,6 +120,10 @@ CSS_INDEX = """
   color:var(--tinta-2);font-size:.9rem;margin:0}
 .nema-rez.vidljivo{display:block}
 .zatvoreni-omot{margin-top:.4rem}
+.popis-zup{display:flex;flex-wrap:wrap;gap:.45rem}
+.popis-zup a{font-size:.88rem;color:var(--tinta);text-decoration:none;
+  border:1px solid var(--linija);background:var(--karta);padding:.42rem .75rem}
+.popis-zup a:hover{border-color:var(--otvoreno);color:var(--otvoreno)}
 /* kad je odabrana zupanija, lokalne stipendije idu prve */
 .grupa{display:flex;flex-direction:column}
 .grupa .k{order:0}
@@ -160,7 +165,9 @@ CSS_INDEX = """
 
   /* kartice */
   .k{padding:.95rem .9rem}
-  .k .zag{gap:.5rem}
+  /* oznaka uvijek iznad naslova, da ne skace i ne izlazi van */
+  .k .zag{flex-direction:column-reverse;align-items:flex-start;gap:.45rem}
+  .k .zag h3{min-width:0;width:100%}
   h3{font-size:.97rem}
   .znak{font-size:.62rem;padding:.18rem .45rem}
   .polja{grid-template-columns:1fr;gap:.05rem}
@@ -185,7 +192,10 @@ def kartica(r, otvorena, podrucje, zupanija):
 
     polja = ""
     if iznos:
-        polja += f'<dt>Iznos</dt><dd class="iznos">{iznos}</dd>'
+        # monospace samo za kratke iznose ("200 EUR"); duge recenice
+        # se u mono citaju tesko, pa idu obicnim pismom
+        kl = "iznos" if len(iznos) <= 32 else ""
+        polja += f'<dt>Iznos</dt><dd class="{kl}">{iznos}</dd>'
     if rok and otvorena:
         polja += f'<dt>Rok prijave</dt><dd>{rok}</dd>'
     if uvjeti:
@@ -388,12 +398,35 @@ def main():
                    + '<p class="nema-rez">Za odabrano područje nemamo izvora. '
                      'Ako znaš neki, javi nam.</p></div></section>')
 
+    # veze na stranice po zupanijama (i za korisnike i za trazilice)
+    from stranice import slug as _slug
+    _zup = sorted({z if z else p for _, p, z in otvorene + zatvorene if p != SVI})
+    sek_zup = ('<section class="sek"><div class="sek-vrh">'
+               '<h2>Pregled po županijama</h2></div>'
+               '<p class="uvod">Svaka županija ima svoju stranicu s popisom '
+               'natječaja i rokovima.</p><div class="popis-zup">'
+               + "".join(f'<a href="zupanija/{_slug(z)}.html">'
+                         f'{z.replace(" županija","")}</a>' for z in _zup)
+               + '</div></section>')
+
     js = JS
+
+    ld = json.dumps({
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "stipendije.hr",
+        "alternateName": "Stipendije u Hrvatskoj",
+        "url": BAZA + "/",
+        "inLanguage": "hr-HR",
+        "description": ("Pregled otvorenih natječaja za stipendije u Hrvatskoj "
+                        "— iznosi, rokovi prijave i upute."),
+    }, ensure_ascii=False)
 
     html = glava(
         "stipendije.hr — stipendije u Hrvatskoj na jednom mjestu",
         "Otvoreni natječaji za stipendije u Hrvatskoj: iznosi, rokovi i upute za prijavu.",
-        CSS_INDEX)
+        CSS_INDEX,
+        '<script type="application/ld+json">' + ld + '</script>')
     html += navigacija("natjecaji")
     html += f"""<main>
 <section class="hero"><div class="w">
@@ -411,7 +444,7 @@ def main():
     automatski, pa su greške moguće. Vrijede rok i uvjeti sa službene stranice
     natječaja, na koju vodi poveznica uz svaki unos.</p>
 </div></section>
-<div class="w">{sek_otv}{sek_zat}</div>
+<div class="w">{sek_otv}{sek_zat}{sek_zup}</div>
 </main>
 <script>{js}</script>"""
     html += podnozje(ukupno, vrijeme)
@@ -419,9 +452,39 @@ def main():
     os.makedirs(MAPA, exist_ok=True)
     open(os.path.join(MAPA, "index.html"), "w", encoding="utf-8").write(html)
 
-    from stranice import vodic, impressum
+    from stranice import vodic, impressum, stranica_zupanije, sitemap, slug
     vodic(MAPA, ukupno, vrijeme)
     impressum(MAPA, ukupno, vrijeme)
+
+    # --- zasebna stranica po zupaniji (za trazilice) ---
+    sve_zup = sorted({z if z else p for _, p, z in otvorene + zatvorene
+                      if p != SVI})
+    putevi = [("", "1.0"), ("vodic.html", "0.7"), ("impressum.html", "0.3")]
+
+    for zup in sve_zup:
+        otv_z = [(r, p, z) for r, p, z in otvorene
+                 if z == zup or p == zup]
+        zat_z = [(r, p, z) for r, p, z in zatvorene
+                 if z == zup or p == zup]
+        dio = ""
+        if otv_z:
+            dio += ('<div class="sek-vrh"><h2>Otvoreno za prijave</h2>'
+                    f'<span class="broj">{len(otv_z)}</span></div>'
+                    + "".join(kartica(r, True, p, z) for r, p, z in otv_z))
+        if zat_z:
+            dio += ('<div class="sek-vrh" style="margin-top:2.2rem">'
+                    '<h2>Izvori koje pratimo</h2>'
+                    f'<span class="broj">{len(zat_z)}</span></div>'
+                    + "".join(kartica(r, False, p, z) for r, p, z in zat_z))
+        popis = [(r.get("naziv") or "", r.get("url") or "")
+                 for r, _, _ in otv_z + zat_z]
+        put = stranica_zupanije(MAPA, zup, dio, len(otv_z),
+                                len(otv_z) + len(zat_z), sve_zup,
+                                ukupno, vrijeme, popis)
+        putevi.append((put, "0.8"))
+
+    sitemap(MAPA, putevi)
+    print("  stranica po zupanijama: %d" % len(sve_zup))
 
     print("Napisano %s/index.html, vodic.html, impressum.html" % MAPA)
     print("  otvorenih: %d  zatvorenih: %d  sakriveno: %d"
