@@ -608,7 +608,7 @@
     }
   },
   "https://www.vpz.hr/": {
-    "hash": "441282efa1ec8067",
+    "hash": "8f35a91226e458b6",
     "result": {
       "naziv": "Virovitičko-podravska županija — natječaji",
       "url": "https://www.vpz.hr/",
@@ -618,8 +618,9 @@
       "uvjeti": null,
       "upute_za_prijavu": null,
       "napomena": null,
+      "poveznica_natjecaj": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-08-23T09:15",
+      "zadnje_provjereno": "2026-08-23T11:46",
       "_ima_otvoren": false
     }
   },
