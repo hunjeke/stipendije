@@ -1,7 +1,31 @@
 # -*- coding: utf-8 -*-
-"""Staticne podstranice: vodic i impressum."""
+"""Staticne podstranice: vodic, impressum, stranice po zupanijama, sitemap."""
 import os
-from zajednicko import glava, navigacija, podnozje, EMAIL, DOMENA
+import re
+import unicodedata
+from datetime import datetime
+from zajednicko import glava, navigacija, podnozje, oblik, EMAIL, DOMENA, BAZA
+
+
+def lokativ(ime):
+    """'Varaždinska županija' -> 'Varaždinskoj županiji'; 'Zagreb' -> 'Zagrebu'."""
+    if ime.endswith("županija"):
+        pridjev = ime[:-len("županija")].strip()
+        if pridjev.endswith("a"):
+            pridjev = pridjev[:-1] + "oj"
+        return f"{pridjev} županiji"
+    return ime + "u"
+
+
+def slug(t):
+    """Naziv zupanije -> dio adrese: 'Varazdinska zupanija' -> 'varazdinska'."""
+    t = t.replace("županija", "").strip()
+    zam = {"Ž":"Z","ž":"z","Š":"S","š":"s","Č":"C","č":"c",
+           "Ć":"C","ć":"c","Đ":"D","đ":"d"}
+    for a,b in zam.items():
+        t = t.replace(a,b)
+    t = unicodedata.normalize("NFKD", t).encode("ascii","ignore").decode()
+    return re.sub(r"[^a-z0-9]+","-",t.lower()).strip("-")
 
 CSS = """
 .tekst{padding:2.6rem 0 0}
@@ -135,3 +159,112 @@ prikazuje sažetke i poveznice na izvore.</p></div>
 </section></main>"""
     html += podnozje(broj, vrijeme)
     open(os.path.join(mapa, "impressum.html"), "w", encoding="utf-8").write(html)
+
+
+CSS_ZUP = """
+.zag-zup{padding:2.4rem 0 0}
+.natrag{display:inline-block;font-size:.85rem;color:var(--tinta-2);
+  text-decoration:none;margin-bottom:1rem}
+.natrag:hover{color:var(--otvoreno)}
+.zag-zup h1{font-size:clamp(1.6rem,4.6vw,2.2rem);margin-bottom:.5rem}
+.sazetak{font-size:1rem;color:var(--tinta-2);max-width:52ch;margin:0 0 1.6rem}
+.brojke{display:flex;gap:1.6rem;flex-wrap:wrap;padding:.9rem 0 0;
+  border-top:1px solid var(--linija);margin-bottom:2rem}
+.brojka b{display:block;font-family:"IBM Plex Mono",monospace;
+  font-size:1.5rem;line-height:1.1}
+.brojka span{font-size:.78rem;color:var(--tinta-2)}
+.druge{margin-top:3rem;padding-top:1.4rem;border-top:1px solid var(--linija)}
+.druge h2{font-size:1rem;margin-bottom:.7rem}
+.popis-zup{display:flex;flex-wrap:wrap;gap:.4rem}
+.popis-zup a{font-size:.85rem;color:var(--tinta);text-decoration:none;
+  border:1px solid var(--linija);background:var(--karta);padding:.35rem .7rem}
+.popis-zup a:hover{border-color:var(--otvoreno);color:var(--otvoreno)}
+@media(max-width:600px){.zag-zup{padding:1.8rem 0 0}.sazetak{font-size:.95rem}}
+"""
+
+
+def stranica_zupanije(mapa, ime, kartice_html, br_otv, br_uk,
+                      sve_zupanije, broj_izvora, vrijeme,
+                      popis_za_json=()):
+    """Zasebna stranica po zupaniji — da Google ima sto indeksirati."""
+    sl = slug(ime)
+    os.makedirs(os.path.join(mapa, "zupanija"), exist_ok=True)
+
+    lok = lokativ(ime)
+    god = datetime.now().year
+    naslov = f"Stipendije u {lok} {god}. — otvoreni natječaji | stipendije.hr"
+    opis = (f"Svi natječaji za stipendije u {lok}: iznosi, rokovi prijave "
+            f"i upute za prijavu. Izvore provjeravamo dvaput tjedno.")
+
+    if br_otv:
+        uvod = (f"Trenutno {oblik(br_otv,'je otvoren','su otvorena','je otvoreno')} "
+                f"{br_otv} {oblik(br_otv,'natječaj','natječaja','natječaja')} "
+                f"za stipendije u {lok}.")
+    else:
+        uvod = (f"Trenutno nema otvorenih natječaja u {lok}. "
+                f"Većina se objavljuje između rujna i prosinca — pratimo ih "
+                f"automatski i pojavit će se ovdje čim se otvore.")
+
+    druge = "".join(
+        f'<a href="{slug(z)}.html">{z.replace(" županija","")}</a>'
+        for z in sorted(sve_zupanije) if z != ime)
+
+    # strukturirani podaci: Googleu govore da je ovo popis natjecaja
+    import json as _json
+    stavke = []
+    for i, (n, u) in enumerate(popis_za_json, 1):
+        stavke.append({"@type": "ListItem", "position": i,
+                       "name": n, "url": u})
+    ld = {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        "name": naslov.split(" |")[0],
+        "description": opis,
+        "inLanguage": "hr-HR",
+        "url": f"{BAZA}/zupanija/{sl}.html",
+        "isPartOf": {"@type": "WebSite", "name": "stipendije.hr",
+                     "url": f"{BAZA}/"},
+        "mainEntity": {"@type": "ItemList", "numberOfItems": len(stavke),
+                       "itemListElement": stavke},
+    }
+    glava_extra = ('<script type="application/ld+json">'
+                   + _json.dumps(ld, ensure_ascii=False) + '</script>')
+
+    html = glava(naslov, opis, CSS_ZUP, glava_extra, put="../")
+    html += navigacija("natjecaji", put="../")
+    html += f"""<main class="w"><section class="zag-zup">
+  <a class="natrag" href="../">&larr; Sve stipendije u Hrvatskoj</a>
+  <h1>Stipendije u {lok}</h1>
+  <p class="sazetak">{uvod}</p>
+  <div class="brojke">
+    <div class="brojka"><b>{br_otv}</b><span>otvoreno sada</span></div>
+    <div class="brojka"><b>{br_uk}</b><span>{oblik(br_uk,'izvor','izvora','izvora')} koje pratimo</span></div>
+  </div>
+  {kartice_html}
+  <div class="druge">
+    <h2>Ostale županije</h2>
+    <div class="popis-zup">{druge}</div>
+  </div>
+</section></main>"""
+    html += podnozje(broj_izvora, vrijeme, put="../")
+    open(os.path.join(mapa, "zupanija", f"{sl}.html"), "w",
+         encoding="utf-8").write(html)
+    return f"zupanija/{sl}.html"
+
+
+def sitemap(mapa, putevi):
+    """sitemap.xml + robots.txt"""
+    danas = datetime.now().strftime("%Y-%m-%d")
+    unosi = ""
+    for p, prio in putevi:
+        adresa = f"{BAZA}/{p}" if p else f"{BAZA}/"
+        unosi += (f"  <url><loc>{adresa}</loc><lastmod>{danas}</lastmod>"
+                  f"<changefreq>weekly</changefreq>"
+                  f"<priority>{prio}</priority></url>\n")
+    xml = ('<?xml version="1.0" encoding="UTF-8"?>\n'
+           '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+           f"{unosi}</urlset>\n")
+    open(os.path.join(mapa, "sitemap.xml"), "w", encoding="utf-8").write(xml)
+
+    open(os.path.join(mapa, "robots.txt"), "w", encoding="utf-8").write(
+        f"User-agent: *\nAllow: /\n\nSitemap: {BAZA}/sitemap.xml\n")
