@@ -47,6 +47,19 @@ jobs:
             output.html
             output.json
 
+      - name: Provjeri sute li izvori
+        id: tisina
+        run: python provjeri_tisinu.py
+
+      - name: Obavijest o tihim izvorima
+        if: steps.tisina.outputs.broj_tihih != ''
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh issue create \
+            --title "Izvori koji šute: ${{ steps.tisina.outputs.broj_tihih }} ($(date +'%d.%m.%Y'))" \
+            --body-file tisina.md
+
       - name: Provjeri ima li otvorenih stipendija
         id: provjera
         run: |
