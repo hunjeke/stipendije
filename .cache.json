@@ -608,7 +608,7 @@
     }
   },
   "https://www.vpz.hr/": {
-    "hash": "0150cfa8bac3abaa",
+    "hash": "441282efa1ec8067",
     "result": {
       "naziv": "Virovitičko-podravska županija — natječaji",
       "url": "https://www.vpz.hr/",
@@ -619,7 +619,7 @@
       "upute_za_prijavu": null,
       "napomena": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-08-20T07:34",
+      "zadnje_provjereno": "2026-08-23T09:15",
       "_ima_otvoren": false
     }
   },
@@ -896,7 +896,7 @@
     }
   },
   "https://www.slavonski-brod.hr/": {
-    "hash": "0c6fdf73da9c994b",
+    "hash": "a0df63536326c913",
     "result": {
       "naziv": "Grad Slavonski Brod — natječaji",
       "url": "https://www.slavonski-brod.hr/",
@@ -907,7 +907,7 @@
       "upute_za_prijavu": null,
       "napomena": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-08-22T18:27",
+      "zadnje_provjereno": "2026-08-23T09:16",
       "_ima_otvoren": false
     }
   },
@@ -960,7 +960,7 @@
     }
   },
   "https://www.hvar.hr/portal/": {
-    "hash": "fee591e03573bfb7",
+    "hash": "de5bdb9b668160c9",
     "result": {
       "naziv": "Grad Hvar — natječaji",
       "url": "https://www.hvar.hr/portal/",
@@ -971,7 +971,7 @@
       "upute_za_prijavu": null,
       "napomena": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-08-20T07:36",
+      "zadnje_provjereno": "2026-08-23T09:17",
       "_ima_otvoren": false
     }
   },
