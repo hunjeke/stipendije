@@ -119,7 +119,7 @@ def oblik(n, jd, gjd, gmn):
     return gmn
 
 
-def glava(naslov, opis, dodatni_css="", dodatni_head=""):
+def glava(naslov, opis, dodatni_css="", dodatni_head="", put=""):
     return f"""<!DOCTYPE html>
 <html lang="hr">
 <head>
@@ -137,10 +137,10 @@ def glava(naslov, opis, dodatni_css="", dodatni_head=""):
 <meta property="og:site_name" content="stipendije.hr">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="{BAZA}/pregled.png">
-<link rel="icon" href="favicon.ico" sizes="any">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" href="{put}favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="{put}favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="{put}favicon-16.png">
+<link rel="apple-touch-icon" href="{put}apple-touch-icon.png">
 <meta name="theme-color" content="#1E2230">
 {FONTS}
 {dodatni_head}
@@ -149,11 +149,11 @@ def glava(naslov, opis, dodatni_css="", dodatni_head=""):
 <body>"""
 
 
-def navigacija(tu):
+def navigacija(tu, put=""):
     def k(s):
         return ' class="tu"' if s == tu else ""
     return f"""<header class="vrh"><div class="w">
-  <a class="logo" href="./" aria-label="stipendije.hr, početna">
+  <a class="logo" href="{put}./" aria-label="stipendije.hr, početna">
     <svg class="znak" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
       <path d="M0 0 H62 L100 38 V100 H0 Z" fill="#1E2230"/>
       <path d="M62 0 L100 38 H62 Z" fill="#1B6B41"/>
@@ -164,13 +164,13 @@ def navigacija(tu):
     <span class="ime">stipendije<span>.hr</span></span>
   </a>
   <nav class="nav">
-    <a href="./"{k('natjecaji')}>Natječaji</a>
-    <a href="vodic.html"{k('vodic')}>Vodič</a>
+    <a href="{put}./"{k('natjecaji')}>Natječaji</a>
+    <a href="{put}vodic.html"{k('vodic')}>Vodič</a>
   </nav>
 </div></header>"""
 
 
-def podnozje(broj_izvora, vrijeme):
+def podnozje(broj_izvora, vrijeme, put=""):
     imenica = oblik(broj_izvora, "izvor", "izvora", "izvora") + " "
     return f"""<footer><div class="w">
   <p><strong>Kontakt:</strong> <a href="mailto:{EMAIL}">{EMAIL}</a></p>
@@ -180,7 +180,7 @@ def podnozje(broj_izvora, vrijeme):
      koja je natječaj objavila.</p>
   <p class="sitno">Zadnja provjera {vrijeme} &nbsp;·&nbsp; {broj_izvora} {imenica}&nbsp;·&nbsp;
      podaci prikupljeni automatski &nbsp;·&nbsp;
-     <a class="tiho" href="impressum.html">Impressum i uvjeti</a></p>
+     <a class="tiho" href="{put}impressum.html">Impressum i uvjeti</a></p>
 </div></footer>
 </body>
 </html>"""
