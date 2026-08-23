@@ -78,7 +78,7 @@ EXTRACTION_PROMPT = """Analiziraj tekst stranice o stipendijama i vrati TOCNO ov
   "uvjeti": "tko se moze prijaviti, 1-2 recenice, ili null",
   "upute_za_prijavu": "3-6 kratkih koraka odvojenih s ' | ', ili null",
   "ima_otvoren_natjecaj": true/false — je li ocito da JE objavljen konkretan natjecaj (ne samo opca stranica o programu),
-  "napomena": "bilo sto neuobicajeno sto covjek treba znati, ili null"
+  "napomena": "bilo sto neuobicajeno sto covjek treba znati, ili null",   "poveznica_natjecaj": "ako na stranici postoji poveznica koja vodi IZRAVNO na tekst natjecaja (a ne na popis), upisi ju ovdje; inace null"
 }}
 
 VAZNO: za "rok_tekst" prepisi datum doslovno iz teksta. Ne racunaj i ne zakljucuj je li rok prosao — to radi program zasebno.
@@ -203,6 +203,19 @@ def parse_hr_date(text):
         except ValueError: pass
     return None
 
+def _izravni(kandidat, baza):
+    """Prihvati poveznicu samo ako je na istoj domeni i razlicita od popisa."""
+    from urllib.parse import urljoin, urlparse
+    if not kandidat:
+        return None
+    pun = urljoin(baza, str(kandidat).strip())
+    if not pun.startswith(("http://", "https://")):
+        return None
+    if urlparse(pun).netloc != urlparse(baza).netloc:
+        return None
+    if pun.rstrip("/") == baza.rstrip("/"):
+        return None
+    return pun
 
 def compute_status(rok_tekst, ima_otvoren_natjecaj):
     """Status se racuna PROGRAMSKI, ne prepusta se modelu."""
@@ -428,7 +441,7 @@ def main():
             "rok_tekst": extracted.get("rok_tekst"),
             "uvjeti": extracted.get("uvjeti"),
             "upute_za_prijavu": extracted.get("upute_za_prijavu"),
-            "napomena": extracted.get("napomena"),
+            "napomena": extracted.get("napomena"),             "poveznica_natjecaj": _izravni(extracted.get("poveznica_natjecaj"), url),
             "status": status,
             "zadnje_provjereno": now,
             "_ima_otvoren": ima_otvoren,
