@@ -10,7 +10,7 @@ BAZA = "https://stipendije.hr"
 
 # Google Analytics — upisi svoj ID (izgleda kao "G-XXXXXXXXXX").
 # Dok je prazno, mjerenje i traka za kolacice se NE prikazuju.
-GA_ID = ""
+GA_ID = "G-2BPS973W81"
 
 FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com">'
          '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>'
