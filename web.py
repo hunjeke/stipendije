@@ -33,13 +33,15 @@ def iso_rok(status):
 
 
 def ucitaj_izvore():
-    p, z = {}, {}
+    """URL -> (podrucje, zupanija, ocekivani mjesec objave)."""
+    p, z, o = {}, {}, {}
     if os.path.exists(IZVORI):
         for s in json.load(open(IZVORI, encoding="utf-8")):
             k = s["url"].rstrip("/")
             p[k] = s.get("podrucje") or SVI
             z[k] = s.get("zupanija") or ""
-    return p, z
+            o[k] = s.get("ocekivano") or ""
+    return p, z, o
 
 
 CSS_INDEX = """
@@ -322,7 +324,7 @@ def main():
         return
 
     d = json.load(open(ULAZ, encoding="utf-8"))
-    pod_map, zup_map = ucitaj_izvore()
+    pod_map, zup_map, _ = ucitaj_izvore()
 
     otvorene, zatvorene = [], []
     for r in d:
