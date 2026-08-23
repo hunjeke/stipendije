@@ -8,6 +8,10 @@ DOMENA = "stipendije.hr"
 # Kad domena proradi, promijeni u "https://stipendije.hr"
 BAZA = "https://stipendije.hr"
 
+# Google Analytics — upisi svoj ID (izgleda kao "G-XXXXXXXXXX").
+# Dok je prazno, mjerenje i traka za kolacice se NE prikazuju.
+GA_ID = ""
+
 FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com">'
          '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>'
          '<link href="https://fonts.googleapis.com/css2?'
@@ -15,7 +19,30 @@ FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com">'
          'family=IBM+Plex+Sans:wght@400;500;600&'
          'family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">')
 
-CSS = """
+KOLACICI_CSS = """
+.kol{position:fixed;left:0;right:0;bottom:0;z-index:80;background:var(--tinta);
+  color:#EFF1EC;padding:1rem 1.15rem;display:none}
+.kol.vidljiva{display:block}
+.kol-w{max-width:780px;margin:0 auto;display:flex;gap:1rem;
+  align-items:center;justify-content:space-between;flex-wrap:wrap}
+.kol p{margin:0;font-size:.86rem;line-height:1.5;max-width:52ch;color:#D6D9D2}
+.kol a{color:#EFF1EC;text-decoration:underline}
+.kol-gumbi{display:flex;gap:.6rem;flex-shrink:0}
+.kol button{font-family:"IBM Plex Sans",sans-serif;font-size:.87rem;
+  padding:.55rem 1rem;border:1.5px solid #EFF1EC;background:none;
+  color:#EFF1EC;cursor:pointer}
+.kol button.da{background:#EFF1EC;color:var(--tinta);font-weight:600}
+.kol button:hover{border-color:#fff}
+@media(max-width:600px){
+  .kol{padding:.9rem}
+  .kol-w{gap:.8rem}
+  .kol p{font-size:.82rem}
+  .kol-gumbi{width:100%}
+  .kol button{flex:1}
+}
+"""
+
+CSS = KOLACICI_CSS + """
 :root{
   --papir:#EFF1EC;      /* hladan papir, ne krem */
   --karta:#FFFFFF;
@@ -170,6 +197,53 @@ def navigacija(tu, put=""):
 </div></header>"""
 
 
+def kolacici(put=""):
+    """Traka za pristanak. GA se ucitava TEK nakon 'Prihvacam'."""
+    if not GA_ID:
+        return ""
+    return f"""<div class="kol" id="kol">
+  <div class="kol-w">
+    <p>Koristimo Google Analytics da vidimo koliko ljudi dolazi i što traže.
+       Bez tvog pristanka ne postavljamo nikakve kolačiće.
+       <a href="{put}privatnost.html">Više o tome</a>.</p>
+    <div class="kol-gumbi">
+      <button type="button" id="kol-ne">Odbij</button>
+      <button type="button" class="da" id="kol-da">Prihvaćam</button>
+    </div>
+  </div>
+</div>
+<script>
+(function(){{
+  var ID="{GA_ID}", K="kolacici-pristanak";
+  function ucitajGA(){{
+    if(window.__ga_ucitan) return;
+    window.__ga_ucitan=true;
+    var s=document.createElement("script");
+    s.async=true;
+    s.src="https://www.googletagmanager.com/gtag/js?id="+ID;
+    document.head.appendChild(s);
+    window.dataLayer=window.dataLayer||[];
+    window.gtag=function(){{dataLayer.push(arguments)}};
+    gtag("js",new Date());
+    gtag("config",ID,{{anonymize_ip:true}});
+  }}
+  var traka=document.getElementById("kol");
+  var izbor=null;
+  try{{ izbor=localStorage.getItem(K); }}catch(e){{}}
+  if(izbor==="da"){{ ucitajGA(); }}
+  else if(izbor!=="ne"){{ traka.classList.add("vidljiva"); }}
+  document.getElementById("kol-da").addEventListener("click",function(){{
+    try{{ localStorage.setItem(K,"da"); }}catch(e){{}}
+    traka.classList.remove("vidljiva"); ucitajGA();
+  }});
+  document.getElementById("kol-ne").addEventListener("click",function(){{
+    try{{ localStorage.setItem(K,"ne"); }}catch(e){{}}
+    traka.classList.remove("vidljiva");
+  }});
+}})();
+</script>"""
+
+
 def podnozje(broj_izvora, vrijeme, put=""):
     imenica = oblik(broj_izvora, "izvor", "izvora", "izvora") + " "
     return f"""<footer><div class="w">
@@ -180,7 +254,9 @@ def podnozje(broj_izvora, vrijeme, put=""):
      koja je natječaj objavila.</p>
   <p class="sitno">Zadnja provjera {vrijeme} &nbsp;·&nbsp; {broj_izvora} {imenica}&nbsp;·&nbsp;
      podaci prikupljeni automatski &nbsp;·&nbsp;
-     <a class="tiho" href="{put}impressum.html">Impressum i uvjeti</a></p>
+     <a class="tiho" href="{put}impressum.html">Impressum</a> &nbsp;·&nbsp;
+     <a class="tiho" href="{put}privatnost.html">Privatnost</a></p>
 </div></footer>
+{kolacici(put)}
 </body>
 </html>"""
