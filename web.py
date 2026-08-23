@@ -92,8 +92,8 @@ CSS_INDEX = """
   padding:1.05rem 1.15rem;margin-bottom:.75rem}
 .k.otv{border-left:3px solid var(--otvoreno)}
 .k.skriveno{display:none}
-.k .zag{display:flex;justify-content:space-between;gap:.9rem;
-  align-items:flex-start;flex-wrap:wrap}
+.k .zag{display:flex;justify-content:flex-start;gap:.7rem;
+  align-items:baseline;flex-wrap:wrap}
 .znak{font-family:"IBM Plex Mono",monospace;font-size:.66rem;letter-spacing:.09em;
   text-transform:uppercase;padding:.2rem .5rem;white-space:nowrap;
   flex-shrink:0;align-self:flex-start;max-width:100%}
