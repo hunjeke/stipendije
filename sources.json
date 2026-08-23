@@ -442,7 +442,7 @@
   },
   {
     "naziv": "Grad Stari Grad — novosti i natječaji",
-    "url": "https://stari-grad.hr/novosti/",
+    "url": "https://stari-grad.hr/stipendije",
     "kategorija": "Grad",
     "podrucje": "Stari Grad",
     "zupanija": "Splitsko-dalmatinska županija"
@@ -467,5 +467,12 @@
     "kategorija": "Grad",
     "podrucje": "Gospić",
     "zupanija": "Ličko-senjska županija"
+    },
+  {
+    "naziv": "Grad Vodnjan — natječaji",
+    "url": "https://www.vodnjan-dignano.hr/hr/natjecaji/",
+    "kategorija": "Grad",
+    "podrucje": "Vodnjan",
+    "zupanija": "Istarska županija"
   }
 ]
