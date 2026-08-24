@@ -304,9 +304,9 @@
     }
   },
   "https://www.istra-istria.hr/hr/natjecaji/": {
-    "hash": "7b95b9d5eb9ce404",
+    "hash": "7ed0281d0fc6d3d1",
     "result": {
-      "naziv": "Istarska županija — novosti i natječaji",
+      "naziv": "Istarska županija — natječaji",
       "url": "https://www.istra-istria.hr/hr/natjecaji/",
       "kategorija": "Županija",
       "iznos": null,
@@ -314,8 +314,9 @@
       "uvjeti": null,
       "upute_za_prijavu": null,
       "napomena": null,
+      "poveznica_natjecaj": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-08-16T09:50",
+      "zadnje_provjereno": "2026-08-24T08:55",
       "_ima_otvoren": false
     }
   },
@@ -608,7 +609,7 @@
     }
   },
   "https://www.vpz.hr/": {
-    "hash": "8f35a91226e458b6",
+    "hash": "e6c54de934b9daf3",
     "result": {
       "naziv": "Virovitičko-podravska županija — natječaji",
       "url": "https://www.vpz.hr/",
@@ -620,7 +621,7 @@
       "napomena": null,
       "poveznica_natjecaj": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-08-23T11:46",
+      "zadnje_provjereno": "2026-08-24T08:56",
       "_ima_otvoren": false
     }
   },
@@ -897,7 +898,7 @@
     }
   },
   "https://www.slavonski-brod.hr/": {
-    "hash": "46964b5f966d3979",
+    "hash": "ea415c1d299bd4b5",
     "result": {
       "naziv": "Grad Slavonski Brod — natječaji",
       "url": "https://www.slavonski-brod.hr/",
@@ -909,7 +910,7 @@
       "napomena": null,
       "poveznica_natjecaj": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-08-24T07:56",
+      "zadnje_provjereno": "2026-08-24T09:00",
       "_ima_otvoren": false
     }
   },
