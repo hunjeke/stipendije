@@ -740,5 +740,19 @@
     "kategorija": "Tvrtka",
     "podrucje": "Cijela Hrvatska",
     "zupanija": ""
+    },
+  {
+    "naziv": "Ministarstvo obrane — stipendije uz osiguran posao u Oružanim snagama",
+    "url": "https://www.morh.hr/",
+    "kategorija": "Ministarstvo",
+    "podrucje": "Cijela Hrvatska",
+    "zupanija": ""
+  },
+  {
+    "naziv": "Središnji državni ured za Hrvate izvan RH — stipendije",
+    "url": "https://hrvatiizvanrh.gov.hr/",
+    "kategorija": "Ministarstvo",
+    "podrucje": "Cijela Hrvatska",
+    "zupanija": ""
   }
 ]
