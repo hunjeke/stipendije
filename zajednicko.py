@@ -12,12 +12,22 @@ BAZA = "https://stipendije.hr"
 # Dok je prazno, mjerenje i traka za kolacice se NE prikazuju.
 GA_ID = "G-2BPS973W81"
 
-FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com">'
-         '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>'
-         '<link href="https://fonts.googleapis.com/css2?'
-         'family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&'
-         'family=IBM+Plex+Sans:wght@400;500;600&'
-         'family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">')
+FONTS = ""   # pisma se ucitavaju iz vlastite mape /f/, bez vanjskih zahtjeva
+
+PISMA_CSS = """
+@font-face{font-family:"Bricolage";src:url("{put}f/bricolage-700.woff2") format("woff2");
+  font-weight:700;font-style:normal;font-display:swap}
+@font-face{font-family:"Bricolage";src:url("{put}f/bricolage-800.woff2") format("woff2");
+  font-weight:800;font-style:normal;font-display:swap}
+@font-face{font-family:"Plex";src:url("{put}f/plex-400.woff2") format("woff2");
+  font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"Plex";src:url("{put}f/plex-500.woff2") format("woff2");
+  font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:"Plex";src:url("{put}f/plex-600.woff2") format("woff2");
+  font-weight:600;font-style:normal;font-display:swap}
+@font-face{font-family:"PlexMono";src:url("{put}f/plexmono-500.woff2") format("woff2");
+  font-weight:400 500;font-style:normal;font-display:swap}
+"""
 
 KOLACICI_CSS = """
 .kol{position:fixed;left:0;right:0;bottom:0;z-index:80;background:var(--tinta);
@@ -28,7 +38,7 @@ KOLACICI_CSS = """
 .kol p{margin:0;font-size:.86rem;line-height:1.5;max-width:52ch;color:#D6D9D2}
 .kol a{color:#EFF1EC;text-decoration:underline}
 .kol-gumbi{display:flex;gap:.6rem;flex-shrink:0}
-.kol button{font-family:"IBM Plex Sans",sans-serif;font-size:.87rem;
+.kol button{font-family:"Plex",sans-serif;font-size:.87rem;
   padding:.55rem 1rem;border:1.5px solid #EFF1EC;background:none;
   color:#EFF1EC;cursor:pointer}
 .kol button.da{background:#EFF1EC;color:var(--tinta);font-weight:600}
@@ -55,7 +65,7 @@ CSS = KOLACICI_CSS + """
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--papir);color:var(--tinta);
-  font-family:"IBM Plex Sans",system-ui,sans-serif;font-size:16px;line-height:1.6;
+  font-family:"Plex",system-ui,sans-serif;font-size:16px;line-height:1.6;
   -webkit-font-smoothing:antialiased}
 .w{max-width:780px;margin:0 auto;padding:0 1.15rem}
 
@@ -67,7 +77,7 @@ body{margin:0;background:var(--papir);color:var(--tinta);
 .logo{display:flex;align-items:center;gap:.6rem;text-decoration:none;
   color:var(--tinta)}
 .znak{width:34px;height:34px;flex-shrink:0;display:block}
-.ime{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;
+.ime{font-family:"Bricolage",sans-serif;font-weight:800;
   font-size:1.14rem;letter-spacing:-.02em}
 .ime span{color:var(--otvoreno)}
 .nav{display:flex;gap:.2rem}
@@ -94,21 +104,21 @@ body{margin:0;background:var(--papir);color:var(--tinta);
 }
 
 /* --- tipografija --- */
-h1{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;
+h1{font-family:"Bricolage",sans-serif;font-weight:800;
   font-size:clamp(1.9rem,5.5vw,2.7rem);line-height:1.08;letter-spacing:-.028em;
   margin:0 0 .5rem}
-h2{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;
+h2{font-family:"Bricolage",sans-serif;font-weight:700;
   font-size:1.18rem;letter-spacing:-.015em;margin:0}
-h3{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;
+h3{font-family:"Bricolage",sans-serif;font-weight:700;
   font-size:1.04rem;letter-spacing:-.012em;margin:0 0 .15rem;line-height:1.28}
-.meta{font-family:"IBM Plex Mono",monospace;font-size:.7rem;
+.meta{font-family:"PlexMono",monospace;font-size:.7rem;
   letter-spacing:.09em;text-transform:uppercase;color:var(--tinta-2)}
 
 /* --- sekcije --- */
 .sek{padding:2.6rem 0 0}
 .sek-vrh{display:flex;align-items:baseline;gap:.7rem;
   padding-bottom:.7rem;border-bottom:1.5px solid var(--tinta);margin-bottom:1.1rem}
-.sek-vrh .broj{font-family:"IBM Plex Mono",monospace;font-size:.78rem;
+.sek-vrh .broj{font-family:"PlexMono",monospace;font-size:.78rem;
   color:var(--tinta-2);margin-left:auto}
 .uvod{color:var(--tinta-2);font-size:.92rem;margin:-.5rem 0 1.2rem}
 
@@ -117,7 +127,7 @@ footer{margin-top:3.5rem;border-top:1px solid var(--linija);
   padding:1.8rem 0 3rem;font-size:.87rem;color:var(--tinta-2)}
 footer p{margin:.55rem 0}
 footer a{color:var(--otvoreno)}
-footer .sitno{font-family:"IBM Plex Mono",monospace;font-size:.7rem;
+footer .sitno{font-family:"PlexMono",monospace;font-size:.7rem;
   letter-spacing:.05em;margin-top:1.4rem;color:#8A909E}
 
 /* --- upozorenje --- */
@@ -165,13 +175,15 @@ def glava(naslov, opis, dodatni_css="", dodatni_head="", put=""):
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="{BAZA}/pregled.png">
 <link rel="icon" href="{put}favicon.ico" sizes="any">
-<link rel="icon" type="image/png" sizes="32x32" href="{put}favicon-32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="{put}favicon-16.png">
+<link rel="icon" type="image/png" sizes="48x48" href="{put}favicon-48.png">
+<link rel="icon" type="image/png" sizes="96x96" href="{put}favicon-96.png">
+<link rel="icon" type="image/png" sizes="192x192" href="{put}favicon-192.png">
 <link rel="apple-touch-icon" href="{put}apple-touch-icon.png">
 <meta name="theme-color" content="#1E2230">
-{FONTS}
+<link rel="preload" href="{put}f/plex-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{put}f/bricolage-800.woff2" as="font" type="font/woff2" crossorigin>
 {dodatni_head}
-<style>{CSS}{dodatni_css}</style>
+<style>{PISMA_CSS.replace("{put}", put)}{CSS}{dodatni_css}</style>
 </head>
 <body>"""
 
@@ -185,7 +197,7 @@ def navigacija(tu, put=""):
       <path d="M0 0 H62 L100 38 V100 H0 Z" fill="#1E2230"/>
       <path d="M62 0 L100 38 H62 Z" fill="#1B6B41"/>
       <text x="43" y="50" text-anchor="middle" dominant-baseline="central"
-            font-family="'IBM Plex Sans',sans-serif" font-weight="700"
+            font-family="'Plex',sans-serif" font-weight="700"
             font-size="58" fill="#EFF1EC">S</text>
     </svg>
     <span class="ime">stipendije<span>.hr</span></span>
