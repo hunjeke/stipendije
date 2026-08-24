@@ -19,6 +19,12 @@ IZVORI = "sources.json"
 MAPA = "docs"
 SVI = "Cijela Hrvatska"
 
+# Kad je odabrana zupanija, sto s drzavnim izvorima u popisu pracenih?
+#   True  = skupe se iza gumba (kraca stranica, manje suma)
+#   False = svi ostaju vidljivi (duza stranica, vise sadrzaja odjednom)
+# Otvoreni natjecaji su UVIJEK vidljivi, neovisno o ovoj postavci.
+SKLOPI_DRZAVNE = True
+
 # boja po vrsti izvora — i informacija i vizualni ritam
 BOJE = {
     "Grad": "grad", "Općina": "grad", "Županija": "zup",
@@ -171,6 +177,14 @@ CSS_INDEX = """
   text-transform:uppercase;color:var(--tinta-2);
   border-top:1px solid var(--linija);padding-top:.85rem}
 .medja.vidljiva{display:block}
+/* sklapanje drzavnih izvora kad je odabrana zupanija */
+.k.drzavna.sklopljena{display:none}
+.prekidac{order:1;display:none;background:var(--karta);
+  border:1px dashed var(--linija);width:100%;padding:.75rem 1rem;
+  font-family:"Plex",sans-serif;font-size:.88rem;color:var(--tinta-2);
+  cursor:pointer;text-align:left;margin-bottom:.9rem}
+.prekidac:hover{border-color:var(--otvoreno);color:var(--tinta)}
+.prekidac.vidljiv{display:block}
 @media(max-width:600px){
   /* hero */
   .hero{padding:2rem 0 .4rem}
@@ -368,6 +382,41 @@ JS = """
       var por=g.querySelector(".nema-rez");
       if(por)por.classList.toggle("vidljivo",!ima);
     });
+    sklopiDrzavne(!!z);
+  }
+
+  // Kad je odabrana zupanija, ZATVORENE drzavne se skupe iza gumba.
+  // Otvorene ostaju vidljive uvijek: ako se mozes prijaviti danas,
+  // nebitno je je li stipendija lokalna ili drzavna.
+  var prekidac=document.getElementById("prekidac");
+  var razmotano=__RAZMOTANO__;
+
+  function sklopiDrzavne(aktivno){
+    if(!prekidac) return;
+    var omot=prekidac.parentNode;
+    var drz=omot.querySelectorAll(".k.drzavna:not(.skriveno)");
+    if(!aktivno || drz.length===0){
+      prekidac.classList.remove("vidljiv");
+      omot.querySelectorAll(".k.drzavna").forEach(function(k){
+        k.classList.remove("sklopljena");
+      });
+      razmotano=false;
+      return;
+    }
+    prekidac.classList.add("vidljiv");
+    drz.forEach(function(k){ k.classList.toggle("sklopljena", !razmotano); });
+    prekidac.textContent = razmotano
+      ? "Sakrij dr\u017eavne izvore"
+      : "Prika\u017ei jo\u0161 " + drz.length + " " +
+        oblik(drz.length,"dr\u017eavni izvor","dr\u017eavna izvora","dr\u017eavnih izvora") +
+        " koji vrijede za sve";
+  }
+
+  if(prekidac){
+    prekidac.addEventListener("click", function(){
+      razmotano=!razmotano;
+      sklopiDrzavne(true);
+    });
   }
   izbor.addEventListener("change",osvjezi);
   osvjezi();
@@ -458,6 +507,7 @@ def main():
                    f'Provjeravamo ih automatski svaki ponedjeljak i četvrtak.</p>'
                    f'<div class="grupa zatvoreni-omot">'
                    + "".join(kartica(r, False, p, z) for r, p, z in zatvorene)
+                   + '<button type="button" class="prekidac" id="prekidac"></button>' 
                    + '<div class="medja">Otvoreno svima u Hrvatskoj</div>'
                    + '<p class="nema-rez">Za odabrano područje nemamo izvora. '
                      'Ako znaš neki, javi nam.</p></div></section>')
@@ -473,7 +523,8 @@ def main():
                          f'{z.replace(" županija","")}</a>' for z in _zup)
                + '</div></section>')
 
-    js = JS
+    js = JS.replace("__RAZMOTANO__",
+                    "false" if SKLOPI_DRZAVNE else "true")
 
     ld = json.dumps({
         "@context": "https://schema.org",
