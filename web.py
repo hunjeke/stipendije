@@ -19,6 +19,13 @@ IZVORI = "sources.json"
 MAPA = "docs"
 SVI = "Cijela Hrvatska"
 
+# boja po vrsti izvora — i informacija i vizualni ritam
+BOJE = {
+    "Grad": "grad", "Općina": "grad", "Županija": "zup",
+    "Sveučilište": "sve", "Zaklada": "zak", "Tvrtka": "tvr",
+    "Ministarstvo": "drz", "Međunarodno": "med", "Agregator": "drz",
+}
+
 
 def esc(v):
     if v is None or str(v).strip() == "":
@@ -54,9 +61,9 @@ CSS_INDEX = """
 .rok-traka{margin-top:1.8rem;border:1.5px solid var(--tinta);background:var(--karta)}
 .rok-traka .gornje{display:flex;justify-content:space-between;align-items:baseline;
   gap:1rem;padding:.8rem 1.1rem .55rem;flex-wrap:wrap}
-.rok-traka .naslov{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;
+.rok-traka .naslov{font-family:"Bricolage",sans-serif;font-weight:700;
   font-size:1.02rem;letter-spacing:-.01em}
-.odbroj{font-family:"IBM Plex Mono",monospace;font-weight:500;
+.odbroj{font-family:"PlexMono",monospace;font-weight:500;
   font-size:2.6rem;line-height:1;letter-spacing:-.04em;padding:0 1.1rem .1rem}
 .odbroj .jed{font-size:.85rem;letter-spacing:.09em;text-transform:uppercase;
   color:var(--tinta-2);margin-left:.5rem}
@@ -70,19 +77,19 @@ CSS_INDEX = """
 /* prazno stanje */
 .prazno{margin-top:1.8rem;border:1.5px solid var(--tinta);background:var(--karta);
   padding:1.3rem 1.15rem}
-.prazno .kad{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;
+.prazno .kad{font-family:"Bricolage",sans-serif;font-weight:700;
   font-size:1.35rem;letter-spacing:-.02em;margin:0 0 .35rem}
 .prazno p{margin:.35rem 0;font-size:.92rem;color:var(--tinta-2)}
 
 /* --- filter --- */
 .filteri{margin:2.2rem 0 0;background:var(--karta);border:2px solid var(--tinta);
   padding:1.15rem 1.2rem 1.25rem}
-.oznaka-f{display:block;font-family:"Bricolage Grotesque",sans-serif;
+.oznaka-f{display:block;font-family:"Bricolage",sans-serif;
   font-weight:700;font-size:1.06rem;letter-spacing:-.012em;
   color:var(--tinta);margin-bottom:.65rem}
 #zupanija{width:100%;max-width:460px;background:var(--papir);
   border:1.5px solid var(--tinta);border-radius:0;padding:.78rem 2.6rem .78rem .9rem;
-  font-family:"IBM Plex Sans",sans-serif;font-size:1rem;font-weight:500;
+  font-family:"Plex",sans-serif;font-size:1rem;font-weight:500;
   color:var(--tinta);cursor:pointer;appearance:none;-webkit-appearance:none;
   background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='13' height='8'%3E%3Cpath d='M1 1l5.5 5.5L12 1' stroke='%231E2230' stroke-width='2' fill='none'/%3E%3C/svg%3E");
   background-repeat:no-repeat;background-position:right 1rem center}
@@ -96,20 +103,20 @@ CSS_INDEX = """
 .k.skriveno{display:none}
 .k .zag{display:flex;justify-content:flex-start;gap:.7rem;
   align-items:baseline;flex-wrap:wrap}
-.znak{font-family:"IBM Plex Mono",monospace;font-size:.66rem;letter-spacing:.09em;
+.znak{font-family:"PlexMono",monospace;font-size:.66rem;letter-spacing:.09em;
   text-transform:uppercase;padding:.2rem .5rem;white-space:nowrap;
   flex-shrink:0;align-self:flex-start;max-width:100%}
 .znak.otv{background:#E2F0E7;color:var(--otvoreno)}
 .znak.zat{background:var(--papir);color:var(--tinta-2)}
 .znak.hitno{background:#F7E3DF;color:var(--hitno)}
-.k .izvor{font-family:"IBM Plex Mono",monospace;font-size:.68rem;
+.k .izvor{font-family:"PlexMono",monospace;font-size:.68rem;
   letter-spacing:.06em;text-transform:uppercase;color:var(--tinta-2);
   margin-bottom:.55rem}
 .polja{display:grid;grid-template-columns:8.5rem 1fr;gap:.28rem .9rem;
   font-size:.9rem;margin:.5rem 0 0}
 .polja dt{color:var(--tinta-2)}
 .polja dd{margin:0}
-.polja dd.iznos{font-family:"IBM Plex Mono",monospace;font-weight:500}
+.polja dd.iznos{font-family:"PlexMono",monospace;font-weight:500}
 .k details{margin-top:.75rem;font-size:.88rem}
 .k summary{cursor:pointer;color:var(--otvoreno);font-weight:500}
 .k details ol{margin:.55rem 0 0;padding-left:1.25rem;color:var(--tinta-2)}
@@ -122,6 +129,34 @@ CSS_INDEX = """
   color:var(--tinta-2);font-size:.9rem;margin:0}
 .nema-rez.vidljivo{display:block}
 .zatvoreni-omot{margin-top:.4rem}
+
+/* --- zbijeni popis zatvorenih izvora --- */
+.rd{display:flex;align-items:center;gap:.75rem;padding:.62rem .3rem;
+  border-bottom:1px solid var(--linija);text-decoration:none;color:var(--tinta);
+  font-size:.92rem}
+.rd:first-of-type{border-top:1px solid var(--linija)}
+.rd:hover{background:var(--karta)}
+.rd-naziv{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;
+  white-space:nowrap}
+.rd-pod{font-family:"PlexMono",monospace;font-size:.68rem;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--tinta-2);white-space:nowrap;flex-shrink:0}
+.rd-str{color:var(--tinta-2);font-size:.85rem;flex-shrink:0}
+.rd:hover .rd-str{color:var(--otvoreno)}
+.tocka,i.tocka{width:8px;height:8px;flex-shrink:0;border-radius:50%;display:inline-block}
+.tocka.grad{background:#1B6B41}
+.tocka.zup{background:#2E5E8C}
+.tocka.sve{background:#7A4E9E}
+.tocka.zak{background:#B8860B}
+.tocka.tvr{background:#A6331E}
+.tocka.drz{background:#3D4450}
+.tocka.med{background:#0F8A8A}
+.legenda{display:flex;flex-wrap:wrap;gap:.5rem 1.1rem;margin:.2rem 0 1.1rem;
+  font-size:.74rem;color:var(--tinta-2)}
+.legenda span{display:flex;align-items:center;gap:.35rem}
+@media(max-width:600px){
+  .rd{font-size:.88rem;gap:.55rem;padding:.6rem .2rem}
+  .rd-pod{display:none}
+}
 .popis-zup{display:flex;flex-wrap:wrap;gap:.45rem}
 .popis-zup a{font-size:.88rem;color:var(--tinta);text-decoration:none;
   border:1px solid var(--linija);background:var(--karta);padding:.42rem .75rem}
@@ -132,7 +167,7 @@ CSS_INDEX = """
 .grupa .k.drzavna{order:1}
 .grupa .nema-rez{order:2}
 .medja{order:1;display:none;margin:.5rem 0 .9rem;
-  font-family:"IBM Plex Mono",monospace;font-size:.7rem;letter-spacing:.09em;
+  font-family:"PlexMono",monospace;font-size:.7rem;letter-spacing:.09em;
   text-transform:uppercase;color:var(--tinta-2);
   border-top:1px solid var(--linija);padding-top:.85rem}
 .medja.vidljiva{display:block}
@@ -242,6 +277,28 @@ def hr_kljuc(s):
     for z in s.lower():
         out.append(_RANG.get(z, 99 + ord(z) % 50))
     return out
+
+
+def legenda_html():
+    stavke = [("grad", "Grad ili općina"), ("zup", "Županija"),
+              ("sve", "Sveučilište"), ("zak", "Zaklada"),
+              ("tvr", "Tvrtka"), ("drz", "Država"), ("med", "Međunarodno")]
+    return ('<div class="legenda">'
+            + "".join(f'<span><i class="tocka {k}"></i>{t}</span>'
+                      for k, t in stavke) + '</div>')
+
+
+def redak(r, podrucje, zupanija):
+    """Zatvoreni izvor: jedan zbijen redak umjesto pune kartice."""
+    kat = r.get("kategorija") or ""
+    boja = BOJE.get(kat, "drz")
+    return (f'<a class="rd k" href="{esc(r.get("url"))}" target="_blank" '
+            f'rel="noopener" data-podrucje="{esc(podrucje)}" '
+            f'data-zupanija="{esc(zupanija)}">'
+            f'<span class="tocka {boja}" title="{esc(kat)}"></span>'
+            f'<span class="rd-naziv">{esc(r.get("naziv"))}</span>'
+            f'<span class="rd-pod">{esc(podrucje)}</span>'
+            f'<span class="rd-str">&rarr;</span></a>')
 
 
 def izbornik(podrucja):
@@ -430,8 +487,9 @@ def main():
     }, ensure_ascii=False)
 
     html = glava(
-        "stipendije.hr — stipendije u Hrvatskoj na jednom mjestu",
-        "Otvoreni natječaji za stipendije u Hrvatskoj: iznosi, rokovi i upute za prijavu.",
+        "Stipendije u Hrvatskoj — otvoreni natječaji, iznosi i rokovi",
+        "Svi otvoreni natječaji za stipendije u Hrvatskoj na jednom mjestu. "
+        "Iznosi, rokovi prijave i upute — provjereno dvaput tjedno.",
         CSS_INDEX,
         '<script type="application/ld+json">' + ld + '</script>')
     html += navigacija("natjecaji")
