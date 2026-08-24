@@ -897,7 +897,7 @@
     }
   },
   "https://www.slavonski-brod.hr/": {
-    "hash": "a0df63536326c913",
+    "hash": "46964b5f966d3979",
     "result": {
       "naziv": "Grad Slavonski Brod — natječaji",
       "url": "https://www.slavonski-brod.hr/",
@@ -907,8 +907,9 @@
       "uvjeti": null,
       "upute_za_prijavu": null,
       "napomena": null,
+      "poveznica_natjecaj": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-08-23T09:16",
+      "zadnje_provjereno": "2026-08-24T07:56",
       "_ima_otvoren": false
     }
   },
@@ -929,7 +930,7 @@
     }
   },
   "https://www.jastrebarsko.hr/": {
-    "hash": "09c06ee5fe9bf06e",
+    "hash": "0a76ddee3fbde101",
     "result": {
       "naziv": "Grad Jastrebarsko — natječaji",
       "url": "https://www.jastrebarsko.hr/",
@@ -939,8 +940,9 @@
       "uvjeti": null,
       "upute_za_prijavu": null,
       "napomena": null,
+      "poveznica_natjecaj": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-08-22T18:28",
+      "zadnje_provjereno": "2026-08-24T07:57",
       "_ima_otvoren": false
     }
   },
