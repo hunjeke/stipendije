@@ -82,7 +82,7 @@ EXTRACTION_PROMPT = """Analiziraj tekst stranice o stipendijama i vrati TOCNO ov
 }}
 
 VAZNO: za "rok_tekst" prepisi datum doslovno iz teksta. Ne racunaj i ne zakljucuj je li rok prosao — to radi program zasebno.
-Ako stranica nema jasan natjecaj (samo meni/navigacija), vrati sve null i ima_otvoren_natjecaj=false.
+Ako stranica nema jasan natjecaj (samo meni/navigacija), vrati sve null i ima_otvoren_natjecaj=false.  NAJVAZNIJE PRAVILO: ako stranica bilo gdje kaze da trenutno NEMA otvorenih natjecaja (npr. "trenutacno nema otvorenih natjecaja", "natjecaj je zatvoren", "natjecaj ce biti objavljen u...", "prijave su zavrsene"), tada OBAVEZNO vrati ima_otvoren_natjecaj=false i rok_tekst=null — bez obzira na to koliko datuma vidis na stranici. Datumi zatvorenih natjecaja, arhiva i najave buducih objava NISU rok za prijavu. Rok upisi SAMO ako je jasno da se na taj natjecaj moze prijaviti upravo sada.
 
 TEKST STRANICE:
 ---
