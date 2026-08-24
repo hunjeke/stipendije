@@ -170,7 +170,7 @@ CSS_ZUP = """
 .sazetak{font-size:1rem;color:var(--tinta-2);max-width:52ch;margin:0 0 1.6rem}
 .brojke{display:flex;gap:1.6rem;flex-wrap:wrap;padding:.9rem 0 0;
   border-top:1px solid var(--linija);margin-bottom:2rem}
-.brojka b{display:block;font-family:"IBM Plex Mono",monospace;
+.brojka b{display:block;font-family:"PlexMono",monospace;
   font-size:1.5rem;line-height:1.1}
 .brojka span{font-size:.78rem;color:var(--tinta-2)}
 .druge{margin-top:3rem;padding-top:1.4rem;border-top:1px solid var(--linija)}
@@ -313,9 +313,9 @@ podatke ne vidimo.</p></div>
 <p>Svaki natječaj vodi na stranicu institucije koja ga je objavila. Kad
 klikneš takvu poveznicu, vrijede pravila privatnosti te stranice, ne naša.</p></div>
 
-<div class="q"><h3>Fontovi</h3>
-<p>Stranica učitava pisma s Google Fontsa, pri čemu se tvoja IP adresa
-prosljeđuje Googleu. To je tehnički nužno za prikaz pisama.</p></div>
+<div class="q"><h3>Bez vanjskih usluga</h3>
+<p>Sve što stranica učitava — pisma, ikone, slike — nalazi se na ovoj domeni.
+Ne šaljemo tvoje podatke drugim uslugama za prikaz stranice.</p></div>
 
 <div class="q"><h3>Pitanja</h3>
 <p>Za sve o privatnosti javi se na adresu u podnožju stranice.</p></div>
