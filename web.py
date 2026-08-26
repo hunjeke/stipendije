@@ -64,7 +64,7 @@ CSS_INDEX = """
 .hero p.teza{font-size:1.06rem;color:var(--tinta-2);max-width:46ch;margin:.4rem 0 0}
 
 /* --- signature: traka roka --- */
-.rok-traka{margin-top:1.8rem;border:1.5px solid var(--tinta);background:var(--karta)}
+.rok-traka{margin-top:1.8rem;border:1.5px solid var(--plava);background:var(--karta)}
 .rok-traka .gornje{display:flex;justify-content:space-between;align-items:baseline;
   gap:1rem;padding:.8rem 1.1rem .55rem;flex-wrap:wrap}
 .rok-traka .naslov{font-family:"Bricolage",sans-serif;font-weight:700;
@@ -75,7 +75,7 @@ CSS_INDEX = """
   color:var(--tinta-2);margin-left:.5rem}
 .rok-traka .donje{padding:.35rem 1.1rem 1rem;font-size:.88rem;color:var(--tinta-2)}
 .mjerka{height:5px;background:var(--linija);position:relative;overflow:hidden}
-.mjerka i{position:absolute;inset:0 auto 0 0;background:var(--otvoreno);display:block}
+.mjerka i{position:absolute;inset:0 auto 0 0;background:var(--plava);display:block}
 .rok-traka.hitno{border-color:var(--hitno)}
 .rok-traka.hitno .odbroj{color:var(--hitno)}
 .rok-traka.hitno .mjerka i{background:var(--hitno)}
@@ -88,7 +88,7 @@ CSS_INDEX = """
 .prazno p{margin:.35rem 0;font-size:.92rem;color:var(--tinta-2)}
 
 /* --- filter --- */
-.filteri{margin:2.2rem 0 0;background:var(--karta);border:2px solid var(--tinta);
+.filteri{margin:2.2rem 0 0;background:var(--karta);border:2px solid var(--plava);
   padding:1.15rem 1.2rem 1.25rem}
 .oznaka-f{display:block;font-family:"Bricolage",sans-serif;
   font-weight:700;font-size:1.06rem;letter-spacing:-.012em;
@@ -97,9 +97,9 @@ CSS_INDEX = """
   border:1.5px solid var(--tinta);border-radius:0;padding:.78rem 2.6rem .78rem .9rem;
   font-family:"Plex",sans-serif;font-size:1rem;font-weight:500;
   color:var(--tinta);cursor:pointer;appearance:none;-webkit-appearance:none;
-  background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='13' height='8'%3E%3Cpath d='M1 1l5.5 5.5L12 1' stroke='%231E2230' stroke-width='2' fill='none'/%3E%3C/svg%3E");
+  background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='13' height='8'%3E%3Cpath d='M1 1l5.5 5.5L12 1' stroke='%231D4ED8' stroke-width='2' fill='none'/%3E%3C/svg%3E");
   background-repeat:no-repeat;background-position:right 1rem center}
-#zupanija:hover,#zupanija:focus{border-color:var(--otvoreno);background-color:#fff}
+#zupanija:hover,#zupanija:focus{border-color:var(--plava);background-color:#fff}
 .pojasnjenje{margin:.7rem 0 0;font-size:.85rem;color:var(--tinta-2);max-width:48ch}
 
 /* --- kartice --- */
@@ -112,9 +112,9 @@ CSS_INDEX = """
 .znak{font-family:"PlexMono",monospace;font-size:.66rem;letter-spacing:.09em;
   text-transform:uppercase;padding:.2rem .5rem;white-space:nowrap;
   flex-shrink:0;align-self:flex-start;max-width:100%}
-.znak.otv{background:#E2F0E7;color:var(--otvoreno)}
+.znak.otv{background:#DCFCE7;color:var(--otvoreno)}
 .znak.zat{background:var(--papir);color:var(--tinta-2)}
-.znak.hitno{background:#F7E3DF;color:var(--hitno)}
+.znak.hitno{background:#FEE2E2;color:var(--hitno)}
 .k .izvor{font-family:"PlexMono",monospace;font-size:.68rem;
   letter-spacing:.06em;text-transform:uppercase;color:var(--tinta-2);
   margin-bottom:.55rem}
@@ -124,13 +124,13 @@ CSS_INDEX = """
 .polja dd{margin:0}
 .polja dd.iznos{font-family:"PlexMono",monospace;font-weight:500}
 .k details{margin-top:.75rem;font-size:.88rem}
-.k summary{cursor:pointer;color:var(--otvoreno);font-weight:500}
+.k summary{cursor:pointer;color:var(--plava);font-weight:500}
 .k details ol{margin:.55rem 0 0;padding-left:1.25rem;color:var(--tinta-2)}
 .k details li{margin-bottom:.3rem}
 .veza{display:inline-block;margin-top:.8rem;font-size:.88rem;font-weight:500;
-  color:var(--tinta);text-decoration:none;border-bottom:1.5px solid var(--otvoreno);
+  color:var(--tinta);text-decoration:none;border-bottom:1.5px solid var(--plava);
   padding-bottom:1px}
-.veza:hover{color:var(--otvoreno)}
+.veza:hover{color:var(--plava)}
 .nema-rez{display:none;border:1px dashed var(--linija);padding:1.05rem 1.15rem;
   color:var(--tinta-2);font-size:.9rem;margin:0}
 .nema-rez.vidljivo{display:block}
@@ -149,12 +149,12 @@ CSS_INDEX = """
 .rd-str{color:var(--tinta-2);font-size:.85rem;flex-shrink:0}
 .rd:hover .rd-str{color:var(--otvoreno)}
 .tocka,i.tocka{width:8px;height:8px;flex-shrink:0;border-radius:50%;display:inline-block}
-.tocka.grad{background:#1B6B41}
-.tocka.zup{background:#2E5E8C}
+.tocka.grad{background:#15803D}
+.tocka.zup{background:#1D4ED8}
 .tocka.sve{background:#7A4E9E}
 .tocka.zak{background:#B8860B}
-.tocka.tvr{background:#A6331E}
-.tocka.drz{background:#3D4450}
+.tocka.tvr{background:#B91C1C}
+.tocka.drz{background:#141B2D}
 .tocka.med{background:#0F8A8A}
 .legenda{display:flex;flex-wrap:wrap;gap:.5rem 1.1rem;margin:.2rem 0 1.1rem;
   font-size:.74rem;color:var(--tinta-2)}
@@ -166,7 +166,7 @@ CSS_INDEX = """
 .popis-zup{display:flex;flex-wrap:wrap;gap:.45rem}
 .popis-zup a{font-size:.88rem;color:var(--tinta);text-decoration:none;
   border:1px solid var(--linija);background:var(--karta);padding:.42rem .75rem}
-.popis-zup a:hover{border-color:var(--otvoreno);color:var(--otvoreno)}
+.popis-zup a:hover{border-color:var(--plava);color:var(--plava)}
 /* kad je odabrana zupanija, lokalne stipendije idu prve */
 .grupa{display:flex;flex-direction:column}
 .grupa .k{order:0}
@@ -183,7 +183,7 @@ CSS_INDEX = """
   border:1px dashed var(--linija);width:100%;padding:.75rem 1rem;
   font-family:"Plex",sans-serif;font-size:.88rem;color:var(--tinta-2);
   cursor:pointer;text-align:left;margin-bottom:.9rem}
-.prekidac:hover{border-color:var(--otvoreno);color:var(--tinta)}
+.prekidac:hover{border-color:var(--plava);color:var(--tinta)}
 .prekidac.vidljiv{display:block}
 @media(max-width:600px){
   /* hero */
@@ -529,7 +529,7 @@ def main():
     ld = json.dumps({
         "@context": "https://schema.org",
         "@type": "WebSite",
-        "name": "stipendije.hr",
+        "name": "Stipendije.hr",
         "alternateName": "Stipendije u Hrvatskoj",
         "url": BAZA + "/",
         "inLanguage": "hr-HR",
