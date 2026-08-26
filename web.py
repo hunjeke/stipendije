@@ -109,12 +109,12 @@ CSS_INDEX = """
 .k.skriveno{display:none}
 .k .zag{display:flex;justify-content:flex-start;gap:.7rem;
   align-items:baseline;flex-wrap:wrap}
-.znak{font-family:"PlexMono",monospace;font-size:.66rem;letter-spacing:.09em;
+.status{font-family:"PlexMono",monospace;font-size:.66rem;letter-spacing:.09em;
   text-transform:uppercase;padding:.2rem .5rem;white-space:nowrap;
   flex-shrink:0;align-self:flex-start;max-width:100%}
-.znak.otv{background:#DCFCE7;color:var(--otvoreno)}
-.znak.zat{background:var(--papir);color:var(--tinta-2)}
-.znak.hitno{background:#FEE2E2;color:var(--hitno)}
+.status.otv{background:#DCFCE7;color:var(--otvoreno)}
+.status.zat{background:var(--papir);color:var(--tinta-2)}
+.status.hitno{background:#FEE2E2;color:var(--hitno)}
 .k .izvor{font-family:"PlexMono",monospace;font-size:.68rem;
   letter-spacing:.06em;text-transform:uppercase;color:var(--tinta-2);
   margin-bottom:.55rem}
@@ -220,7 +220,7 @@ CSS_INDEX = """
   .k .zag{flex-direction:column-reverse;align-items:flex-start;gap:.45rem}
   .k .zag h3{min-width:0;width:100%}
   h3{font-size:.97rem}
-  .znak{font-size:.62rem;padding:.18rem .45rem}
+  .status{font-size:.62rem;padding:.18rem .45rem}
   .polja{grid-template-columns:1fr;gap:.05rem}
   .polja dt{font-size:.76rem;margin-top:.45rem;color:#8A909E}
   .polja dd{font-size:.92rem}
@@ -265,10 +265,10 @@ def kartica(r, otvorena, podrucje, zupanija):
                   if koraci and otvorena else "")
 
     if otvorena:
-        znak = '<span class="znak otv" data-znak>Otvoreno</span>'
+        znak = '<span class="status otv" data-znak>Otvoreno</span>'
         klasa = "k otv"
     else:
-        znak = '<span class="znak zat">Zatvoreno</span>'
+        znak = '<span class="status zat">Zatvoreno</span>'
         klasa = "k"
 
     return (f'<article class="{klasa}" data-podrucje="{esc(podrucje)}" '
@@ -346,7 +346,7 @@ JS = """
   document.querySelectorAll("[data-rok]").forEach(function(k){
     var n=dana(k.getAttribute("data-rok")), z=k.querySelector("[data-znak]");
     if(n===null||!z) return;
-    if(n<=7){ z.className="znak hitno";
+    if(n<=7){ z.className="status hitno";
       z.textContent = n<=0 ? "Zadnji dan" : ("Još "+n+" "+oblik(n,"dan","dana","dana")); }
     else if(n<=21){ z.textContent="Još "+n+" "+oblik(n,"dan","dana","dana"); }
   });
@@ -464,7 +464,6 @@ def main():
         hero = f"""<div class="rok-traka" id="traka" data-rok="{iso}">
   <div class="gornje">
     <span class="naslov">{esc(prvi[0].get('naziv'))}</span>
-    <span class="meta">najbliži rok</span>
   </div>
   <div class="odbroj"><span id="brojka">—</span><span class="jed" id="jedinica">do roka</span></div>
   <div class="donje">{esc(prvi[0].get('iznos') or 'iznos nije naveden')}</div>
@@ -556,9 +555,6 @@ def main():
     <p class="pojasnjenje">Prikazuju se stipendije te županije, svih njezinih
       gradova i one državne, na koje imaju pravo svi.</p>
   </div>
-  <p class="upoz"><strong>Provjeri prije prijave.</strong> Podatke prikupljamo
-    automatski, pa su greške moguće. Vrijede rok i uvjeti sa službene stranice
-    natječaja, na koju vodi poveznica uz svaki unos.</p>
 </div></section>
 <div class="w">{sek_otv}{sek_zat}{sek_zup}</div>
 </main>
