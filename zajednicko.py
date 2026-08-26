@@ -78,9 +78,9 @@ body{margin:0;background:var(--papir);color:var(--tinta);
   gap:.8rem;padding-top:.7rem;padding-bottom:.7rem}
 .logo{display:flex;align-items:center;gap:.6rem;text-decoration:none;
   color:var(--tinta)}
-.znak{width:44px;height:44px;flex-shrink:0;display:block}
+.znak{width:40px;height:40px;flex-shrink:0;display:block}
 .ime{font-family:"Bricolage",sans-serif;font-weight:800;
-  font-size:1.14rem;letter-spacing:-.02em}
+  font-size:1.32rem;letter-spacing:-.022em}
 .ime span{color:var(--plava)}
 .nav{display:flex;gap:.2rem}
 .nav a{font-size:.86rem;color:var(--tinta-2);text-decoration:none;
@@ -93,11 +93,10 @@ body{margin:0;background:var(--papir);color:var(--tinta);
 @media(max-width:600px){
   body{font-size:15.5px}
   .w{padding:0 .95rem}
-  .znak{width:38px;height:38px}
-  .ime{font-size:1rem}
+  .znak{width:34px;height:34px}
+  .ime{font-size:1.12rem}
   .nav{gap:0}
   .nav a{font-size:.8rem;padding:.55rem .38rem}
-  .upoz{font-size:.84rem;padding-left:.8rem}
   footer{font-size:.84rem}
 }
 @media(max-width:380px){
@@ -128,14 +127,14 @@ h3{font-family:"Bricolage",sans-serif;font-weight:700;
 footer{margin-top:3.5rem;border-top:1px solid var(--linija);
   padding:1.8rem 0 3rem;font-size:.87rem;color:var(--tinta-2)}
 footer p{margin:.55rem 0}
+footer .upoz-p{border-left:3px solid var(--plava);padding-left:.9rem;
+  margin:0 0 1rem;color:var(--tinta-2)}
+footer .upoz-p strong{color:var(--tinta)}
 footer a{color:var(--plava)}
 footer .sitno{font-family:"PlexMono",monospace;font-size:.7rem;
   letter-spacing:.05em;margin-top:1.4rem;color:#8A909E}
 
 /* --- upozorenje --- */
-.upoz{border-left:3px solid var(--tinta);padding:.2rem 0 .2rem 1rem;
-  margin:1.6rem 0 0;font-size:.87rem;color:var(--tinta-2)}
-.upoz strong{color:var(--tinta)}
 
 a:focus-visible,button:focus-visible,summary:focus-visible,
 input:focus-visible,select:focus-visible{outline:2px solid var(--plava);outline-offset:2px}
@@ -260,6 +259,9 @@ def kolacici(put=""):
 def podnozje(broj_izvora, vrijeme, put=""):
     imenica = oblik(broj_izvora, "izvor", "izvora", "izvora") + " "
     return f"""<footer><div class="w">
+  <p class="upoz-p"><strong>Provjeri prije prijave.</strong> Podatke prikupljamo
+     automatski, pa su greške moguće. Vrijede rok i uvjeti sa službene stranice
+     natječaja, na koju vodi poveznica uz svaki unos.</p>
   <p><strong>Kontakt:</strong> <a href="mailto:{EMAIL}">{EMAIL}</a></p>
   <p>Nedostaje neka stipendija ili je podatak netočan? Javi nam — ispravljamo brzo.
      Posebno nam je važno ako je netočan <strong>rok prijave</strong>.</p>
