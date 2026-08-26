@@ -84,9 +84,9 @@ body{margin:0;background:var(--papir);color:var(--tinta);
   gap:.8rem;padding-top:.7rem;padding-bottom:.7rem}
 .logo{display:flex;align-items:center;gap:.6rem;text-decoration:none;
   color:var(--tinta)}
-.znak{width:44px;height:44px;flex-shrink:0;display:block}
+.znak{width:40px;height:40px;flex-shrink:0;display:block}
 .ime{font-family:"Bricolage",sans-serif;font-weight:800;
-  font-size:1.14rem;letter-spacing:-.02em}
+  font-size:1.32rem;letter-spacing:-.022em}
 .ime span{color:var(--plava)}
 .nav{display:flex;gap:.2rem}
 .nav a{font-size:.86rem;color:var(--tinta-2);text-decoration:none;
@@ -99,11 +99,10 @@ body{margin:0;background:var(--papir);color:var(--tinta);
 @media(max-width:600px){
   body{font-size:15.5px}
   .w{padding:0 .95rem}
-  .znak{width:38px;height:38px}
-  .ime{font-size:1rem}
+  .znak{width:34px;height:34px}
+  .ime{font-size:1.12rem}
   .nav{gap:0}
   .nav a{font-size:.8rem;padding:.55rem .38rem}
-  .upoz{font-size:.84rem;padding-left:.8rem}
   footer{font-size:.84rem}
 }
 @media(max-width:380px){
@@ -134,14 +133,14 @@ h3{font-family:"Bricolage",sans-serif;font-weight:700;
 footer{margin-top:3.5rem;border-top:1px solid var(--linija);
   padding:1.8rem 0 3rem;font-size:.87rem;color:var(--tinta-2)}
 footer p{margin:.55rem 0}
+footer .upoz-p{border-left:3px solid var(--plava);padding-left:.9rem;
+  margin:0 0 1rem;color:var(--tinta-2)}
+footer .upoz-p strong{color:var(--tinta)}
 footer a{color:var(--plava)}
 footer .sitno{font-family:"PlexMono",monospace;font-size:.7rem;
   letter-spacing:.05em;margin-top:1.4rem;color:#8A909E}
 
 /* --- upozorenje --- */
-.upoz{border-left:3px solid var(--tinta);padding:.2rem 0 .2rem 1rem;
-  margin:1.6rem 0 0;font-size:.87rem;color:var(--tinta-2)}
-.upoz strong{color:var(--tinta)}
 
 a:focus-visible,button:focus-visible,summary:focus-visible,
 input:focus-visible,select:focus-visible{outline:2px solid var(--plava);outline-offset:2px}
@@ -191,18 +190,21 @@ input:focus-visible,select:focus-visible{outline:2px solid var(--plava);outline-
     <div class="brojka"><b>0</b><span>otvoreno sada</span></div>
     <div class="brojka"><b>7</b><span>izvora koje pratimo</span></div>
   </div>
-  <div class="sek-vrh" style="margin-top:2.2rem"><h2>Izvori koje pratimo</h2><span class="broj">7</span></div><article class="k" data-podrucje="Beli Manastir" data-zupanija="Osječko-baranjska županija" data-rok=""><div class="zag"><h3>Grad Beli Manastir — natječaji</h3><span class="znak zat">Zatvoreno</span></div><div class="izvor">Beli Manastir</div><a class="veza" href="https://www.beli-manastir.hr/natjecaji/" target="_blank" rel="noopener">Službena stranica &rarr;</a></article><article class="k" data-podrucje="Osijek" data-zupanija="Osječko-baranjska županija" data-rok=""><div class="zag"><h3>Grad Osijek — natječaji</h3><span class="znak zat">Zatvoreno</span></div><div class="izvor">Osijek</div><a class="veza" href="https://www.osijek.hr/natjecaji/" target="_blank" rel="noopener">Službena stranica &rarr;</a></article><article class="k" data-podrucje="Valpovo" data-zupanija="Osječko-baranjska županija" data-rok=""><div class="zag"><h3>Grad Valpovo — studentske stipendije</h3><span class="znak zat">Zatvoreno</span></div><div class="izvor">Valpovo</div><a class="veza" href="https://valpovo.hr/jedinstveni-digitalni-pristupnik/studentske-stipendije/" target="_blank" rel="noopener">Službena stranica &rarr;</a></article><article class="k" data-podrucje="Đakovo" data-zupanija="Osječko-baranjska županija" data-rok=""><div class="zag"><h3>Grad Đakovo — natječaji</h3><span class="znak zat">Zatvoreno</span></div><div class="izvor">Đakovo</div><a class="veza" href="https://djakovo.hr/index.php/natje%C4%8Daji.html" target="_blank" rel="noopener">Službena stranica &rarr;</a></article><article class="k" data-podrucje="Osijek" data-zupanija="Osječko-baranjska županija" data-rok=""><div class="zag"><h3>Info centar za mlade Osijek — natječaji</h3><span class="znak zat">Zatvoreno</span></div><div class="izvor">Osijek</div><a class="veza" href="https://icm-osijek.info/natjecaji" target="_blank" rel="noopener">Službena stranica &rarr;</a></article><article class="k" data-podrucje="Osječko-baranjska županija" data-zupanija="Osječko-baranjska županija" data-rok=""><div class="zag"><h3>Osječko-baranjska županija — stipendije</h3><span class="znak zat">Zatvoreno</span></div><div class="izvor">Osječko-baranjska županija</div><a class="veza" href="https://www.obz.hr/index.php/stipendije-i-krediti/stipendije" target="_blank" rel="noopener">Službena stranica &rarr;</a></article><article class="k" data-podrucje="Osijek" data-zupanija="Osječko-baranjska županija" data-rok=""><div class="zag"><h3>Sveučilište u Osijeku — stipendije i potpore</h3><span class="znak zat">Zatvoreno</span></div><div class="izvor">Osijek</div><a class="veza" href="https://www.unios.hr/category/natjecaji/" target="_blank" rel="noopener">Službena stranica &rarr;</a></article>
+  <div class="sek-vrh" style="margin-top:2.2rem"><h2>Izvori koje pratimo</h2><span class="broj">7</span></div><article class="k" data-podrucje="Beli Manastir" data-zupanija="Osječko-baranjska županija" data-rok=""><div class="zag"><h3>Grad Beli Manastir — natječaji</h3><span class="status zat">Zatvoreno</span></div><div class="izvor">Beli Manastir</div><a class="veza" href="https://www.beli-manastir.hr/natjecaji/" target="_blank" rel="noopener">Službena stranica &rarr;</a></article><article class="k" data-podrucje="Osijek" data-zupanija="Osječko-baranjska županija" data-rok=""><div class="zag"><h3>Grad Osijek — natječaji</h3><span class="status zat">Zatvoreno</span></div><div class="izvor">Osijek</div><a class="veza" href="https://www.osijek.hr/natjecaji/" target="_blank" rel="noopener">Službena stranica &rarr;</a></article><article class="k" data-podrucje="Valpovo" data-zupanija="Osječko-baranjska županija" data-rok=""><div class="zag"><h3>Grad Valpovo — studentske stipendije</h3><span class="status zat">Zatvoreno</span></div><div class="izvor">Valpovo</div><dl class="polja"><dt>Tko se prijavljuje</dt><dd>Studenti koji su državljani Republike Hrvatske, redoviti studenti, s prebivalištem na području Grada Valpova, bez odobrene stipendije drugog subjekta, nije apsolvent, i nisu stariji od 25 godina.</dd></dl><a class="veza" href="https://valpovo.hr/jedinstveni-digitalni-pristupnik/studentske-stipendije/" target="_blank" rel="noopener">Službena stranica &rarr;</a></article><article class="k" data-podrucje="Đakovo" data-zupanija="Osječko-baranjska županija" data-rok=""><div class="zag"><h3>Grad Đakovo — natječaji</h3><span class="status zat">Zatvoreno</span></div><div class="izvor">Đakovo</div><a class="veza" href="https://djakovo.hr/index.php/natje%C4%8Daji.html" target="_blank" rel="noopener">Službena stranica &rarr;</a></article><article class="k" data-podrucje="Osijek" data-zupanija="Osječko-baranjska županija" data-rok=""><div class="zag"><h3>Info centar za mlade Osijek — natječaji</h3><span class="status zat">Zatvoreno</span></div><div class="izvor">Osijek</div><a class="veza" href="https://icm-osijek.info/natjecaji" target="_blank" rel="noopener">Službena stranica &rarr;</a></article><article class="k" data-podrucje="Osječko-baranjska županija" data-zupanija="Osječko-baranjska županija" data-rok=""><div class="zag"><h3>Osječko-baranjska županija — stipendije</h3><span class="status zat">Zatvoreno</span></div><div class="izvor">Osječko-baranjska županija</div><dl class="polja"><dt>Iznos</dt><dd class="">100,00 eura mjesečno (10 mjeseci) za učenike; 200,00 eura mjesečno za studente</dd><dt>Tko se prijavljuje</dt><dd>Stipendije se dodjeljuju učenicima i studentima u četiri kategorije: darovitim učenicima i studentima, učenicima i studentima koji se obrazuju za deficitarna zanimanja, učenicima i studentima koji se obrazuju u STEM području i učenicima i studentima slabijeg socijalnog statusa.</dd></dl><a class="veza" href="https://www.obz.hr/index.php/stipendije-i-krediti/stipendije" target="_blank" rel="noopener">Službena stranica &rarr;</a></article><article class="k" data-podrucje="Osijek" data-zupanija="Osječko-baranjska županija" data-rok=""><div class="zag"><h3>Sveučilište u Osijeku — stipendije i potpore</h3><span class="status zat">Zatvoreno</span></div><div class="izvor">Osijek</div><a class="veza" href="https://www.unios.hr/category/natjecaji/" target="_blank" rel="noopener">Službena stranica &rarr;</a></article>
   <div class="druge">
     <h2>Ostale županije</h2>
     <div class="popis-zup"><a href="bjelovarsko-bilogorska.html">Bjelovarsko-bilogorska</a><a href="brodsko-posavska.html">Brodsko-posavska</a><a href="dubrovacko-neretvanska.html">Dubrovačko-neretvanska</a><a href="istarska.html">Istarska</a><a href="karlovacka.html">Karlovačka</a><a href="koprivnicko-krizevacka.html">Koprivničko-križevačka</a><a href="krapinsko-zagorska.html">Krapinsko-zagorska</a><a href="licko-senjska.html">Ličko-senjska</a><a href="medimurska.html">Međimurska</a><a href="pozesko-slavonska.html">Požeško-slavonska</a><a href="primorsko-goranska.html">Primorsko-goranska</a><a href="sisacko-moslavacka.html">Sisačko-moslavačka</a><a href="splitsko-dalmatinska.html">Splitsko-dalmatinska</a><a href="varazdinska.html">Varaždinska</a><a href="viroviticko-podravska.html">Virovitičko-podravska</a><a href="vukovarsko-srijemska.html">Vukovarsko-srijemska</a><a href="zadarska.html">Zadarska</a><a href="zagreb.html">Zagreb</a><a href="zagrebacka.html">Zagrebačka</a><a href="sibensko-kninska.html">Šibensko-kninska</a></div>
   </div>
 </section></main><footer><div class="w">
+  <p class="upoz-p"><strong>Provjeri prije prijave.</strong> Podatke prikupljamo
+     automatski, pa su greške moguće. Vrijede rok i uvjeti sa službene stranice
+     natječaja, na koju vodi poveznica uz svaki unos.</p>
   <p><strong>Kontakt:</strong> <a href="mailto:erik.hunjek@gmail.com">erik.hunjek@gmail.com</a></p>
   <p>Nedostaje neka stipendija ili je podatak netočan? Javi nam — ispravljamo brzo.
      Posebno nam je važno ako je netočan <strong>rok prijave</strong>.</p>
   <p>Ne procjenjujemo tvoje šanse za pojedinu stipendiju. Za to pitaj instituciju
      koja je natječaj objavila.</p>
-  <p class="sitno">Zadnja provjera 26.08.2026. &nbsp;·&nbsp; 101 izvor &nbsp;·&nbsp;
+  <p class="sitno">Zadnja provjera 26.08.2026. &nbsp;·&nbsp; 99 izvora &nbsp;·&nbsp;
      podaci prikupljeni automatski &nbsp;·&nbsp;
      <a class="tiho" href="../impressum.html">Impressum</a> &nbsp;·&nbsp;
      <a class="tiho" href="../privatnost.html">Privatnost</a></p>
