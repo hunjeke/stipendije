@@ -137,7 +137,7 @@ BROWSER_HEADERS = {
 }
 
 
-def fetch_content(url, retries=2):
+def fetch_content(url, retries=2, tiho=False):
     """Dohvati stranicu. Vraca (tekst, hash, sirovi_html).
 
     Sirovi HTML sluzi da se u njemu potraze poveznice na PDF natjecaje;
@@ -159,10 +159,12 @@ def fetch_content(url, retries=2):
                 print(f"  . pokusaj {attempt + 1} nije uspio, cekam {wait}s...")
                 time.sleep(wait)
             else:
-                print(f"  ! Greska pri dohvatu nakon {retries + 1} pokusaja: {e}")
+                if not tiho:
+                    print(f"  ! Greska pri dohvatu nakon {retries + 1} pokusaja: {e}")
                 return None, None, None
     if resp is None:
-        print(f"  ! Greska pri dohvatu: {last_error}")
+        if not tiho:
+            print(f"  ! Greska pri dohvatu: {last_error}")
         return None, None, None
 
     content_type = resp.headers.get("Content-Type", "").lower()
@@ -175,7 +177,8 @@ def fetch_content(url, retries=2):
             reader = PdfReader(BytesIO(resp.content))
             text = "\n".join((page.extract_text() or "") for page in reader.pages)
         except Exception as e:
-            print(f"  ! Ne mogu procitati PDF: {e}")
+            if not tiho:
+                print(f"  ! Ne mogu procitati PDF: {e}")
             return None, None, None
         sirovi = None
     else:
@@ -188,7 +191,8 @@ def fetch_content(url, retries=2):
     lines = [ln.strip() for ln in text.splitlines() if ln.strip()]
     cleaned = "\n".join(lines)[:MAX_CHARS]
     if not cleaned:
-        print("  ! Stranica dohvacena ali prazna nakon ciscenja")
+        if not tiho:
+            print("  ! Stranica dohvacena ali prazna nakon ciscenja")
         return None, None, None
     content_hash = hashlib.sha256(cleaned.encode("utf-8")).hexdigest()[:16]
     return cleaned, content_hash, sirovi
@@ -211,8 +215,10 @@ def pdf_poveznice(html, baza, maks=2):
         spoj = cist + " " + href.lower()
         if not any(k in spoj for k in ("natjeca", "javni poziv", "stipendij", "poziv")):
             continue
-        if any(k in spoj for k in ("rezultat", "rang", "zapisnik", "odluka o dodjeli",
-                                   "lista kandidata", "obavijest o rezultat")):
+        if any(k in spoj for k in ("rezultat", "rang", "zapisnik", "zakljuc",
+                                   "odluka", "lista kandidata", "obavijest o rezultat",
+                                   "ugovor", "izvjes", "pravilnik", "obrazac",
+                                   "privol", "izjav")):
             continue
         if pun not in kandidati:
             kandidati.append(pun)
@@ -481,7 +487,7 @@ def main():
         # dohvati i taj PDF i spoji ga s tekstom stranice.
         if sirovi and PDF_SUPPORT:
             for pdf_url in pdf_poveznice(sirovi, url):
-                pdf_text, _, _ = fetch_content(pdf_url, retries=0)
+                pdf_text, _, _ = fetch_content(pdf_url, retries=0, tiho=True)
                 if pdf_text:
                     print(f"  + procitan PDF: {pdf_url.rsplit('/', 1)[-1][:50]}")
                     text = (text + "\n\n--- TEKST IZ PRILOZENOG PDF-a ---\n"
