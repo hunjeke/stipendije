@@ -90,6 +90,21 @@ EXTRACTION_PROMPT = """Analiziraj tekst stranice o stipendijama i vrati TOCNO ov
   "poveznica_natjecaj": "ako na stranici postoji poveznica koja vodi IZRAVNO na tekst natjecaja (a ne na popis), upisi ju ovdje; inace null"
 }}
 
+PRVO PROVJERI O CEMU JE NATJECAJ. Zanimaju nas ISKLJUCIVO stipendije i novcane
+potpore za SKOLOVANJE ucenika i studenata. Ako je natjecaj o bilo cemu drugom —
+subvencije za solarne panele, energetska obnova, poticaji poduzetnicima,
+sufinanciranje vrtica, javna nabava, zaposljavanje, najam stanova, komunalno —
+vrati sve null i ima_otvoren_natjecaj=false, cak i ako ima jasan rok i iznos.
+
+POSEBNO PAZI na potpore koje idu ZAPOSLENIM ljudima, a ne ucenicima i studentima:
+npr. potpore lijecnicima specijalistima, uciteljima ili drugim deficitarnim
+zanimanjima ZA RAD u nekom gradu, potpore za stambeno zbrinjavanje, naknade za
+novorodence. To NISU stipendije, bez obzira sto se ponekad zovu "potpora" i
+imaju mjesecni iznos. Stipendija se dodjeljuje osobi koja se JOS SKOLUJE
+(ucenik ili student), za vrijeme trajanja skolovanja.
+Opce rubrike "natjecaji i javni pozivi" sadrze svakakve natjecaje; uzmi u obzir
+samo one o stipendijama, skolarinama i potporama za ucenike i studente.
+
 VAZNO: za "rok_tekst" prepisi datum doslovno iz teksta. Ne racunaj i ne zakljucuj je li rok prosao — to radi program zasebno.
 Ako stranica nema jasan natjecaj (samo meni/navigacija), vrati sve null i ima_otvoren_natjecaj=false.
 
