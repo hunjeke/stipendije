@@ -126,13 +126,6 @@
     "zupanija": "Istarska županija"
   },
   {
-    "naziv": "Zagrebačka županija — natječaji",
-    "url": "https://www.zagrebacka-zupanija.hr/natjecaji/",
-    "kategorija": "Županija",
-    "podrucje": "Zagrebačka županija",
-    "zupanija": "Zagrebačka županija"
-  },
-  {
     "naziv": "Splitsko-dalmatinska županija — natječaji",
     "url": "https://www.dalmacija.hr/natjecaji",
     "kategorija": "Županija",
@@ -288,7 +281,7 @@
   },
   {
     "naziv": "Grad Makarska — natječaji i javni pozivi",
-    "url": "https://makarska.hr/natjecaji-i-javni-pozivi",
+    "url": "https://makarska.hr/natjecaji-i-javni-pozivi/",
     "kategorija": "Grad",
     "podrucje": "Makarska",
     "zupanija": "Splitsko-dalmatinska županija"
@@ -378,8 +371,8 @@
     "zupanija": "Splitsko-dalmatinska županija"
   },
   {
-    "naziv": "Grad Biograd na Moru — natječaji",
-    "url": "https://www.biogradnamoru.hr/hr/natje%C4%8Daji",
+    "naziv": "Grad Biograd na Moru — stipendije",
+    "url": "https://www.biogradnamoru.hr/hr/stipendije",
     "kategorija": "Grad",
     "podrucje": "Biograd na Moru",
     "zupanija": "Zadarska županija"
@@ -400,7 +393,7 @@
   },
   {
     "naziv": "Grad Metković — natječaji",
-    "url": "https://grad-metkovic.hr/category/natjecaji/",
+    "url": "https://grad-metkovic.hr/",
     "kategorija": "Grad",
     "podrucje": "Metković",
     "zupanija": "Dubrovačko-neretvanska županija"
@@ -414,7 +407,7 @@
   },
   {
     "naziv": "Grad Ivanić-Grad — javni natječaji",
-    "url": "https://ivanic-grad.hr/javni-natjecaji",
+    "url": "https://ivanic-grad.hr/javni-natjecaji/",
     "kategorija": "Grad",
     "podrucje": "Ivanić-Grad",
     "zupanija": "Zagrebačka županija"
@@ -441,7 +434,7 @@
     "zupanija": "Splitsko-dalmatinska županija"
   },
   {
-    "naziv": "Grad Stari Grad — novosti i natječaji",
+    "naziv": "Grad Stari Grad — stipendije",
     "url": "https://stari-grad.hr/stipendije",
     "kategorija": "Grad",
     "podrucje": "Stari Grad",
@@ -453,28 +446,28 @@
     "kategorija": "Grad",
     "podrucje": "Samobor",
     "zupanija": "Zagrebačka županija"
-    },
+  },
   {
     "naziv": "Grad Velika Gorica — natječaji",
     "url": "https://gorica.hr/category/sluzbene-obavijesti/natjecaji/",
     "kategorija": "Grad",
     "podrucje": "Velika Gorica",
     "zupanija": "Zagrebačka županija"
-    },
+  },
   {
     "naziv": "Grad Gospić — stipendije",
     "url": "https://gospic.hr/gradski-programi/stipendije-grada-gospica/",
     "kategorija": "Grad",
     "podrucje": "Gospić",
     "zupanija": "Ličko-senjska županija"
-    },
+  },
   {
     "naziv": "Grad Vodnjan — natječaji",
     "url": "https://www.vodnjan-dignano.hr/hr/natjecaji/",
     "kategorija": "Grad",
     "podrucje": "Vodnjan",
     "zupanija": "Istarska županija"
-    },
+  },
   {
     "naziv": "Grad Kaštela — stipendije",
     "url": "https://kastela.hr/kategorija/stipendije/",
@@ -495,7 +488,7 @@
     "kategorija": "Grad",
     "podrucje": "Kastav",
     "zupanija": "Primorsko-goranska županija"
-    },
+  },
   {
     "naziv": "Grad Ludbreg — stipendije",
     "url": "https://ludbreg.hr/stipendije-grada-ludbrega/",
@@ -504,12 +497,12 @@
     "zupanija": "Varaždinska županija"
   },
   {
-    "naziv": "Grad Mali Lošinj — potpore i stipendije",
-    "url": "https://mali-losinj.hr/poduzetnici/potpore-i-stipendije/",
+    "naziv": "Grad Mali Lošinj — studentske stipendije",
+    "url": "https://mali-losinj.hr/poduzetnici/potpore-i-stipendije/lista-studentske-stipendije/",
     "kategorija": "Grad",
     "podrucje": "Mali Lošinj",
     "zupanija": "Primorsko-goranska županija"
-    },
+  },
   {
     "naziv": "Grad Vukovar — natječaji za stipendije",
     "url": "https://www.vukovar.hr/gradske-vijesti/344-upravni-odjel-za-obrazovanje-sport-i-branitelje",
@@ -523,7 +516,7 @@
     "kategorija": "Agregator",
     "podrucje": "Vukovar",
     "zupanija": "Vukovarsko-srijemska županija"
-    },
+  },
   {
     "naziv": "Grad Sisak — natječaji i javni pozivi",
     "url": "https://sisak.hr/kategorija/natjecaji-i-javni-pozivi/",
@@ -539,26 +532,26 @@
     "zupanija": "Međimurska županija"
   },
   {
-    "naziv": "Grad Vinkovci — službene obavijesti",
-    "url": "https://grad-vinkovci.hr/hr/objave/sluzbene-obavijesti",
+    "naziv": "Grad Vinkovci — natječaji",
+    "url": "https://grad-vinkovci.hr/",
     "kategorija": "Grad",
     "podrucje": "Vinkovci",
     "zupanija": "Vukovarsko-srijemska županija"
-    },
+  },
   {
     "naziv": "ROCKWOOL — stipendije „Je li plava boja vaše latice?”",
     "url": "https://www.rockwool.com/hr/o-nama/drustveno-odrzivo-poslovanje/stipendije/",
     "kategorija": "Tvrtka",
     "podrucje": "Cijela Hrvatska",
     "zupanija": ""
-    },
+  },
   {
     "naziv": "Sveučilište u Splitu — sveučilišne stipendije",
     "url": "https://www.unist.hr/sveucilisne-stipendije/440",
     "kategorija": "Sveučilište",
     "podrucje": "Split",
     "zupanija": "Splitsko-dalmatinska županija"
-    },
+  },
   {
     "naziv": "Sveučilište u Osijeku — stipendije i potpore",
     "url": "https://www.unios.hr/category/natjecaji/",
@@ -572,7 +565,7 @@
     "kategorija": "Agregator",
     "podrucje": "Osijek",
     "zupanija": "Osječko-baranjska županija"
-    },
+  },
   {
     "naziv": "Grad Solin — obavijesti i natječaji",
     "url": "https://www.solin.hr/obavijesti/",
@@ -593,14 +586,14 @@
     "kategorija": "Grad",
     "podrucje": "Dugo Selo",
     "zupanija": "Zagrebačka županija"
-    },
+  },
   {
     "naziv": "Grad Novi Marof — natječaji za stipendije",
     "url": "https://www.novi-marof.hr/category/natjecaji-stipendije/",
     "kategorija": "Grad",
     "podrucje": "Novi Marof",
     "zupanija": "Varaždinska županija"
-    },
+  },
   {
     "naziv": "Grad Ivanec — stipendije",
     "url": "https://ivanec.hr/dokumenti/43-proracun/297-stipendija",
@@ -621,7 +614,7 @@
     "kategorija": "Grad",
     "podrucje": "Varaždinske Toplice",
     "zupanija": "Varaždinska županija"
-    },
+  },
   {
     "naziv": "Grad Sveta Nedelja — obavijesti i natječaji",
     "url": "https://grad-svetanedelja.hr/",
@@ -631,7 +624,7 @@
   },
   {
     "naziv": "Grad Vrbovec — obavijesti i natječaji",
-    "url": "https://vrbovec.hr/",
+    "url": "https://vrbovec.hr",
     "kategorija": "Grad",
     "podrucje": "Vrbovec",
     "zupanija": "Zagrebačka županija"
@@ -642,7 +635,7 @@
     "kategorija": "Grad",
     "podrucje": "Sveti Ivan Zelina",
     "zupanija": "Zagrebačka županija"
-    },
+  },
   {
     "naziv": "Općina Viškovo — natječaji za stipendije",
     "url": "https://opcina-viskovo.hr/",
@@ -670,7 +663,7 @@
     "kategorija": "Općina",
     "podrucje": "Matulji",
     "zupanija": "Primorsko-goranska županija"
-    },
+  },
   {
     "naziv": "Zaklada Novo Sutra — stipendije",
     "url": "https://novosutra.hr/stipendije/",
@@ -680,11 +673,11 @@
   },
   {
     "naziv": "Ministarstvo gospodarstva — stipendiranje u obrtničkim zanimanjima",
-    "url": "https://minpo.gov.hr/",
+    "url": "https://mingo.gov.hr/javni-pozivi-i-natjecaji-7371/javni-pozivi-i-natjecaji-ministarstva/otvoreni-javni-pozivi-i-natjecaji/7390",
     "kategorija": "Ministarstvo",
     "podrucje": "Cijela Hrvatska",
     "zupanija": ""
-    },
+  },
   {
     "naziv": "Grad Beli Manastir — natječaji",
     "url": "https://www.beli-manastir.hr/natjecaji/",
@@ -698,7 +691,7 @@
     "kategorija": "Grad",
     "podrucje": "Valpovo",
     "zupanija": "Osječko-baranjska županija"
-    },
+  },
   {
     "naziv": "Zaklada „Hrvatska za djecu” — stipendije",
     "url": "https://www.zhzd.hr/stipendije-182/182",
@@ -712,7 +705,7 @@
     "kategorija": "Županija",
     "podrucje": "Zagrebačka županija",
     "zupanija": "Zagrebačka županija"
-    },
+  },
   {
     "naziv": "RIT Croatia — financijska potpora i stipendije",
     "url": "https://www.rit.edu/croatia/financial-aid-and-scholarships",
@@ -726,28 +719,28 @@
     "kategorija": "Sveučilište",
     "podrucje": "Cijela Hrvatska",
     "zupanija": ""
-    },
+  },
   {
     "naziv": "Hrvatska školska zaklada (Croatian Scholarship Fund)",
     "url": "https://www.croatianscholarship.org/na-hrvatskom/",
     "kategorija": "Zaklada",
     "podrucje": "Cijela Hrvatska",
     "zupanija": ""
-    },
+  },
   {
     "naziv": "Hrvatski Telekom — stipendije",
     "url": "https://www.t.ht.hr/karijera/stipendije",
     "kategorija": "Tvrtka",
     "podrucje": "Cijela Hrvatska",
     "zupanija": ""
-    },
+  },
   {
     "naziv": "Središnji državni ured za Hrvate izvan RH — stipendije",
     "url": "https://hrvatiizvanrh.gov.hr/",
     "kategorija": "Ministarstvo",
     "podrucje": "Cijela Hrvatska",
     "zupanija": ""
-    },
+  },
   {
     "naziv": "Ministarstvo obrane — stipendije za studente IT-a",
     "url": "https://www.morh.hr/dodjela-stipendija-vojnim-stipendistima-studentima-iz-podrucja-informacijsko-komunikacijskih-tehnologija/",
