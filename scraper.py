@@ -1,17 +1,19 @@
 #!/usr/bin/env python3
 """
-stipendija.hr scraper — v2
+stipendije.hr scraper — v3
 ===========================
 Cita popis izvora iz sources.json, dohvaca svaku stranicu (HTML ili PDF),
 salje sadrzaj Claude API-ju da izvuce strukturirane podatke o stipendiji,
-i SAM PROGRAMSKI racuna je li natjecaj OTVOREN / USKORO / ROK ISTEKAO
+i SAM PROGRAMSKI racuna je li natjecaj OTVOREN / ROK ISTEKAO
 na temelju stvarnog danasnjeg datuma.
 
-Novo u v2:
-  - cita PDF-ove (natjecaji su cesto samo PDF)
-  - prepoznaje 4 formata datuma umjesto 1
-  - cache: preskace stranice koje se nisu promijenile -> ne placas API bezveze
-  - --force za ignoriranje cachea
+Novo u v3:
+  - slijedi poveznice na PDF natjecaje (najava na stranici, tekst u PDF-u)
+  - prepoznaje kad stranica kaze da natjecaja NEMA, pa ne cita datume iz arhive
+  - vraca izravnu poveznicu na natjecaj kad ju nade
+
+Iz v2:
+  - cita PDF-ove, 4 formata datuma, cache, --force
 
 Pokretanje:
     export ANTHROPIC_API_KEY="sk-ant-..."
@@ -29,9 +31,15 @@ import hashlib
 import argparse
 from datetime import datetime, date
 from io import BytesIO
+from urllib.parse import urljoin, urlparse
 
-import requests, urllib3, urllib3
+import requests
+import urllib3
 from bs4 import BeautifulSoup
+
+# Neke gradske stranice imaju neispravan SSL certifikat pa ih dohvacamo
+# s verify=False. Ovo utisava upozorenje koje bi inace zatrpalo ispis.
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 try:
     import anthropic
@@ -78,11 +86,22 @@ EXTRACTION_PROMPT = """Analiziraj tekst stranice o stipendijama i vrati TOCNO ov
   "uvjeti": "tko se moze prijaviti, 1-2 recenice, ili null",
   "upute_za_prijavu": "3-6 kratkih koraka odvojenih s ' | ', ili null",
   "ima_otvoren_natjecaj": true/false — je li ocito da JE objavljen konkretan natjecaj (ne samo opca stranica o programu),
-  "napomena": "bilo sto neuobicajeno sto covjek treba znati, ili null",   "poveznica_natjecaj": "ako na stranici postoji poveznica koja vodi IZRAVNO na tekst natjecaja (a ne na popis), upisi ju ovdje; inace null"
+  "napomena": "bilo sto neuobicajeno sto covjek treba znati, ili null",
+  "poveznica_natjecaj": "ako na stranici postoji poveznica koja vodi IZRAVNO na tekst natjecaja (a ne na popis), upisi ju ovdje; inace null"
 }}
 
 VAZNO: za "rok_tekst" prepisi datum doslovno iz teksta. Ne racunaj i ne zakljucuj je li rok prosao — to radi program zasebno.
-Ako stranica nema jasan natjecaj (samo meni/navigacija), vrati sve null i ima_otvoren_natjecaj=false.  NAJVAZNIJE PRAVILO: ako stranica bilo gdje kaze da trenutno NEMA otvorenih natjecaja (npr. "trenutacno nema otvorenih natjecaja", "natjecaj je zatvoren", "natjecaj ce biti objavljen u...", "prijave su zavrsene"), tada OBAVEZNO vrati ima_otvoren_natjecaj=false i rok_tekst=null — bez obzira na to koliko datuma vidis na stranici. Datumi zatvorenih natjecaja, arhiva i najave buducih objava NISU rok za prijavu. Rok upisi SAMO ako je jasno da se na taj natjecaj moze prijaviti upravo sada.
+Ako stranica nema jasan natjecaj (samo meni/navigacija), vrati sve null i ima_otvoren_natjecaj=false.
+
+NAJVAZNIJE PRAVILO: ako stranica bilo gdje kaze da trenutno NEMA otvorenih natjecaja
+(npr. "trenutacno nema otvorenih natjecaja", "natjecaj je zatvoren", "natjecaj ce biti
+objavljen u...", "prijave su zavrsene"), tada OBAVEZNO vrati ima_otvoren_natjecaj=false
+i rok_tekst=null — bez obzira na to koliko datuma vidis na stranici. Datumi zatvorenih
+natjecaja, arhiva i najave buducih objava NISU rok za prijavu.
+Rok upisi SAMO ako je jasno da se na taj natjecaj moze prijaviti upravo sada.
+
+Ako tekst sadrzi odjeljak "--- TEKST IZ PRILOZENOG PDF-a ---", taj dio je sam natjecaj
+i ima prednost pred kratkom najavom sa stranice.
 
 TEKST STRANICE:
 ---
@@ -104,14 +123,18 @@ BROWSER_HEADERS = {
 
 
 def fetch_content(url, retries=2):
-    """Dohvati stranicu. Vraca (tekst, hash) ili (None, None) ako ne uspije.
+    """Dohvati stranicu. Vraca (tekst, hash, sirovi_html).
+
+    Sirovi HTML sluzi da se u njemu potraze poveznice na PDF natjecaje;
+    kod PDF-a je None. Pri neuspjehu vraca (None, None, None).
     Podrzava i HTML i PDF. Pokusava vise puta jer stranice znaju povremeno pasti."""
     resp = None
     last_error = None
     for attempt in range(retries + 1):
         try:
             resp = requests.get(url, headers=BROWSER_HEADERS,
-                                timeout=REQUEST_TIMEOUT, allow_redirects=True, verify=False)
+                                timeout=REQUEST_TIMEOUT, allow_redirects=True,
+                                verify=False)
             resp.raise_for_status()
             break
         except requests.RequestException as e:
@@ -122,36 +145,65 @@ def fetch_content(url, retries=2):
                 time.sleep(wait)
             else:
                 print(f"  ! Greska pri dohvatu nakon {retries + 1} pokusaja: {e}")
-                return None, None
+                return None, None, None
     if resp is None:
         print(f"  ! Greska pri dohvatu: {last_error}")
-        return None, None
+        return None, None, None
 
     content_type = resp.headers.get("Content-Type", "").lower()
 
     if "pdf" in content_type or url.lower().endswith(".pdf"):
         if not PDF_SUPPORT:
             print("  ! PDF stranica, ali 'pypdf' nije instaliran (pip install pypdf)")
-            return None, None
+            return None, None, None
         try:
             reader = PdfReader(BytesIO(resp.content))
             text = "\n".join((page.extract_text() or "") for page in reader.pages)
         except Exception as e:
             print(f"  ! Ne mogu procitati PDF: {e}")
-            return None, None
+            return None, None, None
+        sirovi = None
     else:
         soup = BeautifulSoup(resp.text, "html.parser")
         for tag in soup(["script", "style", "nav", "footer", "header"]):
             tag.decompose()
         text = soup.get_text(separator="\n")
+        sirovi = resp.text
 
     lines = [ln.strip() for ln in text.splitlines() if ln.strip()]
     cleaned = "\n".join(lines)[:MAX_CHARS]
     if not cleaned:
         print("  ! Stranica dohvacena ali prazna nakon ciscenja")
-        return None, None
+        return None, None, None
     content_hash = hashlib.sha256(cleaned.encode("utf-8")).hexdigest()[:16]
-    return cleaned, content_hash
+    return cleaned, content_hash, sirovi
+
+
+def pdf_poveznice(html, baza, maks=2):
+    """Nadi poveznice na PDF koje djeluju kao natjecaj, s iste domene.
+
+    Namjerno preskace rezultate, rang-liste i zapisnike — to nisu natjecaji,
+    a citanje starih rezultata kao aktualnog natjecaja bila bi gadna greska.
+    Ograniceno na 2 datoteke da se ne prokopa cijela arhiva."""
+    kandidati = []
+    for m in re.finditer(r'<a[^>]+href=["\']([^"\']+\.pdf[^"\']*)["\']([^>]*)>(.*?)</a>',
+                         html, re.I | re.S):
+        href, tekst = m.group(1), m.group(3)
+        pun = urljoin(baza, href)
+        if urlparse(pun).netloc != urlparse(baza).netloc:
+            continue
+        cist = re.sub(r"<[^>]+>", " ", tekst).lower()
+        spoj = cist + " " + href.lower()
+        if not any(k in spoj for k in ("natjeca", "javni poziv", "stipendij", "poziv")):
+            continue
+        if any(k in spoj for k in ("rezultat", "rang", "zapisnik", "odluka o dodjeli",
+                                   "lista kandidata", "obavijest o rezultat")):
+            continue
+        if pun not in kandidati:
+            kandidati.append(pun)
+        if len(kandidati) >= maks:
+            break
+    return kandidati
 
 
 def extract_with_claude(client, page_text):
@@ -203,9 +255,9 @@ def parse_hr_date(text):
         except ValueError: pass
     return None
 
+
 def _izravni(kandidat, baza):
     """Prihvati poveznicu samo ako je na istoj domeni i razlicita od popisa."""
-    from urllib.parse import urljoin, urlparse
     if not kandidat:
         return None
     pun = urljoin(baza, str(kandidat).strip())
@@ -216,6 +268,7 @@ def _izravni(kandidat, baza):
     if pun.rstrip("/") == baza.rstrip("/"):
         return None
     return pun
+
 
 def compute_status(rok_tekst, ima_otvoren_natjecaj):
     """Status se racuna PROGRAMSKI, ne prepusta se modelu."""
@@ -248,10 +301,9 @@ def save_cache(cache):
         json.dump(cache, f, ensure_ascii=False, indent=2)
 
 
-
 def write_html(results):
     """Napise output.html - otvara se duplim klikom u pregledniku.
-    Ovo je ujedno prvi nacrt kako bi stranica mogla izgledati."""
+    Ovo je radni pregled za tebe, nije javna stranica (to radi web.py)."""
     def status_class(s):
         if s.startswith("OTVORENO"):
             return "otvoreno"
@@ -295,7 +347,7 @@ def write_html(results):
         <dt>Kategorija</dt><dd>{esc(r.get('kategorija'))}</dd>
       </dl>
       {f'<div class="upute"><strong>Kako se prijaviti</strong><ol>{koraci}</ol></div>' if koraci else ''}
-      <a class="izvor" href="{esc(r.get('url'))}" target="_blank">Otvori sluzbeni natjecaj &rarr;</a>
+      <a class="izvor" href="{esc(r.get('poveznica_natjecaj') or r.get('url'))}" target="_blank">Otvori sluzbeni natjecaj &rarr;</a>
       <div class="provjereno">Provjereno: {esc(r.get('zadnje_provjereno'))}</div>
     </article>""")
 
@@ -304,7 +356,7 @@ def write_html(results):
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>stipendija.hr &mdash; pregled</title>
+<title>stipendije.hr &mdash; radni pregled</title>
 <style>
   * {{ box-sizing: border-box; }}
   body {{ font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
@@ -350,7 +402,7 @@ def write_html(results):
 </head>
 <body>
 <div class="omot">
-  <h1>stipendija.hr &mdash; pregled izvora</h1>
+  <h1>stipendije.hr &mdash; radni pregled izvora</h1>
   <p class="podnaslov">Automatski generirano {datetime.now().strftime('%d.%m.%Y. u %H:%M')}
      &middot; {len(results)} izvora</p>
   <div class="sazetak">
@@ -388,6 +440,7 @@ def main():
 
     cache = {} if args.force else load_cache()
     results, needs_review, skipped = [], [], 0
+    pdf_procitano = 0
 
     if not PDF_SUPPORT:
         print("NAPOMENA: 'pypdf' nije instaliran — PDF natjecaji ce biti preskoceni.")
@@ -399,7 +452,7 @@ def main():
         name, url = src["naziv"], src["url"]
         print(f"[{i}/{len(sources)}] {name}")
 
-        text, content_hash = fetch_content(url)
+        text, content_hash, sirovi = fetch_content(url)
         now = datetime.now().isoformat(timespec="minutes")
 
         if text is None:
@@ -408,6 +461,20 @@ def main():
                  "zadnje_provjereno": now}
             results.append(r); needs_review.append(r)
             continue
+
+        # Ako je natjecaj samo najavljen, a sam tekst je u PDF-u iza poveznice,
+        # dohvati i taj PDF i spoji ga s tekstom stranice.
+        if sirovi and PDF_SUPPORT:
+            for pdf_url in pdf_poveznice(sirovi, url):
+                pdf_text, _, _ = fetch_content(pdf_url, retries=0)
+                if pdf_text:
+                    print(f"  + procitan PDF: {pdf_url.rsplit('/', 1)[-1][:50]}")
+                    text = (text + "\n\n--- TEKST IZ PRILOZENOG PDF-a ---\n"
+                            + pdf_text)[:MAX_CHARS * 2]
+                    pdf_procitano += 1
+                time.sleep(1)
+            # hash se racuna nakon spajanja da cache prati i sadrzaj PDF-a
+            content_hash = hashlib.sha256(text.encode("utf-8")).hexdigest()[:16]
 
         cached = cache.get(url)
         if cached and cached.get("hash") == content_hash:
@@ -441,7 +508,8 @@ def main():
             "rok_tekst": extracted.get("rok_tekst"),
             "uvjeti": extracted.get("uvjeti"),
             "upute_za_prijavu": extracted.get("upute_za_prijavu"),
-            "napomena": extracted.get("napomena"),             "poveznica_natjecaj": _izravni(extracted.get("poveznica_natjecaj"), url),
+            "napomena": extracted.get("napomena"),
+            "poveznica_natjecaj": _izravni(extracted.get("poveznica_natjecaj"), url),
             "status": status,
             "zadnje_provjereno": now,
             "_ima_otvoren": ima_otvoren,
@@ -461,7 +529,8 @@ def main():
         json.dump(results, f, ensure_ascii=False, indent=2)
 
     fields = ["naziv", "url", "kategorija", "iznos", "rok_tekst", "uvjeti",
-              "upute_za_prijavu", "napomena", "status", "zadnje_provjereno"]
+              "upute_za_prijavu", "napomena", "poveznica_natjecaj",
+              "status", "zadnje_provjereno"]
     # utf-8-sig = UTF-8 s BOM oznakom -> Excel na Windowsu ispravno prikaze kvacice.
     # "sep=," u prvom retku -> Excel razdvoji podatke po stupcima umjesto da sve
     # nagura u stupac A (hrvatski Windows inace ocekuje tocka-zarez).
@@ -479,6 +548,7 @@ def main():
     print(f"           {OUTPUT_JSON}, {OUTPUT_CSV}")
     print(f"Ukupno izvora:        {len(results)}")
     print(f"Preskoceno (cache):   {skipped}")
+    print(f"Procitanih PDF-ova:   {pdf_procitano}")
     print(f"TRENUTNO OTVORENIH:   {len(otvoreni)}")
     print(f"Treba rucnu provjeru: {len(needs_review)}")
     if otvoreni:
