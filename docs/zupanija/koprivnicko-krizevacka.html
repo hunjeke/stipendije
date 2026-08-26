@@ -12,7 +12,7 @@
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:locale" content="hr_HR">
-<meta property="og:site_name" content="stipendije.hr">
+<meta property="og:site_name" content="Stipendije.hr">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://stipendije.hr/pregled.png">
 <link rel="icon" href="../favicon.ico" sizes="any">
@@ -20,7 +20,7 @@
 <link rel="icon" type="image/png" sizes="96x96" href="../favicon-96.png">
 <link rel="icon" type="image/png" sizes="192x192" href="../favicon-192.png">
 <link rel="apple-touch-icon" href="../apple-touch-icon.png">
-<meta name="theme-color" content="#1E2230">
+<meta name="theme-color" content="#1D4ED8">
 <link rel="preload" href="../f/plex-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="../f/bricolage-800.woff2" as="font" type="font/woff2" crossorigin>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "CollectionPage", "name": "Stipendije u Koprivničko-križevačkoj županiji 2026. — otvoreni natječaji", "description": "Svi natječaji za stipendije u Koprivničko-križevačkoj županiji: iznosi, rokovi prijave i upute za prijavu. Izvore provjeravamo dvaput tjedno.", "inLanguage": "hr-HR", "url": "https://stipendije.hr/zupanija/koprivnicko-krizevacka.html", "isPartOf": {"@type": "WebSite", "name": "stipendije.hr", "url": "https://stipendije.hr/"}, "mainEntity": {"@type": "ItemList", "numberOfItems": 3, "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Grad Koprivnica — stipendije", "url": "https://koprivnica.hr/gradani/odgoj-i-obrazovanje/stipendije/"}, {"@type": "ListItem", "position": 2, "name": "Grad Križevci — dokumenti i natječaji", "url": "https://krizevci.hr/dokumenti/"}, {"@type": "ListItem", "position": 3, "name": "Koprivničko-križevačka županija — stipendije", "url": "https://stipendije.kckzz.hr/"}]}}</script>
@@ -39,17 +39,17 @@
   font-weight:400 500;font-style:normal;font-display:swap}
 
 .kol{position:fixed;left:0;right:0;bottom:0;z-index:80;background:var(--tinta);
-  color:#EFF1EC;padding:1rem 1.15rem;display:none}
+  color:#F2F4F8;padding:1rem 1.15rem;display:none}
 .kol.vidljiva{display:block}
 .kol-w{max-width:780px;margin:0 auto;display:flex;gap:1rem;
   align-items:center;justify-content:space-between;flex-wrap:wrap}
 .kol p{margin:0;font-size:.86rem;line-height:1.5;max-width:52ch;color:#D6D9D2}
-.kol a{color:#EFF1EC;text-decoration:underline}
+.kol a{color:#F2F4F8;text-decoration:underline}
 .kol-gumbi{display:flex;gap:.6rem;flex-shrink:0}
 .kol button{font-family:"Plex",sans-serif;font-size:.87rem;
-  padding:.55rem 1rem;border:1.5px solid #EFF1EC;background:none;
-  color:#EFF1EC;cursor:pointer}
-.kol button.da{background:#EFF1EC;color:var(--tinta);font-weight:600}
+  padding:.55rem 1rem;border:1.5px solid #F2F4F8;background:none;
+  color:#F2F4F8;cursor:pointer}
+.kol button.da{background:#F2F4F8;color:var(--tinta);font-weight:600}
 .kol button:hover{border-color:#fff}
 @media(max-width:600px){
   .kol{padding:.9rem}
@@ -60,13 +60,15 @@
 }
 
 :root{
-  --papir:#EFF1EC;      /* hladan papir, ne krem */
+  --papir:#F2F4F8;      /* papir s plavim tonom */
   --karta:#FFFFFF;
-  --tinta:#1E2230;      /* duboka tinta */
-  --tinta-2:#5B6274;    /* prigusena */
-  --linija:#D9DCD3;
-  --otvoreno:#1B6B41;   /* borova zelena */
-  --hitno:#A6331E;      /* pecatno crvena */
+  --tinta:#141B2D;      /* mornarska tinta */
+  --tinta-2:#565F76;    /* prigusena */
+  --linija:#DBE0EA;
+  --plava:#1D4ED8;      /* glavna boja: veze, naglasci, znak */
+  --plava-t:#1739A0;    /* tamnija, za hover */
+  --otvoreno:#15803D;   /* zelena znaci samo: natjecaj je otvoren */
+  --hitno:#B91C1C;      /* rok istjece */
 }
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
@@ -82,22 +84,22 @@ body{margin:0;background:var(--papir);color:var(--tinta);
   gap:.8rem;padding-top:.7rem;padding-bottom:.7rem}
 .logo{display:flex;align-items:center;gap:.6rem;text-decoration:none;
   color:var(--tinta)}
-.znak{width:34px;height:34px;flex-shrink:0;display:block}
+.znak{width:44px;height:44px;flex-shrink:0;display:block}
 .ime{font-family:"Bricolage",sans-serif;font-weight:800;
   font-size:1.14rem;letter-spacing:-.02em}
-.ime span{color:var(--otvoreno)}
+.ime span{color:var(--plava)}
 .nav{display:flex;gap:.2rem}
 .nav a{font-size:.86rem;color:var(--tinta-2);text-decoration:none;
   padding:.55rem .5rem;border-bottom:1.5px solid transparent;
   line-height:1.2}
-.nav a:hover{color:var(--tinta)}
-.nav a.tu{color:var(--tinta);border-bottom-color:var(--tinta)}
+.nav a:hover{color:var(--plava)}
+.nav a.tu{color:var(--plava);border-bottom-color:var(--plava)}
 
 /* --- mobitel --- */
 @media(max-width:600px){
   body{font-size:15.5px}
   .w{padding:0 .95rem}
-  .znak{width:28px;height:28px}
+  .znak{width:38px;height:38px}
   .ime{font-size:1rem}
   .nav{gap:0}
   .nav a{font-size:.8rem;padding:.55rem .38rem}
@@ -132,7 +134,7 @@ h3{font-family:"Bricolage",sans-serif;font-weight:700;
 footer{margin-top:3.5rem;border-top:1px solid var(--linija);
   padding:1.8rem 0 3rem;font-size:.87rem;color:var(--tinta-2)}
 footer p{margin:.55rem 0}
-footer a{color:var(--otvoreno)}
+footer a{color:var(--plava)}
 footer .sitno{font-family:"PlexMono",monospace;font-size:.7rem;
   letter-spacing:.05em;margin-top:1.4rem;color:#8A909E}
 
@@ -142,7 +144,7 @@ footer .sitno{font-family:"PlexMono",monospace;font-size:.7rem;
 .upoz strong{color:var(--tinta)}
 
 a:focus-visible,button:focus-visible,summary:focus-visible,
-input:focus-visible{outline:2px solid var(--otvoreno);outline-offset:2px}
+input:focus-visible,select:focus-visible{outline:2px solid var(--plava);outline-offset:2px}
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important}
 }
@@ -170,13 +172,12 @@ input:focus-visible{outline:2px solid var(--otvoreno);outline-offset:2px}
 <body><header class="vrh"><div class="w">
   <a class="logo" href=".././" aria-label="stipendije.hr, početna">
     <svg class="znak" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
-      <path d="M0 0 H62 L100 38 V100 H0 Z" fill="#1E2230"/>
-      <path d="M62 0 L100 38 H62 Z" fill="#1B6B41"/>
-      <text x="43" y="50" text-anchor="middle" dominant-baseline="central"
+      <rect x="0" y="0" width="100" height="100" rx="22" fill="#1D4ED8"/>
+      <text x="50" y="53" text-anchor="middle" dominant-baseline="central"
             font-family="'Plex',sans-serif" font-weight="700"
-            font-size="58" fill="#EFF1EC">S</text>
+            font-size="62" fill="#FFFFFF">S</text>
     </svg>
-    <span class="ime">stipendije<span>.hr</span></span>
+    <span class="ime">Stipendije<span>.hr</span></span>
   </a>
   <nav class="nav">
     <a href=".././" class="tu">Natječaji</a>
@@ -201,7 +202,7 @@ input:focus-visible{outline:2px solid var(--otvoreno);outline-offset:2px}
      Posebno nam je važno ako je netočan <strong>rok prijave</strong>.</p>
   <p>Ne procjenjujemo tvoje šanse za pojedinu stipendiju. Za to pitaj instituciju
      koja je natječaj objavila.</p>
-  <p class="sitno">Zadnja provjera 24.08.2026. &nbsp;·&nbsp; 97 izvora &nbsp;·&nbsp;
+  <p class="sitno">Zadnja provjera 26.08.2026. &nbsp;·&nbsp; 101 izvor &nbsp;·&nbsp;
      podaci prikupljeni automatski &nbsp;·&nbsp;
      <a class="tiho" href="../impressum.html">Impressum</a> &nbsp;·&nbsp;
      <a class="tiho" href="../privatnost.html">Privatnost</a></p>
