@@ -204,7 +204,7 @@
     }
   },
   "https://www.pula.hr/hr/novosti/": {
-    "hash": "697b9988db424213",
+    "hash": "d459387bd171c7f9",
     "result": {
       "naziv": "Grad Pula — novosti i natječaji",
       "url": "https://www.pula.hr/hr/novosti/",
@@ -216,7 +216,7 @@
       "napomena": null,
       "poveznica_natjecaj": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-08-26T12:47",
+      "zadnje_provjereno": "2026-08-27T17:59",
       "_ima_otvoren": false
     }
   },
@@ -289,7 +289,7 @@
     }
   },
   "https://www.istra-istria.hr/hr/natjecaji/": {
-    "hash": "7ed0281d0fc6d3d1",
+    "hash": "ce364bac0a1c1fc9",
     "result": {
       "naziv": "Istarska županija — natječaji",
       "url": "https://www.istra-istria.hr/hr/natjecaji/",
@@ -301,7 +301,7 @@
       "napomena": null,
       "poveznica_natjecaj": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-08-26T12:09",
+      "zadnje_provjereno": "2026-08-27T18:00",
       "_ima_otvoren": false
     }
   },
@@ -527,7 +527,7 @@
     }
   },
   "https://www.dubrovnik.hr/natjecaji": {
-    "hash": "ab7e9ca0ad4cdc64",
+    "hash": "1e121b222abd6e50",
     "result": {
       "naziv": "Grad Dubrovnik — natječaji",
       "url": "https://www.dubrovnik.hr/natjecaji",
@@ -539,7 +539,7 @@
       "napomena": null,
       "poveznica_natjecaj": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-08-26T12:11",
+      "zadnje_provjereno": "2026-08-27T18:01",
       "_ima_otvoren": false
     }
   },
@@ -629,7 +629,7 @@
     }
   },
   "https://www.vpz.hr/": {
-    "hash": "a898348af191c607",
+    "hash": "44116e7139c2cf3e",
     "result": {
       "naziv": "Virovitičko-podravska županija — natječaji",
       "url": "https://www.vpz.hr/",
@@ -641,7 +641,7 @@
       "napomena": null,
       "poveznica_natjecaj": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-08-26T12:12",
+      "zadnje_provjereno": "2026-08-27T18:01",
       "_ima_otvoren": false
     }
   },
@@ -850,7 +850,7 @@
     }
   },
   "https://www.grad-krk.hr/natjecaji": {
-    "hash": "d31fe727ad19ac6c",
+    "hash": "eaf4d74f3c0f8312",
     "result": {
       "naziv": "Grad Krk — natječaji",
       "url": "https://www.grad-krk.hr/natjecaji",
@@ -862,12 +862,12 @@
       "napomena": null,
       "poveznica_natjecaj": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-08-26T12:14",
+      "zadnje_provjereno": "2026-08-27T18:02",
       "_ima_otvoren": false
     }
   },
   "https://www.kutina.hr/": {
-    "hash": "634a0f0bc107949f",
+    "hash": "f2bd820048c6972e",
     "result": {
       "naziv": "Grad Kutina — natječaji",
       "url": "https://www.kutina.hr/",
@@ -879,7 +879,7 @@
       "napomena": null,
       "poveznica_natjecaj": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-08-26T12:14",
+      "zadnje_provjereno": "2026-08-27T18:02",
       "_ima_otvoren": false
     }
   },
@@ -935,7 +935,7 @@
     }
   },
   "https://www.slavonski-brod.hr/": {
-    "hash": "64f5a17cd547af68",
+    "hash": "7c3a84aed7f56ff9",
     "result": {
       "naziv": "Grad Slavonski Brod — natječaji",
       "url": "https://www.slavonski-brod.hr/",
@@ -947,7 +947,7 @@
       "napomena": null,
       "poveznica_natjecaj": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-08-26T12:16",
+      "zadnje_provjereno": "2026-08-27T18:03",
       "_ima_otvoren": false
     }
   },
@@ -969,7 +969,7 @@
     }
   },
   "https://www.jastrebarsko.hr/": {
-    "hash": "62ca7ffa7240550e",
+    "hash": "94b8e57dc24b1194",
     "result": {
       "naziv": "Grad Jastrebarsko — natječaji",
       "url": "https://www.jastrebarsko.hr/",
@@ -981,12 +981,12 @@
       "napomena": null,
       "poveznica_natjecaj": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-08-26T12:17",
+      "zadnje_provjereno": "2026-08-27T18:04",
       "_ima_otvoren": false
     }
   },
   "https://www.virovitica.hr/": {
-    "hash": "c017e419c3cac304",
+    "hash": "1a6c9f3c415eff80",
     "result": {
       "naziv": "Grad Virovitica — stipendije",
       "url": "https://www.virovitica.hr/",
@@ -998,12 +998,12 @@
       "napomena": null,
       "poveznica_natjecaj": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-08-26T12:53",
+      "zadnje_provjereno": "2026-08-27T18:04",
       "_ima_otvoren": false
     }
   },
   "https://www.hvar.hr/portal/": {
-    "hash": "64898883be365a9f",
+    "hash": "c69ed3faaf89c7f4",
     "result": {
       "naziv": "Grad Hvar — natječaji",
       "url": "https://www.hvar.hr/portal/",
@@ -1015,7 +1015,7 @@
       "napomena": null,
       "poveznica_natjecaj": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-08-26T12:17",
+      "zadnje_provjereno": "2026-08-27T18:04",
       "_ima_otvoren": false
     }
   },
@@ -1071,7 +1071,7 @@
     }
   },
   "https://www.vodnjan-dignano.hr/hr/natjecaji/": {
-    "hash": "7d3bda29ad3d4490",
+    "hash": "c83920da941aee6b",
     "result": {
       "naziv": "Grad Vodnjan — natječaji",
       "url": "https://www.vodnjan-dignano.hr/hr/natjecaji/",
@@ -1083,12 +1083,12 @@
       "napomena": null,
       "poveznica_natjecaj": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-08-26T12:18",
+      "zadnje_provjereno": "2026-08-27T18:05",
       "_ima_otvoren": false
     }
   },
   "https://kastela.hr/kategorija/stipendije/": {
-    "hash": "0e0bf2fbc0a1b927",
+    "hash": "ced2b669fec3e0c9",
     "result": {
       "naziv": "Grad Kaštela — stipendije",
       "url": "https://kastela.hr/kategorija/stipendije/",
@@ -1100,7 +1100,7 @@
       "napomena": null,
       "poveznica_natjecaj": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-08-26T12:53",
+      "zadnje_provjereno": "2026-08-27T18:05",
       "_ima_otvoren": false
     }
   },
@@ -1122,7 +1122,7 @@
     }
   },
   "https://kastav.hr/": {
-    "hash": "8a7855c303b8f2f8",
+    "hash": "9822fca19d27b82b",
     "result": {
       "naziv": "Grad Kastav — stipendije",
       "url": "https://kastav.hr/",
@@ -1134,7 +1134,7 @@
       "napomena": null,
       "poveznica_natjecaj": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-08-26T12:18",
+      "zadnje_provjereno": "2026-08-27T18:05",
       "_ima_otvoren": false
     }
   },
@@ -1258,7 +1258,7 @@
     }
   },
   "https://www.unios.hr/category/natjecaji/": {
-    "hash": "120de938b1288c64",
+    "hash": "c1f7ad67b9fbe55b",
     "result": {
       "naziv": "Sveučilište u Osijeku — stipendije i potpore",
       "url": "https://www.unios.hr/category/natjecaji/",
@@ -1270,12 +1270,12 @@
       "napomena": null,
       "poveznica_natjecaj": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-08-26T12:20",
+      "zadnje_provjereno": "2026-08-27T18:06",
       "_ima_otvoren": false
     }
   },
   "https://icm-osijek.info/natjecaji": {
-    "hash": "16e91f26c28f28ac",
+    "hash": "ce6a538246eab54b",
     "result": {
       "naziv": "Info centar za mlade Osijek — natječaji",
       "url": "https://icm-osijek.info/natjecaji",
@@ -1287,7 +1287,7 @@
       "napomena": null,
       "poveznica_natjecaj": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-08-26T12:54",
+      "zadnje_provjereno": "2026-08-27T18:06",
       "_ima_otvoren": false
     }
   },
@@ -1360,7 +1360,7 @@
     }
   },
   "https://www.lepoglava.hr/": {
-    "hash": "89479ce97767c68a",
+    "hash": "e886801c16fa9045",
     "result": {
       "naziv": "Grad Lepoglava — natječaji",
       "url": "https://www.lepoglava.hr/",
@@ -1372,7 +1372,7 @@
       "napomena": null,
       "poveznica_natjecaj": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-08-26T12:21",
+      "zadnje_provjereno": "2026-08-27T18:07",
       "_ima_otvoren": false
     }
   },
@@ -1394,7 +1394,7 @@
     }
   },
   "https://grad-svetanedelja.hr/": {
-    "hash": "87d841436d8e4d6d",
+    "hash": "1622fcf8f647ede4",
     "result": {
       "naziv": "Grad Sveta Nedelja — obavijesti i natječaji",
       "url": "https://grad-svetanedelja.hr/",
@@ -1406,7 +1406,7 @@
       "napomena": null,
       "poveznica_natjecaj": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-08-26T12:21",
+      "zadnje_provjereno": "2026-08-27T18:07",
       "_ima_otvoren": false
     }
   },
@@ -1428,7 +1428,7 @@
     }
   },
   "https://zelina.hr/": {
-    "hash": "4f4cfa6c93ede391",
+    "hash": "8d54c6f17621cdaf",
     "result": {
       "naziv": "Grad Sveti Ivan Zelina — natječaji",
       "url": "https://zelina.hr/",
@@ -1440,7 +1440,7 @@
       "napomena": null,
       "poveznica_natjecaj": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-08-26T12:22",
+      "zadnje_provjereno": "2026-08-27T18:07",
       "_ima_otvoren": false
     }
   },
@@ -1462,7 +1462,7 @@
     }
   },
   "https://kostrena.hr/": {
-    "hash": "425e7915f81858f6",
+    "hash": "473017aef597dc8c",
     "result": {
       "naziv": "Općina Kostrena — natječaji",
       "url": "https://kostrena.hr/",
@@ -1474,7 +1474,7 @@
       "napomena": null,
       "poveznica_natjecaj": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-08-26T12:22",
+      "zadnje_provjereno": "2026-08-27T18:07",
       "_ima_otvoren": false
     }
   },
@@ -1751,7 +1751,7 @@
     }
   },
   "https://mali-losinj.hr/poduzetnici/potpore-i-stipendije/lista-studentske-stipendije/": {
-    "hash": "50c9ec8be056b959",
+    "hash": "f92cc9790b9f49d7",
     "result": {
       "naziv": "Grad Mali Lošinj — studentske stipendije",
       "url": "https://mali-losinj.hr/poduzetnici/potpore-i-stipendije/lista-studentske-stipendije/",
@@ -1763,12 +1763,12 @@
       "napomena": null,
       "poveznica_natjecaj": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-08-26T12:53",
+      "zadnje_provjereno": "2026-08-27T18:05",
       "_ima_otvoren": false
     }
   },
   "https://grad-vinkovci.hr/": {
-    "hash": "5edeefe4114828df",
+    "hash": "024c5a4fb7747d42",
     "result": {
       "naziv": "Grad Vinkovci — natječaji",
       "url": "https://grad-vinkovci.hr/",
@@ -1780,12 +1780,12 @@
       "napomena": null,
       "poveznica_natjecaj": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-08-26T12:54",
+      "zadnje_provjereno": "2026-08-27T18:05",
       "_ima_otvoren": false
     }
   },
   "https://vrbovec.hr": {
-    "hash": "03fdc8656ba88931",
+    "hash": "335e1e7ee7ba2447",
     "result": {
       "naziv": "Grad Vrbovec — obavijesti i natječaji",
       "url": "https://vrbovec.hr",
@@ -1797,7 +1797,7 @@
       "napomena": null,
       "poveznica_natjecaj": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-08-26T12:55",
+      "zadnje_provjereno": "2026-08-27T18:07",
       "_ima_otvoren": false
     }
   },
