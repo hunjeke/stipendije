@@ -46,39 +46,22 @@ def iso_rok(status):
 
 
 def ucitaj_izvore():
-    """URL -> (podrucje, zupanija, ocekivani mjesec objave)."""
-    p, z, o = {}, {}, {}
+    """URL -> (podrucje, zupanija, ocekivani mjesec, je li usko usmjeren)."""
+    p, z, o, u = {}, {}, {}, {}
     if os.path.exists(IZVORI):
         for s in json.load(open(IZVORI, encoding="utf-8")):
             k = s["url"].rstrip("/")
             p[k] = s.get("podrucje") or SVI
             z[k] = s.get("zupanija") or ""
             o[k] = s.get("ocekivano") or ""
-    return p, z, o
+            u[k] = bool(s.get("usko"))
+    return p, z, o, u
 
 
 CSS_INDEX = """
 /* --- hero --- */
 .hero{padding:3.2rem 0 .4rem}
 .hero .oznaka{display:inline-block;margin-bottom:1rem}
-.hero p.teza{font-size:1.06rem;color:var(--tinta-2);max-width:46ch;margin:.4rem 0 0}
-
-/* --- signature: traka roka --- */
-.rok-traka{margin-top:1.8rem;border:1.5px solid var(--plava);background:var(--karta)}
-.rok-traka .gornje{display:flex;justify-content:space-between;align-items:baseline;
-  gap:1rem;padding:.8rem 1.1rem .55rem;flex-wrap:wrap}
-.rok-traka .naslov{font-family:"Bricolage",sans-serif;font-weight:700;
-  font-size:1.02rem;letter-spacing:-.01em}
-.odbroj{font-family:"PlexMono",monospace;font-weight:500;
-  font-size:2.6rem;line-height:1;letter-spacing:-.04em;padding:0 1.1rem .1rem}
-.odbroj .jed{font-size:.85rem;letter-spacing:.09em;text-transform:uppercase;
-  color:var(--tinta-2);margin-left:.5rem}
-.rok-traka .donje{padding:.35rem 1.1rem 1rem;font-size:.88rem;color:var(--tinta-2)}
-.mjerka{height:5px;background:var(--linija);position:relative;overflow:hidden}
-.mjerka i{position:absolute;inset:0 auto 0 0;background:var(--plava);display:block}
-.rok-traka.hitno{border-color:var(--hitno)}
-.rok-traka.hitno .odbroj{color:var(--hitno)}
-.rok-traka.hitno .mjerka i{background:var(--hitno)}
 
 /* prazno stanje */
 .prazno{margin-top:1.8rem;border:1.5px solid var(--tinta);background:var(--karta);
@@ -188,16 +171,7 @@ CSS_INDEX = """
 @media(max-width:600px){
   /* hero */
   .hero{padding:2rem 0 .4rem}
-  .hero p.teza{font-size:.98rem}
 
-  /* traka roka: brojka i tekst u dva reda da stanu */
-  .rok-traka{margin-top:1.4rem}
-  .rok-traka .gornje{padding:.7rem .85rem .45rem;gap:.4rem}
-  .rok-traka .naslov{font-size:.95rem;line-height:1.3}
-  .rok-traka .meta{font-size:.62rem}
-  .odbroj{font-size:2.5rem;padding:0 .85rem .1rem}
-  .odbroj .jed{font-size:.72rem;margin-left:.4rem}
-  .rok-traka .donje{padding:.3rem .85rem .9rem;font-size:.85rem}
   .prazno{padding:1.05rem .95rem}
   .prazno .kad{font-size:1.2rem}
 
@@ -212,7 +186,7 @@ CSS_INDEX = """
   .sek{padding:2rem 0 0}
   h2{font-size:1.06rem}
   .sek-vrh{gap:.5rem}
-  .sek-vrh .broj{font-size:.72rem}
+  .sek-vrh .broj{font-size:.86rem}
 
   /* kartice */
   .k{padding:.95rem .9rem}
@@ -229,8 +203,6 @@ CSS_INDEX = """
   .veza{padding:.4rem 0 .3rem}
 }
 @media(max-width:380px){
-  .odbroj{font-size:2.1rem}
-  .rok-traka .naslov{font-size:.9rem}
 }
 """
 
@@ -351,19 +323,6 @@ JS = """
     else if(n<=21){ z.textContent="Još "+n+" "+oblik(n,"dan","dana","dana"); }
   });
 
-  var t=document.getElementById("traka");
-  if(t){
-    var n=dana(t.getAttribute("data-rok"));
-    if(n!==null){
-      document.getElementById("brojka").textContent = n<0?0:n;
-      document.getElementById("jedinica").textContent =
-        oblik(n,"dan","dana","dana")+" do roka";
-      document.getElementById("mjerka").style.width =
-        Math.max(0,Math.min(100,(n/30)*100))+"%";
-      if(n<=7) t.classList.add("hitno");
-    }
-  }
-
   var izbor=document.getElementById("zupanija");
   if(!izbor) return;
   var kartice=document.querySelectorAll(".k");
@@ -430,7 +389,7 @@ def main():
         return
 
     d = json.load(open(ULAZ, encoding="utf-8"))
-    pod_map, zup_map, _ = ucitaj_izvore()
+    pod_map, zup_map, _, usko_map = ucitaj_izvore()
 
     otvorene, zatvorene = [], []
     for r in d:
@@ -458,30 +417,24 @@ def main():
     ukupno = len(otvorene) + len(zatvorene)
 
     # ---------- hero ----------
-    if otvorene:
-        prvi = otvorene[0]
-        iso = iso_rok(prvi[0].get("status") or "")
-        hero = f"""<div class="rok-traka" id="traka" data-rok="{iso}">
-  <div class="gornje">
-    <span class="naslov">{esc(prvi[0].get('naziv'))}</span>
-  </div>
-  <div class="odbroj"><span id="brojka">—</span><span class="jed" id="jedinica">do roka</span></div>
-  <div class="donje">{esc(prvi[0].get('iznos') or 'iznos nije naveden')}</div>
-  <div class="mjerka"><i id="mjerka" style="width:0"></i></div>
-</div>"""
-        n = len(otvorene)
-        im = oblik(n, "natječaj", "natječaja", "natječaja")
-        gl = oblik(n, "otvoren je", "otvorena su", "otvoreno je")
-        podnaslov = f"Upravo sada {gl} {n} {im}."
+    # Uski natjecaji (npr. samo za jedan studij) ostaju u popisu, ali ne idu
+    # na vrh stranice — ondje ide nesto sto se tice vise ljudi. Ako su otvoreni
+    # SAMO uski, na vrhu stoji opca poruka, a oni se vide u popisu ispod.
+    siroke = [t for t in otvorene
+              if not usko_map.get((t[0].get("url") or "").rstrip("/"), False)]
+
+    if siroke:
+        # Bez isticanja pojedinacnog natjecaja na vrhu: sto Zagrepcaninu znaci
+        # rok u Sibeniku? Ide ravno na filter i popis.
+        hero = ""
     else:
         hero = """<div class="prazno">
   <p class="kad">Sezona kreće u rujnu.</p>
   <p>Većina gradova, županija i sveučilišta natječaje objavljuje između rujna
      i prosinca. Rokovi su kratki, često 15 dana od objave.</p>
   <p>Izvore provjeravamo automatski dvaput tjedno. Čim se neki natječaj otvori,
-     pojavit će se ovdje na vrhu.</p>
+     pojavit će se ovdje.</p>
 </div>"""
-        podnaslov = "Trenutno nema otvorenih natječaja."
 
     # ---------- sekcije ----------
     sek_otv = ""
@@ -546,8 +499,7 @@ def main():
     html += f"""<main>
 <section class="hero"><div class="w">
   <span class="meta oznaka">Ažurirano {vrijeme}</span>
-  <h1>Sve stipendije u Hrvatskoj,<br>s rokovima koji vrijede.</h1>
-  <p class="teza">{podnaslov}</p>
+  <h1>Sve stipendije u Hrvatskoj<br>na jednom mjestu.</h1>
   {hero}
   <div class="filteri">
     <label class="oznaka-f" for="zupanija">Odaberi županiju</label>
