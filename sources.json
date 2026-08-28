@@ -764,5 +764,68 @@
     "kategorija": "Općina",
     "podrucje": "Velika",
     "zupanija": "Požeško-slavonska županija"
+    },
+  {
+    "naziv": "FER Karijere — stipendije poslodavaca",
+    "url": "https://karijere.fer.hr/studenti/stipendije-poslodavaca/",
+    "kategorija": "Agregator",
+    "podrucje": "Cijela Hrvatska",
+    "zupanija": ""
+  },
+  {
+    "naziv": "Hrvatsko katoličko sveučilište — natječaji",
+    "url": "https://www.unicath.hr/o-sveucilistu/natjecaji",
+    "kategorija": "Sveučilište",
+    "podrucje": "Cijela Hrvatska",
+    "zupanija": ""
+  },
+  {
+    "naziv": "HBOR — studentska stipendija",
+    "url": "https://www.hbor.hr/natjecaj-za-studentske-stipendije",
+    "kategorija": "Tvrtka",
+    "podrucje": "Cijela Hrvatska",
+    "zupanija": ""
+    },
+  {
+    "naziv": "OIV — stipendije",
+    "url": "https://www.oiv.hr/hr/karijera/stipendije/",
+    "kategorija": "Tvrtka",
+    "podrucje": "Cijela Hrvatska",
+    "zupanija": ""
+  },
+  {
+    "naziv": "Fina — prilike za studente (stipendije)",
+    "url": "https://www.fina.hr/karijere/prilike-za-studente",
+    "kategorija": "Tvrtka",
+    "podrucje": "Cijela Hrvatska",
+    "zupanija": ""
+  },
+  {
+    "naziv": "HOPS — vijesti i natječaji za stipendije",
+    "url": "https://www.hops.hr/vijesti",
+    "kategorija": "Tvrtka",
+    "podrucje": "Cijela Hrvatska",
+    "zupanija": ""
+    },
+  {
+    "naziv": "EFZG Karijere — stipendije, prakse i poslovi",
+    "url": "https://www.efzg.unizg.hr/za-studente-29717/stipendije-prakse-i-poslovi/29745",
+    "kategorija": "Agregator",
+    "podrucje": "Cijela Hrvatska",
+    "zupanija": ""
+  },
+  {
+    "naziv": "FOI — centar za podršku studentima i razvoj karijera",
+    "url": "https://cpsrk.foi.hr/",
+    "kategorija": "Agregator",
+    "podrucje": "Cijela Hrvatska",
+    "zupanija": ""
+    },
+  {
+    "naziv": "TVZ — obavijesti o stipendijama",
+    "url": "https://www.tvz.hr/?s=stipendij",
+    "kategorija": "Agregator",
+    "podrucje": "Cijela Hrvatska",
+    "zupanija": ""
   }
 ]
