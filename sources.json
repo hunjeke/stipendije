@@ -25,7 +25,8 @@
     "url": "https://mdu.gov.hr/javni-pozivi/javni-poziv-za-dodjelu-stipendija-za-ucenje-hrvatskoga-jezika-u-republici-hrvatskoj-za-akademsku-godinu-2026-2027/7580",
     "kategorija": "Ministarstvo",
     "podrucje": "Cijela Hrvatska",
-    "zupanija": ""
+    "zupanija": "",
+    "usko": true
   },
   {
     "naziv": "Grad Zagreb — stipendije",
@@ -193,7 +194,8 @@
     "url": "https://commission.europa.eu/funding-tenders/find-funding/find-calls-funding-topic/education-and-training-funding/funding-opportunities-conference-interpreting-programmes/bursaries-conference-interpreting-students_hr",
     "kategorija": "Međunarodno",
     "podrucje": "Cijela Hrvatska",
-    "zupanija": ""
+    "zupanija": "",
+    "usko": true
   },
   {
     "naziv": "Grad Koprivnica — stipendije",
@@ -676,7 +678,8 @@
     "url": "https://mingo.gov.hr/javni-pozivi-i-natjecaji-7371/javni-pozivi-i-natjecaji-ministarstva/otvoreni-javni-pozivi-i-natjecaji/7390",
     "kategorija": "Ministarstvo",
     "podrucje": "Cijela Hrvatska",
-    "zupanija": ""
+    "zupanija": "",
+    "usko": true
   },
   {
     "naziv": "Grad Beli Manastir — natječaji",
