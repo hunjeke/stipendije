@@ -750,5 +750,19 @@
     "kategorija": "Ministarstvo",
     "podrucje": "Cijela Hrvatska",
     "zupanija": ""
+    },
+  {
+    "naziv": "Grad Požega — ostali natječaji",
+    "url": "https://www.pozega.hr/natjecaji/ostali-natjecaji",
+    "kategorija": "Grad",
+    "podrucje": "Požega",
+    "zupanija": "Požeško-slavonska županija"
+  },
+  {
+    "naziv": "Općina Velika — stipendije",
+    "url": "https://www.opcina-velika.hr/",
+    "kategorija": "Općina",
+    "podrucje": "Velika",
+    "zupanija": "Požeško-slavonska županija"
   }
 ]
