@@ -119,8 +119,8 @@ h3{font-family:"Bricolage",sans-serif;font-weight:700;
 .sek{padding:2.6rem 0 0}
 .sek-vrh{display:flex;align-items:baseline;gap:.7rem;
   padding-bottom:.7rem;border-bottom:1.5px solid var(--tinta);margin-bottom:1.1rem}
-.sek-vrh .broj{font-family:"PlexMono",monospace;font-size:.78rem;
-  color:var(--tinta-2);margin-left:auto}
+.sek-vrh .broj{font-family:"PlexMono",monospace;font-size:.95rem;
+  font-weight:500;color:var(--tinta);margin-left:auto}
 .uvod{color:var(--tinta-2);font-size:.92rem;margin:-.5rem 0 1.2rem}
 
 /* --- podnozje --- */
