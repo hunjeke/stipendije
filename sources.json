@@ -276,7 +276,7 @@
   },
   {
     "naziv": "Grad Umag — studiranje i sustav stipendiranja",
-    "url": "https://umag.hr/informacije/studiranje-na-visokim-ucilistima-i-sustav-stipendiranja-62",
+    "url": "https://umag.hr/informacije/stipendije-196",
     "kategorija": "Grad",
     "podrucje": "Cijela Hrvatska",
     "zupanija": ""
@@ -311,7 +311,7 @@
   },
   {
     "naziv": "Grad Križevci — dokumenti i natječaji",
-    "url": "https://krizevci.hr/dokumenti/",
+    "url": "https://krizevci.hr/dokumenti",
     "kategorija": "Grad",
     "podrucje": "Križevci",
     "zupanija": "Koprivničko-križevačka županija"
@@ -727,13 +727,6 @@
     "naziv": "Hrvatska školska zaklada (Croatian Scholarship Fund)",
     "url": "https://www.croatianscholarship.org/na-hrvatskom/",
     "kategorija": "Zaklada",
-    "podrucje": "Cijela Hrvatska",
-    "zupanija": ""
-  },
-  {
-    "naziv": "Hrvatski Telekom — stipendije",
-    "url": "https://www.t.ht.hr/karijera/stipendije",
-    "kategorija": "Tvrtka",
     "podrucje": "Cijela Hrvatska",
     "zupanija": ""
   },
