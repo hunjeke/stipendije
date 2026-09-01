@@ -184,7 +184,7 @@
   },
   {
     "naziv": "AMPEU — Erasmus+ i programi mobilnosti",
-    "url": "https://www.ampeu.hr/",
+    "url": "https://www.ampeu.hr/natjecaji",
     "kategorija": "Međunarodno",
     "podrucje": "Cijela Hrvatska",
     "zupanija": ""
@@ -818,6 +818,20 @@
     "naziv": "TVZ — obavijesti o stipendijama",
     "url": "https://www.tvz.hr/?s=stipendij",
     "kategorija": "Agregator",
+    "podrucje": "Cijela Hrvatska",
+    "zupanija": ""
+    },
+  {
+    "naziv": "MZO — stipendije i boravci u inozemstvu",
+    "url": "https://mzom.gov.hr/istaknute-teme/medjunarodna-suradnja-i-eu/stipendije-i-boravci-u-inozemstvu/684",
+    "kategorija": "Međunarodno",
+    "podrucje": "Cijela Hrvatska",
+    "zupanija": ""
+  },
+  {
+    "naziv": "DAAD — stipendije za studij u Njemačkoj",
+    "url": "https://zagreb.diplo.de/hr-hr/themen/kultur/daad/2100844",
+    "kategorija": "Međunarodno",
     "podrucje": "Cijela Hrvatska",
     "zupanija": ""
   }
