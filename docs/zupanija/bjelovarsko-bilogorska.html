@@ -185,12 +185,73 @@ input:focus-visible,select:focus-visible{outline:2px solid var(--plava);outline-
 </div></header><main class="w"><section class="zag-zup">
   <a class="natrag" href="../">&larr; Sve stipendije u Hrvatskoj</a>
   <h1>Stipendije u Bjelovarsko-bilogorskoj županiji</h1>
-  <p class="sazetak">Trenutno nema otvorenih natječaja u Bjelovarsko-bilogorskoj županiji. Većina se objavljuje između rujna i prosinca — pratimo ih automatski i pojavit će se ovdje čim se otvore.</p>
+  <p class="sazetak" id="sazetak-zup" data-nema="Trenutno nema otvorenih natječaja u Bjelovarsko-bilogorskoj županiji. Većina se objavljuje između rujna i prosinca — pratimo ih automatski i pojavit će se ovdje čim se otvore.">Trenutno nema otvorenih natječaja u Bjelovarsko-bilogorskoj županiji. Većina se objavljuje između rujna i prosinca — pratimo ih automatski i pojavit će se ovdje čim se otvore.</p>
   <div class="brojke">
-    <div class="brojka"><b>0</b><span>otvoreno sada</span></div>
+    <div class="brojka"><b data-broj-otv-n>0</b><span>otvoreno sada</span></div>
     <div class="brojka"><b>3</b><span>izvora koje pratimo</span></div>
   </div>
-  <div class="sek-vrh" style="margin-top:2.2rem"><h2>Izvori koje pratimo</h2><span class="broj">3</span></div><article class="k" data-podrucje="Bjelovarsko-bilogorska županija" data-zupanija="Bjelovarsko-bilogorska županija" data-rok=""><div class="zag"><h3>Bjelovarsko-bilogorska županija — stipendije</h3><span class="status zat">Zatvoreno</span></div><div class="izvor">Bjelovarsko-bilogorska županija</div><a class="veza" href="https://bbz.hr/uo-obrazovanje-stipendije/" target="_blank" rel="noopener">Službena stranica &rarr;</a></article><article class="k" data-podrucje="Bjelovar" data-zupanija="Bjelovarsko-bilogorska županija" data-rok=""><div class="zag"><h3>Grad Bjelovar — stipendije</h3><span class="status zat">Zatvoreno</span></div><div class="izvor">Bjelovar</div><dl class="polja"><dt>Iznos</dt><dd class="iznos">130,00 eura mjesecno</dd><dt>Tko se prijavljuje</dt><dd>Studenti s prebivalištem na području Grada Bjelovara koji zadovolje uvjete i kriterije natječaja te redovno upisuju svaku akademsku godinu.</dd></dl><a class="veza" href="https://www.bjelovar.hr/obrazovanje-i-skrb/stipendije/" target="_blank" rel="noopener">Službena stranica &rarr;</a></article><article class="k" data-podrucje="Daruvar" data-zupanija="Bjelovarsko-bilogorska županija" data-rok=""><div class="zag"><h3>Grad Daruvar — stipendije</h3><span class="status zat">Zatvoreno</span></div><div class="izvor">Daruvar</div><a class="veza" href="https://daruvar.hr/stipendije/" target="_blank" rel="noopener">Službena stranica &rarr;</a></article>
+  <div class="sek-vrh" style="margin-top:2.2rem"><h2>Izvori koje pratimo</h2><span class="broj">3</span></div><article class="k" data-podrucje="Bjelovarsko-bilogorska županija" data-zupanija="Bjelovarsko-bilogorska županija" data-rok=""><div class="zag"><h3>Bjelovarsko-bilogorska županija — stipendije</h3><span class="status zat">Zatvoreno</span></div><div class="izvor">Bjelovarsko-bilogorska županija</div><a class="veza" href="https://bbz.hr/uo-obrazovanje-stipendije/" target="_blank" rel="noopener">Službena stranica &rarr;</a></article><article class="k" data-podrucje="Bjelovar" data-zupanija="Bjelovarsko-bilogorska županija" data-rok=""><div class="zag"><h3>Grad Bjelovar — stipendije</h3><span class="status zat">Zatvoreno</span></div><div class="izvor">Bjelovar</div><dl class="polja"><dt>Iznos</dt><dd class="iznos">130,00 eura mjesecno</dd><dt>Tko se prijavljuje</dt><dd>Studenti s prebivalištem na području Grada Bjelovara koji zadovolje uvjete i kriterije natječaja te redovno upisuju svaku akademsku godinu.</dd></dl><a class="veza" href="https://www.bjelovar.hr/obrazovanje-i-skrb/stipendije/" target="_blank" rel="noopener">Službena stranica &rarr;</a></article><article class="k" data-podrucje="Daruvar" data-zupanija="Bjelovarsko-bilogorska županija" data-rok=""><div class="zag"><h3>Grad Daruvar — stipendije</h3><span class="status zat">Zatvoreno</span></div><div class="izvor">Daruvar</div><a class="veza" href="https://daruvar.hr/stipendije/" target="_blank" rel="noopener">Službena stranica &rarr;</a></article><script>
+(function(){
+  // 1 dan / 2-4 dana / 5+ dana; pazi na 11-14 i na 21, 31...
+  function oblik(n,jd,gjd,gmn){
+    var z=Math.abs(n)%10, d=Math.abs(n)%100;
+    if(d>=11&&d<=14) return gmn;
+    if(z===1) return jd;
+    if(z>=2&&z<=4) return gjd;
+    return gmn;
+  }
+
+  // Cijeli dani do roka po lokalnom kalendaru:
+  //   n > 0  jos ima dana,  n === 0  danas je zadnji dan,  n < 0  rok je prosao.
+  // Usporeduju se ponoci, pa doba dana i ljetno/zimsko vrijeme ne pomicu racun.
+  function dana(iso){
+    if(!iso) return null;
+    var d=/^(\d{4})-(\d{2})-(\d{2})$/.exec(iso);
+    if(!d) return null;
+    var rok=new Date(+d[1], +d[2]-1, +d[3]);
+    var s=new Date(), danas=new Date(s.getFullYear(), s.getMonth(), s.getDate());
+    return Math.round((rok-danas)/86400000);
+  }
+
+  var istekle=0;
+  document.querySelectorAll(".k.otv[data-rok]").forEach(function(k){
+    var n=dana(k.getAttribute("data-rok"));
+    if(n===null) return;
+    if(n<0){                       // rok je prosao — van iz otvorenih
+      k.classList.add("isteklo");
+      k.style.display="none";
+      istekle++;
+      return;
+    }
+    var z=k.querySelector("[data-znak]");
+    if(!z) return;
+    if(n===0){ z.className="status hitno"; z.textContent="Zadnji dan"; }
+    else if(n<=7){ z.className="status hitno";
+      z.textContent="Još "+n+" "+oblik(n,"dan","dana","dana"); }
+    else if(n<=21){ z.textContent="Još "+n+" "+oblik(n,"dan","dana","dana"); }
+  });
+
+  if(!istekle) return;
+
+  // brojke i naslovi moraju pratiti ono sto se stvarno vidi
+  var ziv=document.querySelectorAll(".k.otv:not(.isteklo)").length;
+  document.querySelectorAll("[data-broj-otv]").forEach(function(b){
+    b.textContent = ziv+" "+oblik(ziv,"natječaj","natječaja","natječaja");
+  });
+  document.querySelectorAll("[data-broj-otv-n]").forEach(function(b){
+    b.textContent = ziv;
+  });
+  if(ziv>0) return;
+
+  var sek=document.getElementById("sek-otv");
+  if(sek) sek.style.display="none";
+  var prazno=document.getElementById("nema-otvorenih");
+  if(prazno) prazno.style.display="";
+  var sazetak=document.getElementById("sazetak-zup");
+  if(sazetak && sazetak.getAttribute("data-nema"))
+    sazetak.textContent=sazetak.getAttribute("data-nema");
+})();
+</script>
   <div class="druge">
     <h2>Ostale županije</h2>
     <div class="popis-zup"><a href="brodsko-posavska.html">Brodsko-posavska</a><a href="dubrovacko-neretvanska.html">Dubrovačko-neretvanska</a><a href="istarska.html">Istarska</a><a href="karlovacka.html">Karlovačka</a><a href="koprivnicko-krizevacka.html">Koprivničko-križevačka</a><a href="krapinsko-zagorska.html">Krapinsko-zagorska</a><a href="licko-senjska.html">Ličko-senjska</a><a href="medimurska.html">Međimurska</a><a href="osjecko-baranjska.html">Osječko-baranjska</a><a href="pozesko-slavonska.html">Požeško-slavonska</a><a href="primorsko-goranska.html">Primorsko-goranska</a><a href="sisacko-moslavacka.html">Sisačko-moslavačka</a><a href="splitsko-dalmatinska.html">Splitsko-dalmatinska</a><a href="varazdinska.html">Varaždinska</a><a href="viroviticko-podravska.html">Virovitičko-podravska</a><a href="vukovarsko-srijemska.html">Vukovarsko-srijemska</a><a href="zadarska.html">Zadarska</a><a href="zagreb.html">Zagreb</a><a href="zagrebacka.html">Zagrebačka</a><a href="sibensko-kninska.html">Šibensko-kninska</a></div>
@@ -204,7 +265,7 @@ input:focus-visible,select:focus-visible{outline:2px solid var(--plava);outline-
      Posebno nam je važno ako je netočan <strong>rok prijave</strong>.</p>
   <p>Ne procjenjujemo tvoje šanse za pojedinu stipendiju. Za to pitaj instituciju
      koja je natječaj objavila.</p>
-  <p class="sitno">Zadnja provjera 01.09.2026. &nbsp;·&nbsp; 112 izvora &nbsp;·&nbsp;
+  <p class="sitno">Zadnja provjera 02.09.2026. &nbsp;·&nbsp; 114 izvora &nbsp;·&nbsp;
      podaci prikupljeni automatski &nbsp;·&nbsp;
      <a class="tiho" href="../impressum.html">Impressum</a> &nbsp;·&nbsp;
      <a class="tiho" href="../privatnost.html">Privatnost</a></p>
