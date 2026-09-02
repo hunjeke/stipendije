@@ -297,6 +297,75 @@ def izbornik(podrucja):
     return opcije
 
 
+# --- rokovi se racunaju u pregledniku, a ne pri gradnji stranice ---
+# Stranica se gradi dvaput tjedno, a rok moze isteci bilo kojeg dana. Zato
+# svaki posjetitelj iznova racuna dane iz data-rok: istekli natjecaji nestaju
+# iz "Otvoreno za prijave" i prije nego skripta idući put prođe kroz izvore.
+# Ovaj blok ide na naslovnicu I na stranice zupanija.
+JS_ROKOVI = """
+(function(){
+  // 1 dan / 2-4 dana / 5+ dana; pazi na 11-14 i na 21, 31...
+  function oblik(n,jd,gjd,gmn){
+    var z=Math.abs(n)%10, d=Math.abs(n)%100;
+    if(d>=11&&d<=14) return gmn;
+    if(z===1) return jd;
+    if(z>=2&&z<=4) return gjd;
+    return gmn;
+  }
+
+  // Cijeli dani do roka po lokalnom kalendaru:
+  //   n > 0  jos ima dana,  n === 0  danas je zadnji dan,  n < 0  rok je prosao.
+  // Usporeduju se ponoci, pa doba dana i ljetno/zimsko vrijeme ne pomicu racun.
+  function dana(iso){
+    if(!iso) return null;
+    var d=/^(\\d{4})-(\\d{2})-(\\d{2})$/.exec(iso);
+    if(!d) return null;
+    var rok=new Date(+d[1], +d[2]-1, +d[3]);
+    var s=new Date(), danas=new Date(s.getFullYear(), s.getMonth(), s.getDate());
+    return Math.round((rok-danas)/86400000);
+  }
+
+  var istekle=0;
+  document.querySelectorAll(".k.otv[data-rok]").forEach(function(k){
+    var n=dana(k.getAttribute("data-rok"));
+    if(n===null) return;
+    if(n<0){                       // rok je prosao — van iz otvorenih
+      k.classList.add("isteklo");
+      k.style.display="none";
+      istekle++;
+      return;
+    }
+    var z=k.querySelector("[data-znak]");
+    if(!z) return;
+    if(n===0){ z.className="status hitno"; z.textContent="Zadnji dan"; }
+    else if(n<=7){ z.className="status hitno";
+      z.textContent="Još "+n+" "+oblik(n,"dan","dana","dana"); }
+    else if(n<=21){ z.textContent="Još "+n+" "+oblik(n,"dan","dana","dana"); }
+  });
+
+  if(!istekle) return;
+
+  // brojke i naslovi moraju pratiti ono sto se stvarno vidi
+  var ziv=document.querySelectorAll(".k.otv:not(.isteklo)").length;
+  document.querySelectorAll("[data-broj-otv]").forEach(function(b){
+    b.textContent = ziv+" "+oblik(ziv,"natječaj","natječaja","natječaja");
+  });
+  document.querySelectorAll("[data-broj-otv-n]").forEach(function(b){
+    b.textContent = ziv;
+  });
+  if(ziv>0) return;
+
+  var sek=document.getElementById("sek-otv");
+  if(sek) sek.style.display="none";
+  var prazno=document.getElementById("nema-otvorenih");
+  if(prazno) prazno.style.display="";
+  var sazetak=document.getElementById("sazetak-zup");
+  if(sazetak && sazetak.getAttribute("data-nema"))
+    sazetak.textContent=sazetak.getAttribute("data-nema");
+})();
+"""
+
+
 JS = """
 (function(){
   var SVI="Cijela Hrvatska";
@@ -309,19 +378,6 @@ JS = """
     if(z>=2&&z<=4) return gjd;
     return gmn;
   }
-
-  function dana(iso){
-    if(!iso) return null;
-    return Math.ceil((new Date(iso+"T23:59:59") - new Date())/86400000);
-  }
-
-  document.querySelectorAll("[data-rok]").forEach(function(k){
-    var n=dana(k.getAttribute("data-rok")), z=k.querySelector("[data-znak]");
-    if(n===null||!z) return;
-    if(n<=7){ z.className="status hitno";
-      z.textContent = n<=0 ? "Zadnji dan" : ("Još "+n+" "+oblik(n,"dan","dana","dana")); }
-    else if(n<=21){ z.textContent="Još "+n+" "+oblik(n,"dan","dana","dana"); }
-  });
 
   var izbor=document.getElementById("zupanija");
   if(!izbor) return;
@@ -337,7 +393,7 @@ JS = """
       k.classList.toggle("skriveno",!ok);
     });
     document.querySelectorAll(".grupa").forEach(function(g){
-      var ima=g.querySelectorAll(".k:not(.skriveno)").length>0;
+      var ima=g.querySelectorAll(".k:not(.skriveno):not(.isteklo)").length>0;
       var por=g.querySelector(".nema-rez");
       if(por)por.classList.toggle("vidljivo",!ima);
     });
@@ -353,7 +409,7 @@ JS = """
   function sklopiDrzavne(aktivno){
     if(!prekidac) return;
     var omot=prekidac.parentNode;
-    var drz=omot.querySelectorAll(".k.drzavna:not(.skriveno)");
+    var drz=omot.querySelectorAll(".k.drzavna:not(.skriveno):not(.isteklo)");
     if(!aktivno || drz.length===0){
       prekidac.classList.remove("vidljiv");
       omot.querySelectorAll(".k.drzavna").forEach(function(k){
@@ -423,12 +479,13 @@ def main():
     siroke = [t for t in otvorene
               if not usko_map.get((t[0].get("url") or "").rstrip("/"), False)]
 
-    if siroke:
-        # Bez isticanja pojedinacnog natjecaja na vrhu: sto Zagrepcaninu znaci
-        # rok u Sibeniku? Ide ravno na filter i popis.
-        hero = ""
-    else:
-        hero = """<div class="prazno">
+    # Poruka "nema otvorenih" uvijek postoji u HTML-u, samo je skrivena dok ima
+    # otvorenih. Ako posjetitelju u pregledniku istekne zadnji rok, JS je otkrije
+    # — bez toga bi stranica ostala prazna i bez objasnjenja.
+    # Bez isticanja pojedinacnog natjecaja na vrhu: sto Zagrepcaninu znaci
+    # rok u Sibeniku? Ide ravno na filter i popis.
+    skrij = ' style="display:none"' if siroke else ''
+    hero = f"""<div class="prazno" id="nema-otvorenih"{skrij}>
   <p class="kad">Sezona kreće u rujnu.</p>
   <p>Većina gradova, županija i sveučilišta natječaje objavljuje između rujna
      i prosinca. Rokovi su kratki, često 15 dana od objave.</p>
@@ -439,8 +496,9 @@ def main():
     # ---------- sekcije ----------
     sek_otv = ""
     if otvorene:
-        sek_otv = (f'<section class="sek"><div class="sek-vrh"><h2>Otvoreno za prijave</h2>'
-                   f'<span class="broj">{len(otvorene)} '
+        sek_otv = (f'<section class="sek" id="sek-otv">'
+                   f'<div class="sek-vrh"><h2>Otvoreno za prijave</h2>'
+                   f'<span class="broj" data-broj-otv>{len(otvorene)} '
                    f'{oblik(len(otvorene), "natječaj", "natječaja", "natječaja")}'
                    f'</span></div>'
                    f'<div class="grupa">'
@@ -475,8 +533,8 @@ def main():
                          f'{z.replace(" županija","")}</a>' for z in _zup)
                + '</div></section>')
 
-    js = JS.replace("__RAZMOTANO__",
-                    "false" if SKLOPI_DRZAVNE else "true")
+    js = JS_ROKOVI + JS.replace("__RAZMOTANO__",
+                                "false" if SKLOPI_DRZAVNE else "true")
 
     ld = json.dumps({
         "@context": "https://schema.org",
@@ -535,14 +593,16 @@ def main():
                  if z == zup or p == zup]
         dio = ""
         if otv_z:
-            dio += ('<div class="sek-vrh"><h2>Otvoreno za prijave</h2>'
-                    f'<span class="broj">{len(otv_z)}</span></div>'
+            dio += ('<div class="sek-vrh" id="sek-otv"><h2>Otvoreno za prijave</h2>'
+                    f'<span class="broj" data-broj-otv-n>{len(otv_z)}</span></div>'
                     + "".join(kartica(r, True, p, z) for r, p, z in otv_z))
         if zat_z:
             dio += ('<div class="sek-vrh" style="margin-top:2.2rem">'
                     '<h2>Izvori koje pratimo</h2>'
                     f'<span class="broj">{len(zat_z)}</span></div>'
                     + "".join(kartica(r, False, p, z) for r, p, z in zat_z))
+        # i zupanijska stranica sama izbacuje istekle rokove
+        dio += "<script>" + JS_ROKOVI + "</script>"
         popis = [(r.get("naziv") or "", r.get("url") or "")
                  for r, _, _ in otv_z + zat_z]
         put = stranica_zupanije(MAPA, zup, dio, len(otv_z),
