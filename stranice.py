@@ -196,14 +196,18 @@ def stranica_zupanije(mapa, ime, kartice_html, br_otv, br_uk,
     opis = (f"Svi natječaji za stipendije u {lok}: iznosi, rokovi prijave "
             f"i upute za prijavu. Izvore provjeravamo dvaput tjedno.")
 
+    # Recenica "nema otvorenih" se uvijek nosi sa sobom u data-nema: ako
+    # posjetitelju u pregledniku istekne zadnji rok, JS njome zamijeni uvod
+    # umjesto da stranica tvrdi da je nesto otvoreno.
+    nema = (f"Trenutno nema otvorenih natječaja u {lok}. "
+            f"Većina se objavljuje između rujna i prosinca — pratimo ih "
+            f"automatski i pojavit će se ovdje čim se otvore.")
     if br_otv:
         uvod = (f"Trenutno {oblik(br_otv,'je otvoren','su otvorena','je otvoreno')} "
                 f"{br_otv} {oblik(br_otv,'natječaj','natječaja','natječaja')} "
                 f"za stipendije u {lok}.")
     else:
-        uvod = (f"Trenutno nema otvorenih natječaja u {lok}. "
-                f"Većina se objavljuje između rujna i prosinca — pratimo ih "
-                f"automatski i pojavit će se ovdje čim se otvore.")
+        uvod = nema
 
     druge = "".join(
         f'<a href="{slug(z)}.html">{z.replace(" županija","")}</a>'
@@ -235,9 +239,9 @@ def stranica_zupanije(mapa, ime, kartice_html, br_otv, br_uk,
     html += f"""<main class="w"><section class="zag-zup">
   <a class="natrag" href="../">&larr; Sve stipendije u Hrvatskoj</a>
   <h1>Stipendije u {lok}</h1>
-  <p class="sazetak">{uvod}</p>
+  <p class="sazetak" id="sazetak-zup" data-nema="{nema}">{uvod}</p>
   <div class="brojke">
-    <div class="brojka"><b>{br_otv}</b><span>otvoreno sada</span></div>
+    <div class="brojka"><b data-broj-otv-n>{br_otv}</b><span>otvoreno sada</span></div>
     <div class="brojka"><b>{br_uk}</b><span>{oblik(br_uk,'izvor','izvora','izvora')} koje pratimo</span></div>
   </div>
   {kartice_html}
