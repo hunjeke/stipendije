@@ -66,7 +66,7 @@ MAX_CHARS = 15000
 # Cache pamti rezultat dok se stranica ne promijeni. Kad se promijeni NACIN
 # citanja (prompt, drugi prolaz po podstranicama), stari rezultati vise ne
 # vrijede — podigni ovaj broj i cijeli cache se jednom ponovno procita.
-VERZIJA_EKSTRAKCIJE = 2
+VERZIJA_EKSTRAKCIJE = 3
 
 # Gornja granica dodatnih poziva modelu u drugom prolazu, po jednom radu.
 # Osigurac protiv skupog iznenadenja: ako bi neocekivano puno izvora trazilo
@@ -92,6 +92,7 @@ HR_MONTHS = {
 EXTRACTION_PROMPT = """Analiziraj tekst stranice o stipendijama i vrati TOCNO ovaj JSON, bez ikakvog dodatnog teksta:
 
 {{
+  "naslov_natjecaja": "KRATAK naslov onoga sto se dodjeljuje, najvise 6 rijeci, ili null",
   "iznos": "iznos stipendije kako je naveden (npr. '200 EUR mjesecno, 10 mjeseci') ili null",
   "rok_tekst": "rok prijave DOSLOVNO kako pise u tekstu (npr. '4. studenoga 2025.') ili null ako nema konkretnog trenutnog natjecaja",
   "uvjeti": "tko se moze prijaviti, 1-2 recenice, ili null",
@@ -100,6 +101,13 @@ EXTRACTION_PROMPT = """Analiziraj tekst stranice o stipendijama i vrati TOCNO ov
   "napomena": "bilo sto neuobicajeno sto covjek treba znati, ili null",
   "poveznica_natjecaj": "ako na stranici postoji poveznica koja vodi IZRAVNO na tekst natjecaja (a ne na popis), upisi ju ovdje; inace null"
 }}
+
+NASLOV: "naslov_natjecaja" je ono sto pise na kartici na stranici, pa mora
+covjeku odmah reci STO se dodjeljuje. Izbaci "Natjecaj za dodjelu", ime grada,
+skolsku godinu i broj klase — to se vec vidi drugdje. Dobro: "Stipendije za
+deficitarna zanimanja", "Stipendije za ucenike i studente", "Stipendije za
+studij u Britaniji". Lose: "Natjecaj za dodjelu stipendija Grada X za ucenike
+prvih razreda za skolsku godinu 2026./2027.". Ako natjecaja nema, vrati null.
 
 PRVO PROVJERI O CEMU JE NATJECAJ. Zanimaju nas ISKLJUCIVO stipendije i novcane
 potpore za SKOLOVANJE ucenika i studenata. Ako je natjecaj o bilo cemu drugom —
@@ -351,6 +359,22 @@ def _izravni(kandidat, baza):
     if pun.rstrip("/") == baza.rstrip("/"):
         return None
     return pun
+
+
+def cist_naslov(s, maks=70):
+    """Sredi naslov natjecaja da stane na karticu.
+
+    Model povremeno ipak vrati cijeli sluzbeni naslov; ovdje se skrati na
+    granici rijeci umjesto da razbije izgled kartice."""
+    if not s:
+        return None
+    s = re.sub(r"\s+", " ", str(s)).strip(" .;:-—")
+    if not s:
+        return None
+    if len(s) > maks:
+        rez = s[:maks].rsplit(" ", 1)[0]
+        s = (rez or s[:maks]) + "…"
+    return s[0].upper() + s[1:]
 
 
 def compute_status(rok_tekst, ima_otvoren_natjecaj):
@@ -644,6 +668,9 @@ def main():
 
         r = {
             "naziv": name, "url": url, "kategorija": src.get("kategorija", ""),
+            # naslov samog natjecaja; kartica ga pokazuje umjesto imena izvora,
+            # jer se natjecaj sve cesce nalazi na podstranici drugog imena
+            "naslov_natjecaja": cist_naslov(extracted.get("naslov_natjecaja")),
             "iznos": extracted.get("iznos"),
             "rok_tekst": extracted.get("rok_tekst"),
             "uvjeti": extracted.get("uvjeti"),
@@ -682,7 +709,8 @@ def main():
     with open(OUTPUT_JSON, "w", encoding="utf-8") as f:
         json.dump(results, f, ensure_ascii=False, indent=2)
 
-    fields = ["naziv", "url", "kategorija", "iznos", "rok_tekst", "uvjeti",
+    fields = ["naziv", "naslov_natjecaja", "url", "kategorija", "iznos",
+              "rok_tekst", "uvjeti",
               "upute_za_prijavu", "napomena", "poveznica_natjecaj",
               "status", "zadnje_provjereno"]
     # utf-8-sig = UTF-8 s BOM oznakom -> Excel na Windowsu ispravno prikaze kvacice.
