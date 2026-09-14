@@ -207,8 +207,17 @@ CSS_INDEX = """
 """
 
 
+def naslov_kartice(r):
+    """Sto pise na vrhu kartice.
+
+    Ime izvora ("MZO — svi natjecaji") ne govori ucieniku nista o tome sto
+    dobiva. Kad scraper zna naslov samog natjecaja, ide on; ime izvora ostaje
+    na poveznici pri dnu kartice."""
+    return r.get("naslov_natjecaja") or r.get("naziv")
+
+
 def kartica(r, otvorena, podrucje, zupanija):
-    naziv = esc(r.get("naziv"))
+    naziv = esc(naslov_kartice(r))
     # ako je scraper nasao izravnu poveznicu na natjecaj, koristi nju
     izravna = r.get("poveznica_natjecaj")
     url = esc(izravna or r.get("url"))
@@ -250,6 +259,40 @@ def kartica(r, otvorena, podrucje, zupanija):
             f'{polja}{upute_html}'
             f'<a class="veza" href="{url}" target="_blank" rel="noopener">'
             f'{tekst_veze} &rarr;</a></article>')
+
+
+def _kljuc_naslova(s):
+    """'Stipendije za deficitarna zanimanja!' -> 'stipendije za deficitarna zanimanja'"""
+    z = {"č": "c", "ć": "c", "ž": "z", "š": "s", "đ": "d"}
+    s = "".join(z.get(x, x) for x in str(s).lower())
+    return re.sub(r"\s+", " ", re.sub(r"[^a-z0-9 ]", " ", s)).strip()
+
+
+def _popunjenost(r):
+    """Koliko je zapis bogat — kod duplikata zadrzavamo potpuniji."""
+    return sum(1 for k in ("iznos", "rok_tekst", "uvjeti", "upute_za_prijavu",
+                           "poveznica_natjecaj") if r.get(k))
+
+
+def spoji_duplikate(otvorene):
+    """Isti natjecaj zna doci preko dva izvora (npr. Chevening i s MZO-a i s
+    AMPEU-a) pa se na stranici pojavi dvaput. Spaja se samo kad se poklope I
+    naslov natjecaja I podrucje — inace bi se 'Stipendije za deficitarna
+    zanimanja' iz dva razlicita grada krivo slile u jedan."""
+    vidjeno, ishod = {}, []
+    for par in otvorene:
+        r, p, z = par
+        naslov = r.get("naslov_natjecaja")
+        if not naslov:                       # bez naslova nema pouzdane usporedbe
+            ishod.append(par)
+            continue
+        k = (_kljuc_naslova(p), _kljuc_naslova(naslov))
+        if k not in vidjeno:
+            vidjeno[k] = len(ishod)
+            ishod.append(par)
+        elif _popunjenost(r) > _popunjenost(ishod[vidjeno[k]][0]):
+            ishod[vidjeno[k]] = par          # zadrzi potpuniji zapis
+    return ishod
 
 
 # hrvatski abecedni red: ... S, Š, T, U, V, Z, Ž
@@ -456,6 +499,8 @@ def main():
             otvorene.append(par)
         elif s.startswith("ROK ISTEKAO") or s.startswith("NEMA AKTIVNOG"):
             zatvorene.append(par)
+
+    otvorene = spoji_duplikate(otvorene)
 
     # najhitniji prvi
     otvorene.sort(key=lambda t: (iso_rok(t[0].get("status") or "") or "9999",
