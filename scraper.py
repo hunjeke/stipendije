@@ -63,6 +63,17 @@ REQUEST_TIMEOUT = 25
 DELAY_SEC = 2
 MAX_CHARS = 15000
 
+# Cache pamti rezultat dok se stranica ne promijeni. Kad se promijeni NACIN
+# citanja (prompt, drugi prolaz po podstranicama), stari rezultati vise ne
+# vrijede — podigni ovaj broj i cijeli cache se jednom ponovno procita.
+VERZIJA_EKSTRAKCIJE = 2
+
+# Gornja granica dodatnih poziva modelu u drugom prolazu, po jednom radu.
+# Osigurac protiv skupog iznenadenja: ako bi neocekivano puno izvora trazilo
+# drugu razinu, radije preskoci ostatak nego da run posalje tisuce poziva.
+# Prvi rad nakon praznog cachea realno potrosi 100-160 od ovoga.
+MAKS_DRUGI_PROLAZ = 250
+
 HR_MONTHS = {
     "siječnja": 1, "sijecnja": 1, "siječanj": 1,
     "veljače": 2, "veljace": 2, "veljača": 2,
@@ -114,6 +125,13 @@ objavljen u...", "prijave su zavrsene"), tada OBAVEZNO vrati ima_otvoren_natjeca
 i rok_tekst=null — bez obzira na to koliko datuma vidis na stranici. Datumi zatvorenih
 natjecaja, arhiva i najave buducih objava NISU rok za prijavu.
 Rok upisi SAMO ako je jasno da se na taj natjecaj moze prijaviti upravo sada.
+
+POPISNE STRANICE: rubrika koja nabraja vise natjecaja NIJE sama po sebi razlog
+da vratis false. Ako na popisu stoji barem jedan natjecaj za stipendiju ucenika
+ili studenta i uz njega se vidi rok prijave, uzmi taj natjecaj (onaj s najblizim
+rokom koji jos nije prosao) i vrati ima_otvoren_natjecaj=true. Ako je na popisu
+samo naslov natjecaja bez roka, vrati ima_otvoren_natjecaj=false i rok_tekst=null
+— taj natjecaj se cita sa svoje podstranice, ne odavde.
 
 Ako tekst sadrzi odjeljak "--- TEKST IZ PRILOZENOG PDF-a ---", taj dio je sam natjecaj
 i ima prednost pred kratkom najavom sa stranice.
@@ -198,6 +216,53 @@ def fetch_content(url, retries=2, tiho=False):
     return cleaned, content_hash, sirovi
 
 
+def bez_kvacica(s):
+    """'Natječaj za učenike' -> 'natjecaj za ucenike'.
+
+    Kljucne rijeci nize pisane su bez kvacica, a tekst poveznica nije —
+    bez ovoga 'natjeca' nikad ne pronade 'Natječaj'."""
+    zamjena = {"č": "c", "ć": "c", "ž": "z", "š": "s", "đ": "d"}
+    return "".join(zamjena.get(z, z) for z in str(s).lower())
+
+
+# Rijeci koje odaju da poveznica vodi na ishod, a ne na natjecaj na koji se
+# jos moze prijaviti. Citanje rang-liste kao natjecaja bila bi gadna greska.
+NIJE_NATJECAJ = ("rezultat", "rang", "zapisnik", "zakljuc", "odluka",
+                 "lista kandidata", "obavijest o rezultat", "ugovor",
+                 "izvjes", "pravilnik", "obrazac", "privol", "izjav",
+                 "arhiva", "ponisten", "isprav")
+
+
+def natjecaj_poveznice(html, baza, maks=2):
+    """Nadi poveznice s popisne stranice koje vode na sam natjecaj za stipendiju.
+
+    Vecina gradova nema stranicu 'stipendije' nego rubriku 'javni natjecaji' na
+    kojoj stoji samo naslov s poveznicom. Na takvoj stranici nema ni iznosa ni
+    roka, pa model s pravom kaze da natjecaja nema — a natjecaj je jedan klik
+    dalje. Zato takve poveznice ovdje otvaramo i citamo."""
+    kandidati = []
+    for m in re.finditer(r'<a[^>]+href=["\']([^"\']+)["\'][^>]*>(.*?)</a>',
+                         html, re.I | re.S):
+        href, tekst = m.group(1), m.group(2)
+        if href.lower().startswith(("#", "mailto:", "tel:", "javascript:")):
+            continue
+        pun = _izravni(href, baza)        # ista domena i nije sama popisna stranica
+        if not pun or pun.lower().endswith(".pdf"):   # PDF-ove hvata pdf_poveznice
+            continue
+        cist = bez_kvacica(re.sub(r"<[^>]+>", " ", tekst))
+        spoj = cist + " " + bez_kvacica(href)
+        # mora mirisati na stipendiju, a ne na bilo koji javni natjecaj
+        if "stipendij" not in spoj and "skolarin" not in spoj:
+            continue
+        if any(k in spoj for k in NIJE_NATJECAJ):
+            continue
+        if pun not in kandidati:
+            kandidati.append(pun)
+        if len(kandidati) >= maks:
+            break
+    return kandidati
+
+
 def pdf_poveznice(html, baza, maks=2):
     """Nadi poveznice na PDF koje djeluju kao natjecaj, s iste domene.
 
@@ -211,14 +276,11 @@ def pdf_poveznice(html, baza, maks=2):
         pun = urljoin(baza, href)
         if urlparse(pun).netloc != urlparse(baza).netloc:
             continue
-        cist = re.sub(r"<[^>]+>", " ", tekst).lower()
-        spoj = cist + " " + href.lower()
+        cist = bez_kvacica(re.sub(r"<[^>]+>", " ", tekst))
+        spoj = cist + " " + bez_kvacica(href)
         if not any(k in spoj for k in ("natjeca", "javni poziv", "stipendij", "poziv")):
             continue
-        if any(k in spoj for k in ("rezultat", "rang", "zapisnik", "zakljuc",
-                                   "odluka", "lista kandidata", "obavijest o rezultat",
-                                   "ugovor", "izvjes", "pravilnik", "obrazac",
-                                   "privol", "izjav")):
+        if any(k in spoj for k in NIJE_NATJECAJ):
             continue
         if pun not in kandidati:
             kandidati.append(pun)
@@ -443,6 +505,11 @@ def write_html(results):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--force", action="store_true", help="ignoriraj cache, obradi sve")
+    ap.add_argument("--samo", metavar="TEKST",
+                    help="obradi samo izvore ciji naziv ili url sadrze TEKST "
+                         "(za probu na jednom izvoru, bez trosenja na svih 120)")
+    ap.add_argument("--limit", type=int, metavar="N",
+                    help="obradi najvise N izvora")
     args = ap.parse_args()
 
     api_key = os.environ.get("ANTHROPIC_API_KEY")
@@ -459,9 +526,29 @@ def main():
     with open(SOURCES_FILE, "r", encoding="utf-8") as f:
         sources = json.load(f)
 
+    # Proba na dijelu izvora NE smije prepisati output.json — inace bi stranica
+    # ostala samo s tih par izvora. Zato se u probnom radu nista ne zapisuje.
+    proba = bool(args.samo or args.limit)
+    if args.samo:
+        t = bez_kvacica(args.samo)
+        sources = [s for s in sources
+                   if t in bez_kvacica(s.get("naziv", ""))
+                   or t in bez_kvacica(s.get("url", ""))]
+        if not sources:
+            print(f"Nijedan izvor ne odgovara '{args.samo}'.")
+            sys.exit(1)
+    if args.limit:
+        sources = sources[:args.limit]
+    if proba:
+        print(f"PROBNI RAD na {len(sources)} izvora — "
+              f"output.json/csv/html i cache se NE mijenjaju.\n")
+
     cache = {} if args.force else load_cache()
     results, needs_review, skipped = [], [], 0
     pdf_procitano = 0
+    drugih_poziva = 0        # koliko je dodatnih poziva modelu otislo na podstranice
+    nadeno_drugim = 0        # koliko je natjecaja naden tek na drugoj razini
+    granica_javljena = False
 
     if not PDF_SUPPORT:
         print("NAPOMENA: 'pypdf' nije instaliran — PDF natjecaji ce biti preskoceni.")
@@ -497,8 +584,9 @@ def main():
             # hash se racuna nakon spajanja da cache prati i sadrzaj PDF-a
             content_hash = hashlib.sha256(text.encode("utf-8")).hexdigest()[:16]
 
+        kljuc = f"v{VERZIJA_EKSTRAKCIJE}:{content_hash}"
         cached = cache.get(url)
-        if cached and cached.get("hash") == content_hash:
+        if cached and cached.get("hash") == kljuc:
             r = dict(cached["result"])
             r["zadnje_provjereno"] = now
             # status se PONOVO racuna jer se datum promijenio i ako se stranica nije
@@ -521,6 +609,37 @@ def main():
             continue
 
         ima_otvoren = extracted.get("ima_otvoren_natjecaj", False)
+        izvor_natjecaja = None
+
+        # --- drugi prolaz: popisna stranica, natjecaj jedan klik dalje ---
+        # Ako popisna stranica nije dala natjecaj s rokom, otvori do dvije
+        # poveznice koje na njoj izgledaju kao natjecaj za stipendiju. Tek ako
+        # ni ondje nema roka, ostaje "nema aktivnog natjecaja".
+        if sirovi and not (ima_otvoren and extracted.get("rok_tekst")):
+            for pod_url in natjecaj_poveznice(sirovi, url):
+                if drugih_poziva >= MAKS_DRUGI_PROLAZ:
+                    if not granica_javljena:
+                        print(f"  ! dosegnuta granica od {MAKS_DRUGI_PROLAZ} "
+                              f"dodatnih poziva — drugi prolaz se dalje preskace")
+                        granica_javljena = True
+                    break
+                pod_text, _, _ = fetch_content(pod_url, retries=0, tiho=True)
+                time.sleep(1)
+                if not pod_text:
+                    continue
+                pod = extract_with_claude(client, pod_text)
+                drugih_poziva += 1
+                time.sleep(DELAY_SEC)
+                if "greska" in pod:
+                    continue
+                if pod.get("ima_otvoren_natjecaj") and pod.get("rok_tekst"):
+                    print(f"  + natjecaj nadem na podstranici: {pod_url[:70]}")
+                    extracted = pod
+                    ima_otvoren = True
+                    izvor_natjecaja = pod_url
+                    nadeno_drugim += 1
+                    break
+
         status = compute_status(extracted.get("rok_tekst"), ima_otvoren)
 
         r = {
@@ -530,19 +649,33 @@ def main():
             "uvjeti": extracted.get("uvjeti"),
             "upute_za_prijavu": extracted.get("upute_za_prijavu"),
             "napomena": extracted.get("napomena"),
-            "poveznica_natjecaj": _izravni(extracted.get("poveznica_natjecaj"), url),
+            # ako je natjecaj nadem na podstranici, ona JE izravna poveznica
+            "poveznica_natjecaj": (izvor_natjecaja
+                                   or _izravni(extracted.get("poveznica_natjecaj"), url)),
             "status": status,
             "zadnje_provjereno": now,
             "_ima_otvoren": ima_otvoren,
         }
         results.append(r)
-        cache[url] = {"hash": content_hash, "result": r}
+        cache[url] = {"hash": kljuc, "result": r}
 
         if "PROVJERITI" in status or "GREŠKA" in status:
             needs_review.append(r)
 
         print(f"  -> {status}")
         time.sleep(DELAY_SEC)
+
+    if proba:
+        print(f"\n{'='*50}")
+        print("PROBNI RAD — nista nije zapisano. Rezultat:")
+        for r in results:
+            print(f"  {r.get('status','')[:60]}")
+            print(f"     {r.get('naziv','')}")
+            if r.get("rok_tekst"):
+                print(f"     rok: {r['rok_tekst']}   iznos: {r.get('iznos')}")
+            if r.get("poveznica_natjecaj"):
+                print(f"     natjecaj: {r['poveznica_natjecaj']}")
+        return
 
     save_cache(cache)
 
@@ -570,6 +703,8 @@ def main():
     print(f"Ukupno izvora:        {len(results)}")
     print(f"Preskoceno (cache):   {skipped}")
     print(f"Procitanih PDF-ova:   {pdf_procitano}")
+    print(f"Dodatnih poziva:      {drugih_poziva} (drugi prolaz po podstranicama)")
+    print(f"Nadeno tek 2. razinom:{nadeno_drugim}")
     print(f"TRENUTNO OTVORENIH:   {len(otvoreni)}")
     print(f"Treba rucnu provjeru: {len(needs_review)}")
     if otvoreni:
