@@ -747,10 +747,27 @@ def main():
                               f"dodatnih poziva — drugi prolaz se dalje preskace")
                         granica_javljena = True
                     break
-                pod_text, _, _ = fetch_content(pod_url, retries=0, tiho=True)
+                pod_text, _, pod_html = fetch_content(pod_url, retries=0, tiho=True)
                 time.sleep(1)
                 if not pod_text:
                     continue
+
+                # Na podstranici natjecaja iznos cesto nije u tekstu nego u
+                # prilozenom PDF-u ("dostupan je u prilozenim dokumentima").
+                # Prva razina vec cita PDF-ove; bez ovoga bi druga ostala bez
+                # njih i natjecaj bi zavrsio na stranici bez iznosa.
+                if pod_html and PDF_SUPPORT:
+                    for pdf_url in pdf_poveznice(pod_html, pod_url):
+                        pdf_text, _, _ = fetch_content(pdf_url, retries=0, tiho=True)
+                        if pdf_text:
+                            print(f"  + procitan PDF uz natjecaj: "
+                                  f"{pdf_url.rsplit('/', 1)[-1][:45]}")
+                            pod_text = (pod_text
+                                        + "\n\n--- TEKST IZ PRILOZENOG PDF-a ---\n"
+                                        + pdf_text)[:MAX_CHARS * 2]
+                            pdf_procitano += 1
+                        time.sleep(1)
+
                 pod = extract_with_claude(client, pod_text)
                 drugih_poziva += 1
                 time.sleep(DELAY_SEC)
