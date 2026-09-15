@@ -96,6 +96,8 @@ EXTRACTION_PROMPT = """Analiziraj tekst stranice o stipendijama i vrati TOCNO ov
   "iznos": "iznos stipendije kako je naveden (npr. '200 EUR mjesecno, 10 mjeseci') ili null",
   "iznosi": [{{"eur": 380, "razdoblje": "mjesecno", "mjeseci": 10, "za": "ucenici", "do": false}}],
   "iznos_je_fond": true/false — je li broj UKUPAN proracun programa, a ne iznos po korisniku,
+  "dokaz_iznos": "recenica PREPISANA DOSLOVNO sa stranice u kojoj pise iznos, ili null",
+  "dokaz_rok": "recenica PREPISANA DOSLOVNO sa stranice u kojoj pise rok, ili null",
   "rok_tekst": "rok prijave DOSLOVNO kako pise u tekstu (npr. '4. studenoga 2025.') ili null ako nema konkretnog trenutnog natjecaja",
   "uvjeti": "tko se moze prijaviti, 1-2 recenice, ili null",
   "upute_za_prijavu": "3-6 kratkih koraka odvojenih s ' | ', ili null",
@@ -103,6 +105,13 @@ EXTRACTION_PROMPT = """Analiziraj tekst stranice o stipendijama i vrati TOCNO ov
   "napomena": "bilo sto neuobicajeno sto covjek treba znati, ili null",
   "poveznica_natjecaj": "ako na stranici postoji poveznica koja vodi IZRAVNO na tekst natjecaja (a ne na popis), upisi ju ovdje; inace null"
 }}
+
+DOKAZI: uz iznos i rok prepisi recenicu iz koje si ih procitao — DOSLOVNO,
+znak po znak, onako kako stoji u tekstu gore, bez skracivanja i preoblikovanja.
+Ta se recenica strojno trazi u tekstu stranice; ako je ne nade, podatak se
+odbacuje. Zato nemoj sastavljati recenicu koja "otprilike odgovara" niti
+prepisivati iz vlastitog znanja — ako recenice s tim podatkom nema u tekstu,
+vrati null i za dokaz i za sam podatak.
 
 IZNOSI: "iznos" ostavi doslovno kako pise. Uz to rastavi isti podatak u polje
 "iznosi", da se stipendije mogu usporedivati:
@@ -418,6 +427,33 @@ def sredi_iznose(sirovo, maks=4):
     return ishod
 
 
+def _za_usporedbu(t):
+    """Svedi tekst na golo slovo i broj — mala slova, bez kvacica i interpunkcije.
+
+    Stranice se razlikuju u razmacima, navodnicima i crticama, a model to pri
+    prepisivanju uredno ujednaci. Bez ovoga bi gotovo svaki tocan navod pao na
+    razmaku ili na drugoj vrsti crtice."""
+    t = bez_kvacica(str(t))
+    return re.sub(r"[^a-z0-9]+", " ", t).strip()
+
+
+def dokaz_vrijedi(dokaz, tekst_stranice, najmanje=25):
+    """Pojavljuje li se navedena recenica doista na stranici.
+
+    Ovo je jedina provjera u cijelom lancu koju model ne moze zaobici govoreci
+    uvjerljivo: navod se strojno trazi u tekstu koji je skinut sa stranice.
+    Izmisljen iznos trazi i izmisljenu recenicu, a nju usporedba ne nade.
+
+    Vraca True (navod postoji), False (ne postoji) ili None (model ga nije dao,
+    pa se nema sto provjeriti)."""
+    if not dokaz or not tekst_stranice:
+        return None
+    d = _za_usporedbu(dokaz)
+    if len(d) < najmanje:            # prekratko da bi išta dokazivalo
+        return None
+    return d in _za_usporedbu(tekst_stranice)
+
+
 def _brojevi_iz_teksta(t):
     """Svi brojevi koji se pojavljuju u tekstu, u svim razumnim citanjima.
 
@@ -671,6 +707,9 @@ def main():
     drugih_poziva = 0        # koliko je dodatnih poziva modelu otislo na podstranice
     nadeno_drugim = 0        # koliko je natjecaja naden tek na drugoj razini
     odbacenih_iznosa = 0     # brojke koje se nisu poklopile s tekstom izvora
+    pao_dokaz_iznos = 0      # iznos ugasen jer navedene recenice nema na stranici
+    pao_dokaz_rok = 0        # rok bez potvrde u tekstu — samo se prijavljuje
+    bez_dokaza = 0           # model uopce nije dao navod
     granica_javljena = False
 
     if not PDF_SUPPORT:
@@ -734,6 +773,9 @@ def main():
         ima_otvoren = extracted.get("ima_otvoren_natjecaj", False)
         izvor_natjecaja = None
         odbaceno_ovdje = 0
+        # tekst iz kojeg je podatak stvarno izvucen — prema njemu se provjerava
+        # navod; kad drugi prolaz uspije, to vise nije popisna stranica
+        tekst_izvora = text
 
         # --- drugi prolaz: popisna stranica, natjecaj jedan klik dalje ---
         # Ako popisna stranica nije dala natjecaj s rokom, otvori do dvije
@@ -778,6 +820,7 @@ def main():
                     extracted = pod
                     ima_otvoren = True
                     izvor_natjecaja = pod_url
+                    tekst_izvora = pod_text
                     nadeno_drugim += 1
                     break
 
@@ -789,6 +832,24 @@ def main():
             print(f"  ! odbacenih iznosa: {odbaceno_ovdje} "
                   f"(brojka se ne pojavljuje u tekstu izvora)")
             odbacenih_iznosa += odbaceno_ovdje
+
+        # --- navod mora postojati na stranici ---
+        # Novac se gasi odmah: krivi iznos je gori od nikakvog, a kartica ima
+        # pristojno "nije naveden" za taj slucaj.
+        ok_iznos = dokaz_vrijedi(extracted.get("dokaz_iznos"), tekst_izvora)
+        if ok_iznos is False and iznosi:
+            print("  ! iznos odbacen — navedena recenica ne postoji na stranici")
+            iznosi = []
+            pao_dokaz_iznos += 1
+        elif ok_iznos is None and iznosi:
+            bez_dokaza += 1
+
+        # Rok se NE gasi: bez njega bi otvoren natjecaj nestao sa stranice, a
+        # to je gore od dvojbenog datuma. Umjesto toga ide u prijavu za pregled.
+        ok_rok = dokaz_vrijedi(extracted.get("dokaz_rok"), tekst_izvora)
+        if ok_rok is False and extracted.get("rok_tekst"):
+            print("  ! rok bez potvrde u tekstu — ide na rucnu provjeru")
+            pao_dokaz_rok += 1
 
         r = {
             "naziv": name, "url": url, "kategorija": src.get("kategorija", ""),
@@ -815,7 +876,7 @@ def main():
         results.append(r)
         cache[url] = {"hash": kljuc, "result": r}
 
-        if "PROVJERITI" in status or "GREŠKA" in status:
+        if "PROVJERITI" in status or "GREŠKA" in status or ok_rok is False:
             needs_review.append(r)
 
         print(f"  -> {status}")
@@ -864,6 +925,10 @@ def main():
     print(f"Nadeno tek 2. razinom:{nadeno_drugim}")
     print(f"Odbacenih iznosa:     {odbacenih_iznosa} "
           f"(brojka se nije nasla u tekstu izvora)")
+    print(f"--- provjera navoda ---")
+    print(f"Iznos bez potvrde:    {pao_dokaz_iznos} (ugasen)")
+    print(f"Rok bez potvrde:      {pao_dokaz_rok} (prijavljen, ostaje vidljiv)")
+    print(f"Model nije dao navod: {bez_dokaza} (podatak zadrzan)")
     print(f"TRENUTNO OTVORENIH:   {len(otvoreni)}")
     print(f"Treba rucnu provjeru: {len(needs_review)}")
     if otvoreni:
