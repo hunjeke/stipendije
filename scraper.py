@@ -94,6 +94,8 @@ EXTRACTION_PROMPT = """Analiziraj tekst stranice o stipendijama i vrati TOCNO ov
 {{
   "naslov_natjecaja": "KRATAK naslov onoga sto se dodjeljuje, najvise 6 rijeci, ili null",
   "iznos": "iznos stipendije kako je naveden (npr. '200 EUR mjesecno, 10 mjeseci') ili null",
+  "iznosi": [{{"eur": 380, "razdoblje": "mjesecno", "mjeseci": 10, "za": "ucenici", "do": false}}],
+  "iznos_je_fond": true/false — je li broj UKUPAN proracun programa, a ne iznos po korisniku,
   "rok_tekst": "rok prijave DOSLOVNO kako pise u tekstu (npr. '4. studenoga 2025.') ili null ako nema konkretnog trenutnog natjecaja",
   "uvjeti": "tko se moze prijaviti, 1-2 recenice, ili null",
   "upute_za_prijavu": "3-6 kratkih koraka odvojenih s ' | ', ili null",
@@ -101,6 +103,23 @@ EXTRACTION_PROMPT = """Analiziraj tekst stranice o stipendijama i vrati TOCNO ov
   "napomena": "bilo sto neuobicajeno sto covjek treba znati, ili null",
   "poveznica_natjecaj": "ako na stranici postoji poveznica koja vodi IZRAVNO na tekst natjecaja (a ne na popis), upisi ju ovdje; inace null"
 }}
+
+IZNOSI: "iznos" ostavi doslovno kako pise. Uz to rastavi isti podatak u polje
+"iznosi", da se stipendije mogu usporedivati:
+  "eur"       — samo broj, bez valute i bez tocke za tisuce (2325, 380, 1250.50)
+  "razdoblje" — "mjesecno", "godisnje" ili "jednokratno"
+  "mjeseci"   — koliko mjeseci traje isplata, ili null ako ne pise
+  "za"        — kome pripada TAJ iznos, jedna-dvije rijeci ("ucenici", "studenti",
+                "ucenici izvan grada"), ili null ako je iznos jedinstven
+  "do"        — true ako je to gornja granica ("do 3000 EUR"), inace false
+Ako natjecaj ima vise razreda, upisi SVAKI kao zaseban unos: "380 EUR za ucenike,
+520 EUR za studente, 10 mjeseci" daje dva unosa, oba s mjeseci=10. Ako iznos nije
+naveden brojem ("potpuno financiran studij"), vrati praznu listu [].
+
+"iznos_je_fond" je true samo kad je broj ukupan novac koji davatelj dijeli svima
+zajedno (npr. "144.000,00 eura osigurano je u proracunu za ovu mjeru"), a ne ono
+sto dobiva pojedini ucenik. To je vazno: takav broj prikazan kao iznos stipendije
+grubo obmanjuje prijavitelja.
 
 NASLOV: "naslov_natjecaja" je ono sto pise na kartici na stranici, pa mora
 covjeku odmah reci STO se dodjeljuje. Izbaci "Natjecaj za dodjelu", ime grada,
@@ -361,6 +380,85 @@ def _izravni(kandidat, baza):
     return pun
 
 
+RAZDOBLJA = ("mjesecno", "godisnje", "jednokratno")
+
+
+def sredi_iznose(sirovo, maks=4):
+    """Provjeri i ocisti listu iznosa koju je vratio model.
+
+    Model povremeno vrati broj kao "380,00 EUR", razdoblje koje nismo trazili
+    ili praznu stavku. Sve sto ne prode provjeru se odbacuje — kriva brojka na
+    kartici gora je od nikakve, jer po njoj covjek odlucuje hoce li se prijaviti.
+    Doslovni "iznos" ionako ostaje kao zaliha."""
+    if not isinstance(sirovo, list):
+        return []
+    ishod = []
+    for s in sirovo[:maks]:
+        if not isinstance(s, dict):
+            continue
+        eur = s.get("eur")
+        if isinstance(eur, str):
+            # "1.250,50" -> 1250.50 ; "380,00 EUR" -> 380
+            t = re.sub(r"[^\d.,]", "", eur).replace(".", "").replace(",", ".")
+            try:
+                eur = float(t)
+            except ValueError:
+                continue
+        if not isinstance(eur, (int, float)) or not 0 < eur < 10_000_000:
+            continue
+        razd = str(s.get("razdoblje") or "").strip().lower()
+        if razd not in RAZDOBLJA:
+            razd = None
+        mj = s.get("mjeseci")
+        mj = mj if isinstance(mj, int) and 0 < mj <= 60 else None
+        za = s.get("za")
+        za = re.sub(r"\s+", " ", str(za)).strip()[:40] if za else None
+        ishod.append({"eur": round(float(eur), 2), "razdoblje": razd,
+                      "mjeseci": mj, "za": za or None, "do": bool(s.get("do"))})
+    return ishod
+
+
+def _brojevi_iz_teksta(t):
+    """Svi brojevi koji se pojavljuju u tekstu, u svim razumnim citanjima.
+
+    Hrvatski pise "2.325,00" (tocka za tisuce), izvori na engleskom "3,000".
+    Isti niz znamenki zato ide u skup u oba citanja — namjerno popustljivo,
+    jer ovo je sito protiv izmisljenih brojki, a ne mjerenje."""
+    out = set()
+    for m in re.finditer(r"\d[\d.,]*", str(t)):
+        s = m.group(0).rstrip(".,")
+        kandidati = []
+        if "," in s:                       # hrvatski decimalni zarez
+            cijeli, _, dec = s.rpartition(",")
+            kandidati.append(cijeli.replace(".", "") + "." + dec)
+        else:
+            kandidati.append(s.replace(".", ""))      # "2.325" -> 2325
+        kandidati.append(s.replace(",", ""))          # "3,000" -> 3000
+        for k in kandidati:
+            try:
+                out.add(round(float(k), 2))
+            except ValueError:
+                pass
+    return out
+
+
+def provjeri_iznose(stavke, doslovno):
+    """Zadrzi samo iznose koji se stvarno pojavljuju u tekstu s izvora.
+
+    Provjera oblika hvata neispravan zapis, ali ne i netocan broj: ako model
+    procita 380 kao 830, brojka izgleda posve uredno i zavrsi na kartici, gdje
+    po njoj covjek odlucuje hoce li se prijaviti. Zato se svaka brojka mora
+    naci i u doslovnom tekstu koji je prepisan sa stranice.
+
+    Kad doslovnog teksta nema, nema se s cime usporediti pa se odbacuje sve —
+    radije prazno polje nego brojka za koju ne znamo odakle je."""
+    if not stavke:
+        return [], 0
+    nadeni = _brojevi_iz_teksta(doslovno) if doslovno else set()
+    ostaje = [s for s in stavke if round(float(s["eur"]), 2) in nadeni]
+    return ostaje, len(stavke) - len(ostaje)
+
+
 def cist_naslov(s, maks=70):
     """Sredi naslov natjecaja da stane na karticu.
 
@@ -572,6 +670,7 @@ def main():
     pdf_procitano = 0
     drugih_poziva = 0        # koliko je dodatnih poziva modelu otislo na podstranice
     nadeno_drugim = 0        # koliko je natjecaja naden tek na drugoj razini
+    odbacenih_iznosa = 0     # brojke koje se nisu poklopile s tekstom izvora
     granica_javljena = False
 
     if not PDF_SUPPORT:
@@ -634,6 +733,7 @@ def main():
 
         ima_otvoren = extracted.get("ima_otvoren_natjecaj", False)
         izvor_natjecaja = None
+        odbaceno_ovdje = 0
 
         # --- drugi prolaz: popisna stranica, natjecaj jedan klik dalje ---
         # Ako popisna stranica nije dala natjecaj s rokom, otvori do dvije
@@ -666,12 +766,24 @@ def main():
 
         status = compute_status(extracted.get("rok_tekst"), ima_otvoren)
 
+        iznosi, odbaceno_ovdje = provjeri_iznose(
+            sredi_iznose(extracted.get("iznosi")), extracted.get("iznos"))
+        if odbaceno_ovdje:
+            print(f"  ! odbacenih iznosa: {odbaceno_ovdje} "
+                  f"(brojka se ne pojavljuje u tekstu izvora)")
+            odbacenih_iznosa += odbaceno_ovdje
+
         r = {
             "naziv": name, "url": url, "kategorija": src.get("kategorija", ""),
             # naslov samog natjecaja; kartica ga pokazuje umjesto imena izvora,
             # jer se natjecaj sve cesce nalazi na podstranici drugog imena
             "naslov_natjecaja": cist_naslov(extracted.get("naslov_natjecaja")),
             "iznos": extracted.get("iznos"),
+            # isti podatak rastavljen na brojke, da kartica moze prikazati
+            # sve stipendije u istom obliku i da se daju usporedivati;
+            # svaka brojka mora se naci i u doslovnom tekstu s izvora
+            "iznosi": iznosi,
+            "iznos_je_fond": bool(extracted.get("iznos_je_fond")),
             "rok_tekst": extracted.get("rok_tekst"),
             "uvjeti": extracted.get("uvjeti"),
             "upute_za_prijavu": extracted.get("upute_za_prijavu"),
@@ -710,7 +822,7 @@ def main():
         json.dump(results, f, ensure_ascii=False, indent=2)
 
     fields = ["naziv", "naslov_natjecaja", "url", "kategorija", "iznos",
-              "rok_tekst", "uvjeti",
+              "iznos_je_fond", "rok_tekst", "uvjeti",
               "upute_za_prijavu", "napomena", "poveznica_natjecaj",
               "status", "zadnje_provjereno"]
     # utf-8-sig = UTF-8 s BOM oznakom -> Excel na Windowsu ispravno prikaze kvacice.
@@ -733,6 +845,8 @@ def main():
     print(f"Procitanih PDF-ova:   {pdf_procitano}")
     print(f"Dodatnih poziva:      {drugih_poziva} (drugi prolaz po podstranicama)")
     print(f"Nadeno tek 2. razinom:{nadeno_drugim}")
+    print(f"Odbacenih iznosa:     {odbacenih_iznosa} "
+          f"(brojka se nije nasla u tekstu izvora)")
     print(f"TRENUTNO OTVORENIH:   {len(otvoreni)}")
     print(f"Treba rucnu provjeru: {len(needs_review)}")
     if otvoreni:
