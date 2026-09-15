@@ -106,6 +106,8 @@ CSS_INDEX = """
 .polja dt{color:var(--tinta-2)}
 .polja dd{margin:0}
 .polja dd.iznos{font-family:"PlexMono",monospace;font-weight:500}
+/* podatak kojeg na izvoru nema — vidljiv, ali tisi od stvarnog iznosa */
+.polja .nema{color:var(--tinta-2);font-style:italic}
 /* kome pripada koji iznos kad ih natjecaj ima vise (ucenici / studenti) */
 .polja .za{color:var(--tinta-2);font-family:"Plex",sans-serif;font-weight:400}
 .polja .za::after{content:" —";}
@@ -296,7 +298,7 @@ def _dinamika(s):
     return d
 
 
-def iznos_polja(r):
+def iznos_polja(r, otvorena=False, ima_vezu=False):
     """Iznos razlozen u retke tablice: [(oznaka, sadrzaj, monospace), ...].
 
     Skoro pola izvora ima vise razreda — ucenici jedno, studenti drugo, pa jos
@@ -315,7 +317,24 @@ def iznos_polja(r):
         # scraper nije uspio rastaviti — ostaje doslovni tekst s izvora,
         # obicnim pismom jer je to recenica, a ne brojka
         t = datumi_u_brojke(r.get("iznos"))
-        return [("Iznos", esc(t), False)] if t else []
+        if t:
+            return [("Iznos", esc(t), False)]
+        if not otvorena:
+            return []
+        # Kod dijela zupanija iznos stoji samo u prilozenom pravilniku ili
+        # odluci. Prazno polje izgleda kao propust stranice, pa se kaze da
+        # podatka nema i uputi se onamo gdje jest.
+        poruka = ("nije naveden — piše u natječaju" if ima_vezu
+                  else "nije naveden na stranici izvora")
+        return [("Iznos", f'<span class="nema">{poruka}</span>', False)]
+
+    # Kad su svi razredi na istom novcu, razredi ne znace nista — Baska je
+    # vratila tri stavke od 125 € samo zato sto nabraja tri vrste skola.
+    # Tri jednaka retka ne govore vise od jednoga.
+    bez_za = {(s["eur"], s.get("razdoblje"), s.get("mjeseci"), s.get("do"))
+              for s in stavke}
+    if len(bez_za) == 1:
+        stavke = [dict(stavke[0], za=None)]
 
     oznaka = "Ukupni fond" if r.get("iznos_je_fond") else "Iznos"
     dinamike = {_dinamika(s) for s in stavke}
@@ -357,7 +376,7 @@ def kartica(r, otvorena, podrucje, zupanija):
     url = esc(izravna or r.get("url"))
     tekst_veze = ("Otvori natječaj" if izravna and otvorena
                   else "Službena stranica")
-    polja_iznosa = iznos_polja(r)
+    polja_iznosa = iznos_polja(r, otvorena, bool(izravna))
     rok = rok_brojkama(r)
     uvjeti = esc(datumi_u_brojke(r.get("uvjeti")))
     iso = iso_rok(r.get("status") or "")
@@ -409,24 +428,72 @@ def _popunjenost(r):
                            "poveznica_natjecaj") if r.get(k))
 
 
+# rijeci koje nista ne razlikuju — gotovo svaki natjecaj ih ima u naslovu
+_OPCE = {"stipendija", "stipendije", "stipendijama", "stipendiranje",
+         "natjecaj", "natjecaja", "javni", "poziv", "potpora", "potpore",
+         "ucenik", "ucenici", "ucenike", "ucenicima", "student", "studenti",
+         "studente", "studentima", "skolska", "skolsku", "godina", "godinu",
+         "akademska", "akademsku", "dodjela", "dodjelu"}
+_VEZNE = {"za", "u", "i", "na", "od", "do", "s", "sa", "te", "iz", "po", "koji"}
+
+
+def _rijeci(s):
+    return {w for w in _kljuc_naslova(s).split()
+            if w not in _VEZNE and len(w) > 2}
+
+
+def _isti_natjecaj(a, b, prag=0.5):
+    """Jesu li dva naslova isti natjecaj isprican drugim rijecima.
+
+    Model istom natjecaju zna dati dva naslova — Chevening je dosao kao
+    "studij u Britaniji" s jednog izvora i "studij u UK-u" s drugog. Doslovna
+    usporedba to ne uhvati, pa se gleda koliko se rijeci preklapa.
+
+    Uz preklapanje mora postojati barem jedna zajednicka rijec koja nesto
+    znaci. Bez toga bi se dva razlicita natjecaja, oba nazvana tek
+    "Stipendije za studente", stopila u jedan i jedan bi nestao sa stranice."""
+    A, B = _rijeci(a), _rijeci(b)
+    if not A or not B:
+        return False
+    zajednicke = A & B
+    if not (zajednicke - _OPCE):
+        return False
+    return len(zajednicke) / len(A | B) >= prag
+
+
 def spoji_duplikate(otvorene):
-    """Isti natjecaj zna doci preko dva izvora (npr. Chevening i s MZO-a i s
-    AMPEU-a) pa se na stranici pojavi dvaput. Spaja se samo kad se poklope I
-    naslov natjecaja I podrucje — inace bi se 'Stipendije za deficitarna
-    zanimanja' iz dva razlicita grada krivo slile u jedan."""
-    vidjeno, ishod = {}, []
+    """Isti natjecaj zna doci preko dva izvora (Chevening i s MZO-a i s
+    AMPEU-a) pa se na stranici pojavi dvaput.
+
+    Spaja se samo unutar istog podrucja — inace bi se "Stipendije za
+    deficitarna zanimanja" iz dva razlicita grada krivo slile u jednu, a to su
+    dvije stipendije i dva novca. Uz to mora vrijediti jedno od dvoga:
+      - naslovi su isti, a rokovi si ne proturjece, ili
+      - rok je isti, a naslovi govore o istome drugim rijecima.
+    Isti naslov uz razlicit rok najcesce znaci dva kruga istog programa, a njih
+    ne treba skrivati."""
+    ishod = []
     for par in otvorene:
-        r, p, z = par
+        r, p, _ = par
         naslov = r.get("naslov_natjecaja")
         if not naslov:                       # bez naslova nema pouzdane usporedbe
             ishod.append(par)
             continue
-        k = (_kljuc_naslova(p), _kljuc_naslova(naslov))
-        if k not in vidjeno:
-            vidjeno[k] = len(ishod)
+        rok = iso_rok(r.get("status") or "")
+        for i, (r2, p2, _) in enumerate(ishod):
+            n2 = r2.get("naslov_natjecaja")
+            if not n2 or _kljuc_naslova(p) != _kljuc_naslova(p2):
+                continue
+            rok2 = iso_rok(r2.get("status") or "")
+            isti_rok = bool(rok) and rok == rok2
+            doslovno = (_kljuc_naslova(naslov) == _kljuc_naslova(n2)
+                        and (isti_rok or not rok or not rok2))
+            if doslovno or (isti_rok and _isti_natjecaj(naslov, n2)):
+                if _popunjenost(r) > _popunjenost(r2):
+                    ishod[i] = par           # zadrzi potpuniji zapis
+                break
+        else:
             ishod.append(par)
-        elif _popunjenost(r) > _popunjenost(ishod[vidjeno[k]][0]):
-            ishod[vidjeno[k]] = par          # zadrzi potpuniji zapis
     return ishod
 
 
