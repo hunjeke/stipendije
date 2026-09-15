@@ -106,6 +106,9 @@ CSS_INDEX = """
 .polja dt{color:var(--tinta-2)}
 .polja dd{margin:0}
 .polja dd.iznos{font-family:"PlexMono",monospace;font-weight:500}
+/* kome pripada koji iznos kad ih natjecaj ima vise (ucenici / studenti) */
+.polja .za{color:var(--tinta-2);font-family:"Plex",sans-serif;font-weight:400}
+.polja .za::after{content:" —";}
 .k details{margin-top:.75rem;font-size:.88rem}
 .k summary{cursor:pointer;color:var(--plava);font-weight:500}
 .k details ol{margin:.55rem 0 0;padding-left:1.25rem;color:var(--tinta-2)}
@@ -197,6 +200,8 @@ CSS_INDEX = """
   .status{font-size:.62rem;padding:.18rem .45rem}
   .polja{grid-template-columns:1fr;gap:.05rem}
   .polja dt{font-size:.76rem;margin-top:.45rem;color:#8A909E}
+  /* na uskom zaslonu nema stupca za poravnanje, pa prazna oznaka samo smeta */
+  .polja dt:empty{display:none}
   .polja dd{font-size:.92rem}
   /* veca povrsina za prst */
   .k summary{padding:.35rem 0}
@@ -270,6 +275,72 @@ def rok_brojkama(r):
     return esc(out)
 
 
+def eur(n):
+    """1250.0 -> '1.250 €' ; 2250.5 -> '2.250,50 €' (hrvatski zapis)"""
+    cijeli = int(n)
+    ost = int(round((float(n) - cijeli) * 100))
+    s = f"{cijeli:,}".replace(",", ".")
+    return f"{s},{ost:02d} €" if ost else f"{s} €"
+
+
+_RAZDOBLJE_RIJEC = {"mjesecno": "mjesečno", "godisnje": "godišnje",
+                    "jednokratno": "jednokratno"}
+
+
+def _dinamika(s):
+    """'mjesečno · 10 mjeseci' — kako se i koliko dugo isplacuje."""
+    d = _RAZDOBLJE_RIJEC.get(s.get("razdoblje") or "", "")
+    if s.get("mjeseci"):
+        mj = f"{s['mjeseci']} " + oblik(s["mjeseci"], "mjesec", "mjeseca", "mjeseci")
+        d = f"{d} · {mj}" if d else mj
+    return d
+
+
+def iznos_polja(r):
+    """Iznos razlozen u retke tablice: [(oznaka, sadrzaj, monospace), ...].
+
+    Skoro pola izvora ima vise razreda — ucenici jedno, studenti drugo, pa jos
+    treci iznos za one izvan grada. Svaki razred ide u svoj redak, inace se ne
+    daju usporedivati.
+
+    Kad svi razredi dijele istu dinamiku isplate, ona se izdvaja u zaseban
+    redak umjesto da se ponavlja uz svaki iznos. Time redak ostaje kratak, sto
+    je jedino sto na mobitelu stane u sirinu kartice.
+
+    Kad je broj ukupan proracun programa, a ne iznos po korisniku, mijenja se
+    i oznaka: 144.000 € pod "Iznos" citalo bi se kao da toliko dobiva jedan
+    ucenik."""
+    stavke = r.get("iznosi") or []
+    if not stavke:
+        # scraper nije uspio rastaviti — ostaje doslovni tekst s izvora,
+        # obicnim pismom jer je to recenica, a ne brojka
+        t = datumi_u_brojke(r.get("iznos"))
+        return [("Iznos", esc(t), False)] if t else []
+
+    oznaka = "Ukupni fond" if r.get("iznos_je_fond") else "Iznos"
+    dinamike = {_dinamika(s) for s in stavke}
+    zajednicka = dinamike.pop() if len(dinamike) == 1 else None
+
+    polja = []
+    for i, s in enumerate(stavke):
+        dio = ("do " if s.get("do") else "") + eur(s["eur"])
+        if zajednicka is None:
+            d = _dinamika(s)
+            if d:
+                dio += " " + d
+        if s.get("za") and len(stavke) > 1:
+            dio = f'<span class="za">{esc(s["za"])}</span> ' + dio
+        polja.append((oznaka if i == 0 else "", dio, True))
+
+    if zajednicka:
+        # jedan iznos: dinamika stane uz njega; vise njih: ide u svoj redak
+        if len(polja) == 1:
+            polja[0] = (polja[0][0], polja[0][1] + " " + zajednicka, True)
+        else:
+            polja.append(("Isplata", zajednicka, False))
+    return polja
+
+
 def naslov_kartice(r):
     """Sto pise na vrhu kartice.
 
@@ -286,16 +357,17 @@ def kartica(r, otvorena, podrucje, zupanija):
     url = esc(izravna or r.get("url"))
     tekst_veze = ("Otvori natječaj" if izravna and otvorena
                   else "Službena stranica")
-    iznos, rok = esc(datumi_u_brojke(r.get("iznos"))), rok_brojkama(r)
+    polja_iznosa = iznos_polja(r)
+    rok = rok_brojkama(r)
     uvjeti = esc(datumi_u_brojke(r.get("uvjeti")))
     iso = iso_rok(r.get("status") or "")
 
     polja = ""
-    if iznos:
-        # monospace samo za kratke iznose ("200 EUR"); duge recenice
-        # se u mono citaju tesko, pa idu obicnim pismom
-        kl = "iznos" if len(iznos) <= 32 else ""
-        polja += f'<dt>Iznos</dt><dd class="{kl}">{iznos}</dd>'
+    # monospace ide na brojke, da se iznosi medusobno poravnaju; doslovne
+    # recenice s izvora ostaju u obicnom pismu jer se u mono citaju tesko
+    for oznaka, sadrzaj, mono in polja_iznosa:
+        polja += (f'<dt>{oznaka}</dt>'
+                  f'<dd class="{"iznos" if mono else ""}">{sadrzaj}</dd>')
     if rok and otvorena:
         polja += f'<dt>Rok prijave</dt><dd>{rok}</dd>'
     if uvjeti:
