@@ -207,6 +207,69 @@ CSS_INDEX = """
 """
 
 
+_MJESECI = {"siječnja": 1, "sijecnja": 1, "veljače": 2, "veljace": 2,
+            "ožujka": 3, "ozujka": 3, "travnja": 4, "svibnja": 5,
+            "lipnja": 6, "srpnja": 7, "kolovoza": 8, "rujna": 9,
+            "listopada": 10, "studenoga": 11, "studenog": 11, "prosinca": 12}
+
+_MJ_UZORAK = "|".join(_MJESECI)
+# "30. rujna 2026." — dan, mjesec rijecju, godina
+_DATUM_G = re.compile(r"\b(\d{1,2})\.\s*(" + _MJ_UZORAK + r")\s*(\d{4})\.?",
+                      re.IGNORECASE)
+# "7. rujna" — dan i mjesec rijecju, bez godine (pocetak raspona)
+_DATUM_BG = re.compile(r"\b(\d{1,2})\.\s*(" + _MJ_UZORAK + r")\b", re.IGNORECASE)
+# "4.11.2026." — vec brojkama, ali bez vodece nule
+_DATUM_N = re.compile(r"\b(\d{1,2})\.(\d{1,2})\.(\d{4})\.?")
+
+
+def datumi_u_brojke(tekst):
+    """'do 30. rujna 2026.' -> 'do 30.09.2026.'
+
+    Datumi se provlace i kroz uvjete, upute i napomene, gdje ih model prepisuje
+    onako kako pisu na izvoru. Ovdje se izjednacuju s rokom na kartici da na
+    istoj kartici ne stoje dva zapisa istog datuma u dva oblika.
+
+    Dira samo ono sto ima dan: "30. rujna 2026." i "7. rujna" u rasponu, te
+    dodaje vodecu nulu vec brojcanim datumima. Recenice poput "objavljuje se
+    izmedu rujna i prosinca" nemaju dan i ostaju netaknute, kao i skolska
+    godina "2026./2027." koja nije datum."""
+    if not tekst:
+        return tekst
+    t = str(tekst)
+    t = _DATUM_G.sub(lambda m: "%02d.%02d.%s." % (int(m.group(1)),
+                                                  _MJESECI[m.group(2).lower()],
+                                                  m.group(3)), t)
+    t = _DATUM_N.sub(lambda m: "%02d.%02d.%s." % (int(m.group(1)), int(m.group(2)),
+                                                  m.group(3)), t)
+    t = _DATUM_BG.sub(lambda m: "%02d.%02d." % (int(m.group(1)),
+                                                _MJESECI[m.group(2).lower()]), t)
+    return t
+
+
+def rok_brojkama(r):
+    """Rok uvijek u istom obliku: 30.09.2026.
+
+    Izvori pisu rok kako im padne na pamet — "30. rujna 2026. godine do 12:00
+    sati", "14. do 23. rujna 2026.", "6. listopada 2026. do 13:00". Na kartici
+    to izgleda neuredno i tesko se usporeduje. Datum se zato ne prepisuje sa
+    stranice nego se ispisuje iz onoga sto je program vec isparsirao, pa se
+    prikazani datum nikad ne moze razici s odbrojavanjem dana.
+
+    Sat se zadrzava kad ga izvor navodi — kod roka u 12:00 to je razlika izmedu
+    predane i propustene prijave. Ako datum nije isparsiran, ostaje izvorni
+    tekst: bolje nesto nego prazno polje."""
+    iso = iso_rok(r.get("status") or "")
+    izvorni = r.get("rok_tekst") or ""
+    if not iso:
+        return esc(izvorni)
+    g, m, d = iso.split("-")
+    out = f"{d}.{m}.{g}."
+    sat = re.search(r"\b(\d{1,2}):(\d{2})\b", izvorni)
+    if sat:
+        out += f" do {int(sat.group(1)):02d}:{sat.group(2)}"
+    return esc(out)
+
+
 def naslov_kartice(r):
     """Sto pise na vrhu kartice.
 
@@ -223,8 +286,8 @@ def kartica(r, otvorena, podrucje, zupanija):
     url = esc(izravna or r.get("url"))
     tekst_veze = ("Otvori natječaj" if izravna and otvorena
                   else "Službena stranica")
-    iznos, rok = esc(r.get("iznos")), esc(r.get("rok_tekst"))
-    uvjeti = esc(r.get("uvjeti"))
+    iznos, rok = esc(datumi_u_brojke(r.get("iznos"))), rok_brojkama(r)
+    uvjeti = esc(datumi_u_brojke(r.get("uvjeti")))
     iso = iso_rok(r.get("status") or "")
 
     polja = ""
@@ -239,7 +302,7 @@ def kartica(r, otvorena, podrucje, zupanija):
         polja += f'<dt>Tko se prijavljuje</dt><dd>{uvjeti}</dd>'
     polja = f'<dl class="polja">{polja}</dl>' if polja else ""
 
-    upute = r.get("upute_za_prijavu") or ""
+    upute = datumi_u_brojke(r.get("upute_za_prijavu")) or ""
     koraci = "".join(f"<li>{esc(k.strip())}</li>"
                      for k in upute.split("|") if k.strip())
     upute_html = (f'<details><summary>Kako se prijaviti</summary><ol>{koraci}</ol></details>'
