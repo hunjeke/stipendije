@@ -527,6 +527,46 @@ def compute_status(rok_tekst, ima_otvoren_natjecaj):
     return f"ROK ISTEKAO ({rok.isoformat()}) — čeka se novi ciklus"
 
 
+def ucitaj_prethodno(putanja=None):
+    """Rezultat prethodnog rada, po adresi izvora."""
+    putanja = putanja or OUTPUT_JSON
+    if not os.path.exists(putanja):
+        return {}
+    try:
+        with open(putanja, "r", encoding="utf-8") as f:
+            return {r.get("url"): r for r in json.load(f) if r.get("url")}
+    except (json.JSONDecodeError, OSError, AttributeError):
+        return {}
+
+
+def zadrzi_ako_je_nestao(novi, stari):
+    """Ne daj da jedno lose citanje izbrise natjecaj koji jos traje.
+
+    Stranice gradova znaju jednom vratiti praznu ljusku ili samo poruku o
+    ucitavanju, a model zna promasiti. Posljedica je bila da natjecaj s rokom
+    za dva tjedna nestane sa stranice usred sezone — a to je upravo ono zbog
+    cega stranica postoji.
+
+    Zato zapis prezivi neuspjelo citanje sve dok mu rok ne prode. Rok je
+    prirodan istek: kad dode, natjecaj ionako odlazi s popisa otvorenih, pa
+    zadrzani zapis ne moze zauvijek visjeti."""
+    if not stari:
+        return novi, False
+    if (novi.get("status") or "").startswith("OTVORENO"):
+        return novi, False                      # novo citanje je uspjelo
+    if not (stari.get("status") or "").startswith("OTVORENO"):
+        return novi, False                      # ni prije nije bio otvoren
+    rok = parse_hr_date(stari.get("rok_tekst") or "")
+    if not rok or rok < date.today():
+        return novi, False                      # rok je prosao — neka ode
+    zadrzan = dict(stari)
+    zadrzan["zadnje_provjereno"] = novi.get("zadnje_provjereno")
+    zadrzan["_zadrzan"] = True
+    zadrzan["_zadnja_potvrda"] = (stari.get("_zadnja_potvrda")
+                                  or stari.get("zadnje_provjereno"))
+    return zadrzan, True
+
+
 def load_cache():
     if os.path.exists(CACHE_FILE):
         try:
@@ -702,6 +742,8 @@ def main():
               f"output.json/csv/html i cache se NE mijenjaju.\n")
 
     cache = {} if args.force else load_cache()
+    prethodno = ucitaj_prethodno()
+    zadrzanih = 0
     results, needs_review, skipped = [], [], 0
     pdf_procitano = 0
     drugih_poziva = 0        # koliko je dodatnih poziva modelu otislo na podstranice
@@ -729,6 +771,11 @@ def main():
             r = {"naziv": name, "url": url, "kategorija": src.get("kategorija", ""),
                  "status": "GREŠKA — stranica nedostupna, provjeriti ručno",
                  "zadnje_provjereno": now}
+            r, zadrzan = zadrzi_ako_je_nestao(r, prethodno.get(url))
+            if zadrzan:
+                zadrzanih += 1
+                print(f"  = stranica nedostupna, ali rok jos traje -> zadrzan "
+                      f"zapis od {r.get('_zadnja_potvrda')}")
             results.append(r); needs_review.append(r)
             continue
 
@@ -766,6 +813,11 @@ def main():
             r = {"naziv": name, "url": url, "kategorija": src.get("kategorija", ""),
                  "status": f"GREŠKA — {extracted['greska']}, provjeriti ručno",
                  "zadnje_provjereno": now}
+            r, zadrzan = zadrzi_ako_je_nestao(r, prethodno.get(url))
+            if zadrzan:
+                zadrzanih += 1
+                print(f"  = model nije uspio, ali rok jos traje -> zadrzan "
+                      f"zapis od {r.get('_zadnja_potvrda')}")
             results.append(r); needs_review.append(r)
             time.sleep(DELAY_SEC)
             continue
@@ -873,10 +925,19 @@ def main():
             "zadnje_provjereno": now,
             "_ima_otvoren": ima_otvoren,
         }
+        # Natjecaj koji je jucer bio otvoren, a danas ga citanje ne vidi, ne
+        # smije nestati dok mu rok ne prode — vidi zadrzi_ako_je_nestao.
+        r, zadrzan = zadrzi_ako_je_nestao(r, prethodno.get(url))
+        if zadrzan:
+            zadrzanih += 1
+            print(f"  = citanje ga vise ne vidi, ali rok jos traje -> zadrzan "
+                  f"zapis od {r.get('_zadnja_potvrda')}")
+            status = r.get("status") or status
+
         results.append(r)
         cache[url] = {"hash": kljuc, "result": r}
 
-        if "PROVJERITI" in status or "GREŠKA" in status or ok_rok is False:
+        if "PROVJERITI" in status or "GREŠKA" in status or ok_rok is False or zadrzan:
             needs_review.append(r)
 
         print(f"  -> {status}")
@@ -925,6 +986,8 @@ def main():
     print(f"Nadeno tek 2. razinom:{nadeno_drugim}")
     print(f"Odbacenih iznosa:     {odbacenih_iznosa} "
           f"(brojka se nije nasla u tekstu izvora)")
+    print(f"Zadrzano unatoc promasaju: {zadrzanih} "
+          f"(rok jos traje, cekaju potvrdu)")
     print(f"--- provjera navoda ---")
     print(f"Iznos bez potvrde:    {pao_dokaz_iznos} (ugasen)")
     print(f"Rok bez potvrde:      {pao_dokaz_rok} (prijavljen, ostaje vidljiv)")
