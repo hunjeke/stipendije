@@ -324,7 +324,7 @@ def iznos_polja(r, otvorena=False, ima_vezu=False):
         # Kod dijela zupanija iznos stoji samo u prilozenom pravilniku ili
         # odluci. Prazno polje izgleda kao propust stranice, pa se kaze da
         # podatka nema i uputi se onamo gdje jest.
-        poruka = ("nije naveden — piše u natječaju" if ima_vezu
+        poruka = ("piše u tekstu natječaja" if ima_vezu
                   else "nije naveden na stranici izvora")
         return [("Iznos", f'<span class="nema">{poruka}</span>', False)]
 
