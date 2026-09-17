@@ -1,0 +1,59 @@
+name: Potraži nove izvore
+
+# Rucno, po potrebi. Ne dira sources.json ni stranicu — samo zapise prijedlog
+# u prijedlozi_izvora.json, koji ti pregledas. Ne trosi API kljuc.
+
+on:
+  workflow_dispatch:
+    inputs:
+      opseg:
+        description: 'Koje jedinice provjeriti'
+        required: true
+        default: 'gradovi'
+        type: choice
+        options:
+          - gradovi
+          - sve
+
+permissions:
+  contents: write
+
+jobs:
+  trazi:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - name: Preuzmi kod
+        uses: actions/checkout@v4
+
+      - name: Postavi Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Instaliraj pakete
+        run: pip install requests beautifulsoup4 pandas openpyxl xlrd
+
+      - name: Potraži izvore
+        env:
+          OPSEG: ${{ inputs.opseg }}
+        run: |
+          if [ "$OPSEG" = "sve" ]; then
+            python predlozi_izvore.py --sve
+          else
+            python predlozi_izvore.py
+          fi
+
+      - name: Spremi prijedlog
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add -A prijedlozi_izvora.json || true
+          git diff --staged --quiet || git commit -m "Prijedlozi izvora $(date +'%d.%m.%Y')"
+          git push || true
+
+      - name: Prijedlog za preuzimanje
+        uses: actions/upload-artifact@v4
+        with:
+          name: prijedlozi-izvora
+          path: prijedlozi_izvora.json
