@@ -284,6 +284,15 @@ def fetch_content(url, retries=2, tiho=False):
 
     content_type = resp.headers.get("Content-Type", "").lower()
 
+    # Dio hrvatskih stranica ne javlja kodiranje u zaglavlju. requests tada
+    # pretpostavi latin-1 i "Natječaj" postane "NatjeÄaj" — model takav tekst
+    # cita krivo, a provjera navoda ga vise ne moze naci. Pogodi kodiranje.
+    if "charset" not in content_type:
+        try:
+            resp.encoding = resp.apparent_encoding or resp.encoding
+        except Exception:
+            pass
+
     if "pdf" in content_type or url.lower().endswith(".pdf"):
         if not PDF_SUPPORT:
             print("  ! PDF stranica, ali 'pypdf' nije instaliran (pip install pypdf)")
