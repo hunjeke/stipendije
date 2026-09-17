@@ -8,18 +8,22 @@ opcina i 20 zupanija. Svaki nepokriven grad je natjecaj koji nitko ne vidi.
 Rucno dodavanje izvora je posao od nekoliko dana i nikad nije gotov.
 
 Kako radi — bez ijednog poziva modelu, dakle bez troska:
-  1. skine sluzbeni adresar jedinica lokalne samouprave (Ministarstvo pravosuda)
-  2. iz njega izvuce ime i mreznu adresu svake jedinice
-     (ako stupca s adresom nema, izvede domenu iz sluzbenog e-maila)
-  3. na svakoj domeni proba uobicajene putanje: /stipendije, /natjecaji, ...
+  1. krene od ugradenog popisa svih 128 gradova i 20 zupanija
+  2. iz imena izvede domenu (Grad Koprivnica -> koprivnica.hr, zupanije po
+     kratici: Osjecko-baranjska -> obz.hr) i provjeri koja se stvarno otvara
+  3. na zivoj domeni proba putanje: /stipendije, /natjecaji, /javni-pozivi, ...
   4. zadrzi samo one koje se otvore I u tekstu stvarno spominju stipendiju
   5. izbaci one koje vec pratis i zapise prijedlog u prijedlozi_izvora.json
+
+Uz --sve dodatno skine adresar s ministarstva radi 428 opcina. Ako se ne skine,
+gradovi i zupanije svejedno prolaze — popis je u kodu upravo zato sto je prva
+inacica ovisila o toj datoteci i zavrsila s nula prijedloga.
 
 NIKAD ne dira sources.json. Ti pregledas prijedlog i odlucis sto ulazi.
 
 Pokretanje:
-    python predlozi_izvore.py              # gradovi i zupanije (147 jedinica)
-    python predlozi_izvore.py --sve        # + 428 opcina (dugo traje)
+    python predlozi_izvore.py              # 148 gradova i zupanija
+    python predlozi_izvore.py --sve        # + opcine iz adresara (dugo traje)
     python predlozi_izvore.py --adresar put/do/adresar.xlsx   # bez skidanja
 """
 
@@ -60,6 +64,41 @@ PUTANJE = [
     "/javni-pozivi",
     "/natjecaji-i-pozivi",
     "/obavijesti",
+]
+
+# Popis svih gradova i zupanija u Hrvatskoj. Ugraden je namjerno, a ne citan
+# iz datoteke: prvi pokusaj je ovisio o tablici s ministarstva, ona se nije
+# skinula i skripta je zavrsila s nula prijedloga. Ovaj popis se mijenja
+# jednom u nekoliko godina, pa je ovdje najsigurniji.
+GRADOVI = [
+    "Zagreb", "Split", "Rijeka", "Osijek", "Zadar", "Velika Gorica", "Pula",
+    "Karlovac", "Slavonski Brod", "Varaždin", "Šibenik", "Sisak", "Dubrovnik",
+    "Kaštela", "Bjelovar", "Samobor", "Vinkovci", "Koprivnica", "Čakovec", "Đakovo",
+    "Solin", "Zaprešić", "Požega", "Vukovar", "Sinj", "Petrinja", "Virovitica",
+    "Kutina", "Sveta Nedelja", "Križevci", "Dugo Selo", "Poreč", "Sveti Ivan Zelina",
+    "Našice", "Jastrebarsko", "Metković", "Omiš", "Rovinj", "Makarska", "Vrbovec",
+    "Ivanić-Grad", "Ivanec", "Knin", "Umag", "Nova Gradiška", "Trogir", "Slatina",
+    "Novi Marof", "Krapina", "Ogulin", "Novska", "Opatija", "Gospić", "Labin",
+    "Županja", "Duga Resa", "Crikvenica", "Valpovo", "Popovača", "Kastav",
+    "Pleternica", "Daruvar", "Imotski", "Beli Manastir", "Benkovac", "Belišće",
+    "Ploče", "Garešnica", "Trilj", "Zabok", "Otočac", "Vodice", "Pazin", "Otok",
+    "Donji Miholjac", "Ludbreg", "Glina", "Čazma", "Rab", "Đurđevac", "Lepoglava",
+    "Bakar", "Mali Lošinj", "Pakrac", "Prelog", "Drniš", "Pregrada", "Senj", "Ozalj",
+    "Oroslavje", "Varaždinske Toplice", "Krk", "Mursko Središće", "Vodnjan", "Vrgorac",
+    "Zlatar", "Kutjevo", "Buzet", "Biograd na Moru", "Grubišno Polje", "Ilok", "Lipik",
+    "Donja Stubica", "Korčula", "Delnice", "Buje", "Orahovica", "Slunj",
+    "Novi Vinodolski", "Novigrad", "Kraljevica", "Vrbovsko", "Hvar", "Supetar",
+    "Novalja", "Pag", "Obrovac", "Skradin", "Čabar", "Opuzen", "Klanjec", "Nin",
+    "Stari Grad", "Cres", "Hrvatska Kostajnica", "Vrlika", "Vis", "Komiža"
+]
+
+ZUPANIJE = [
+    "Zagrebačka", "Krapinsko-zagorska", "Sisačko-moslavačka", "Karlovačka",
+    "Varaždinska", "Koprivničko-križevačka", "Bjelovarsko-bilogorska",
+    "Primorsko-goranska", "Ličko-senjska", "Virovitičko-podravska",
+    "Požeško-slavonska", "Brodsko-posavska", "Zadarska", "Osječko-baranjska",
+    "Šibensko-kninska", "Vukovarsko-srijemska", "Splitsko-dalmatinska", "Istarska",
+    "Dubrovačko-neretvanska", "Međimurska"
 ]
 
 # Stranica mora spominjati stipendiju, inace je to samo rubrika o nabavi.
@@ -150,6 +189,12 @@ def domene_iz_imena(ime, vrsta):
         if len(slova) == 1:                       # jednoclane (Karlovacka)
             kandidati.insert(0, f"{jezgra[:2]}zup.hr")
         kandidati += [f"{jezgra}.hr", f"{jezgra}-zupanija.hr"]
+        if "đ" in str(ime).lower():        # Medimurska je medjimurska-zupanija.hr
+            dj = bez_kvacica(str(ime).lower().replace("đ", "dj"))
+            dj = re.sub(r"\s*zupanija$", "", dj).strip()
+            dj = re.sub(r"[^a-z0-9]+", "-", dj).strip("-")
+            # ispred punog imena, jer se proba samo prvih nekoliko kandidata
+            kandidati[3:3] = [f"{dj}-zupanija.hr", f"{dj}.hr"]
         return kandidati
 
     kandidati = [f"{jezgra}.hr"]
@@ -262,26 +307,18 @@ def procitaj_adresar(putanja, samo_gradovi=True):
     return jedinice
 
 
-def jedinice_bez_tablice(samo_gradovi=True):
-    """Zaliha kad se tablica ne skine: imena se uzimaju iz sources.json.
+def jedinice_iz_popisa(samo_gradovi=True):
+    """Gradovi i zupanije iz ugradenog popisa — temelj koji ne moze zakazati.
 
-    Nije potpun popis, ali je bolje od nicega i odmah pokazuje radi li ostatak."""
-    if not os.path.exists(SOURCES_FILE):
-        return []
-    with open(SOURCES_FILE, encoding="utf-8") as f:
-        izvori = json.load(f)
-    out, vidjeno = [], set()
-    for i in izvori:
-        vrsta = i.get("kategorija") or "Grad"
-        ime = (i.get("podrucje") or "").strip()
-        if not ime or ime in vidjeno or vrsta not in ("Grad", "Općina", "Županija"):
-            continue
-        vidjeno.add(ime)
-        out.append({"naziv": ime, "vrsta": vrsta,
-                    "domene": domene_iz_imena(ime, vrsta)})
-    if samo_gradovi:
-        out = [j for j in out if j["vrsta"] != "Općina"]
-    return out
+    Prvi pokusaj je sve gradio na tablici s ministarstva. Ona se nije skinula,
+    a zaliha je uzimala imena iz sources.json — dakle iskljucivo one izvore koje
+    vec pratis, pa ih je dedupliciranje sve pobrisalo i ostalo je nula. Zato
+    popis sada stoji u kodu."""
+    jedinice = [{"naziv": f"Grad {g}", "vrsta": "Grad",
+                 "domene": domene_iz_imena(g, "Grad")} for g in GRADOVI]
+    jedinice += [{"naziv": f"{z} županija", "vrsta": "Županija",
+                  "domene": domene_iz_imena(z, "Županija")} for z in ZUPANIJE]
+    return jedinice
 
 
 # ---------------------------------------------------------------- probanje
@@ -327,7 +364,7 @@ def ziva_domena(kandidati):
     Prvo se trazi ziva domena, pa tek onda putanje po njoj. Bez toga bi se
     osam putanja probalo na svakoj pogodenoj domeni i posao bi narastao
     nekoliko puta bez ikakve koristi."""
-    for d in kandidati[:5]:
+    for d in kandidati[:6]:
         for shema in ("https://", "http://"):
             try:
                 r = requests.get(f"{shema}{d}", headers=ZAGLAVLJA, timeout=TIMEOUT,
@@ -370,12 +407,18 @@ def main():
     ap.add_argument("--limit", type=int, help="probaj samo prvih N jedinica")
     args = ap.parse_args()
 
-    tablica = skini_adresar(args.adresar)
-    jedinice = (procitaj_adresar(tablica, samo_gradovi=not args.sve)
-                if tablica else [])
+    # Temelj je ugradeni popis; tablica s ministarstva samo dodaje opcine i
+    # prave domene ondje gdje ih zna. Tako izostanak tablice nista ne rusi.
+    jedinice = jedinice_iz_popisa()
+    poznata_imena = {bez_kvacica(j["naziv"]) for j in jedinice}
+    tablica = skini_adresar(args.adresar) if args.sve or args.adresar else None
+    if tablica:
+        dodatne = procitaj_adresar(tablica, samo_gradovi=not args.sve)
+        novih = [j for j in dodatne if bez_kvacica(j["naziv"]) not in poznata_imena]
+        print(f"Iz tablice dodatno: {len(novih)} jedinica")
+        jedinice += novih
     if not jedinice:
-        print("! Iz tablice nije izaslo nista — koristim imena iz sources.json.")
-        jedinice = jedinice_bez_tablice(samo_gradovi=not args.sve)
+        print("! Iz tablice nista — koristim ugradeni popis gradova i zupanija.")
     print(f"\nJedinica za provjeru: {len(jedinice)}")
     if not jedinice:
         print("! Nemam nijednu jedinicu. Provjeri ispis o zaglavlju iznad.")
