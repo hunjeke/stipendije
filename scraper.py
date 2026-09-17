@@ -58,7 +58,13 @@ OUTPUT_JSON = "output.json"
 OUTPUT_CSV = "output.csv"
 OUTPUT_HTML = "output.html"
 CACHE_FILE = ".cache.json"
-MODEL = "claude-haiku-4-5-20251001"   # najjeftiniji; za bolju kvalitetu: "claude-sonnet-5"
+# Dva posla, dva modela.
+# Prva razina je trijaza: "ima li na ovoj rubrici ista o stipendijama" — to
+# Haiku radi dobro i vrti se 120 puta po radu, pa mora biti jeftin.
+# Druga razina cita sam natjecaj i iz njega vadi iznos, rok i uvjete. Ondje se
+# grijesi i ondje greska boli, a dogada se tek desetak puta po radu — zato Sonnet.
+MODEL = "claude-haiku-4-5-20251001"
+MODEL_NATJECAJ = "claude-sonnet-5"
 REQUEST_TIMEOUT = 25
 DELAY_SEC = 2
 MAX_CHARS = 15000
@@ -173,6 +179,61 @@ Ako tekst sadrzi odjeljak "--- TEKST IZ PRILOZENOG PDF-a ---", taj dio je sam na
 i ima prednost pred kratkom najavom sa stranice.
 
 TEKST STRANICE:
+---
+{page_text}
+---
+"""
+
+
+# Druga razina: vec smo na stranici pojedinog natjecaja. Pitanje vise nije
+# "ima li ovdje ista", nego "procitaj ovo tocno". Zato zaseban prompt: bez
+# opreza koji na popisnoj stranici sprjecava laznu uzbunu, a s naglaskom na
+# tocnost brojki — ovo je jedini tekst koji ce itko procitati o toj stipendiji.
+NATJECAJ_PROMPT = """Pred tobom je tekst JEDNOG natjecaja za stipendiju. Vrati TOCNO ovaj JSON, bez ikakvog dodatnog teksta:
+
+{{
+  "naslov_natjecaja": "KRATAK naslov onoga sto se dodjeljuje, najvise 6 rijeci, ili null",
+  "iznos": "iznos stipendije doslovno kako pise, ili null",
+  "iznosi": [{{"eur": 380, "razdoblje": "mjesecno", "mjeseci": 10, "za": "ucenici", "do": false}}],
+  "iznos_je_fond": true/false — je li broj UKUPAN proracun programa, a ne iznos po korisniku,
+  "dokaz_iznos": "recenica PREPISANA DOSLOVNO iz teksta u kojoj pise iznos, ili null",
+  "dokaz_rok": "recenica PREPISANA DOSLOVNO iz teksta u kojoj pise rok, ili null",
+  "rok_tekst": "rok prijave DOSLOVNO kako pise, ili null",
+  "uvjeti": "tko se moze prijaviti, 1-2 recenice, ili null",
+  "upute_za_prijavu": "3-6 kratkih koraka odvojenih s ' | ', ili null",
+  "ima_otvoren_natjecaj": true/false,
+  "napomena": "bilo sto neuobicajeno sto covjek treba znati, ili null",
+  "poveznica_natjecaj": null
+}}
+
+OVA STRANICA JE SAM NATJECAJ, ne rubrika s popisom. Ako u tekstu stoji natjecaj
+za stipendiju ucenika ili studenata, vrati ima_otvoren_natjecaj=true i popuni
+polja. Nemoj vracati false samo zato sto nesto nedostaje — natjecaj bez
+navedenog iznosa i dalje je natjecaj.
+
+Vrati ima_otvoren_natjecaj=false samo ako: tekst nije o stipendiji za skolovanje
+(npr. potpora zaposlenima, subvencija, javna nabava), ili je ovo obavijest o
+REZULTATIMA odnosno rang-lista, ili tekst izricito kaze da su prijave zavrsene.
+
+ROK: prepisi datum doslovno. Ako je naveden raspon ("od 7. do 30. rujna"),
+prepisi cijeli raspon — program sam racuna koji je datum zadnji. Ne racunaj i ne
+zakljucuj je li rok prosao.
+
+IZNOSI: "iznos" ostavi doslovno. Uz to rastavi isti podatak u "iznosi":
+  "eur" — samo broj (2325, 380, 1250.50); "razdoblje" — "mjesecno", "godisnje"
+  ili "jednokratno"; "mjeseci" — trajanje isplate ili null; "za" — kome pripada
+  taj iznos ("ucenici", "studenti") ili null ako je jedinstven; "do" — true kad
+  je gornja granica. Svaki razred ide kao zaseban unos. Ako iznos nije naveden
+  brojem, vrati praznu listu [].
+Iznos u drugoj valuti (CAD, USD) NE upisuj u "eur" — ostavi praznu listu, a
+doslovni tekst zadrzi u "iznos".
+
+DOKAZI: uz iznos i rok prepisi recenicu iz koje si ih procitao, DOSLOVNO, znak
+po znak. Ta se recenica strojno trazi u tekstu gore; ako je ne nade, podatak se
+odbacuje. Ne sastavljaj recenicu po sjecanju i ne dopunjuj je — ako recenice s
+tim podatkom nema, vrati null i za dokaz i za podatak.
+
+TEKST NATJECAJA:
 ---
 {page_text}
 ---
@@ -325,12 +386,11 @@ def pdf_poveznice(html, baza, maks=2):
     return kandidati
 
 
-def extract_with_claude(client, page_text):
-    prompt = EXTRACTION_PROMPT.format(page_text=page_text)
+def _pitaj_model(client, prompt, model):
     raw = ""
     try:
         response = client.messages.create(
-            model=MODEL,
+            model=model,
             max_tokens=1000,
             messages=[{"role": "user", "content": prompt}],
         )
@@ -343,6 +403,24 @@ def extract_with_claude(client, page_text):
     except Exception as e:
         print(f"  ! Greska API-ja: {e}")
         return {"greska": str(e)}
+
+
+def extract_with_claude(client, page_text):
+    """Prva razina: rubrika s popisom natjecaja."""
+    return _pitaj_model(client, EXTRACTION_PROMPT.format(page_text=page_text), MODEL)
+
+
+def procitaj_natjecaj(client, page_text):
+    """Druga razina: stranica pojedinog natjecaja, citana boljim modelom.
+
+    Ako zeljeni model nije dostupan (promijenjen naziv, ogranicenje racuna),
+    pitanje se ponavlja jeftinim modelom umjesto da izvor ostane bez podataka."""
+    prompt = NATJECAJ_PROMPT.format(page_text=page_text)
+    odgovor = _pitaj_model(client, prompt, MODEL_NATJECAJ)
+    if "greska" in odgovor and "JSON" not in str(odgovor.get("greska")):
+        print(f"  ! {MODEL_NATJECAJ} nije odgovorio — ponavljam s {MODEL}")
+        odgovor = _pitaj_model(client, prompt, MODEL)
+    return odgovor
 
 
 def parse_hr_date(text):
@@ -833,6 +911,7 @@ def main():
         # Ako popisna stranica nije dala natjecaj s rokom, otvori do dvije
         # poveznice koje na njoj izgledaju kao natjecaj za stipendiju. Tek ako
         # ni ondje nema roka, ostaje "nema aktivnog natjecaja".
+        pricuva = None
         if sirovi and not (ima_otvoren and extracted.get("rok_tekst")):
             for pod_url in natjecaj_poveznice(sirovi, url):
                 if drugih_poziva >= MAKS_DRUGI_PROLAZ:
@@ -862,12 +941,14 @@ def main():
                             pdf_procitano += 1
                         time.sleep(1)
 
-                pod = extract_with_claude(client, pod_text)
+                pod = procitaj_natjecaj(client, pod_text)
                 drugih_poziva += 1
                 time.sleep(DELAY_SEC)
                 if "greska" in pod:
                     continue
-                if pod.get("ima_otvoren_natjecaj") and pod.get("rok_tekst"):
+                if not pod.get("ima_otvoren_natjecaj"):
+                    continue
+                if pod.get("rok_tekst"):
                     print(f"  + natjecaj nadem na podstranici: {pod_url[:70]}")
                     extracted = pod
                     ima_otvoren = True
@@ -875,6 +956,19 @@ def main():
                     tekst_izvora = pod_text
                     nadeno_drugim += 1
                     break
+                # Natjecaj bez citljivog roka nije bezvrijedan — ide u pricuvu.
+                # Ako nijedna druga poveznica ne da bolji, uzet ce se ovaj i
+                # zavrsiti kao "provjeriti rucno", sto je posteno: postoji, ali
+                # mu ne znamo rok. Prije se u tom slucaju gubio bez traga.
+                if pricuva is None:
+                    pricuva = (pod, pod_url, pod_text)
+
+        if pricuva is not None and not ima_otvoren:
+            pod, pod_url, pod_text = pricuva
+            print(f"  + natjecaj bez citljivog roka: {pod_url[:60]}")
+            extracted, ima_otvoren = pod, True
+            izvor_natjecaja, tekst_izvora = pod_url, pod_text
+            nadeno_drugim += 1
 
         status = compute_status(extracted.get("rok_tekst"), ima_otvoren)
 
