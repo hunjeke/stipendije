@@ -40,8 +40,14 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 SOURCES_FILE = "sources.json"
 IZLAZ = "prijedlozi_izvora.json"
 
-ADRESAR_URL = ("https://mpudt.gov.hr/UserDocsImages/dokumenti/"
-               "Adresar%20JLP(R)S.XLSX")
+# Sluzbena putanja ima dvostruke kose crte — tako stoji na stranici
+# ministarstva. Drzimo vise oblika jer se takve poveznice znaju mijenjati.
+ADRESAR_URLS = [
+    "https://mpudt.gov.hr/UserDocsImages//dokumenti//Adresar JLP(R)S.XLSX",
+    "https://mpudt.gov.hr/UserDocsImages/dokumenti/Adresar JLP(R)S.XLSX",
+    "https://mpudt.gov.hr/UserDocsImages//MURH- arhiva/Uprava za politički sustav"
+    "/JLRS//100613-Kopija opcine_gradovi_RH.xls",
+]
 
 # Putanje po kojima hrvatske gradske stranice drze natjecaje. Poredane po
 # korisnosti: stranica posvecena stipendijama vrijedi vise od opce rubrike.
@@ -76,19 +82,27 @@ def bez_kvacica(s):
 # ---------------------------------------------------------------- adresar
 
 def skini_adresar(putanja=None):
-    """Vrati putanju do XLSX-a, skinuvsi ga ako treba."""
+    """Vrati putanju do tablice, skinuvsi je ako treba. None ako ne uspije."""
     if putanja:
         return putanja
-    lokalno = "_adresar.xlsx"
-    if os.path.exists(lokalno):
-        return lokalno
-    print(f"Skidam adresar: {ADRESAR_URL}")
-    r = requests.get(ADRESAR_URL, headers=ZAGLAVLJA, timeout=60, verify=False)
-    r.raise_for_status()
-    with open(lokalno, "wb") as f:
-        f.write(r.content)
-    print(f"  spremljeno ({len(r.content)//1024} kB)")
-    return lokalno
+    for url in ADRESAR_URLS:
+        lokalno = "_adresar" + os.path.splitext(url)[1].lower()
+        if os.path.exists(lokalno):
+            return lokalno
+        try:
+            print(f"Skidam: {url}")
+            r = requests.get(url, headers=ZAGLAVLJA, timeout=60, verify=False)
+            if r.status_code != 200 or len(r.content) < 5000:
+                print(f"  ! HTTP {r.status_code}, {len(r.content)} B — preskacem")
+                continue
+            with open(lokalno, "wb") as f:
+                f.write(r.content)
+            print(f"  spremljeno ({len(r.content)//1024} kB)")
+            return lokalno
+        except requests.RequestException as e:
+            print(f"  ! {type(e).__name__}: {str(e)[:70]}")
+    print("! Nijedan adresar se nije skinuo — idem samo po imenima jedinica.")
+    return None
 
 
 def _domena_iz_maila(v):
@@ -114,6 +128,70 @@ def _adresa_iz_stupca(v):
     return d or None
 
 
+def domene_iz_imena(ime, vrsta):
+    """Pogodi domenu iz imena jedinice.
+
+    Hrvatske jedinice gotovo bez iznimke koriste isti obrazac: Grad Koprivnica
+    je koprivnica.hr ili grad-koprivnica.hr. Pogadanje je ovdje posve sigurno
+    jer se svaka domena ionako provjerava dohvatom, a stranica mora spominjati
+    stipendije da bi usla u prijedlog. Kriva pogodba samo ne odgovori."""
+    n = bez_kvacica(ime)
+    n = re.sub(r"^(grad|opcina|zupanija)\s+", "", n).strip()
+    n = re.sub(r"\s*zupanija$", "", n).strip()
+    jezgra = re.sub(r"[^a-z0-9]+", "-", n).strip("-")
+    if not jezgra:
+        return []
+    if vrsta == "Županija":
+        # Zupanije gotovo bez iznimke koriste kraticu: Osjecko-baranjska je
+        # obz.hr, Primorsko-goranska pgz.hr, Brodsko-posavska bpz.hr. Puno ime
+        # u domeni je kod njih iznimka, pa kratice idu prve.
+        slova = "".join(d[0] for d in jezgra.split("-") if d)
+        kandidati = [f"{slova}z.hr", f"{slova}zupanija.hr", f"{slova}-zupanija.hr"]
+        if len(slova) == 1:                       # jednoclane (Karlovacka)
+            kandidati.insert(0, f"{jezgra[:2]}zup.hr")
+        kandidati += [f"{jezgra}.hr", f"{jezgra}-zupanija.hr"]
+        return kandidati
+
+    kandidati = [f"{jezgra}.hr"]
+    if vrsta == "Grad":
+        kandidati.append(f"grad-{jezgra}.hr")
+    elif vrsta == "Općina":
+        kandidati.append(f"opcina-{jezgra}.hr")
+    # imena od dvije rijeci ("Novi Marof") idu i spojeno
+    if "-" in jezgra:
+        kandidati.append(jezgra.replace("-", "") + ".hr")
+    # "Đakovo" je u domeni djakovo.hr, ne dakovo.hr
+    if "đ" in str(ime).lower():
+        dj = re.sub(r"[^a-z0-9]+", "-",
+                    str(ime).lower().replace("đ", "dj")).strip("-")
+        dj = re.sub(r"^(grad|opcina)-", "", bez_kvacica(dj))
+        if f"{dj}.hr" not in kandidati:
+            kandidati.insert(1, f"{dj}.hr")
+    return kandidati
+
+
+def _nadi_zaglavlje(putanja, list_ime, maks=10):
+    """Pronadi redak koji je stvarno zaglavlje tablice.
+
+    Sluzbene tablice cesto pocinju naslovom, praznim recima i spojenim celijama,
+    pa je pravo zaglavlje tek peti ili sesti redak. Ako se cita od prvog, svi
+    stupci se zovu 'Unnamed: 0' i nista se ne prepozna — upravo se to dogodilo
+    u prvom pokusaju."""
+    import pandas as pd
+    for red in range(maks):
+        try:
+            df = pd.read_excel(putanja, sheet_name=list_ime, dtype=str, header=red)
+        except Exception:
+            continue
+        stupci = [bez_kvacica(c) for c in df.columns]
+        ima_ime = any("naziv" in c or "ime" in c or "jedinic" in c or "grad" in c
+                      or "opcina" in c for c in stupci)
+        if ima_ime and len(df) > 5:
+            df.columns = stupci
+            return df, red
+    return None, None
+
+
 def procitaj_adresar(putanja, samo_gradovi=True):
     """Izvuci (ime, vrsta, domena) za svaku jedinicu.
 
@@ -127,45 +205,83 @@ def procitaj_adresar(putanja, samo_gradovi=True):
         print("GRESKA: nedostaje 'pandas'. Instaliraj: pip install pandas openpyxl")
         sys.exit(1)
 
-    listovi = pd.read_excel(putanja, sheet_name=None, dtype=str)
-    print(f"Adresar: {len(listovi)} list(ova) — {', '.join(list(listovi)[:5])}")
+    imena_listova = list(pd.read_excel(putanja, sheet_name=None, nrows=0))
+    print(f"Tablica: {len(imena_listova)} list(ova) — {', '.join(imena_listova[:5])}")
 
-    jedinice, vidjene = [], set()
-    for ime_lista, df in listovi.items():
-        df.columns = [bez_kvacica(c) for c in df.columns]
+    jedinice, vidjena_imena = [], set()
+    for ime_lista in imena_listova:
+        df, red_zaglavlja = _nadi_zaglavlje(putanja, ime_lista)
+        if df is None:
+            print(f"  ! list '{ime_lista}': ne prepoznajem zaglavlje, preskacem")
+            continue
         st_ime = next((c for c in df.columns
-                       if "naziv" in c or "ime" in c or "jedinic" in c), None)
+                       if "naziv" in c or "ime" in c or "jedinic" in c), None) \
+            or next((c for c in df.columns if "grad" in c or "opcina" in c), None)
         st_web = next((c for c in df.columns
                        if "web" in c or "intern" in c or "stranic" in c), None)
         st_mail = next((c for c in df.columns if "mail" in c or "epos" in c), None)
         st_vrsta = next((c for c in df.columns if "vrsta" in c or "tip" in c), None)
+        print(f"  list '{ime_lista}': zaglavlje u {red_zaglavlja + 1}. retku, "
+              f"{len(df)} redaka | naziv='{st_ime}' web='{st_web}' mail='{st_mail}'")
         if not st_ime:
-            print(f"  ! list '{ime_lista}': ne prepoznajem stupac s nazivom, preskacem")
+            print(f"      stupci: {list(df.columns)[:8]}")
             continue
-        print(f"  list '{ime_lista}': naziv='{st_ime}' web='{st_web}' mail='{st_mail}'")
 
         for _, red in df.iterrows():
             ime = str(red.get(st_ime) or "").strip()
-            if not ime or ime.lower() == "nan":
+            if not ime or ime.lower() in ("nan", "none", "-"):
                 continue
-            domena = (_adresa_iz_stupca(red.get(st_web)) if st_web else None)
-            if not domena and st_mail:
-                domena = _domena_iz_maila(red.get(st_mail))
-            if not domena:
+            kljuc = bez_kvacica(ime)
+            if kljuc in vidjena_imena:
                 continue
+            vidjena_imena.add(kljuc)
+
             vrsta = str(red.get(st_vrsta) or "").strip() if st_vrsta else ""
-            if not vrsta:
-                nl = bez_kvacica(ime)
-                vrsta = ("Županija" if "zupanij" in nl else
-                         "Općina" if nl.startswith("opcina") else "Grad")
-            if domena in vidjene:
-                continue
-            vidjene.add(domena)
-            jedinice.append({"naziv": ime, "vrsta": vrsta, "domena": domena})
+            if not vrsta or vrsta.lower() == "nan":
+                vrsta = ("Županija" if "zupanij" in kljuc else
+                         "Općina" if kljuc.startswith("opcina") else "Grad")
+
+            # Domena iz tablice ako je ima; inace se pogada iz imena i
+            # provjerava dohvatom. Tako popis ne ovisi o tome sadrzi li
+            # sluzbena tablica uopce mreznu adresu.
+            domene = []
+            if st_web:
+                d = _adresa_iz_stupca(red.get(st_web))
+                if d:
+                    domene.append(d)
+            if st_mail:
+                d = _domena_iz_maila(red.get(st_mail))
+                if d and d not in domene:
+                    domene.append(d)
+            domene += [d for d in domene_iz_imena(ime, vrsta) if d not in domene]
+            if domene:
+                jedinice.append({"naziv": ime, "vrsta": vrsta, "domene": domene})
 
     if samo_gradovi:
         jedinice = [j for j in jedinice if j["vrsta"] != "Općina"]
     return jedinice
+
+
+def jedinice_bez_tablice(samo_gradovi=True):
+    """Zaliha kad se tablica ne skine: imena se uzimaju iz sources.json.
+
+    Nije potpun popis, ali je bolje od nicega i odmah pokazuje radi li ostatak."""
+    if not os.path.exists(SOURCES_FILE):
+        return []
+    with open(SOURCES_FILE, encoding="utf-8") as f:
+        izvori = json.load(f)
+    out, vidjeno = [], set()
+    for i in izvori:
+        vrsta = i.get("kategorija") or "Grad"
+        ime = (i.get("podrucje") or "").strip()
+        if not ime or ime in vidjeno or vrsta not in ("Grad", "Općina", "Županija"):
+            continue
+        vidjeno.add(ime)
+        out.append({"naziv": ime, "vrsta": vrsta,
+                    "domene": domene_iz_imena(ime, vrsta)})
+    if samo_gradovi:
+        out = [j for j in out if j["vrsta"] != "Općina"]
+    return out
 
 
 # ---------------------------------------------------------------- probanje
@@ -205,12 +321,33 @@ def provjeri_putanju(domena, putanja):
     return None, None
 
 
+def ziva_domena(kandidati):
+    """Koja se od pogodenih domena uopce otvara.
+
+    Prvo se trazi ziva domena, pa tek onda putanje po njoj. Bez toga bi se
+    osam putanja probalo na svakoj pogodenoj domeni i posao bi narastao
+    nekoliko puta bez ikakve koristi."""
+    for d in kandidati[:5]:
+        for shema in ("https://", "http://"):
+            try:
+                r = requests.get(f"{shema}{d}", headers=ZAGLAVLJA, timeout=TIMEOUT,
+                                 verify=False, allow_redirects=True)
+            except requests.RequestException:
+                continue
+            if r.status_code == 200 and "html" in r.headers.get("content-type", ""):
+                return urlparse(r.url).netloc or d
+    return None
+
+
 def istrazi(jedinica):
     """Prva putanja koja se otvori i spominje stipendije pobjeduje."""
+    domena = ziva_domena(jedinica["domene"])
+    if not domena:
+        return None
     for p in PUTANJE:
-        url, naslov = provjeri_putanju(jedinica["domena"], p)
+        url, naslov = provjeri_putanju(domena, p)
         if url:
-            return dict(jedinica, url=url, naslov=naslov, putanja=p)
+            return dict(jedinica, domena=domena, url=url, naslov=naslov, putanja=p)
     return None
 
 
@@ -233,13 +370,20 @@ def main():
     ap.add_argument("--limit", type=int, help="probaj samo prvih N jedinica")
     args = ap.parse_args()
 
-    jedinice = procitaj_adresar(skini_adresar(args.adresar),
-                                samo_gradovi=not args.sve)
-    print(f"\nJedinica s poznatom domenom: {len(jedinice)}")
+    tablica = skini_adresar(args.adresar)
+    jedinice = (procitaj_adresar(tablica, samo_gradovi=not args.sve)
+                if tablica else [])
+    if not jedinice:
+        print("! Iz tablice nije izaslo nista — koristim imena iz sources.json.")
+        jedinice = jedinice_bez_tablice(samo_gradovi=not args.sve)
+    print(f"\nJedinica za provjeru: {len(jedinice)}")
+    if not jedinice:
+        print("! Nemam nijednu jedinicu. Provjeri ispis o zaglavlju iznad.")
+        sys.exit(1)
 
     poznate = postojece_domene()
     novi = [j for j in jedinice
-            if j["domena"].replace("www.", "") not in poznate]
+            if not any(d.replace("www.", "") in poznate for d in j["domene"])]
     print(f"Vec pratis: {len(jedinice) - len(novi)}  |  za provjeru: {len(novi)}")
     if args.limit:
         novi = novi[:args.limit]
