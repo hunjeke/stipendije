@@ -842,4 +842,104 @@
     "podrucje": "Cijela Hrvatska",
     "zupanija": ""
   }
+
+  [
+  {
+    "naziv": "Grad Buzet — stipendije",
+    "url": "https://www.buzet.hr/natjecaji",
+    "kategorija": "Grad",
+    "podrucje": "Buzet",
+    "zupanija": "Istarska županija"
+  },
+  {
+    "naziv": "Grad Cres — stipendije",
+    "url": "https://www.cres.hr/sluzbene-informacije/natjecaji/",
+    "kategorija": "Grad",
+    "podrucje": "Cres",
+    "zupanija": "Primorsko-goranska županija"
+  },
+  {
+    "naziv": "Grad Donji Miholjac — stipendije",
+    "url": "https://donjimiholjac.hr/natjecaji",
+    "kategorija": "Grad",
+    "podrucje": "Donji Miholjac",
+    "zupanija": "Osječko-baranjska županija"
+  },
+  {
+    "naziv": "Grad Đurđevac — stipendije",
+    "url": "https://djurdjevac.hr/stipendije/",
+    "kategorija": "Grad",
+    "podrucje": "Đurđevac",
+    "zupanija": "Koprivničko-križevačka županija"
+  },
+  {
+    "naziv": "Grad Kraljevica — stipendije",
+    "url": "https://www.kraljevica.hr/javni-pozivi/",
+    "kategorija": "Grad",
+    "podrucje": "Kraljevica",
+    "zupanija": "Primorsko-goranska županija"
+  },
+  {
+    "naziv": "Grad Lipik — stipendije",
+    "url": "https://lipik.hr/natjecaji-i-javni-pozivi/",
+    "kategorija": "Grad",
+    "podrucje": "Lipik",
+    "zupanija": "Požeško-slavonska županija"
+  },
+  {
+    "naziv": "Grad Mursko Središće — stipendije",
+    "url": "https://mursko-sredisce.hr/stipendije/",
+    "kategorija": "Grad",
+    "podrucje": "Mursko Središće",
+    "zupanija": "Međimurska županija"
+  },
+  {
+    "naziv": "Grad Oroslavje — stipendije",
+    "url": "https://oroslavje.hr/stipendije/",
+    "kategorija": "Grad",
+    "podrucje": "Oroslavje",
+    "zupanija": "Krapinsko-zagorska županija"
+  },
+  {
+    "naziv": "Grad Pleternica — stipendije",
+    "url": "https://pleternica.hr/natjecaji/",
+    "kategorija": "Grad",
+    "podrucje": "Pleternica",
+    "zupanija": "Požeško-slavonska županija"
+  },
+  {
+    "naziv": "Grad Ploče — stipendije",
+    "url": "https://ploce.hr/stipendije/",
+    "kategorija": "Grad",
+    "podrucje": "Ploče",
+    "zupanija": "Dubrovačko-neretvanska županija"
+  },
+  {
+    "naziv": "Grad Pregrada — stipendije",
+    "url": "https://www.pregrada.hr/stipendije",
+    "kategorija": "Grad",
+    "podrucje": "Pregrada",
+    "zupanija": "Krapinsko-zagorska županija"
+  },
+  {
+    "naziv": "Grad Rovinj — stipendije",
+    "url": "https://www.rovinj-rovigno.hr/stipendije/",
+    "kategorija": "Grad",
+    "podrucje": "Rovinj",
+    "zupanija": "Istarska županija"
+  },
+  {
+    "naziv": "Grad Vrlika — stipendije",
+    "url": "https://vrlika.hr/stipendije-studentima/",
+    "kategorija": "Grad",
+    "podrucje": "Vrlika",
+    "zupanija": "Splitsko-dalmatinska županija"
+  },
+  {
+    "naziv": "Grad Županja — stipendije",
+    "url": "https://zupanja.hr/stipendije-grada-zupanja/",
+    "kategorija": "Grad",
+    "podrucje": "Županja",
+    "zupanija": "Vukovarsko-srijemska županija"
+  }
 ]
