@@ -354,8 +354,12 @@ def provjeri_putanju(domena, putanja):
         if "stipendij" not in tekst:      # ucenik/student sam po sebi nije dovoljan
             continue
         naslov = (juha.title.get_text(strip=True) if juha.title else "")[:90]
-        return r.url, naslov
-    return None, None
+        # Vracamo putanju koju smo TRAZILI, ne onu na koju nas je preusmjerilo.
+        # Dio CMS-ova s /stipendije skoci na pojedinacni clanak — zapisali smo
+        # tako Slunj iz 2015. i Medimursku iz 2017. Takav izvor je mrtav, nikad
+        # nece pokazati novi natjecaj. Rubrika barem prati sto je aktualno.
+        return url, r.url, naslov
+    return None, None, None
 
 
 def ziva_domena(kandidati):
@@ -382,9 +386,24 @@ def istrazi(jedinica):
     if not domena:
         return None
     for p in PUTANJE:
-        url, naslov = provjeri_putanju(domena, p)
+        url, zavrsni, naslov = provjeri_putanju(domena, p)
         if url:
-            return dict(jedinica, domena=domena, url=url, naslov=naslov, putanja=p)
+            return dict(jedinica, domena=domena, url=url, zavrsni=zavrsni,
+                        naslov=naslov, putanja=p)
+    return None
+
+
+# Putanja koja zavrsi na datiranom clanku ili dugom naslovu nije rubrika nego
+# jedna objava. Takav prijedlog nije bezvrijedan, ali trazi tvoje oko.
+_CLANAK = re.compile(r"/(19|20)\d{2}[/-]|[/-](19|20)\d{2}/?$|\d{4}-\d{4}")
+
+
+def sumnjiv(zavrsni):
+    if _CLANAK.search(zavrsni or ""):
+        return "preusmjereno na datirani članak"
+    zadnji = (zavrsni or "").rstrip("/").rsplit("/", 1)[-1]
+    if len(zadnji) > 28:
+        return "preusmjereno na pojedinačnu objavu"
     return None
 
 
@@ -447,20 +466,31 @@ def main():
             if i % 25 == 0:
                 print(f"  ... {i}/{len(novi)}, nadeno {len(nadeno)}")
 
-    nadeno.sort(key=lambda r: bez_kvacica(r["naziv"]))
-    prijedlozi = [{"naziv": f"{r['naziv']} — stipendije",
-                   "url": r["url"],
-                   "kategorija": r["vrsta"],
-                   "podrucje": r["naziv"],
-                   "zupanija": "",
-                   "_naslov_stranice": r["naslov"]} for r in nadeno]
+    # cisti prvi, sumnjivi na dno — da se odmah vidi sto se moze uzeti odmah
+    nadeno.sort(key=lambda r: (bool(sumnjiv(r["zavrsni"])), bez_kvacica(r["naziv"])))
+    prijedlozi = []
+    for r in nadeno:
+        stavka = {"naziv": f"{r['naziv']} — stipendije",
+                  "url": r["url"],
+                  "kategorija": r["vrsta"],
+                  "podrucje": r["naziv"],
+                  "zupanija": "",
+                  "_naslov_stranice": r["naslov"]}
+        upozorenje = sumnjiv(r["zavrsni"])
+        if upozorenje:
+            stavka["_provjeri"] = upozorenje
+            stavka["_zavrsni_url"] = r["zavrsni"]
+        prijedlozi.append(stavka)
 
     with open(IZLAZ, "w", encoding="utf-8") as f:
         json.dump(prijedlozi, f, ensure_ascii=False, indent=2)
 
     print(f"\n{'='*54}")
     print(f"Provjereno jedinica: {len(novi)}")
+    cisti = sum(1 for r in nadeno if not sumnjiv(r["zavrsni"]))
     print(f"Novih izvora nadeno: {len(nadeno)}")
+    print(f"  spremni za unos:   {cisti}")
+    print(f"  trebaju pogled:    {len(nadeno) - cisti} (oznaceni s '_provjeri')")
     print(f"Zapisano u:          {IZLAZ}")
     print("\nPregledaj datoteku pa prenesi u sources.json one koje zelis.")
     print("Prije prenosenja popuni 'zupanija' — o njoj ovisi filter na stranici.")
