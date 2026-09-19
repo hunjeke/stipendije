@@ -797,7 +797,7 @@ def main():
     html = glava(
         "Stipendije u Hrvatskoj — otvoreni natječaji, iznosi i rokovi",
         "Svi otvoreni natječaji za stipendije u Hrvatskoj na jednom mjestu. "
-        "Iznosi, rokovi prijave i upute — provjereno dvaput tjedno.",
+        "Iznosi, rokovi prijave i upute — automatski ažurirano dvaput tjedno.",
         CSS_INDEX,
         '<script type="application/ld+json">' + ld + '</script>')
     html += navigacija("natjecaji")
