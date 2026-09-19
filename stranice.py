@@ -194,7 +194,7 @@ def stranica_zupanije(mapa, ime, kartice_html, br_otv, br_uk,
     god = datetime.now().year
     naslov = f"Stipendije u {lok} {god}. — otvoreni natječaji | stipendije.hr"
     opis = (f"Svi natječaji za stipendije u {lok}: iznosi, rokovi prijave "
-            f"i upute za prijavu. Izvore provjeravamo dvaput tjedno.")
+            f"i upute za prijavu. Izvore automatski provjeravamo dvaput tjedno.")
 
     # Recenica "nema otvorenih" se uvijek nosi sa sobom u data-nema: ako
     # posjetitelju u pregledniku istekne zadnji rok, JS njome zamijeni uvod
