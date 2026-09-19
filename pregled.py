@@ -87,12 +87,7 @@ def main():
     pravokutnik(L, K0, D, K1, fill=BIJELA, outline=TINTA, width=3)
 
     tekst((L + 34, K0 + 44), "IZNOS STIPENDIJE", F("plexmono-500", 19), SIVA)
-    # "npr." stoji u istom retku kao broj, ne u sitnoj oznaci iznad njega:
-    # na mobitelu se sitna oznaka ne vidi, a sam "200 € mjesecno" citao bi
-    # se kao obecanje da svatko toliko dobiva.
-    npr = F("bricolage-800", 52)
-    tekst((L + 32, K0 + 160), "npr.", npr, SIVA)
-    x = L + 32 + d.textlength("npr.", font=npr) / k + 18
+    x = L + 30
     velik = F("bricolage-800", 118)
     tekst((x, K0 + 160), IZNOS, velik, PLAVA)
     x += d.textlength(IZNOS, font=velik) / k + 22
