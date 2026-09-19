@@ -144,6 +144,12 @@ input:focus-visible,select:focus-visible{outline:2px solid var(--plava);outline-
 """
 
 
+# Verzija slike za pregled linka. WhatsApp, Viber i Facebook pamte sliku po
+# adresi i ne gledaju je li se datoteka promijenila. Kad zamijenis pregled.png,
+# povecaj ovaj broj — nova adresa tjera ih da sliku skinu ponovno.
+SLIKA_V = 3
+
+
 def oblik(n, jd, gjd, gmn):
     """Hrvatski broj + imenica: 1 izvor / 2-4 izvora / 5+ izvora.
     Pazi na 11-14 (uvijek mnozina) i na 21, 31... (jednina)."""
@@ -168,13 +174,13 @@ def glava(naslov, opis, dodatni_css="", dodatni_head="", put=""):
 <meta property="og:title" content="{naslov}">
 <meta property="og:description" content="{opis}">
 <meta property="og:type" content="website">
-<meta property="og:image" content="{BAZA}/pregled.png">
+<meta property="og:image" content="{BAZA}/pregled.png?v={SLIKA_V}">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:locale" content="hr_HR">
 <meta property="og:site_name" content="Stipendije.hr">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="{BAZA}/pregled.png">
+<meta name="twitter:image" content="{BAZA}/pregled.png?v={SLIKA_V}">
 <link rel="icon" href="{put}favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="48x48" href="{put}favicon-48.png">
 <link rel="icon" type="image/png" sizes="96x96" href="{put}favicon-96.png">
