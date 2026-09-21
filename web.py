@@ -684,6 +684,40 @@ JS = """
 """
 
 
+
+# --- WhatsApp kanal ---
+# Klik iz WhatsApp grupe je jednokratan: tko danas ne nade nista za sebe, ne
+# vraca se. Poziv stoji odmah ispod otvorenih natjecaja, jer je to trenutak
+# kad covjek vidi da za njega jos nema nista — i kad mu obavijest najvise treba.
+WA_KANAL = "https://whatsapp.com/channel/0029Vb8yRo75Ui2aMzBAjv1a"
+
+
+def poziv_kanal():
+    """Blok s pozivom na kanal. Nosi vlastiti stil jer ide i na stranice
+    zupanija, koje imaju drugi CSS. Plava, a ne zelena: zelena na stranici
+    znaci samo "natjecaj je otvoren"."""
+    return f"""<style>
+.kanal{{margin:1.6rem 0 .4rem;border:1.5px solid var(--tinta);background:var(--karta);
+  padding:1.1rem 1.15rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap}}
+.kanal-txt{{flex:1;min-width:15rem}}
+.kanal-txt b{{display:block;font-family:"Bricolage",sans-serif;font-weight:700;
+  font-size:1.08rem;letter-spacing:-.012em;color:var(--tinta);margin-bottom:.2rem}}
+.kanal-txt span{{font-size:.88rem;color:var(--tinta-2)}}
+.kanal-gumb{{display:inline-block;background:var(--plava);color:#fff;
+  text-decoration:none;font-weight:600;font-size:.92rem;padding:.72rem 1.1rem;
+  white-space:nowrap}}
+.kanal-gumb:hover{{filter:brightness(1.12)}}
+@media(max-width:600px){{.kanal-gumb{{width:100%;text-align:center}}}}
+</style>
+<aside class="kanal">
+  <div class="kanal-txt">
+    <b>Ne propusti novi natječaj</b>
+    <span>Rokovi su često samo 15 dana. Javimo ti na WhatsAppu čim se neki otvori.</span>
+  </div>
+  <a class="kanal-gumb" href="{WA_KANAL}" target="_blank" rel="noopener">Prati na WhatsAppu &rarr;</a>
+</aside>"""
+
+
 def main():
     if not os.path.exists(ULAZ):
         print("GRESKA: nema %s" % ULAZ)
@@ -813,7 +847,7 @@ def main():
       gradova i one državne, na koje imaju pravo svi.</p>
   </div>
 </div></section>
-<div class="w">{sek_otv}{sek_zat}{sek_zup}</div>
+<div class="w">{sek_otv}{poziv_kanal()}{sek_zat}{sek_zup}</div>
 </main>
 <script>{js}</script>"""
     html += podnozje(ukupno, vrijeme)
@@ -849,6 +883,7 @@ def main():
                     f'<span class="broj">{len(zat_z)}</span></div>'
                     + "".join(kartica(r, False, p, z) for r, p, z in zat_z))
         # i zupanijska stranica sama izbacuje istekle rokove
+        dio += poziv_kanal()
         dio += "<script>" + JS_ROKOVI + "</script>"
         popis = [(r.get("naziv") or "", r.get("url") or "")
                  for r, _, _ in otv_z + zat_z]
