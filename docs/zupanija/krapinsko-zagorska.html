@@ -148,6 +148,72 @@ input:focus-visible,select:focus-visible{outline:2px solid var(--plava);outline-
   *{animation:none!important;transition:none!important}
 }
 
+/* --- kartice --- */
+.k{background:var(--karta);border:1px solid var(--linija);
+  padding:1.05rem 1.15rem;margin-bottom:.75rem}
+.k.otv{border-left:3px solid var(--otvoreno)}
+.k.skriveno{display:none}
+.k .zag{display:flex;justify-content:flex-start;gap:.7rem;
+  align-items:baseline;flex-wrap:wrap}
+.status{font-family:"PlexMono",monospace;font-size:.66rem;letter-spacing:.09em;
+  text-transform:uppercase;padding:.2rem .5rem;white-space:nowrap;
+  flex-shrink:0;align-self:flex-start;max-width:100%}
+.status.otv{background:#DCFCE7;color:var(--otvoreno)}
+.status.zat{background:var(--papir);color:var(--tinta-2)}
+/* stupnjevi hitnosti: crveno do 3 dana, zuto do 14, dalje ostaje zeleno */
+.status.hitno{background:#FEE2E2;color:var(--hitno)}
+.status.uskoro{background:#FEF3C7;color:#92400E}
+.k .izvor{font-family:"PlexMono",monospace;font-size:.68rem;
+  letter-spacing:.06em;text-transform:uppercase;color:var(--tinta-2);
+  margin-bottom:.55rem}
+.polja{display:grid;grid-template-columns:8.5rem 1fr;gap:.28rem .9rem;
+  font-size:.9rem;margin:.5rem 0 0}
+.polja dt{color:var(--tinta-2)}
+.polja dd{margin:0}
+.polja dd.iznos{font-family:"PlexMono",monospace;font-weight:500}
+/* podatak kojeg na izvoru nema — vidljiv, ali tisi od stvarnog iznosa */
+.polja .nema{color:var(--tinta-2);font-style:italic}
+/* kome pripada koji iznos kad ih natjecaj ima vise (ucenici / studenti) */
+.polja .za{color:var(--tinta-2);font-family:"Plex",sans-serif;font-weight:400}
+.polja .za::after{content:" —";}
+/* duga recenica o uvjetima zauzme pola kartice; skracena je na dva retka
+   i otvara se klikom. Bez JS-a ostaje skracena, ali je "vise" skriven. */
+.polja dd.skrati .tekst{display:-webkit-box;-webkit-line-clamp:2;
+  -webkit-box-orient:vertical;overflow:hidden}
+.polja .vise{display:none;background:none;border:0;padding:.12rem 0 0;
+  font-family:inherit;font-size:.83rem;color:var(--plava);cursor:pointer}
+.polja .vise:hover{text-decoration:underline}
+.js .polja .vise{display:block}
+.k details{margin-top:.75rem;font-size:.88rem}
+.k summary{cursor:pointer;color:var(--plava);font-weight:500}
+.k details ol{margin:.55rem 0 0;padding-left:1.25rem;color:var(--tinta-2)}
+.k details li{margin-bottom:.3rem}
+.veza{display:inline-block;margin-top:.8rem;font-size:.88rem;font-weight:500;
+  color:var(--tinta);text-decoration:none;border-bottom:1.5px solid var(--plava);
+  padding-bottom:1px}
+.veza:hover{color:var(--plava)}
+.nema-rez{display:none;border:1px dashed var(--linija);padding:1.05rem 1.15rem;
+  color:var(--tinta-2);font-size:.9rem;margin:0}
+.nema-rez.vidljivo{display:block}
+.zatvoreni-omot{margin-top:.4rem}
+@media(max-width:600px){
+  /* kartice */
+  .k{padding:.95rem .9rem}
+  /* oznaka uvijek iznad naslova, da ne skace i ne izlazi van */
+  .k .zag{flex-direction:column-reverse;align-items:flex-start;gap:.45rem}
+  .k .zag h3{min-width:0;width:100%}
+  h3{font-size:.97rem}
+  .status{font-size:.62rem;padding:.18rem .45rem}
+  /* oznaka i podatak dijele redak i na mobitelu: kartica je upola niza,
+     a stupac oznaka drzi pogled na istoj crti kroz sve natjecaje */
+  .polja{grid-template-columns:6.6rem 1fr;gap:.3rem .6rem}
+  .polja dt{font-size:.74rem;line-height:1.35;color:#8A909E}
+  .polja dd{font-size:.92rem}
+  /* veca povrsina za prst */
+  .k summary{padding:.35rem 0}
+  .veza{padding:.4rem 0 .3rem}
+}
+
 .zag-zup{padding:2.4rem 0 0}
 .natrag{display:inline-block;font-size:.85rem;color:var(--tinta-2);
   text-decoration:none;margin-bottom:1rem}
@@ -190,7 +256,7 @@ input:focus-visible,select:focus-visible{outline:2px solid var(--plava);outline-
     <div class="brojka"><b data-broj-otv-n>1</b><span>otvoreno sada</span></div>
     <div class="brojka"><b>3</b><span>izvora koje pratimo</span></div>
   </div>
-  <div class="sek-vrh" id="sek-otv"><h2>Otvoreno za prijave</h2><span class="broj" data-broj-otv-n>1</span></div><article class="k otv" data-podrucje="Krapinsko-zagorska županija" data-zupanija="Krapinsko-zagorska županija" data-rok="2026-10-08"><div class="zag"><h3>Stipendije za učenike srednjih škola</h3><span class="status otv" data-znak>Otvoreno</span></div><div class="izvor">Krapinsko-zagorska županija</div><dl class="polja"><dt>Iznos</dt><dd class=""><span class="nema">nije naveden na stranici izvora</span></dd><dt>Rok prijave</dt><dd>08.10.2026.</dd><dt>Tko se prijavljuje</dt><dd>Stipendije za učenike srednjih škola Krapinsko-zagorske županije.</dd></dl><a class="veza" href="https://kzz.hr/natjecaj/" target="_blank" rel="noopener">Službena stranica &rarr;</a></article><div class="sek-vrh" style="margin-top:2.2rem"><h2>Izvori koje pratimo</h2><span class="broj">2</span></div><article class="k" data-podrucje="Oroslavje" data-zupanija="Krapinsko-zagorska županija" data-rok=""><div class="zag"><h3>Grad Oroslavje — stipendije</h3><span class="status zat">Zatvoreno</span></div><div class="izvor">Oroslavje</div><a class="veza" href="https://oroslavje.hr/stipendije/" target="_blank" rel="noopener">Službena stranica &rarr;</a></article><article class="k" data-podrucje="Pregrada" data-zupanija="Krapinsko-zagorska županija" data-rok=""><div class="zag"><h3>Grad Pregrada — stipendije</h3><span class="status zat">Zatvoreno</span></div><div class="izvor">Pregrada</div><a class="veza" href="https://www.pregrada.hr/stipendije" target="_blank" rel="noopener">Službena stranica &rarr;</a></article><style>
+  <div class="sek-vrh" id="sek-otv"><h2>Otvoreno za prijave</h2><span class="broj" data-broj-otv-n>1</span></div><article class="k otv" data-podrucje="Krapinsko-zagorska županija" data-zupanija="Krapinsko-zagorska županija" data-rok="2026-10-08"><div class="zag"><h3>Stipendije učenicima srednjih škola</h3><span class="status otv" data-znak>Otvoreno</span></div><div class="izvor">Krapinsko-zagorska županija</div><dl class="polja"><dt>Iznos</dt><dd class=""><span class="nema">nije naveden na stranici izvora</span></dd><dt>Rok prijave</dt><dd>08.10.2026.</dd></dl><a class="veza" href="https://kzz.hr/natjecaj/" target="_blank" rel="noopener">Službena stranica &rarr;</a></article><div class="sek-vrh" style="margin-top:2.2rem"><h2>Izvori koje pratimo</h2><span class="broj">2</span></div><article class="k" data-podrucje="Oroslavje" data-zupanija="Krapinsko-zagorska županija" data-rok=""><div class="zag"><h3>Grad Oroslavje — stipendije</h3><span class="status zat">Zatvoreno</span></div><div class="izvor">Oroslavje</div><a class="veza" href="https://oroslavje.hr/stipendije/" target="_blank" rel="noopener">Službena stranica &rarr;</a></article><article class="k" data-podrucje="Pregrada" data-zupanija="Krapinsko-zagorska županija" data-rok=""><div class="zag"><h3>Grad Pregrada — stipendije</h3><span class="status zat">Zatvoreno</span></div><div class="izvor">Pregrada</div><a class="veza" href="https://www.pregrada.hr/stipendije" target="_blank" rel="noopener">Službena stranica &rarr;</a></article><style>
 .kanal{margin:1.6rem 0 .4rem;border:1.5px solid var(--tinta);background:var(--karta);
   padding:1.1rem 1.15rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
 .kanal-txt{flex:1;min-width:15rem}
@@ -244,10 +310,13 @@ input:focus-visible,select:focus-visible{outline:2px solid var(--plava);outline-
     }
     var z=k.querySelector("[data-znak]");
     if(!z) return;
+    // tri stupnja: crveno kad gori, zuto kad se blizi, zeleno dok ima vremena
     if(n===0){ z.className="status hitno"; z.textContent="Zadnji dan"; }
-    else if(n<=7){ z.className="status hitno";
+    else if(n<=3){ z.className="status hitno";
       z.textContent="Još "+n+" "+oblik(n,"dan","dana","dana"); }
-    else if(n<=21){ z.textContent="Još "+n+" "+oblik(n,"dan","dana","dana"); }
+    else if(n<=14){ z.className="status uskoro";
+      z.textContent="Još "+n+" "+oblik(n,"dan","dana","dana"); }
+    else if(n<=30){ z.textContent="Još "+n+" "+oblik(n,"dan","dana","dana"); }
   });
 
   if(!istekle) return;
@@ -270,6 +339,18 @@ input:focus-visible,select:focus-visible{outline:2px solid var(--plava);outline-
   if(sazetak && sazetak.getAttribute("data-nema"))
     sazetak.textContent=sazetak.getAttribute("data-nema");
 })();
+
+// "vise / manje" na skracenoj recenici o uvjetima. Gumb se pokazuje tek kad
+// je JS ziv, jer bez njega nema sto otvoriti.
+(function(){
+  document.documentElement.className += " js";
+  document.addEventListener("click", function(e){
+    var b = e.target.closest ? e.target.closest("[data-vise]") : null;
+    if(!b) return;
+    var dd = b.parentNode;
+    b.textContent = dd.classList.toggle("skrati") ? "više" : "manje";
+  });
+})();
 </script>
   <div class="druge">
     <h2>Ostale županije</h2>
@@ -284,7 +365,7 @@ input:focus-visible,select:focus-visible{outline:2px solid var(--plava);outline-
      Posebno nam je važno ako je netočan <strong>rok prijave</strong>.</p>
   <p>Ne procjenjujemo tvoje šanse za pojedinu stipendiju. Za to pitaj instituciju
      koja je natječaj objavila.</p>
-  <p class="sitno">Zadnja provjera 24.09.2026. &nbsp;·&nbsp; 113 izvora &nbsp;·&nbsp;
+  <p class="sitno">Zadnja provjera 26.09.2026. &nbsp;·&nbsp; 117 izvora &nbsp;·&nbsp;
      podaci prikupljeni automatski &nbsp;·&nbsp;
      <a class="tiho" href="../impressum.html">Impressum</a> &nbsp;·&nbsp;
      <a class="tiho" href="../privatnost.html">Privatnost</a></p>
