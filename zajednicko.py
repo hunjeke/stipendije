@@ -147,6 +147,78 @@ input:focus-visible,select:focus-visible{outline:2px solid var(--plava);outline-
 # Verzija slike za pregled linka. WhatsApp, Viber i Facebook pamte sliku po
 # adresi i ne gledaju je li se datoteka promijenila. Kad zamijenis pregled.png,
 # povecaj ovaj broj — nova adresa tjera ih da sliku skinu ponovno.
+# Stil kartica natjecaja. Iste kartice stoje na naslovnici i na
+# stranicama zupanija, pa stil mora biti na jednom mjestu — inace
+# zupanijske stranice ostanu bez njega, kao dosad.
+CSS_KARTICE = """
+/* --- kartice --- */
+.k{background:var(--karta);border:1px solid var(--linija);
+  padding:1.05rem 1.15rem;margin-bottom:.75rem}
+.k.otv{border-left:3px solid var(--otvoreno)}
+.k.skriveno{display:none}
+.k .zag{display:flex;justify-content:flex-start;gap:.7rem;
+  align-items:baseline;flex-wrap:wrap}
+.status{font-family:"PlexMono",monospace;font-size:.66rem;letter-spacing:.09em;
+  text-transform:uppercase;padding:.2rem .5rem;white-space:nowrap;
+  flex-shrink:0;align-self:flex-start;max-width:100%}
+.status.otv{background:#DCFCE7;color:var(--otvoreno)}
+.status.zat{background:var(--papir);color:var(--tinta-2)}
+/* stupnjevi hitnosti: crveno do 3 dana, zuto do 14, dalje ostaje zeleno */
+.status.hitno{background:#FEE2E2;color:var(--hitno)}
+.status.uskoro{background:#FEF3C7;color:#92400E}
+.k .izvor{font-family:"PlexMono",monospace;font-size:.68rem;
+  letter-spacing:.06em;text-transform:uppercase;color:var(--tinta-2);
+  margin-bottom:.55rem}
+.polja{display:grid;grid-template-columns:8.5rem 1fr;gap:.28rem .9rem;
+  font-size:.9rem;margin:.5rem 0 0}
+.polja dt{color:var(--tinta-2)}
+.polja dd{margin:0}
+.polja dd.iznos{font-family:"PlexMono",monospace;font-weight:500}
+/* podatak kojeg na izvoru nema — vidljiv, ali tisi od stvarnog iznosa */
+.polja .nema{color:var(--tinta-2);font-style:italic}
+/* kome pripada koji iznos kad ih natjecaj ima vise (ucenici / studenti) */
+.polja .za{color:var(--tinta-2);font-family:"Plex",sans-serif;font-weight:400}
+.polja .za::after{content:" —";}
+/* duga recenica o uvjetima zauzme pola kartice; skracena je na dva retka
+   i otvara se klikom. Bez JS-a ostaje skracena, ali je "vise" skriven. */
+.polja dd.skrati .tekst{display:-webkit-box;-webkit-line-clamp:2;
+  -webkit-box-orient:vertical;overflow:hidden}
+.polja .vise{display:none;background:none;border:0;padding:.12rem 0 0;
+  font-family:inherit;font-size:.83rem;color:var(--plava);cursor:pointer}
+.polja .vise:hover{text-decoration:underline}
+.js .polja .vise{display:block}
+.k details{margin-top:.75rem;font-size:.88rem}
+.k summary{cursor:pointer;color:var(--plava);font-weight:500}
+.k details ol{margin:.55rem 0 0;padding-left:1.25rem;color:var(--tinta-2)}
+.k details li{margin-bottom:.3rem}
+.veza{display:inline-block;margin-top:.8rem;font-size:.88rem;font-weight:500;
+  color:var(--tinta);text-decoration:none;border-bottom:1.5px solid var(--plava);
+  padding-bottom:1px}
+.veza:hover{color:var(--plava)}
+.nema-rez{display:none;border:1px dashed var(--linija);padding:1.05rem 1.15rem;
+  color:var(--tinta-2);font-size:.9rem;margin:0}
+.nema-rez.vidljivo{display:block}
+.zatvoreni-omot{margin-top:.4rem}
+@media(max-width:600px){
+  /* kartice */
+  .k{padding:.95rem .9rem}
+  /* oznaka uvijek iznad naslova, da ne skace i ne izlazi van */
+  .k .zag{flex-direction:column-reverse;align-items:flex-start;gap:.45rem}
+  .k .zag h3{min-width:0;width:100%}
+  h3{font-size:.97rem}
+  .status{font-size:.62rem;padding:.18rem .45rem}
+  /* oznaka i podatak dijele redak i na mobitelu: kartica je upola niza,
+     a stupac oznaka drzi pogled na istoj crti kroz sve natjecaje */
+  .polja{grid-template-columns:6.6rem 1fr;gap:.3rem .6rem}
+  .polja dt{font-size:.74rem;line-height:1.35;color:#8A909E}
+  .polja dd{font-size:.92rem}
+  /* veca povrsina za prst */
+  .k summary{padding:.35rem 0}
+  .veza{padding:.4rem 0 .3rem}
+}
+"""
+
+
 SLIKA_V = 3
 
 
