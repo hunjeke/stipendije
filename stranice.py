@@ -4,7 +4,7 @@ import os
 import re
 import unicodedata
 from datetime import datetime
-from zajednicko import glava, navigacija, podnozje, oblik, EMAIL, DOMENA, BAZA
+from zajednicko import CSS_KARTICE, glava, navigacija, podnozje, oblik, EMAIL, DOMENA, BAZA
 
 
 def lokativ(ime):
@@ -161,7 +161,7 @@ prikazuje sažetke i poveznice na izvore.</p></div>
     open(os.path.join(mapa, "impressum.html"), "w", encoding="utf-8").write(html)
 
 
-CSS_ZUP = """
+CSS_ZUP = CSS_KARTICE + """
 .zag-zup{padding:2.4rem 0 0}
 .natrag{display:inline-block;font-size:.85rem;color:var(--tinta-2);
   text-decoration:none;margin-bottom:1rem}
