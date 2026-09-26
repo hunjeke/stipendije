@@ -30,6 +30,11 @@ def razvrstaj(status):
     s = status or ""
     if s.startswith("GREŠKA"):
         if "nedostupna" in s:
+            # scraper od sada upisuje i razlog u zagradu; ako ga ima, pokazi
+            # njega — "HTTP 404" i "SSL certifikat" traze razlicit popravak
+            m = re.search(r"nedostupna \(([^)]+)\)", s)
+            if m:
+                return 1, "NE RADI", f"stranica se ne dohvaca — {m.group(1)}"
             return 1, "NE RADI", "stranica se ne dohvaca (404, timeout ili blokada)"
         return 1, "NE RADI", "greska pri obradi"
     if s.startswith("PROVJERITI"):
