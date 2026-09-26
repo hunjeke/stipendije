@@ -598,6 +598,30 @@ def cist_naslov(s, maks=70):
     return s[0].upper() + s[1:]
 
 
+def tekst_natjecaja_s_prilozima(url, tiho=True):
+    """Tekst stranice natjecaja spojen s tekstom njezinih PDF priloga.
+
+    Gradovi rok i naslov stave na stranicu, a iznos ostave u prilozenom
+    natjecaju. Bez priloga kartica zavrsi s praznim iznosom iako je podatak
+    jedan klik dalje."""
+    t, _, html = fetch_content(url, retries=0, tiho=tiho)
+    if not t:
+        return None, 0
+    procitano = 0
+    if html and PDF_SUPPORT:
+        for pdf_url in pdf_poveznice(html, url):
+            pdf_t, _, _ = fetch_content(pdf_url, retries=0, tiho=True)
+            if pdf_t:
+                print(f"  + procitan PDF uz natjecaj: "
+                      f"{pdf_url.rsplit('/', 1)[-1][:45]}")
+                t = (t + "\n\n--- TEKST IZ PRILOZENOG PDF-a ---\n"
+                     + pdf_t)[:MAX_CHARS * 2]
+                procitano += 1
+            time.sleep(1)
+    return t, procitano
+
+
+
 def compute_status(rok_tekst, ima_otvoren_natjecaj):
     """Status se racuna PROGRAMSKI, ne prepusta se modelu."""
     if not ima_otvoren_natjecaj:
@@ -835,6 +859,7 @@ def main():
     pdf_procitano = 0
     drugih_poziva = 0        # koliko je dodatnih poziva modelu otislo na podstranice
     nadeno_drugim = 0        # koliko je natjecaja naden tek na drugoj razini
+    dopunjenih_iznosa = 0   # iznos naknadno dohvacen iz samog natjecaja
     odbacenih_iznosa = 0     # brojke koje se nisu poklopile s tekstom izvora
     pao_dokaz_iznos = 0      # iznos ugasen jer navedene recenice nema na stranici
     pao_dokaz_rok = 0        # rok bez potvrde u tekstu — samo se prijavljuje
@@ -979,6 +1004,37 @@ def main():
             izvor_natjecaja, tekst_izvora = pod_url, pod_text
             nadeno_drugim += 1
 
+        # --- dopuna: natjecaj ima rok, ali nema iznos ---
+        # Prvi prolaz cita rubriku na kojoj stoji naslov i rok; iznos je cesto
+        # tek u samom natjecaju ili u njegovu PDF prilogu. Dosad se u tom
+        # slucaju drugi prolaz uopce nije pokretao, pa je kartica ostajala bez
+        # iznosa iako je podatak bio jedan klik dalje.
+        tekst_za_iznos = tekst_izvora
+        veza_natjecaja = izvor_natjecaja or _izravni(
+            extracted.get("poveznica_natjecaj"), url)
+        if (ima_otvoren and extracted.get("rok_tekst")
+                and not extracted.get("iznos") and veza_natjecaja
+                and not izvor_natjecaja
+                and drugih_poziva < MAKS_DRUGI_PROLAZ):
+            pod_text, koliko = tekst_natjecaja_s_prilozima(veza_natjecaja)
+            pdf_procitano += koliko
+            if pod_text:
+                dop = procitaj_natjecaj(client, pod_text)
+                drugih_poziva += 1
+                time.sleep(DELAY_SEC)
+                if "greska" not in dop and dop.get("iznos"):
+                    print(f"  + iznos dohvacen iz natjecaja: "
+                          f"{str(dop.get('iznos'))[:50]}")
+                    for polje in ("iznos", "iznosi", "iznos_je_fond",
+                                  "dokaz_iznos"):
+                        extracted[polje] = dop.get(polje)
+                    for polje in ("upute_za_prijavu", "uvjeti"):
+                        if not extracted.get(polje) and dop.get(polje):
+                            extracted[polje] = dop.get(polje)
+                    izvor_natjecaja = veza_natjecaja
+                    tekst_za_iznos = pod_text
+                    dopunjenih_iznosa += 1
+
         status = compute_status(extracted.get("rok_tekst"), ima_otvoren)
 
         iznosi, odbaceno_ovdje = provjeri_iznose(
@@ -991,7 +1047,7 @@ def main():
         # --- navod mora postojati na stranici ---
         # Novac se gasi odmah: krivi iznos je gori od nikakvog, a kartica ima
         # pristojno "nije naveden" za taj slucaj.
-        ok_iznos = dokaz_vrijedi(extracted.get("dokaz_iznos"), tekst_izvora)
+        ok_iznos = dokaz_vrijedi(extracted.get("dokaz_iznos"), tekst_za_iznos)
         if ok_iznos is False and iznosi:
             print("  ! iznos odbacen — navedena recenica ne postoji na stranici")
             iznosi = []
@@ -1087,6 +1143,7 @@ def main():
     print(f"Procitanih PDF-ova:   {pdf_procitano}")
     print(f"Dodatnih poziva:      {drugih_poziva} (drugi prolaz po podstranicama)")
     print(f"Nadeno tek 2. razinom:{nadeno_drugim}")
+    print(f"Iznos iz natjecaja:   {dopunjenih_iznosa} (rok bio na rubrici, iznos u natjecaju)")
     print(f"Odbacenih iznosa:     {odbacenih_iznosa} "
           f"(brojka se nije nasla u tekstu izvora)")
     print(f"Zadrzano unatoc promasaju: {zadrzanih} "
