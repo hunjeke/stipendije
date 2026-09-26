@@ -12,7 +12,7 @@ import os
 import re
 from datetime import datetime
 
-from zajednicko import glava, navigacija, podnozje, oblik, EMAIL, DOMENA, BAZA
+from zajednicko import CSS_KARTICE, glava, navigacija, podnozje, oblik, EMAIL, DOMENA, BAZA
 
 ULAZ = "output.json"
 IZVORI = "sources.json"
@@ -58,7 +58,7 @@ def ucitaj_izvore():
     return p, z, o, u
 
 
-CSS_INDEX = """
+CSS_INDEX = CSS_KARTICE + """
 /* --- hero --- */
 .hero{padding:3.2rem 0 .4rem}
 .hero .oznaka{display:inline-block;margin-bottom:1rem}
@@ -85,44 +85,6 @@ CSS_INDEX = """
 #zupanija:hover,#zupanija:focus{border-color:var(--plava);background-color:#fff}
 .pojasnjenje{margin:.7rem 0 0;font-size:.85rem;color:var(--tinta-2);max-width:48ch}
 
-/* --- kartice --- */
-.k{background:var(--karta);border:1px solid var(--linija);
-  padding:1.05rem 1.15rem;margin-bottom:.75rem}
-.k.otv{border-left:3px solid var(--otvoreno)}
-.k.skriveno{display:none}
-.k .zag{display:flex;justify-content:flex-start;gap:.7rem;
-  align-items:baseline;flex-wrap:wrap}
-.status{font-family:"PlexMono",monospace;font-size:.66rem;letter-spacing:.09em;
-  text-transform:uppercase;padding:.2rem .5rem;white-space:nowrap;
-  flex-shrink:0;align-self:flex-start;max-width:100%}
-.status.otv{background:#DCFCE7;color:var(--otvoreno)}
-.status.zat{background:var(--papir);color:var(--tinta-2)}
-.status.hitno{background:#FEE2E2;color:var(--hitno)}
-.k .izvor{font-family:"PlexMono",monospace;font-size:.68rem;
-  letter-spacing:.06em;text-transform:uppercase;color:var(--tinta-2);
-  margin-bottom:.55rem}
-.polja{display:grid;grid-template-columns:8.5rem 1fr;gap:.28rem .9rem;
-  font-size:.9rem;margin:.5rem 0 0}
-.polja dt{color:var(--tinta-2)}
-.polja dd{margin:0}
-.polja dd.iznos{font-family:"PlexMono",monospace;font-weight:500}
-/* podatak kojeg na izvoru nema — vidljiv, ali tisi od stvarnog iznosa */
-.polja .nema{color:var(--tinta-2);font-style:italic}
-/* kome pripada koji iznos kad ih natjecaj ima vise (ucenici / studenti) */
-.polja .za{color:var(--tinta-2);font-family:"Plex",sans-serif;font-weight:400}
-.polja .za::after{content:" —";}
-.k details{margin-top:.75rem;font-size:.88rem}
-.k summary{cursor:pointer;color:var(--plava);font-weight:500}
-.k details ol{margin:.55rem 0 0;padding-left:1.25rem;color:var(--tinta-2)}
-.k details li{margin-bottom:.3rem}
-.veza{display:inline-block;margin-top:.8rem;font-size:.88rem;font-weight:500;
-  color:var(--tinta);text-decoration:none;border-bottom:1.5px solid var(--plava);
-  padding-bottom:1px}
-.veza:hover{color:var(--plava)}
-.nema-rez{display:none;border:1px dashed var(--linija);padding:1.05rem 1.15rem;
-  color:var(--tinta-2);font-size:.9rem;margin:0}
-.nema-rez.vidljivo{display:block}
-.zatvoreni-omot{margin-top:.4rem}
 
 /* --- zbijeni popis zatvorenih izvora --- */
 .rd{display:flex;align-items:center;gap:.75rem;padding:.62rem .3rem;
@@ -193,21 +155,6 @@ CSS_INDEX = """
   .sek-vrh{gap:.5rem}
   .sek-vrh .broj{font-size:.86rem}
 
-  /* kartice */
-  .k{padding:.95rem .9rem}
-  /* oznaka uvijek iznad naslova, da ne skace i ne izlazi van */
-  .k .zag{flex-direction:column-reverse;align-items:flex-start;gap:.45rem}
-  .k .zag h3{min-width:0;width:100%}
-  h3{font-size:.97rem}
-  .status{font-size:.62rem;padding:.18rem .45rem}
-  .polja{grid-template-columns:1fr;gap:.05rem}
-  .polja dt{font-size:.76rem;margin-top:.45rem;color:#8A909E}
-  /* na uskom zaslonu nema stupca za poravnanje, pa prazna oznaka samo smeta */
-  .polja dt:empty{display:none}
-  .polja dd{font-size:.92rem}
-  /* veca povrsina za prst */
-  .k summary{padding:.35rem 0}
-  .veza{padding:.4rem 0 .3rem}
 }
 @media(max-width:380px){
 }
@@ -369,6 +316,11 @@ def naslov_kartice(r):
     return r.get("naslov_natjecaja") or r.get("naziv")
 
 
+# Iznad ovoliko znakova recenica o uvjetima prelazi dva retka i kartica
+# naraste; tada se skracuje i dobiva "vise".
+GRANICA_SKRACIVANJA = 110
+
+
 def kartica(r, otvorena, podrucje, zupanija):
     naziv = esc(naslov_kartice(r))
     # ako je scraper nasao izravnu poveznicu na natjecaj, koristi nju
@@ -390,7 +342,14 @@ def kartica(r, otvorena, podrucje, zupanija):
     if rok and otvorena:
         polja += f'<dt>Rok prijave</dt><dd>{rok}</dd>'
     if uvjeti:
-        polja += f'<dt>Tko se prijavljuje</dt><dd>{uvjeti}</dd>'
+        # kratka recenica stane u dva retka sama; duga se skrati i otvara klikom
+        if len(uvjeti) > GRANICA_SKRACIVANJA:
+            polja += ('<dt>Tko se prijavljuje</dt>'
+                      f'<dd class="skrati"><span class="tekst">{uvjeti}</span>'
+                      '<button type="button" class="vise" data-vise>više</button>'
+                      '</dd>')
+        else:
+            polja += f'<dt>Tko se prijavljuje</dt><dd>{uvjeti}</dd>'
     polja = f'<dl class="polja">{polja}</dl>' if polja else ""
 
     upute = datumi_u_brojke(r.get("upute_za_prijavu")) or ""
@@ -582,10 +541,13 @@ JS_ROKOVI = """
     }
     var z=k.querySelector("[data-znak]");
     if(!z) return;
+    // tri stupnja: crveno kad gori, zuto kad se blizi, zeleno dok ima vremena
     if(n===0){ z.className="status hitno"; z.textContent="Zadnji dan"; }
-    else if(n<=7){ z.className="status hitno";
+    else if(n<=3){ z.className="status hitno";
       z.textContent="Još "+n+" "+oblik(n,"dan","dana","dana"); }
-    else if(n<=21){ z.textContent="Još "+n+" "+oblik(n,"dan","dana","dana"); }
+    else if(n<=14){ z.className="status uskoro";
+      z.textContent="Još "+n+" "+oblik(n,"dan","dana","dana"); }
+    else if(n<=30){ z.textContent="Još "+n+" "+oblik(n,"dan","dana","dana"); }
   });
 
   if(!istekle) return;
@@ -607,6 +569,18 @@ JS_ROKOVI = """
   var sazetak=document.getElementById("sazetak-zup");
   if(sazetak && sazetak.getAttribute("data-nema"))
     sazetak.textContent=sazetak.getAttribute("data-nema");
+})();
+
+// "vise / manje" na skracenoj recenici o uvjetima. Gumb se pokazuje tek kad
+// je JS ziv, jer bez njega nema sto otvoriti.
+(function(){
+  document.documentElement.className += " js";
+  document.addEventListener("click", function(e){
+    var b = e.target.closest ? e.target.closest("[data-vise]") : null;
+    if(!b) return;
+    var dd = b.parentNode;
+    b.textContent = dd.classList.toggle("skrati") ? "više" : "manje";
+  });
 })();
 """
 
