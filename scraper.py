@@ -29,6 +29,7 @@ import sys
 import time
 import hashlib
 import argparse
+import calendar
 from datetime import datetime, date
 from io import BytesIO
 from urllib.parse import urljoin, urlparse
@@ -251,6 +252,28 @@ BROWSER_HEADERS = {
     "Upgrade-Insecure-Requests": "1",
 }
 
+# Razlog zadnjeg neuspjelog dohvata. Dosad je svaki pad zavrsio kao
+# "stranica nedostupna", pa se iz output.json nije vidjelo je li server pao,
+# odbio nas ili je adresa promijenjena — a to su tri razlicita popravka.
+ZADNJI_RAZLOG = ""
+
+
+def _razlog_greske(e):
+    """Kratak razlog neuspjelog dohvata, citljiv bez kopanja po zapisniku."""
+    if isinstance(e, requests.exceptions.HTTPError) and e.response is not None:
+        return f"HTTP {e.response.status_code}"
+    if isinstance(e, requests.exceptions.SSLError):
+        return "SSL certifikat"
+    if isinstance(e, requests.exceptions.ConnectTimeout):
+        return "server se ne javlja"
+    if isinstance(e, requests.exceptions.ReadTimeout):
+        return f"istek vremena ({REQUEST_TIMEOUT}s)"
+    if isinstance(e, requests.exceptions.TooManyRedirects):
+        return "vrti se u preusmjeravanjima"
+    if isinstance(e, requests.exceptions.ConnectionError):
+        return "nema veze sa serverom (DNS ili odbijen spoj)"
+    return type(e).__name__
+
 
 def fetch_content(url, retries=2, tiho=False):
     """Dohvati stranicu. Vraca (tekst, hash, sirovi_html).
@@ -258,6 +281,8 @@ def fetch_content(url, retries=2, tiho=False):
     Sirovi HTML sluzi da se u njemu potraze poveznice na PDF natjecaje;
     kod PDF-a je None. Pri neuspjehu vraca (None, None, None).
     Podrzava i HTML i PDF. Pokusava vise puta jer stranice znaju povremeno pasti."""
+    global ZADNJI_RAZLOG
+    ZADNJI_RAZLOG = ""
     resp = None
     last_error = None
     for attempt in range(retries + 1):
@@ -274,10 +299,13 @@ def fetch_content(url, retries=2, tiho=False):
                 print(f"  . pokusaj {attempt + 1} nije uspio, cekam {wait}s...")
                 time.sleep(wait)
             else:
+                ZADNJI_RAZLOG = _razlog_greske(e)
                 if not tiho:
-                    print(f"  ! Greska pri dohvatu nakon {retries + 1} pokusaja: {e}")
+                    print(f"  ! Greska pri dohvatu nakon {retries + 1} "
+                          f"pokusaja: {ZADNJI_RAZLOG} — {e}")
                 return None, None, None
     if resp is None:
+        ZADNJI_RAZLOG = _razlog_greske(last_error) if last_error else "nepoznato"
         if not tiho:
             print(f"  ! Greska pri dohvatu: {last_error}")
         return None, None, None
@@ -459,6 +487,39 @@ def parse_hr_date(text):
         day, mon, yr = m.groups()
         try: return date(int(yr), int(mon), int(day))
         except ValueError: pass
+
+    # "do kraja listopada 2026." — zadnji dan tog mjeseca
+    m = re.search(r"kraja?\s+([a-zčćšđž]+)\s*(\d{4})", t)
+    if m:
+        mon, yr = m.groups()
+        month = HR_MONTHS.get(mon)
+        if month:
+            try:
+                return date(int(yr), month,
+                            calendar.monthrange(int(yr), month)[1])
+            except ValueError:
+                pass
+
+    # Bez godine: "do 24. listopada", "31. listopada tekuce godine".
+    # Godina se pogada, ali samo ako ispadne rok koji je jos pred nama. Bez te
+    # ograde bi se godisnji rok iz veljace danas prikazao kao otvoren natjecaj,
+    # a on se raspisuje tek za nekoliko mjeseci.
+    m = re.search(r"(\d{1,2})\.\s*([a-zčćšđž]+)", t)
+    if m:
+        day, mon = m.groups()
+        month = HR_MONTHS.get(mon)
+        if month:
+            danas = date.today()
+            for godina in (danas.year, danas.year + 1):
+                try:
+                    kandidat = date(godina, month, int(day))
+                except ValueError:
+                    break
+                razmak = (kandidat - danas).days
+                # samo rok koji je jos pred nama, i to najvise dva mjeseca:
+                # datum bez godine je cesto datum objave, a ne rok prijave
+                if 0 <= razmak <= 60:
+                    return kandidat
     return None
 
 
@@ -881,7 +942,8 @@ def main():
 
         if text is None:
             r = {"naziv": name, "url": url, "kategorija": src.get("kategorija", ""),
-                 "status": "GREŠKA — stranica nedostupna, provjeriti ručno",
+                 "status": ("GREŠKA — stranica nedostupna "
+                            f"({ZADNJI_RAZLOG or 'nepoznato'}), provjeriti ručno"),
                  "zadnje_provjereno": now}
             r, zadrzan = zadrzi_ako_je_nestao(r, prethodno.get(url))
             if zadrzan:
