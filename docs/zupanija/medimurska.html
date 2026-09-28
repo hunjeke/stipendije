@@ -52,11 +52,12 @@
 .kol button.da{background:#F2F4F8;color:var(--tinta);font-weight:600}
 .kol button:hover{border-color:#fff}
 @media(max-width:600px){
-  .kol{padding:.9rem}
-  .kol-w{gap:.8rem}
-  .kol p{font-size:.82rem}
-  .kol-gumbi{width:100%}
-  .kol button{flex:1}
+  /* traka je na mobitelu zauzimala 138 px prvog ekrana i prekrivala prvu
+     karticu; sada stane u jedan redak s tipkama uz tekst */
+  .kol{padding:.6rem .8rem}
+  .kol-w{gap:.6rem;flex-wrap:nowrap}
+  .kol p{font-size:.78rem;line-height:1.35}
+  .kol button{padding:.45rem .7rem;font-size:.82rem;white-space:nowrap}
 }
 
 :root{
@@ -256,7 +257,7 @@ input:focus-visible,select:focus-visible{outline:2px solid var(--plava);outline-
     <div class="brojka"><b data-broj-otv-n>1</b><span>otvoreno sada</span></div>
     <div class="brojka"><b>2</b><span>izvora koje pratimo</span></div>
   </div>
-  <div class="sek-vrh" id="sek-otv"><h2>Otvoreno za prijave</h2><span class="broj" data-broj-otv-n>1</span></div><article class="k otv" data-podrucje="Mursko Središće" data-zupanija="Međimurska županija" data-rok="2026-10-02"><div class="zag"><h3>Stipendije studentski krediti 2026./2027</h3><span class="status otv" data-znak>Otvoreno</span></div><div class="izvor">Mursko Središće</div><dl class="polja"><dt>Iznos</dt><dd class=""><span class="nema">nije naveden na stranici izvora</span></dd><dt>Rok prijave</dt><dd>02.10.2026. do 23:59</dd><dt>Tko se prijavljuje</dt><dd class="skrati"><span class="tekst">Studenti redovnog upisa na visokom učilištu, sa zahtjevima vezan na dohodak kućanstva i druge kriterije definirane Pravilnikom o studentskim kreditima.</span><button type="button" class="vise" data-vise>više</button></dd></dl><details><summary>Kako se prijaviti</summary><ol><li>Ispuniti obrazac s osobnim podacima</li><li>Unijeti podatke o studiju i učilištu</li><li>Dodati podatke o jamcu</li><li>Potpisati izjavu</li><li>Učitati potrebne dokumente (osobna iskaznica, potvrda prebivališta, potvrda upisa, dohodovni dokazi)</li><li>Dati privole za GDPR i Pravilnik</li></ol></details><a class="veza" href="https://mursko-sredisce.hr/stipendije/" target="_blank" rel="noopener">Službena stranica &rarr;</a></article><div class="sek-vrh" style="margin-top:2.2rem"><h2>Izvori koje pratimo</h2><span class="broj">1</span></div><article class="k" data-podrucje="Čakovec" data-zupanija="Međimurska županija" data-rok=""><div class="zag"><h3>Grad Čakovec — stipendije</h3><span class="status zat">Zatvoreno</span></div><div class="izvor">Čakovec</div><a class="veza" href="https://www.cakovec.hr/kategorija/gradske-vijesti/stipendije/" target="_blank" rel="noopener">Službena stranica &rarr;</a></article><style>
+  <div class="sek-vrh" id="sek-otv"><h2>Otvoreno za prijave</h2><span class="broj" data-broj-otv-n>1</span></div><article class="k otv" data-podrucje="Mursko Središće" data-zupanija="Međimurska županija" data-rok="2026-10-02" data-za="student"><div class="zag"><h3>Stipendije studentski krediti</h3><span class="status otv" data-znak>Otvoreno</span></div><div class="izvor">Mursko Središće</div><dl class="polja"><dt>Iznos</dt><dd class=""><span class="nema">nije naveden na stranici izvora</span></dd><dt>Rok prijave</dt><dd>02.10.2026.</dd><dt>Tko se prijavljuje</dt><dd>Studenti svih godina studija na visokim učilištima, redovnog upisa.</dd></dl><details><summary>Kako se prijaviti</summary><ol><li>Popunite sve podatke o sebi</li><li>Učitajte tražene dokumente (osobna iskaznica, potvrda o prebivalištu, potvrda upisa na fakultet, financijski dokazi)</li><li>Odaberite koju stipendiju tražite</li><li>Prihvatite privole za GDPR i Pravilnik</li><li>Pošaljite prijavu</li></ol></details><a class="veza" href="https://mursko-sredisce.hr/stipendije/" target="_blank" rel="noopener">Službena stranica &rarr;</a></article><div class="sek-vrh" style="margin-top:2.2rem"><h2>Trenutno bez otvorenog natječaja</h2><span class="broj">1</span></div><article class="k" data-podrucje="Čakovec" data-zupanija="Međimurska županija" data-rok="" data-za="oba"><div class="zag"><h3>Grad Čakovec — stipendije</h3><span class="status zat">Zatvoreno</span></div><div class="izvor">Čakovec</div><a class="veza" href="https://www.cakovec.hr/kategorija/gradske-vijesti/stipendije/" target="_blank" rel="noopener">Službena stranica &rarr;</a></article><style>
 .kanal{margin:1.6rem 0 .4rem;border:1.5px solid var(--tinta);background:var(--karta);
   padding:1.1rem 1.15rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
 .kanal-txt{flex:1;min-width:15rem}
@@ -298,10 +299,15 @@ input:focus-visible,select:focus-visible{outline:2px solid var(--plava);outline-
     return Math.round((rok-danas)/86400000);
   }
 
-  var istekle=0;
+  var istekle=0, najblizi=null, najveci=0;
   document.querySelectorAll(".k.otv[data-rok]").forEach(function(k){
     var n=dana(k.getAttribute("data-rok"));
     if(n===null) return;
+    if(n>=0){
+      if(najblizi===null||n<najblizi) najblizi=n;
+      var e=parseInt(k.getAttribute("data-eur")||"0",10);
+      if(e>najveci) najveci=e;
+    }
     if(n<0){                       // rok je prosao — van iz otvorenih
       k.classList.add("isteklo");
       k.style.display="none";
@@ -318,6 +324,17 @@ input:focus-visible,select:focus-visible{outline:2px solid var(--plava);outline-
       z.textContent="Još "+n+" "+oblik(n,"dan","dana","dana"); }
     else if(n<=30){ z.textContent="Još "+n+" "+oblik(n,"dan","dana","dana"); }
   });
+
+  // Traka na vrhu: brojke se racunaju ovdje, a ne pri gradnji stranice.
+  // Stranica se gradi dvaput tjedno, pa bi "jos 3 dana" drugi dan bilo netocno.
+  var bNaj=document.querySelector("[data-najblizi]");
+  if(bNaj && najblizi!==null){
+    bNaj.textContent = najblizi===0 ? "danas"
+      : najblizi+" "+oblik(najblizi,"dan","dana","dana");
+    if(najblizi<=3) bNaj.className="hitno";
+  }
+  var bEur=document.querySelector("[data-najveci]");
+  if(bEur) bEur.textContent = najveci>0 ? najveci+" \u20AC/mj." : "\u2014";
 
   if(!istekle) return;
 
@@ -365,15 +382,14 @@ input:focus-visible,select:focus-visible{outline:2px solid var(--plava);outline-
      Posebno nam je važno ako je netočan <strong>rok prijave</strong>.</p>
   <p>Ne procjenjujemo tvoje šanse za pojedinu stipendiju. Za to pitaj instituciju
      koja je natječaj objavila.</p>
-  <p class="sitno">Zadnja provjera 26.09.2026. &nbsp;·&nbsp; 117 izvora &nbsp;·&nbsp;
+  <p class="sitno">Zadnja provjera 28.09.2026. &nbsp;·&nbsp; 134 izvora &nbsp;·&nbsp;
      podaci prikupljeni automatski &nbsp;·&nbsp;
      <a class="tiho" href="../impressum.html">Impressum</a> &nbsp;·&nbsp;
      <a class="tiho" href="../privatnost.html">Privatnost</a></p>
 </div></footer>
 <div class="kol" id="kol">
   <div class="kol-w">
-    <p>Koristimo Google Analytics da vidimo koliko ljudi dolazi i što traže.
-       Bez tvog pristanka ne postavljamo nikakve kolačiće.
+    <p>Google Analytics, samo uz tvoj pristanak.
        <a href="../privatnost.html">Više o tome</a>.</p>
     <div class="kol-gumbi">
       <button type="button" id="kol-ne">Odbij</button>
