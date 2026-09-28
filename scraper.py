@@ -969,6 +969,17 @@ def main():
 
         kljuc = f"v{VERZIJA_EKSTRAKCIJE}:{content_hash}"
         cached = cache.get(url)
+        # Otvoren natjecaj s rokom, ali bez iznosa, kojemu iznos nikad nismo
+        # pokusali naci u samom natjecaju — takav zapis ne valja preskociti.
+        # Inace bi popravak vrijedio tek za stranice koje se u meduvremenu
+        # promijene, a stare kartice zauvijek ostale prazne.
+        if cached and cached.get("hash") == kljuc:
+            _c = cached["result"]
+            if (_c.get("_ima_otvoren") and _c.get("rok_tekst")
+                    and not _c.get("iznos")
+                    and not _c.get("_dopuna_pokusana")):
+                print("  . iz kesa, ali bez iznosa — trazim ga u natjecaju")
+                cached = None
         if cached and cached.get("hash") == kljuc:
             r = dict(cached["result"])
             r["zadnje_provjereno"] = now
@@ -1072,30 +1083,63 @@ def main():
         # slucaju drugi prolaz uopce nije pokretao, pa je kartica ostajala bez
         # iznosa iako je podatak bio jedan klik dalje.
         tekst_za_iznos = tekst_izvora
-        veza_natjecaja = izvor_natjecaja or _izravni(
-            extracted.get("poveznica_natjecaj"), url)
+        dopuna_pokusana = False
+        veze_za_iznos = []
+        if not izvor_natjecaja:
+            izravna = _izravni(extracted.get("poveznica_natjecaj"), url)
+            if izravna:
+                veze_za_iznos.append((izravna, True))
+            # Model cesto ne vrati poveznicu iako sam kaze da "tekst natjecaja
+            # stoji na podstranici". Tada posegni za istim trazilom poveznica
+            # kojim se sluzi drugi prolaz — ondje su iznosi koji su nam dosad
+            # izmicali (MZO, Krapinsko-zagorska...). Pogodena poveznica se
+            # prihvaca samo ako joj se rok poklapa s vec procitanim, da iznos
+            # s tudeg natjecaja ne zavrsi na ovoj kartici.
+            if sirovi:
+                for kandidat in natjecaj_poveznice(sirovi, url):
+                    if kandidat not in [v for v, _ in veze_za_iznos]:
+                        veze_za_iznos.append((kandidat, False))
+
         if (ima_otvoren and extracted.get("rok_tekst")
-                and not extracted.get("iznos") and veza_natjecaja
-                and not izvor_natjecaja
-                and drugih_poziva < MAKS_DRUGI_PROLAZ):
-            pod_text, koliko = tekst_natjecaja_s_prilozima(veza_natjecaja)
-            pdf_procitano += koliko
-            if pod_text:
+                and not extracted.get("iznos") and veze_za_iznos
+                and not izvor_natjecaja):
+            nas_rok = parse_hr_date(extracted.get("rok_tekst"))
+            dopuna_pokusana = True
+            for veza_natjecaja, od_modela in veze_za_iznos:
+                if drugih_poziva >= MAKS_DRUGI_PROLAZ:
+                    break
+                pod_text, koliko = tekst_natjecaja_s_prilozima(veza_natjecaja)
+                pdf_procitano += koliko
+                if not pod_text:
+                    continue
                 dop = procitaj_natjecaj(client, pod_text)
                 drugih_poziva += 1
                 time.sleep(DELAY_SEC)
-                if "greska" not in dop and dop.get("iznos"):
-                    print(f"  + iznos dohvacen iz natjecaja: "
-                          f"{str(dop.get('iznos'))[:50]}")
-                    for polje in ("iznos", "iznosi", "iznos_je_fond",
-                                  "dokaz_iznos"):
+                if "greska" in dop or not dop.get("iznos"):
+                    continue
+                pod_rok = parse_hr_date(dop.get("rok_tekst"))
+                # pogodena poveznica mora dokazati da je isti natjecaj;
+                # poveznici koju je dao model vjerujemo osim ako se rokovi sudare
+                if od_modela:
+                    isti = pod_rok is None or pod_rok == nas_rok
+                else:
+                    isti = pod_rok is not None and pod_rok == nas_rok
+                if not isti:
+                    print(f"  . preskocen iznos s {veza_natjecaja[:55]} "
+                          f"(rok {pod_rok} nije nas {nas_rok})")
+                    continue
+                print(f"  + iznos dohvacen iz natjecaja: "
+                      f"{str(dop.get('iznos'))[:50]}")
+                for polje in ("iznos", "iznosi", "iznos_je_fond",
+                              "dokaz_iznos"):
+                    extracted[polje] = dop.get(polje)
+                for polje in ("upute_za_prijavu", "uvjeti"):
+                    if not extracted.get(polje) and dop.get(polje):
                         extracted[polje] = dop.get(polje)
-                    for polje in ("upute_za_prijavu", "uvjeti"):
-                        if not extracted.get(polje) and dop.get(polje):
-                            extracted[polje] = dop.get(polje)
-                    izvor_natjecaja = veza_natjecaja
-                    tekst_za_iznos = pod_text
-                    dopunjenih_iznosa += 1
+                izvor_natjecaja = veza_natjecaja
+                tekst_za_iznos = pod_text
+                dopunjenih_iznosa += 1
+                break
 
         status = compute_status(extracted.get("rok_tekst"), ima_otvoren)
 
@@ -1145,6 +1189,10 @@ def main():
             "status": status,
             "zadnje_provjereno": now,
             "_ima_otvoren": ima_otvoren,
+            # Zabiljezi da smo iznos vec pokusali dohvatiti iz samog natjecaja.
+            # Bez toga bi se kartica bez iznosa citala iznova pri svakom radu,
+            # a s time se pokusaj dogodi tocno jednom po sadrzaju stranice.
+            "_dopuna_pokusana": dopuna_pokusana,
         }
         # Natjecaj koji je jucer bio otvoren, a danas ga citanje ne vidi, ne
         # smije nestati dok mu rok ne prode — vidi zadrzi_ako_je_nestao.
