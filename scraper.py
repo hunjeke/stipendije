@@ -1101,10 +1101,12 @@ def main():
                         veze_za_iznos.append((kandidat, False))
 
         if (ima_otvoren and extracted.get("rok_tekst")
-                and not extracted.get("iznos") and veze_za_iznos
-                and not izvor_natjecaja):
-            nas_rok = parse_hr_date(extracted.get("rok_tekst"))
+                and not extracted.get("iznos") and not izvor_natjecaja):
+            # Oznaka se postavlja i kad nema kamo kliknuti. Inace bi izvor bez
+            # iznosa i bez poveznice ostao trajno neoznacen, pa bi ga kes svaki
+            # put propustao i svaki bi rad iznova placao isto citanje.
             dopuna_pokusana = True
+            nas_rok = parse_hr_date(extracted.get("rok_tekst"))
             for veza_natjecaja, od_modela in veze_za_iznos:
                 if drugih_poziva >= MAKS_DRUGI_PROLAZ:
                     break
