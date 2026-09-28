@@ -70,9 +70,29 @@ CSS_INDEX = CSS_KARTICE + """
   font-size:1.35rem;letter-spacing:-.02em;margin:0 0 .35rem}
 .prazno p{margin:.35rem 0;font-size:.92rem;color:var(--tinta-2)}
 
+/* --- traka s brojkama --- */
+.brojke{display:flex;flex-wrap:wrap;gap:.4rem 2.2rem;margin:1.1rem 0 0;
+  padding:.85rem 0;border-top:1px solid var(--linija);
+  border-bottom:1px solid var(--linija)}
+.brojke span{display:flex;align-items:baseline;gap:.4rem}
+.brojke b{font-family:"PlexMono",monospace;font-size:1.22rem;font-weight:500;
+  color:var(--tinta);line-height:1.1}
+.brojke i{font-style:normal;font-size:.8rem;color:var(--tinta-2)}
+.brojke .hitno{color:var(--hitno)}
+
 /* --- filter --- */
-.filteri{margin:2.2rem 0 0;background:var(--karta);border:2px solid var(--plava);
+.filteri{margin:1.5rem 0 0;background:var(--karta);border:2px solid var(--plava);
   padding:1.15rem 1.2rem 1.25rem}
+.red-f{display:flex;gap:.7rem;flex-wrap:wrap;align-items:center}
+.red-f #zupanija{flex:1;min-width:13rem;margin:0}
+/* tipke "za koga": pola otvorenih je samo za ucenike, pola samo za studente */
+.za-koga{display:flex;flex-shrink:0}
+.cip{font-family:"Plex",sans-serif;font-size:.9rem;font-weight:500;
+  padding:.72rem .85rem;border:1.5px solid var(--tinta);border-left-width:0;
+  background:var(--papir);color:var(--tinta-2);cursor:pointer}
+.cip:first-child{border-left-width:1.5px}
+.cip:hover{background:#fff;color:var(--tinta)}
+.cip.odabran{background:var(--tinta);color:#fff;border-color:var(--tinta)}
 .oznaka-f{display:block;font-family:"Bricolage",sans-serif;
   font-weight:700;font-size:1.06rem;letter-spacing:-.012em;
   color:var(--tinta);margin-bottom:.65rem}
@@ -142,11 +162,21 @@ CSS_INDEX = CSS_KARTICE + """
   .prazno{padding:1.05rem .95rem}
   .prazno .kad{font-size:1.2rem}
 
+  /* traka s brojkama — jedan redak, da ne potisne prvu karticu ispod ruba */
+  .brojke{gap:.3rem 1.1rem;padding:.6rem 0;margin:.9rem 0 0}
+  .brojke span{flex-direction:column;gap:0}
+  .brojke b{font-size:1.02rem}
+  .brojke i{font-size:.72rem}
+
   /* filter */
-  .filteri{margin:1.7rem 0 0;padding:1rem .9rem 1.05rem}
+  .filteri{margin:1rem 0 0;padding:.8rem .8rem .85rem}
   .oznaka-f{font-size:1rem}
-  #zupanija{max-width:100%;font-size:1rem;padding:.8rem 2.4rem .8rem .8rem}
-  .pojasnjenje{font-size:.8rem}
+  .red-f{gap:.5rem;flex-wrap:nowrap}
+  .red-f #zupanija{min-width:0;flex:1 1 auto}
+  #zupanija{max-width:100%;font-size:.95rem;padding:.62rem 2rem .62rem .7rem;
+    background-position:right .7rem center}
+  .cip{padding:.62rem .5rem;font-size:.84rem}
+  .pojasnjenje{font-size:.76rem;margin-top:.5rem}
   .medja{font-size:.66rem;margin:.35rem 0 .8rem}
 
   /* sekcije */
@@ -320,6 +350,30 @@ def naslov_kartice(r):
 # naraste; tada se skracuje i dobiva "vise".
 GRANICA_SKRACIVANJA = 110
 
+# Kome je natjecaj namijenjen. Sluzi filtru "ucenik / student": student ne
+# treba prelaziti preko sest natjecaja za srednjoskolce da bi nasao svoja tri.
+_ZA_UCENIKA = re.compile(r"ucenic|ucenik|srednjoskol|srednje skole|"
+                         r"srednjih skola|osnovnoskol|maturant")
+_ZA_STUDENTA = re.compile(r"student|studij|fakultet|visoko ucilis|visokih ucilis|"
+                          r"preddiplom|diplomsk|poslijediplom|doktorand|akademsk")
+
+
+def za_koga(r):
+    """'ucenik' | 'student' | 'oba'.
+
+    Kad nismo sigurni, vraca 'oba' — bolje pokazati natjecaj objema skupinama
+    nego ga sakriti onome tko na njega ima pravo."""
+    izvori = [r.get("naslov_natjecaja"), r.get("uvjeti"), r.get("naziv")]
+    izvori += [str(i.get("za") or "") for i in (r.get("iznosi") or [])]
+    t = _kljuc_naslova(" ".join(x for x in izvori if x))
+    uc = bool(_ZA_UCENIKA.search(t))
+    st = bool(_ZA_STUDENTA.search(t))
+    if uc and not st:
+        return "ucenik"
+    if st and not uc:
+        return "student"
+    return "oba"
+
 
 def kartica(r, otvorena, podrucje, zupanija):
     naziv = esc(naslov_kartice(r))
@@ -365,8 +419,14 @@ def kartica(r, otvorena, podrucje, zupanija):
         znak = '<span class="status zat">Zatvoreno</span>'
         klasa = "k"
 
+    # najveci mjesecni iznos na kartici — traka na vrhu iz njih racuna "do X €"
+    mjesecni = [i.get("eur") for i in (r.get("iznosi") or [])
+                if i.get("razdoblje") == "mjesecno" and i.get("eur")]
+    naj = f' data-eur="{int(max(mjesecni))}"' if mjesecni else ""
+
     return (f'<article class="{klasa}" data-podrucje="{esc(podrucje)}" '
-            f'data-zupanija="{esc(zupanija)}" data-rok="{iso}">'
+            f'data-zupanija="{esc(zupanija)}" data-rok="{iso}"'
+            f' data-za="{za_koga(r)}"{naj}>'
             f'<div class="zag"><h3>{naziv}</h3>{znak}</div>'
             f'<div class="izvor">{esc(podrucje)}</div>'
             f'{polja}{upute_html}'
@@ -494,7 +554,8 @@ def redak(r, podrucje, zupanija):
 def izbornik(podrucja):
     """Padajuci izbornik zupanija. Podrucje koje ne pripada nijednoj zupaniji
     (Grad Zagreb) stoji samo, s jasnom oznakom da je grad."""
-    opcije = '<option value="">Sve stipendije u Hrvatskoj</option>'
+    # kratko, jer uz njega na mobitelu stoje i tipke "Učenik / Student"
+    opcije = '<option value="">Cijela Hrvatska</option>'
     for p in sorted(podrucja, key=hr_kljuc):
         naziv = p if "županija" in p else f"Grad {p}"
         opcije += f'<option value="{esc(p)}">{esc(naziv)}</option>'
@@ -529,10 +590,15 @@ JS_ROKOVI = """
     return Math.round((rok-danas)/86400000);
   }
 
-  var istekle=0;
+  var istekle=0, najblizi=null, najveci=0;
   document.querySelectorAll(".k.otv[data-rok]").forEach(function(k){
     var n=dana(k.getAttribute("data-rok"));
     if(n===null) return;
+    if(n>=0){
+      if(najblizi===null||n<najblizi) najblizi=n;
+      var e=parseInt(k.getAttribute("data-eur")||"0",10);
+      if(e>najveci) najveci=e;
+    }
     if(n<0){                       // rok je prosao — van iz otvorenih
       k.classList.add("isteklo");
       k.style.display="none";
@@ -549,6 +615,17 @@ JS_ROKOVI = """
       z.textContent="Još "+n+" "+oblik(n,"dan","dana","dana"); }
     else if(n<=30){ z.textContent="Još "+n+" "+oblik(n,"dan","dana","dana"); }
   });
+
+  // Traka na vrhu: brojke se racunaju ovdje, a ne pri gradnji stranice.
+  // Stranica se gradi dvaput tjedno, pa bi "jos 3 dana" drugi dan bilo netocno.
+  var bNaj=document.querySelector("[data-najblizi]");
+  if(bNaj && najblizi!==null){
+    bNaj.textContent = najblizi===0 ? "danas"
+      : najblizi+" "+oblik(najblizi,"dan","dana","dana");
+    if(najblizi<=3) bNaj.className="hitno";
+  }
+  var bEur=document.querySelector("[data-najveci]");
+  if(bEur) bEur.textContent = najveci>0 ? najveci+" \\u20AC/mj." : "\\u2014";
 
   if(!istekle) return;
 
@@ -601,6 +678,8 @@ JS = """
   var izbor=document.getElementById("zupanija");
   if(!izbor) return;
   var kartice=document.querySelectorAll(".k");
+  var cipovi=document.querySelectorAll("[data-za-f]");
+  var zaOdabir="";
 
   function osvjezi(){
     var z=izbor.value;
@@ -609,6 +688,10 @@ JS = """
           zk=k.getAttribute("data-zupanija")||"";
       // bez odabira sve; inace: drzavne uvijek + sve iz odabrane zupanije
       var ok = !z || p===SVI || zk===z || p===z;
+      if(ok && zaOdabir){
+        var dz=k.getAttribute("data-za")||"oba";
+        ok = dz==="oba" || dz===zaOdabir;
+      }
       k.classList.toggle("skriveno",!ok);
     });
     document.querySelectorAll(".grupa").forEach(function(g){
@@ -653,6 +736,13 @@ JS = """
     });
   }
   izbor.addEventListener("change",osvjezi);
+  cipovi.forEach(function(c){
+    c.addEventListener("click",function(){
+      zaOdabir=c.getAttribute("data-za-f")||"";
+      cipovi.forEach(function(d){ d.classList.toggle("odabran", d===c); });
+      osvjezi();
+    });
+  });
   osvjezi();
 })();
 """
@@ -753,6 +843,20 @@ def main():
      pojavit će se ovdje.</p>
 </div>"""
 
+    # ---------- traka s brojkama ----------
+    # Posjetitelj s WhatsAppa u prvom ekranu dosad nije vidio nijednu brojku,
+    # nego tvrdnju i padajuci izbornik. Ovdje stoje tri podatka koja sam ne bi
+    # izracunao. Sve tri vrijednosti preglednik iznova racuna iz kartica, jer
+    # se stranica gradi dvaput tjedno, a "jos 3 dana" stari svakog dana.
+    traka = ""
+    if otvorene:
+        traka = (f'<div class="brojke" id="brojke">'
+                 f'<span><b data-broj-otv-n>{len(otvorene)}</b> '
+                 f'<i>{oblik(len(otvorene), "otvoren natječaj", "otvorena natječaja", "otvorenih natječaja")}</i></span>'
+                 f'<span><b data-najblizi>—</b> <i>najbliži rok</i></span>'
+                 f'<span><b data-najveci>—</b> <i>najveći iznos</i></span>'
+                 f'</div>')
+
     # ---------- sekcije ----------
     sek_otv = ""
     if otvorene:
@@ -822,12 +926,19 @@ def main():
 <section class="hero"><div class="w">
   <span class="meta oznaka">Ažurirano {vrijeme}</span>
   <h1>Sve stipendije u Hrvatskoj<br>na jednom mjestu.</h1>
+  {traka}
   {hero}
   <div class="filteri">
-    <label class="oznaka-f" for="zupanija">Odaberi županiju</label>
-    <select id="zupanija">{izbornik(podrucja)}</select>
-    <p class="pojasnjenje">Prikazuju se stipendije te županije, svih njezinih
-      gradova i one državne, na koje imaju pravo svi.</p>
+    <div class="red-f">
+      <select id="zupanija" aria-label="Županija">{izbornik(podrucja)}</select>
+      <div class="za-koga" role="group" aria-label="Za koga">
+        <button type="button" class="cip odabran" data-za-f="">Svi</button>
+        <button type="button" class="cip" data-za-f="ucenik">Učenik</button>
+        <button type="button" class="cip" data-za-f="student">Student</button>
+      </div>
+    </div>
+    <p class="pojasnjenje">Uz odabranu županiju vide se i državne stipendije,
+      na koje imaju pravo svi.</p>
   </div>
 </div></section>
 <div class="w">{sek_otv}{poziv_kanal()}{sek_zat}{sek_zup}</div>
