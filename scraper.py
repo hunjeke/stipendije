@@ -1102,10 +1102,6 @@ def main():
 
         if (ima_otvoren and extracted.get("rok_tekst")
                 and not extracted.get("iznos") and not izvor_natjecaja):
-            # Oznaka se postavlja i kad nema kamo kliknuti. Inace bi izvor bez
-            # iznosa i bez poveznice ostao trajno neoznacen, pa bi ga kes svaki
-            # put propustao i svaki bi rad iznova placao isto citanje.
-            dopuna_pokusana = True
             nas_rok = parse_hr_date(extracted.get("rok_tekst"))
             for veza_natjecaja, od_modela in veze_za_iznos:
                 if drugih_poziva >= MAKS_DRUGI_PROLAZ:
@@ -1142,6 +1138,15 @@ def main():
                 tekst_za_iznos = pod_text
                 dopunjenih_iznosa += 1
                 break
+
+        # Zabiljezi da je za ovaj sadrzaj stranice ucinjeno sve sto se moze.
+        # Vrijedi i kad nije bilo kamo kliknuti, i kad je natjecaj vec procitan
+        # u drugom prolazu pa u njemu naprosto nema iznosa (Vodnjan, Chevening).
+        # Bez toga bi kes takav izvor propustao pri svakom radu i svaki put
+        # placao isto citanje s istim ishodom.
+        if (ima_otvoren and extracted.get("rok_tekst")
+                and not extracted.get("iznos")):
+            dopuna_pokusana = True
 
         status = compute_status(extracted.get("rok_tekst"), ima_otvoren)
 
