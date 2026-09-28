@@ -44,11 +44,12 @@ KOLACICI_CSS = """
 .kol button.da{background:#F2F4F8;color:var(--tinta);font-weight:600}
 .kol button:hover{border-color:#fff}
 @media(max-width:600px){
-  .kol{padding:.9rem}
-  .kol-w{gap:.8rem}
-  .kol p{font-size:.82rem}
-  .kol-gumbi{width:100%}
-  .kol button{flex:1}
+  /* traka je na mobitelu zauzimala 138 px prvog ekrana i prekrivala prvu
+     karticu; sada stane u jedan redak s tipkama uz tekst */
+  .kol{padding:.6rem .8rem}
+  .kol-w{gap:.6rem;flex-wrap:nowrap}
+  .kol p{font-size:.78rem;line-height:1.35}
+  .kol button{padding:.45rem .7rem;font-size:.82rem;white-space:nowrap}
 }
 """
 
@@ -293,8 +294,7 @@ def kolacici(put=""):
         return ""
     return f"""<div class="kol" id="kol">
   <div class="kol-w">
-    <p>Koristimo Google Analytics da vidimo koliko ljudi dolazi i što traže.
-       Bez tvog pristanka ne postavljamo nikakve kolačiće.
+    <p>Google Analytics, samo uz tvoj pristanak.
        <a href="{put}privatnost.html">Više o tome</a>.</p>
     <div class="kol-gumbi">
       <button type="button" id="kol-ne">Odbij</button>
