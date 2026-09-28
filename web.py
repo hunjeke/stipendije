@@ -725,7 +725,12 @@ def main():
         podrucja.add(z if z else p)
 
     vrijeme = datetime.now().strftime("%d.%m.%Y.")
-    ukupno = len(otvorene) + len(zatvorene)
+    ukupno = len(otvorene) + len(zatvorene)   # koliko ih je na stranici
+    # Koliko izvora uopce pratimo — taj broj ide u podnozje i u vodic. Nije isto
+    # sto i broj prikazanih: izvor kojemu citanje ovaj put nije uspjelo i dalje
+    # pratimo, samo o njemu nemamo sto reci. Odbiti ga od ukupnog broja znacilo
+    # bi tvrditi da ga ne pratimo.
+    izvora_ukupno = len(d)
 
     # ---------- hero ----------
     # Uski natjecaji (npr. samo za jedan studij) ostaju u popisu, ali ne idu
@@ -764,12 +769,16 @@ def main():
 
     sek_zat = ""
     if zatvorene:
-        sek_zat = (f'<section class="sek"><div class="sek-vrh"><h2>Izvori koje pratimo</h2>'
+        # Naslov mora govoriti sto popis JEST. "Izvori koje pratimo" je tvrdio
+        # da pratimo samo njih, pa je broj ispadao manji od stvarnog — a otvoreni
+        # natjecaji gore i izvori bez uspjesnog citanja takoder se prate.
+        sek_zat = (f'<section class="sek"><div class="sek-vrh">'
+                   f'<h2>Trenutno bez otvorenog natječaja</h2>'
                    f'<span class="broj">{len(zatvorene)} '
                    f'{oblik(len(zatvorene), "izvor", "izvora", "izvora")}'
                    f'</span></div>'
-                   f'<p class="uvod">Ovdje natječaj trenutno nije otvoren. '
-                   f'Provjeravamo ih automatski svaki ponedjeljak i četvrtak.</p>'
+                   f'<p class="uvod">Ove izvore provjeravamo automatski svaki '
+                   f'ponedjeljak i četvrtak. Čim se natječaj otvori, pojavi se gore.</p>'
                    f'<div class="grupa zatvoreni-omot">'
                    + "".join(kartica(r, False, p, z) for r, p, z in zatvorene)
                    + '<button type="button" class="prekidac" id="prekidac"></button>' 
@@ -824,16 +833,16 @@ def main():
 <div class="w">{sek_otv}{poziv_kanal()}{sek_zat}{sek_zup}</div>
 </main>
 <script>{js}</script>"""
-    html += podnozje(ukupno, vrijeme)
+    html += podnozje(izvora_ukupno, vrijeme)
 
     os.makedirs(MAPA, exist_ok=True)
     open(os.path.join(MAPA, "index.html"), "w", encoding="utf-8").write(html)
 
     from stranice import (vodic, impressum, privatnost,
                           stranica_zupanije, sitemap, slug)
-    vodic(MAPA, ukupno, vrijeme)
-    impressum(MAPA, ukupno, vrijeme)
-    privatnost(MAPA, ukupno, vrijeme)
+    vodic(MAPA, izvora_ukupno, vrijeme)
+    impressum(MAPA, izvora_ukupno, vrijeme)
+    privatnost(MAPA, izvora_ukupno, vrijeme)
 
     # --- zasebna stranica po zupaniji (za trazilice) ---
     sve_zup = sorted({z if z else p for _, p, z in otvorene + zatvorene
@@ -853,7 +862,7 @@ def main():
                     + "".join(kartica(r, True, p, z) for r, p, z in otv_z))
         if zat_z:
             dio += ('<div class="sek-vrh" style="margin-top:2.2rem">'
-                    '<h2>Izvori koje pratimo</h2>'
+                    '<h2>Trenutno bez otvorenog natječaja</h2>'
                     f'<span class="broj">{len(zat_z)}</span></div>'
                     + "".join(kartica(r, False, p, z) for r, p, z in zat_z))
         # i zupanijska stranica sama izbacuje istekle rokove
@@ -863,7 +872,7 @@ def main():
                  for r, _, _ in otv_z + zat_z]
         put = stranica_zupanije(MAPA, zup, dio, len(otv_z),
                                 len(otv_z) + len(zat_z), sve_zup,
-                                ukupno, vrijeme, popis)
+                                izvora_ukupno, vrijeme, popis)
         putevi.append((put, "0.8"))
 
     sitemap(MAPA, putevi)
