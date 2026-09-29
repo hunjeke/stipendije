@@ -101,7 +101,7 @@ EXTRACTION_PROMPT = """Analiziraj tekst stranice o stipendijama i vrati TOCNO ov
 {{
   "naslov_natjecaja": "KRATAK naslov onoga sto se dodjeljuje, najvise 6 rijeci, ili null",
   "iznos": "iznos stipendije kako je naveden (npr. '200 EUR mjesecno, 10 mjeseci') ili null",
-  "iznosi": [{{"eur": 380, "razdoblje": "mjesecno", "mjeseci": 10, "za": "ucenici", "do": false}}],
+  "iznosi": [{{"eur": 380, "razdoblje": "mjesecno", "mjeseci": 10, "za": "učenici", "do": false}}],
   "iznos_je_fond": true/false — je li broj UKUPAN proracun programa, a ne iznos po korisniku,
   "dokaz_iznos": "recenica PREPISANA DOSLOVNO sa stranice u kojoj pise iznos, ili null",
   "dokaz_rok": "recenica PREPISANA DOSLOVNO sa stranice u kojoj pise rok, ili null",
@@ -125,8 +125,9 @@ IZNOSI: "iznos" ostavi doslovno kako pise. Uz to rastavi isti podatak u polje
   "eur"       — samo broj, bez valute i bez tocke za tisuce (2325, 380, 1250.50)
   "razdoblje" — "mjesecno", "godisnje" ili "jednokratno"
   "mjeseci"   — koliko mjeseci traje isplata, ili null ako ne pise
-  "za"        — kome pripada TAJ iznos, jedna-dvije rijeci ("ucenici", "studenti",
-                "ucenici izvan grada"), ili null ako je iznos jedinstven
+  "za"        — kome pripada TAJ iznos, jedna-dvije rijeci ("učenici", "studenti",
+                "učenici izvan grada"), ili null. PIŠI S KVAČICAMA — to ide
+                doslovno na stranicu
   "do"        — true ako je to gornja granica ("do 3000 EUR"), inace false
 Ako natjecaj ima vise razreda, upisi SVAKI kao zaseban unos: "380 EUR za ucenike,
 520 EUR za studente, 10 mjeseci" daje dva unosa, oba s mjeseci=10. Ako iznos nije
@@ -195,7 +196,7 @@ NATJECAJ_PROMPT = """Pred tobom je tekst JEDNOG natjecaja za stipendiju. Vrati T
 {{
   "naslov_natjecaja": "KRATAK naslov onoga sto se dodjeljuje, najvise 6 rijeci, ili null",
   "iznos": "iznos stipendije doslovno kako pise, ili null",
-  "iznosi": [{{"eur": 380, "razdoblje": "mjesecno", "mjeseci": 10, "za": "ucenici", "do": false}}],
+  "iznosi": [{{"eur": 380, "razdoblje": "mjesecno", "mjeseci": 10, "za": "učenici", "do": false}}],
   "iznos_je_fond": true/false — je li broj UKUPAN proracun programa, a ne iznos po korisniku,
   "dokaz_iznos": "recenica PREPISANA DOSLOVNO iz teksta u kojoj pise iznos, ili null",
   "dokaz_rok": "recenica PREPISANA DOSLOVNO iz teksta u kojoj pise rok, ili null",
@@ -223,7 +224,8 @@ zakljucuj je li rok prosao.
 IZNOSI: "iznos" ostavi doslovno. Uz to rastavi isti podatak u "iznosi":
   "eur" — samo broj (2325, 380, 1250.50); "razdoblje" — "mjesecno", "godisnje"
   ili "jednokratno"; "mjeseci" — trajanje isplate ili null; "za" — kome pripada
-  taj iznos ("ucenici", "studenti") ili null ako je jedinstven; "do" — true kad
+  taj iznos ("učenici", "studenti"), s kvačicama jer ide doslovno na
+  stranicu, ili null ako je jedinstven; "do" — true kad
   je gornja granica. Svaki razred ide kao zaseban unos. Ako iznos nije naveden
   brojem, vrati praznu listu [].
 Iznos u drugoj valuti (CAD, USD) NE upisuj u "eur" — ostavi praznu listu, a
