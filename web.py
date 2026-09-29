@@ -983,13 +983,17 @@ def main():
     from stranice import (vodic, impressum, privatnost,
                           stranica_zupanije, sitemap, slug)
     vodic(MAPA, izvora_ukupno, vrijeme)
+    # stranica o drzavnoj stipendiji — najveci natjecaj u godini, mora stajati
+    # spremna tjednima prije nego natjecaj izade (vidi drzavna.py)
+    from drzavna import stranica as drzavna_stranica
+    drzavna_stranica(MAPA, izvora_ukupno, vrijeme)
     impressum(MAPA, izvora_ukupno, vrijeme)
     privatnost(MAPA, izvora_ukupno, vrijeme)
 
     # --- zasebna stranica po zupaniji (za trazilice) ---
     sve_zup = sorted({z if z else p for _, p, z in otvorene + zatvorene
                       if p != SVI})
-    putevi = [("", "1.0"), ("vodic.html", "0.7"),
+    putevi = [("", "1.0"), ("drzavna-stipendija.html", "0.9"), ("vodic.html", "0.7"),
               ("impressum.html", "0.3"), ("privatnost.html", "0.3")]
 
     for zup in sve_zup:
