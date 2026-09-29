@@ -283,6 +283,7 @@ def navigacija(tu, put=""):
   </a>
   <nav class="nav">
     <a href="{put}./"{k('natjecaji')}>Natječaji</a>
+    <a href="{put}drzavna-stipendija.html"{k('drzavna')}>Državna</a>
     <a href="{put}vodic.html"{k('vodic')}>Vodič</a>
   </nav>
 </div></header>"""
