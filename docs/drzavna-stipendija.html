@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Državna stipendija 2026./2027. — kad kreću prijave, uvjeti i iznos</title>
+<meta name="description" content="Kako se prijaviti na državnu stipendiju: korak po korak, što pripremiti, koliko iznosi i kad se očekuje natječaj. Provjereno na stranicama Ministarstva znanosti, obrazovanja i mladih.">
+<meta property="og:title" content="Državna stipendija 2026./2027. — kad kreću prijave, uvjeti i iznos">
+<meta property="og:description" content="Kako se prijaviti na državnu stipendiju: korak po korak, što pripremiti, koliko iznosi i kad se očekuje natječaj. Provjereno na stranicama Ministarstva znanosti, obrazovanja i mladih.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://stipendije.hr/pregled.png?v=3">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="hr_HR">
+<meta property="og:site_name" content="Stipendije.hr">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://stipendije.hr/pregled.png?v=3">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="48x48" href="favicon-48.png">
+<link rel="icon" type="image/png" sizes="96x96" href="favicon-96.png">
+<link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#1D4ED8">
+<link rel="preload" href="f/plex-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="f/bricolage-800.woff2" as="font" type="font/woff2" crossorigin>
+
+<style>
+@font-face{font-family:"Bricolage";src:url("f/bricolage-700.woff2") format("woff2");
+  font-weight:700;font-style:normal;font-display:swap}
+@font-face{font-family:"Bricolage";src:url("f/bricolage-800.woff2") format("woff2");
+  font-weight:800;font-style:normal;font-display:swap}
+@font-face{font-family:"Plex";src:url("f/plex-400.woff2") format("woff2");
+  font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"Plex";src:url("f/plex-500.woff2") format("woff2");
+  font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:"Plex";src:url("f/plex-600.woff2") format("woff2");
+  font-weight:600;font-style:normal;font-display:swap}
+@font-face{font-family:"PlexMono";src:url("f/plexmono-500.woff2") format("woff2");
+  font-weight:400 500;font-style:normal;font-display:swap}
+
+.kol{position:fixed;left:0;right:0;bottom:0;z-index:80;background:var(--tinta);
+  color:#F2F4F8;padding:1rem 1.15rem;display:none}
+.kol.vidljiva{display:block}
+.kol-w{max-width:780px;margin:0 auto;display:flex;gap:1rem;
+  align-items:center;justify-content:space-between;flex-wrap:wrap}
+.kol p{margin:0;font-size:.86rem;line-height:1.5;max-width:52ch;color:#D6D9D2}
+.kol a{color:#F2F4F8;text-decoration:underline}
+.kol-gumbi{display:flex;gap:.6rem;flex-shrink:0}
+.kol button{font-family:"Plex",sans-serif;font-size:.87rem;
+  padding:.55rem 1rem;border:1.5px solid #F2F4F8;background:none;
+  color:#F2F4F8;cursor:pointer}
+.kol button.da{background:#F2F4F8;color:var(--tinta);font-weight:600}
+.kol button:hover{border-color:#fff}
+@media(max-width:600px){
+  /* traka je na mobitelu zauzimala 138 px prvog ekrana i prekrivala prvu
+     karticu; sada stane u jedan redak s tipkama uz tekst */
+  .kol{padding:.6rem .8rem}
+  .kol-w{gap:.6rem;flex-wrap:nowrap}
+  .kol p{font-size:.78rem;line-height:1.35}
+  .kol button{padding:.45rem .7rem;font-size:.82rem;white-space:nowrap}
+}
+
+:root{
+  --papir:#F2F4F8;      /* papir s plavim tonom */
+  --karta:#FFFFFF;
+  --tinta:#141B2D;      /* mornarska tinta */
+  --tinta-2:#565F76;    /* prigusena */
+  --linija:#DBE0EA;
+  --plava:#1D4ED8;      /* glavna boja: veze, naglasci, znak */
+  --plava-t:#1739A0;    /* tamnija, za hover */
+  --otvoreno:#15803D;   /* zelena znaci samo: natjecaj je otvoren */
+  --hitno:#B91C1C;      /* rok istjece */
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--papir);color:var(--tinta);
+  font-family:"Plex",system-ui,sans-serif;font-size:16px;line-height:1.6;
+  -webkit-font-smoothing:antialiased}
+.w{max-width:780px;margin:0 auto;padding:0 1.15rem}
+
+/* --- navigacija --- */
+.vrh{border-bottom:1px solid var(--linija);background:var(--papir);
+  position:sticky;top:0;z-index:30}
+.vrh .w{display:flex;align-items:center;justify-content:space-between;
+  gap:.8rem;padding-top:.7rem;padding-bottom:.7rem}
+.logo{display:flex;align-items:center;gap:.6rem;text-decoration:none;
+  color:var(--tinta)}
+.znak{width:40px;height:40px;flex-shrink:0;display:block}
+.ime{font-family:"Bricolage",sans-serif;font-weight:800;
+  font-size:1.32rem;letter-spacing:-.022em}
+.ime span{color:var(--plava)}
+.nav{display:flex;gap:.2rem}
+.nav a{font-size:.86rem;color:var(--tinta-2);text-decoration:none;
+  padding:.55rem .5rem;border-bottom:1.5px solid transparent;
+  line-height:1.2}
+.nav a:hover{color:var(--plava)}
+.nav a.tu{color:var(--plava);border-bottom-color:var(--plava)}
+
+/* --- mobitel --- */
+@media(max-width:600px){
+  body{font-size:15.5px}
+  .w{padding:0 .95rem}
+  .znak{width:34px;height:34px}
+  .ime{font-size:1.12rem}
+  .nav{gap:0}
+  .nav a{font-size:.8rem;padding:.55rem .38rem}
+  footer{font-size:.84rem}
+}
+@media(max-width:380px){
+  .ime span{display:none}          /* ".hr" ide van kad je stvarno tijesno */
+  .nav a{font-size:.76rem;padding:.55rem .3rem}
+}
+
+/* --- tipografija --- */
+h1{font-family:"Bricolage",sans-serif;font-weight:800;
+  font-size:clamp(1.9rem,5.5vw,2.7rem);line-height:1.08;letter-spacing:-.028em;
+  margin:0 0 .5rem}
+h2{font-family:"Bricolage",sans-serif;font-weight:700;
+  font-size:1.18rem;letter-spacing:-.015em;margin:0}
+h3{font-family:"Bricolage",sans-serif;font-weight:700;
+  font-size:1.04rem;letter-spacing:-.012em;margin:0 0 .15rem;line-height:1.28}
+.meta{font-family:"PlexMono",monospace;font-size:.7rem;
+  letter-spacing:.09em;text-transform:uppercase;color:var(--tinta-2)}
+
+/* --- sekcije --- */
+.sek{padding:2.6rem 0 0}
+.sek-vrh{display:flex;align-items:baseline;gap:.7rem;
+  padding-bottom:.7rem;border-bottom:1.5px solid var(--tinta);margin-bottom:1.1rem}
+.sek-vrh .broj{font-family:"PlexMono",monospace;font-size:.95rem;
+  font-weight:500;color:var(--tinta);margin-left:auto}
+.uvod{color:var(--tinta-2);font-size:.92rem;margin:-.5rem 0 1.2rem}
+
+/* --- podnozje --- */
+footer{margin-top:3.5rem;border-top:1px solid var(--linija);
+  padding:1.8rem 0 3rem;font-size:.87rem;color:var(--tinta-2)}
+footer p{margin:.55rem 0}
+footer .upoz-p{border-left:3px solid var(--plava);padding-left:.9rem;
+  margin:0 0 1rem;color:var(--tinta-2)}
+footer .upoz-p strong{color:var(--tinta)}
+footer a{color:var(--plava)}
+footer .sitno{font-family:"PlexMono",monospace;font-size:.7rem;
+  letter-spacing:.05em;margin-top:1.4rem;color:#8A909E}
+
+/* --- upozorenje --- */
+
+a:focus-visible,button:focus-visible,summary:focus-visible,
+input:focus-visible,select:focus-visible{outline:2px solid var(--plava);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+}
+
+.ds{padding:2.6rem 0 0}
+.ds h1{font-size:clamp(1.7rem,5vw,2.4rem);margin-bottom:.6rem}
+.ds .lead{font-size:1.04rem;color:var(--tinta-2);max-width:54ch;margin:0 0 1.6rem}
+.ds h2{font-size:1.24rem;margin:2.8rem 0 .3rem}
+.ds .pod{color:var(--tinta-2);font-size:.92rem;margin:0 0 1.1rem;max-width:56ch}
+.ds p{font-size:.96rem;line-height:1.65}
+
+/* stanje natjecaja — jedino sto se mijenja kad natjecaj izade */
+.stanje{border:2px solid var(--plava);background:var(--karta);
+  padding:1.15rem 1.2rem;display:flex;gap:1rem;align-items:center;
+  flex-wrap:wrap;margin-bottom:2rem}
+.stanje .txt{flex:1;min-width:16rem}
+.stanje b{display:block;font-family:"Bricolage",sans-serif;font-weight:700;
+  font-size:1.1rem;letter-spacing:-.012em;margin-bottom:.2rem}
+.stanje span{font-size:.9rem;color:var(--tinta-2)}
+.stanje a{display:inline-block;background:var(--plava);color:#fff;
+  text-decoration:none;font-weight:600;font-size:.92rem;padding:.72rem 1.1rem;
+  white-space:nowrap}
+.stanje a:hover{filter:brightness(1.12)}
+
+/* brojke */
+.cifre{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;
+  background:var(--linija);border:1px solid var(--linija);margin:0 0 .6rem}
+.cifre div{background:var(--papir);padding:.95rem .9rem}
+.cifre b{display:block;font-family:"PlexMono",monospace;font-size:1.32rem;
+  font-weight:500;line-height:1.15;color:var(--tinta)}
+.cifre span{font-size:.76rem;color:var(--tinta-2)}
+
+/* tko ima pravo */
+.tko{display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem}
+.tko div{border:1px solid var(--linija);background:var(--karta);padding:1rem}
+.tko .ozn{font-family:"PlexMono",monospace;font-size:.68rem;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--plava);margin-bottom:.35rem}
+.tko b{display:block;font-size:.98rem;margin-bottom:.3rem}
+.tko p{margin:0;font-size:.88rem;color:var(--tinta-2);line-height:1.55}
+
+/* koraci — okomita traka s brojevima */
+.koraci{list-style:none;margin:0;padding:0;position:relative}
+.koraci::before{content:"";position:absolute;left:19px;top:22px;bottom:22px;
+  width:2px;background:var(--linija)}
+.koraci li{position:relative;padding:0 0 1.5rem 3.4rem;min-height:2.6rem}
+.koraci li:last-child{padding-bottom:0}
+.kbroj{position:absolute;left:0;top:0;width:40px;height:40px;border-radius:50%;
+  background:var(--plava);color:#fff;display:flex;align-items:center;
+  justify-content:center;font-family:"PlexMono",monospace;font-size:1rem;
+  font-weight:500;z-index:1}
+.koraci h3{font-size:1.02rem;margin:.35rem 0 .3rem}
+.koraci p{margin:0;font-size:.93rem;color:var(--tinta-2);line-height:1.6;
+  max-width:56ch}
+.koraci p + p{margin-top:.45rem}
+.koraci em{font-style:normal;font-weight:500;color:var(--tinta)}
+.koraci a{color:var(--tinta);text-decoration:none;
+  border-bottom:1.5px solid var(--plava)}
+.koraci a:hover{color:var(--plava)}
+.upoz{display:inline-block;margin-top:.5rem;background:#FEF3C7;color:#92400E;
+  font-size:.85rem;padding:.45rem .7rem;line-height:1.5;max-width:56ch}
+
+/* popis za pripremu */
+.spremi{list-style:none;margin:0;padding:0}
+.spremi li{display:flex;gap:.7rem;align-items:flex-start;
+  border-top:1px solid var(--linija);padding:.8rem 0;font-size:.95rem}
+.spremi li:last-child{border-bottom:1px solid var(--linija)}
+.spremi svg{flex-shrink:0;margin-top:.15rem}
+.spremi small{display:block;color:var(--tinta-2);font-size:.86rem;margin-top:.15rem}
+
+/* gdje se koji papir vadi */
+.papiri{display:grid;grid-template-columns:repeat(2,1fr);gap:.8rem;margin-top:1rem}
+.papir{border:1px solid var(--linija);background:var(--karta);padding:.95rem 1rem}
+.papir h3{font-size:.98rem;margin:0 0 .35rem;line-height:1.35}
+.papir .gdje{margin:0 0 .45rem;font-family:"PlexMono",monospace;font-size:.72rem;
+  letter-spacing:.03em;color:var(--plava);line-height:1.5}
+.papir p{margin:0;font-size:.88rem;color:var(--tinta-2);line-height:1.6}
+
+/* vremenska crta proslogodisnjeg natjecaja */
+.crta{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;
+  background:var(--linija);border:1px solid var(--linija)}
+.crta div{background:var(--papir);padding:.9rem}
+.crta b{display:block;font-family:"PlexMono",monospace;font-size:.95rem;
+  color:var(--tinta)}
+.crta span{font-size:.8rem;color:var(--tinta-2)}
+
+/* izvori */
+.izvori{list-style:none;margin:.4rem 0 0;padding:0;font-size:.92rem}
+.izvori li{padding:.5rem 0;border-bottom:1px solid var(--linija)}
+.izvori a{color:var(--tinta);text-decoration:none;
+  border-bottom:1.5px solid var(--plava)}
+.izvori a:hover{color:var(--plava)}
+.napomena{margin-top:2.4rem;border:1px dashed var(--linija);padding:1rem 1.1rem;
+  font-size:.9rem;color:var(--tinta-2);line-height:1.6}
+
+@media(max-width:700px){
+  .cifre{grid-template-columns:repeat(2,1fr)}
+  .tko{grid-template-columns:1fr}
+  .crta{grid-template-columns:1fr}
+  .papiri{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+  .ds{padding:1.9rem 0 0}
+  .ds h2{font-size:1.1rem;margin-top:2.2rem}
+  .stanje{padding:1rem .9rem}
+  .stanje a{width:100%;text-align:center}
+  .koraci li{padding-left:3rem}
+  .koraci::before{left:17px}
+  .kbroj{width:36px;height:36px;font-size:.92rem}
+}
+</style>
+</head>
+<body><header class="vrh"><div class="w">
+  <a class="logo" href="./" aria-label="stipendije.hr, početna">
+    <svg class="znak" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+      <rect x="0" y="0" width="100" height="100" rx="22" fill="#1D4ED8"/>
+      <text x="50" y="53" text-anchor="middle" dominant-baseline="central"
+            font-family="'Plex',sans-serif" font-weight="700"
+            font-size="62" fill="#FFFFFF">S</text>
+    </svg>
+    <span class="ime">Stipendije<span>.hr</span></span>
+  </a>
+  <nav class="nav">
+    <a href="./">Natječaji</a>
+    <a href="drzavna-stipendija.html" class="tu">Državna</a>
+    <a href="vodic.html">Vodič</a>
+  </nav>
+</div></header><main class="w"><section class="ds">
+<h1>Državna stipendija</h1>
+<p class="lead">Najveći natječaj za stipendije u Hrvatskoj. Prošle akademske
+godine dodijeljeno je 12.150 stipendija po 200 € mjesečno. Ovdje je
+kako se prijaviti, korak po korak.</p>
+
+<div class="stanje">
+  <div class="txt">
+    <b>Natječaj za 2026./2027. još nije objavljen</b>
+    <span>Ministar ga po pravilu raspisuje do 15. listopada. Prošle je godine
+      izašao 14. listopada. Javimo ti na WhatsAppu istoga dana.</span>
+  </div>
+  <a href="https://whatsapp.com/channel/0029Vb8yRo75Ui2aMzBAjv1a"
+     target="_blank" rel="noopener">Obavijesti me &rarr;</a>
+</div>
+
+<div class="cifre">
+  <div><b>200 €</b><span>mjesečno</span></div>
+  <div><b>9</b><span>mjesečnih rata</span></div>
+  <div><b>1.800 €</b><span>ukupno po godini</span></div>
+  <div><b>12.150</b><span>stipendija lani</span></div>
+</div>
+
+<h2>Tko se može prijaviti</h2>
+<p class="pod">Redoviti studenti na visokim učilištima u Hrvatskoj. Natječaj ima
+tri odvojene kategorije, sa zasebnim rang-listama.</p>
+<div class="tko">
+  <div>
+    <div class="ozn">Kategorija E</div>
+    <b>Slabiji socio-ekonomski status</b>
+    <p>Prosječni mjesečni prihodi po članu kućanstva ne prelaze 160 %
+       proračunske osnovice. Najveća kategorija.</p>
+  </div>
+  <div>
+    <div class="ozn">Kategorija D-1</div>
+    <b>Djeca iz Domovinskog rata</b>
+    <p>Djeca poginulih, umrlih ili nestalih osoba, te vojni i civilni invalidi
+       rata i civilni invalidi iz Domovinskog rata.</p>
+  </div>
+  <div>
+    <div class="ozn">Kategorija P</div>
+    <b>Invaliditet i skrbništvo</b>
+    <p>Studenti s invaliditetom i oni koji su bili pod skrbništvom ili imaju
+       pravo na smještaj — na doktorskim studijima.</p>
+  </div>
+</div>
+
+<h2>Kako se prijaviti</h2>
+<p class="pod">Cijela prijava je elektronička. Ovih pet koraka vrijedi za sve
+kategorije.</p>
+<ol class="koraci"><li><span class="kbroj">1</span><h3>Provjeri kako se prijavljuješ — prije nego natječaj izađe</h3><p>Na državnim stranicama to zovu <em>vjerodajnicom</em>; to su samo korisničko ime i lozinka kojima dokazuješ da si to ti.</p><p>Prijava se ne otvara imenom koje sam izmisliš. U sustav se ulazi <strong>AAI@EduHr</strong> elektroničkim identitetom (onaj koji dobiješ na fakultetu) ili prijavom preko sustava <strong>e-Građani</strong> — onom istom kojom otvaraš e-Poreznu ili e-Zdravstveno.</p><p>Ako ti AAI lozinka ne radi ili je nikad nisi aktivirao, to se rješava na matičnom fakultetu i zna potrajati koji dan.</p><div class="upoz">Ovo je najčešći razlog zbog kojeg ljudi propuste rok — ne sam natječaj, nego to što na zadnji dan otkriju da se ne mogu prijaviti u sustav.</div></li><li><span class="kbroj">2</span><h3>Otvori sustav VIDRA</h3><p>Prijave idu isključivo preko <a href="https://vidra.srce.hr/" target="_blank" rel="noopener">vidra.srce.hr</a> — nacionalnog sustava za studentske natječaje. Isti sustav vodi i natječaje za smještaj i prijevoz.</p><p>Nema papirnate prijave i ništa se ne šalje poštom.</p></li><li><span class="kbroj">3</span><h3>Ispuni elektronički obrazac</h3><p>Velik dio podataka sustav sam dohvaća iz državnih registara čim se prijaviš, pa ne prepisuješ ono što država već zna o tebi.</p><p>Tvoje je da provjeriš je li dohvaćeno točno i dopuniš ostalo.</p></li><li><span class="kbroj">4</span><h3>Priloži samo ono što sustav nije sam dohvatio</h3><p>Prilozi moraju biti <strong>na hrvatskome jeziku</strong> i predaju se samo elektronički — ništa se ne šalje poštom.</p><p>Koji dokumenti trebaju ovisi o tvojim okolnostima, a ne o tome tko si. Većina studenata ne prilaže gotovo ništa. Popis i gdje se što vadi je <a href="#papiri">niže na ovoj stranici</a>.</p></li><li><span class="kbroj">5</span><h3>Rezultati, rang-lista i prihvaćanje</h3><p>Bodovi i mjesto na rang-listi vide se u samom sustavu. Kod socio-ekonomske kategorije na bodove utječu prihodi kućanstva, braća i sestre u školovanju, život u domu i upis deficitarnog zanimanja.</p><p>Ako prođeš, imaš rok da stipendiju prihvatiš i potpišeš ugovor. Isplata ide mjesečno, do 15. u mjesecu.</p><div class="upoz">Prihvaćanje ima svoj rok, odvojen od roka prijave. Tko ga prespava, gubi stipendiju koju je već dobio.</div></li></ol>
+
+<h2 id="papiri">Koje papire trebaš i gdje se vade</h2>
+<p class="pod">Prvo dobra vijest: većinu toga ne moraš nigdje vaditi. Čim se
+prijaviš, sustav sam povuče podatke iz državnih registara.</p>
+<ul class="spremi"><li><svg width="17" height="17" viewBox="0 0 17 17" aria-hidden="true"><circle cx="8.5" cy="8.5" r="8.5" fill="#DCFCE7"/><path d="M4.6 8.8l2.5 2.5 5-5.2" stroke="#15803D" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Prihodi kućanstva</strong><small>iz EDIP registra Porezne uprave</small></div></li><li><svg width="17" height="17" viewBox="0 0 17 17" aria-hidden="true"><circle cx="8.5" cy="8.5" r="8.5" fill="#DCFCE7"/><path d="M4.6 8.8l2.5 2.5 5-5.2" stroke="#15803D" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Invaliditet</strong><small>iz Registra osoba s invaliditetom</small></div></li><li><svg width="17" height="17" viewBox="0 0 17 17" aria-hidden="true"><circle cx="8.5" cy="8.5" r="8.5" fill="#DCFCE7"/><path d="M4.6 8.8l2.5 2.5 5-5.2" stroke="#15803D" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Roditeljstvo i razvod</strong><small>iz državnih matica</small></div></li><li><svg width="17" height="17" viewBox="0 0 17 17" aria-hidden="true"><circle cx="8.5" cy="8.5" r="8.5" fill="#DCFCE7"/><path d="M4.6 8.8l2.5 2.5 5-5.2" stroke="#15803D" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Status hrvatskog branitelja</strong><small>iz Registra hrvatskih branitelja</small></div></li><li><svg width="17" height="17" viewBox="0 0 17 17" aria-hidden="true"><circle cx="8.5" cy="8.5" r="8.5" fill="#DCFCE7"/><path d="M4.6 8.8l2.5 2.5 5-5.2" stroke="#15803D" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Školovanje i upis</strong><small>iz e-Matica i Informacijskog sustava studentskih prava</small></div></li><li><svg width="17" height="17" viewBox="0 0 17 17" aria-hidden="true"><circle cx="8.5" cy="8.5" r="8.5" fill="#DCFCE7"/><path d="M4.6 8.8l2.5 2.5 5-5.2" stroke="#15803D" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Mirovinski podaci</strong><small>iz registra mirovinskog osiguranja</small></div></li></ul>
+
+<p class="pod" style="margin-top:1.6rem">Rukom se prilaže samo ono što u
+registrima ne piše. Za većinu studenata to je malo ili ništa — popis ispod je
+redom po tome koliko se često traži.</p>
+<div class="papiri"><div class="papir"><h3>Korisničko ime i lozinka za AAI@EduHr</h3><p class="gdje">Tvoj fakultet, administrator informacijskog sustava</p><p>Ne izdaje se centralno nego na matičnom učilištu — referada zna uputiti kome. Preuzima se osobno, uz OIB i indeks, a i zaboravljena lozinka se mijenja osobno. Zato ovo rješavaj tjednima prije, ne na dan prijave.</p></div><div class="papir"><h3>Ili prijava preko e-Građana</h3><p class="gdje">gov.hr/e-gradjani</p><p>Ako se već prijavljuješ mobilnim bankarstvom ili osobnom iskaznicom s čipom, pristup imaš. To je brži put od AAI-ja ako ti on ne radi.</p></div><div class="papir"><h3>Rodni list brata ili sestre</h3><p class="gdje">e-Građani, usluga e-Matične knjige</p><p>Zatražiš elektronički zapis i stigne ti u korisnički pretinac. Dovoljna je i najjednostavnija razina prijave. Treba samo ako prijavljuješ braću ili sestre u školovanju, jer oni nose bodove.</p></div><div class="papir"><h3>Potvrda o školovanju brata ili sestre</h3><p class="gdje">Škola ili fakultet koji pohađaju</p><p>Vadi je osoba na koju glasi, u svojoj referadi ili tajništvu škole. Traje nekoliko minuta, ali netko mora otići.</p></div><div class="papir"><h3>Smrtni list roditelja</h3><p class="gdje">Matični ured</p><p>Preko e-Građana dostupni su rodni i vjenčani list; smrtni se i dalje vadi u matičnom uredu, u bilo kojem, ne nužno mjestu rođenja.</p></div><div class="papir"><h3>Sudska odluka o razvodu roditelja</h3><p class="gdje">Presuda koju roditelji već imaju</p><p>Ako je primjerak izgubljen, preslika se traži na sudu koji je donio presudu. Razvod nosi bodove u socio-ekonomskoj kategoriji.</p></div><div class="papir"><h3>Potvrda o skrbništvu ili smještaju</h3><p class="gdje">Hrvatski zavod za socijalni rad, područni ured prema prebivalištu</p><p>To je ustanova koja je naslijedila centre za socijalnu skrb. Popis područnih ureda je na socskrb.hr.</p></div><div class="papir"><h3>Rješenje o priznatom statusu iz Domovinskog rata</h3><p class="gdje">Upravno tijelo koje je status priznalo</p><p>Za kategoriju D-1. Traži se ondje gdje je rješenje izvorno izdano — najčešće u županijskom upravnom odjelu nadležnom za branitelje.</p></div><div class="papir"><h3>Potvrda o kategorizaciji sportaša</h3><p class="gdje">Hrvatski olimpijski odbor</p><p>HOO vodi Registar kategoriziranih sportaša. Ako si u njemu, potvrda nosi dodatne bodove.</p></div><div class="papir"><h3>Potvrda o upisu na doktorski studij</h3><p class="gdje">Referada matičnog učilišta</p><p>Samo za kategoriju P. Za preddiplomski i diplomski studij upis se dohvaća automatski, pa potvrdu ne trebaš.</p></div><div class="papir"><h3>Potvrda o prihodima ostvarenima u inozemstvu</h3><p class="gdje">Porezna uprava te države</p><p>Hrvatski registri vide samo prihode u Hrvatskoj. Ako je netko iz kućanstva radio u inozemstvu, taj se dio dokazuje sam.</p></div></div>
+
+<h2>STEM stipendije su odvojen natječaj</h2>
+<p class="pod">Ako studiraš u STEM području, postoji drugi javni poziv, s većim
+iznosom i vlastitim rang-listama.</p>
+<div class="cifre">
+  <div><b>600 €</b><span>mjesečno, nastavnički STEM studiji</span></div>
+  <div><b>300 €</b><span>mjesečno, ostali STEM studiji</span></div>
+  <div><b>9</b><span>mjesečnih rata</span></div>
+  <div><b>do 25.10.</b><span>rok da ministar raspiše poziv</span></div>
+</div>
+
+<h2>Kako je išlo prošle godine</h2>
+<p class="pod">Datumi iz natječaja za 2025./2026. Ovogodišnji mogu biti drugi,
+ali razmaci su obično slični.</p>
+<div class="crta"><div><b>14.10.</b><span>objavljen natječaj, u 12:00</span></div><div><b>4.11.</b><span>istekao rok prijave, u 12:00</span></div><div><b>do 25.10.</b><span>javni poziv za STEM stipendije</span></div><div><b>do 15.</b><span>isplata svakog mjeseca</span></div></div>
+
+<h2>Gdje to piše</h2>
+<p class="pod">Sve na ovoj stranici prepisano je s ovih adresa. Prije prijave
+provjeri ih sam — vrijedi ono što piše u natječaju, ne ovdje.</p>
+<ul class="izvori">
+  <li><a href="https://mzom.gov.hr/istaknute-teme/odgoj-i-obrazovanje/visoko-obrazovanje/drzavne-stipendije/drzavne-stipendije-za-studente-nizega-socio-ekonomskoga-statusa/1563" target="_blank" rel="noopener">Ministarstvo — državne
+      stipendije za studente nižega socio-ekonomskog statusa</a></li>
+  <li><a href="https://mzom.gov.hr/drzavne-stipendije-za-studente-u-stem-podrucjima-znanosti/1562" target="_blank" rel="noopener">Ministarstvo — državne
+      stipendije u STEM područjima</a></li>
+  <li><a href="https://mzom.gov.hr/istaknute-teme/natjecaji-196/natjecaj-za-dodjelu-12-150-drzavnih-stipendija-za-akademsku-godinu-2025-2026-studentima-u-redovitom-statusu-koji-studiraju-na-visokim-ucilistima-u-republici-hrvatskoj/7289" target="_blank" rel="noopener">Natječaj za
+      2025./2026. — prošlogodišnji tekst s rokovima</a></li>
+  <li><a href="https://vidra.srce.hr/" target="_blank" rel="noopener">VIDRA — sustav u kojem
+      se predaje prijava</a></li>
+</ul>
+
+<p class="napomena">Ovu stranicu održavamo ručno, a podatke provjeravamo na
+stranicama ministarstva. Dok novi natječaj ne izađe, sve brojke odnose se na
+akademsku godinu 2025./2026. i mogu se promijeniti. Ako uočiš da je nešto
+zastarjelo, javi nam i ispravit ćemo.</p>
+</section></main><footer><div class="w">
+  <p class="upoz-p"><strong>Provjeri prije prijave.</strong> Podatke prikupljamo
+     automatski, pa su greške moguće. Vrijede rok i uvjeti sa službene stranice
+     natječaja, na koju vodi poveznica uz svaki unos.</p>
+  <p><strong>Kontakt:</strong> <a href="mailto:erik.hunjek@gmail.com">erik.hunjek@gmail.com</a></p>
+  <p>Nedostaje neka stipendija ili je podatak netočan? Javi nam — ispravljamo brzo.
+     Posebno nam je važno ako je netočan <strong>rok prijave</strong>.</p>
+  <p>Ne procjenjujemo tvoje šanse za pojedinu stipendiju. Za to pitaj instituciju
+     koja je natječaj objavila.</p>
+  <p class="sitno">Zadnja provjera 29.09.2026. &nbsp;·&nbsp; 138 izvora &nbsp;·&nbsp;
+     podaci prikupljeni automatski &nbsp;·&nbsp;
+     <a class="tiho" href="impressum.html">Impressum</a> &nbsp;·&nbsp;
+     <a class="tiho" href="privatnost.html">Privatnost</a></p>
+</div></footer>
+<div class="kol" id="kol">
+  <div class="kol-w">
+    <p>Google Analytics, samo uz tvoj pristanak.
+       <a href="privatnost.html">Više o tome</a>.</p>
+    <div class="kol-gumbi">
+      <button type="button" id="kol-ne">Odbij</button>
+      <button type="button" class="da" id="kol-da">Prihvaćam</button>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  var ID="G-2BPS973W81", K="kolacici-pristanak";
+  function ucitajGA(){
+    if(window.__ga_ucitan) return;
+    window.__ga_ucitan=true;
+    var s=document.createElement("script");
+    s.async=true;
+    s.src="https://www.googletagmanager.com/gtag/js?id="+ID;
+    document.head.appendChild(s);
+    window.dataLayer=window.dataLayer||[];
+    window.gtag=function(){dataLayer.push(arguments)};
+    gtag("js",new Date());
+    gtag("config",ID,{anonymize_ip:true});
+  }
+  var traka=document.getElementById("kol");
+  var izbor=null;
+  try{ izbor=localStorage.getItem(K); }catch(e){}
+  if(izbor==="da"){ ucitajGA(); }
+  else if(izbor!=="ne"){ traka.classList.add("vidljiva"); }
+  document.getElementById("kol-da").addEventListener("click",function(){
+    try{ localStorage.setItem(K,"da"); }catch(e){}
+    traka.classList.remove("vidljiva"); ucitajGA();
+  });
+  document.getElementById("kol-ne").addEventListener("click",function(){
+    try{ localStorage.setItem(K,"ne"); }catch(e){}
+    traka.classList.remove("vidljiva");
+  });
+})();
+</script>
+</body>
+</html>
