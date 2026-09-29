@@ -275,6 +275,37 @@ def _dinamika(s):
     return d
 
 
+# Model vraca "za" bez kvacica jer su i primjeri u uputi napisani tako
+# ("ucenici"). Popis je kratak namjerno: ovo nije pokusaj da se kvacice vrate
+# bilo kojoj rijeci, nego da se isprave one koje se ovdje stvarno pojavljuju.
+_KVACICE = {
+    "ucenici": "učenici", "ucenika": "učenika", "ucenik": "učenik",
+    "ucenicima": "učenicima", "ucenice": "učenice", "ucenicama": "učenicama",
+    "srednjoskolci": "srednjoškolci", "srednjoskolac": "srednjoškolac",
+    "srednjoskolaca": "srednjoškolaca", "srednjoskolce": "srednjoškolce",
+    "osnovnoskolci": "osnovnoškolci", "osnovnoskolac": "osnovnoškolac",
+    "djaci": "đaci", "djak": "đak", "djaka": "đaka",
+    "sportasi": "sportaši", "sportas": "sportaš",
+    "strucni": "stručni", "strucnih": "stručnih", "strucni studiji": "stručni studiji",
+    "ucilista": "učilišta", "ucilistu": "učilištu", "ucilisti": "učilišti",
+    "skole": "škole", "skola": "škola", "skoli": "školi", "skolske": "školske",
+    "skolskih": "školskih", "srednjih": "srednjih",
+    "nastavnicki": "nastavnički", "nastavnickih": "nastavničkih",
+    "drustvene": "društvene", "drustvenih": "društvenih", "drustv": "društv",
+    "prirodoslovni": "prirodoslovni", "visokoskolci": "visokoškolci",
+}
+
+
+def s_kvacicama(t):
+    """Vrati kvacice rijecima koje ih je model ispustio ('ucenici' -> 'učenici').
+
+    Dira samo rijeci s popisa i samo ako su cijele male — 'Ucenici' na pocetku
+    recenice ostaje, a broj i interpunkcija se ne mijenjaju."""
+    def zamijeni(m):
+        return _KVACICE.get(m.group(0), m.group(0))
+    return re.sub(r"[a-zćčžšđ]+", zamijeni, str(t))
+
+
 def iznos_polja(r, otvorena=False, ima_vezu=False):
     """Iznos razlozen u retke tablice: [(oznaka, sadrzaj, monospace), ...].
 
@@ -325,7 +356,7 @@ def iznos_polja(r, otvorena=False, ima_vezu=False):
             if d:
                 dio += " " + d
         if s.get("za") and len(stavke) > 1:
-            dio = f'<span class="za">{esc(s["za"])}</span> ' + dio
+            dio = f'<span class="za">{esc(s_kvacicama(s["za"]))}</span> ' + dio
         polja.append((oznaka if i == 0 else "", dio, True))
 
     if zajednicka:
