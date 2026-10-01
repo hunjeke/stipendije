@@ -42,39 +42,39 @@
     }
   },
   "https://mzom.gov.hr/natjecaji-196/196": {
-    "hash": "v3:8842167edef38eec",
+    "hash": "v3:fe5b97041f39930d",
     "result": {
       "naziv": "MZO — svi natječaji",
       "url": "https://mzom.gov.hr/natjecaji-196/196",
       "kategorija": "Ministarstvo",
-      "naslov_natjecaja": "Stipendija za polaznice romske nacionalne manjine",
-      "iznos": "133,00 EUR mjesečno ili 40,00 EUR mjesečno",
+      "naslov_natjecaja": "Stipendije za studente romske nacionalne manjine",
+      "iznos": "360,00 EUR i 292,00 EUR",
       "iznosi": [
         {
-          "eur": 133.0,
+          "eur": 360.0,
           "razdoblje": "mjesecno",
           "mjeseci": 10,
-          "za": "ucenici",
+          "za": "studenti",
           "do": false
         },
         {
-          "eur": 40.0,
+          "eur": 292.0,
           "razdoblje": "mjesecno",
           "mjeseci": 10,
-          "za": "ucenici",
+          "za": "studenti",
           "do": false
         }
       ],
       "iznos_je_fond": false,
-      "rok_tekst": "21. listopada 2026. godine do 23.59 sati",
-      "uvjeti": "Polaznici srednjih škola pripadnici romske nacionalne manjine.",
-      "upute_za_prijavu": "Učenik se prijavljuje kroz srednju školu u koju je upisan | Popuni Obrazac zahtjeva za dodjelu novčane potpore dostupan na mrežnoj stranici Ministarstva | Priloži obaveznu dokumentaciju (dokaz o pripadnosti romskoj manjini, domovnica, uvjerenje o prebivalištu, žiro/tekući račun, izjavu roditelja da nije korisnik druge stipendije) | Srednja škola šalje izvornik prijave preporučenom poštom, dostavljačem ili osobno na adresu Ministarstva, Uprava za nacionalne manjine, Donje Svetice 38, Zagreb",
+      "rok_tekst": "31. listopada 2026.",
+      "uvjeti": "Studenti pripadnici romske nacionalne manjine upisani na sveučilišne i stručne studije na visokim učilištima u Republici Hrvatskoj.",
+      "upute_za_prijavu": "Preuzmi obrazac s https://mzom.gov.hr/ | Popuni, ispiši i potpiši obrazac | Točka 3. obrasca se popunjava i ovjerava od strane visokog učilišta | Priloži propisanu dokumentaciju (domovnicu, osobnu iskaznicu, rodni list ili ispis iz popisa birača, e-Zapis, IBAN) | Pošalji potpisan obrazac s dokumentacijom poštom na adresu Ministarstva do 31. listopada 2026.",
       "napomena": null,
-      "poveznica_natjecaj": "https://mzom.gov.hr/istaknute-teme/natjecaji-196/javni-poziv-polaznicima-srednjih-skola-pripadnicima-romske-nacionalne-manjine-za-stipendiju-ministarstva-znanosti-obrazovanja-i-mladih-za-skolsku-godinu-2026-2027/8040",
-      "status": "OTVORENO (rok 2026-10-21)",
-      "zadnje_provjereno": "2026-09-28T11:03",
+      "poveznica_natjecaj": "https://mzom.gov.hr/istaknute-teme/natjecaji-196/8068",
+      "status": "OTVORENO (rok 2026-10-31)",
+      "zadnje_provjereno": "2026-10-01T10:46",
       "_ima_otvoren": true,
-      "_dopuna_pokusana": true
+      "_dopuna_pokusana": false
     }
   },
   "https://www.hanfa.hr/raditi-u-hanfi/studentske-stipendije/": {
@@ -115,7 +115,7 @@
     }
   },
   "https://www.zagreb.hr/stipendije-grada-zagreba/175198": {
-    "hash": "v3:35b7e53c977a08c4",
+    "hash": "v3:d358745889c7229d",
     "result": {
       "naziv": "Grad Zagreb — stipendije",
       "url": "https://www.zagreb.hr/stipendije-grada-zagreba/175198",
@@ -127,7 +127,7 @@
           "eur": 380.0,
           "razdoblje": "mjesecno",
           "mjeseci": 10,
-          "za": "ucenici",
+          "za": "učenici",
           "do": false
         },
         {
@@ -139,14 +139,15 @@
         }
       ],
       "iznos_je_fond": false,
-      "rok_tekst": "30.06.2025.",
-      "uvjeti": "Učenici: hrvatski državljani, redoviti učenici srednje škole s prosjekom ocjena najmanje 3,0, nisu ponavljali razred. Studenti: hrvatski državljani, redoviti studenti, studenti prve godine s prosjekom ocjena najmanje 4,0 iz obveznih predmeta, studenti ostalih godina s najmanje 40 ECTS bodova i prosjekom ocjena najmanje 3,5.",
+      "rok_tekst": "do kraja rujna za učenike i studente koji su prvi put upisali prvu godinu studija, a za studente ostalih godina do kraja listopada",
+      "uvjeti": "Pravo sudjelovanja imaju učenici i studenti koji su državljani Republike Hrvatske, redoviti učenici/studenti u Zagrebu ili Zagrebačkoj županiji s prijavljenim prebivalištem na području RH/u Gradu, s prosječnom ocjenom najmanje 3,0 (učenici) odnosno 4,0 (studenti prve godine) ili 3,5 (ostali studenti).",
       "upute_za_prijavu": null,
-      "napomena": "Stipendija se dodjeljuje na temelju provedenoga natječaja. Gradonačelnik utvrđuje listu deficitarnih zanimanja svake godine. Natječaj provodi Povjerenstvo za dodjelu Stipendije.",
+      "napomena": "Natječaj se raspisuje svake godine najkasnije do kraja rujna za učenike i studente prve godine, a do kraja listopada za studente ostalih godina. Stipendija se dodjeljuje na 10 mjeseci.",
       "poveznica_natjecaj": "https://www.zagreb.hr/stipendija-grada-zagreba-za-deficitarna-zanimanja/180282",
-      "status": "ROK ISTEKAO (2025-06-30) — čeka se novi ciklus",
-      "zadnje_provjereno": "2026-09-24T12:27",
-      "_ima_otvoren": true
+      "status": "PROVJERITI RUČNO (rok nije jasno parsiran)",
+      "zadnje_provjereno": "2026-10-01T10:47",
+      "_ima_otvoren": true,
+      "_dopuna_pokusana": false
     }
   },
   "https://split.hr/natjecaji/natjecaji-za-stipendiranje-i-sufinanciranje-ucenika-i-studenata": {
@@ -268,7 +269,7 @@
     }
   },
   "https://www.osijek.hr/natjecaji/": {
-    "hash": "v3:7eb36e2f001be4aa",
+    "hash": "v3:58932533be505738",
     "result": {
       "naziv": "Grad Osijek — natječaji",
       "url": "https://www.osijek.hr/natjecaji/",
@@ -283,8 +284,9 @@
       "napomena": null,
       "poveznica_natjecaj": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-09-26T11:16",
-      "_ima_otvoren": false
+      "zadnje_provjereno": "2026-10-01T10:47",
+      "_ima_otvoren": false,
+      "_dopuna_pokusana": false
     }
   },
   "https://varazdin.hr/natjecaji/": {
@@ -328,7 +330,7 @@
     }
   },
   "https://www.pula.hr/hr/novosti/": {
-    "hash": "v3:525161dbf17d56bd",
+    "hash": "v3:c70627e8947d2b6c",
     "result": {
       "naziv": "Grad Pula — novosti i natječaji",
       "url": "https://www.pula.hr/hr/novosti/",
@@ -343,13 +345,13 @@
       "napomena": null,
       "poveznica_natjecaj": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-09-29T11:28",
+      "zadnje_provjereno": "2026-10-01T10:49",
       "_ima_otvoren": false,
       "_dopuna_pokusana": false
     }
   },
   "https://www.varazdinska-zupanija.hr/potpore-i-pomoci1/stipendije.html": {
-    "hash": "v3:b6e603365fb637c2",
+    "hash": "v3:12dfe17228c8a3f1",
     "result": {
       "naziv": "Varaždinska županija — stipendije",
       "url": "https://www.varazdinska-zupanija.hr/potpore-i-pomoci1/stipendije.html",
@@ -364,8 +366,9 @@
       "napomena": null,
       "poveznica_natjecaj": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-09-24T12:30",
-      "_ima_otvoren": false
+      "zadnje_provjereno": "2026-10-01T10:50",
+      "_ima_otvoren": false,
+      "_dopuna_pokusana": false
     }
   },
   "https://www.obz.hr/index.php/stipendije-i-krediti/stipendije": {
@@ -446,7 +449,7 @@
     }
   },
   "https://kazup.hr/index.php/natjecaji-i-javni-pozivi/javni-pozivi-uo-za-drustvene-djelatnosti/": {
-    "hash": "v3:df59f7aeaa52e64b",
+    "hash": "v3:69c59b82b12f2b1a",
     "result": {
       "naziv": "Karlovačka županija — javni pozivi (društvene djelatnosti)",
       "url": "https://kazup.hr/index.php/natjecaji-i-javni-pozivi/javni-pozivi-uo-za-drustvene-djelatnosti/",
@@ -456,18 +459,18 @@
       "iznosi": [],
       "iznos_je_fond": false,
       "rok_tekst": "29.09.2026.",
-      "uvjeti": "Učenici na području Karlovačke županije.",
-      "upute_za_prijavu": "Registracija na https://som-natjecaj.eu/authentication/register | Prijava putem https://som-natjecaj.eu/authentication/login | Prikupljanje potrebne dokumentacije | Podnošenje elektroničke prijave u sustavu | Odabir 'Karlovačka županija' u padajućem izborniku",
-      "napomena": "Prijava bez potpisane privole i suglasnosti neće se uzimati u obzir. Tehnička podrška dostupna isključivo za probleme s registracijom i tehničkim poteškoćama. Pitanja o natječaju i dokumentaciji trebaju se postavljati elektronskim putem Upravnom odjelu za društvene djelatnosti.",
+      "uvjeti": null,
+      "upute_za_prijavu": null,
+      "napomena": "Natječaj zahtijeva potpisanu privolu i suglasnost uz prijavu. Prijave se podnosno isključivo putem elektroničkog sustava SOM Natječaji.",
       "poveznica_natjecaj": null,
-      "status": "OTVORENO — rok za 1 dana (2026-09-29)",
-      "zadnje_provjereno": "2026-09-28T11:05",
+      "status": "ROK ISTEKAO (2026-09-29) — čeka se novi ciklus",
+      "zadnje_provjereno": "2026-10-01T10:50",
       "_ima_otvoren": true,
       "_dopuna_pokusana": true
     }
   },
   "https://www.istra-istria.hr/hr/natjecaji/": {
-    "hash": "v3:60874c12bee8cb98",
+    "hash": "v3:d281b5efce93317e",
     "result": {
       "naziv": "Istarska županija — natječaji",
       "url": "https://www.istra-istria.hr/hr/natjecaji/",
@@ -482,7 +485,7 @@
       "napomena": null,
       "poveznica_natjecaj": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-09-28T11:06",
+      "zadnje_provjereno": "2026-10-01T10:51",
       "_ima_otvoren": false,
       "_dopuna_pokusana": false
     }
@@ -505,7 +508,7 @@
     }
   },
   "https://www.dalmacija.hr/natjecaji": {
-    "hash": "v3:ca909dedfa16420c",
+    "hash": "v3:334d66f08e67370d",
     "result": {
       "naziv": "Splitsko-dalmatinska županija — natječaji",
       "url": "https://www.dalmacija.hr/natjecaji",
@@ -520,8 +523,9 @@
       "napomena": null,
       "poveznica_natjecaj": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-09-17T13:23",
-      "_ima_otvoren": false
+      "zadnje_provjereno": "2026-10-01T10:51",
+      "_ima_otvoren": false,
+      "_dopuna_pokusana": false
     }
   },
   "https://www.unizg.hr/studiji-i-studiranje/upisi-stipendije-priznavanja/stipendije/": {
@@ -896,23 +900,31 @@
     }
   },
   "https://stipendije.kckzz.hr/": {
-    "hash": "v3:42421323a2e0f53f",
+    "hash": "v3:01e03a6a53981d53",
     "result": {
       "naziv": "Koprivničko-križevačka županija — stipendije",
       "url": "https://stipendije.kckzz.hr/",
       "kategorija": "Županija",
       "naslov_natjecaja": "Studentske stipendije Koprivničko-križevačke županije",
-      "iznos": null,
-      "iznosi": [],
+      "iznos": "200,00 eura u 12 mjesečnih rata",
+      "iznosi": [
+        {
+          "eur": 200.0,
+          "razdoblje": "mjesecno",
+          "mjeseci": 12,
+          "za": "studenti",
+          "do": false
+        }
+      ],
       "iznos_je_fond": false,
-      "rok_tekst": "17. listopada 2025. godine",
-      "uvjeti": "Redovni studenti s područja Koprivničko-križevačke županije koji redovito studiraju na domaćim ili inozemnim visokoškolskim ustanovama.",
-      "upute_za_prijavu": "Prikupiti osnovne dokumente (uvjerenje o upisu, prijepis ocjena, uvjerenje o prebivalištu) | Prikupiti dodatnu dokumentaciju za bodove (uspjeh na natjecanjima, volontiranje, status invalida ili drugog) | Ispuniti prijavu u natječajnom roku | Dostaviti sve dokumente poštom preporučeno ili elektroničkom poštom | Čekati objavu Liste reda prvenstva u roku od 60 dana",
-      "napomena": "Natječaj je raspisан za akademsku godinu 2025./2026., ali je rok završio 17. listopada 2025. godine. Tekst ima prirodu obavijesti o zatvorenom natječaju i uputa za postojeće korisnike stipendija.",
+      "rok_tekst": "1. listopada 2026. godine do 18. listopada 2026. godine",
+      "uvjeti": "Studenti koji su hrvatski državljani, redovito studiraju na visokim učilištima u RH, imaju prebivalište na području Koprivničko-križevačke županije najmanje 2 godine, nisu korisnici druge stipendije ili studentskog kredita, i prvi puta redovno su upisali prvu godinu studija ili višu godinu.",
+      "upute_za_prijavu": "Ispuniti online obrazac prijave na stranici stipendije.kckzz.hr | Priložiti dokaz redovnog upisa i programe studija | Dostaviti prijepis ocjena i svjedodžbe | Dostaviti uvjerenje o prebivalištu | Priložiti dokaznu dokumentaciju za dodatne bodove ako ih ostvarujete",
+      "napomena": "Korisnici stipendije u akademskoj godini 2025./2026. nastavljaju primati stipendiju bez ponovne prijave, ali moraju dostaviti potvrdu o redovnom upisu do 31. listopada 2026. Stipendije se mogu dodijeliti samo do navršetka studija te korisnik mora obavijestiti upravni odjel u roku od 30 dana od završetka.",
       "poveznica_natjecaj": null,
-      "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-09-28T11:08",
-      "_ima_otvoren": false,
+      "status": "OTVORENO — rok za 0 dana (2026-10-01)",
+      "zadnje_provjereno": "2026-10-01T10:52",
+      "_ima_otvoren": true,
       "_dopuna_pokusana": false
     }
   },
@@ -979,13 +991,13 @@
     }
   },
   "https://kzz.hr/natjecaj/": {
-    "hash": "v3:b7567d1ec4a2e001",
+    "hash": "v3:557346fec8a025eb",
     "result": {
       "naziv": "Krapinsko-zagorska županija — natječaji",
       "url": "https://kzz.hr/natjecaj/",
       "kategorija": "Županija",
       "naslov_natjecaja": "Stipendije za učenike srednjih škola",
-      "iznos": "70,00 eura mjesečno (kategorije A i B), 80,00 eura mjesečno (kategorija C)",
+      "iznos": "70,00 eura mjesečno (kategorije A i B) i 80,00 eura mjesečno (kategorija C)",
       "iznosi": [
         {
           "eur": 70.0,
@@ -1004,12 +1016,12 @@
       ],
       "iznos_je_fond": false,
       "rok_tekst": "8.10.2026.",
-      "uvjeti": "Natječaj je namijenjen učenicima srednjih škola Krapinsko-zagorske županije.",
-      "upute_za_prijavu": "Proučiti dokumentaciju i natječaj | Popuniti odgovarajući obrazac (A, B ili C) | Prikupiti potrebne dokaze | Podnijeti zahtjev preporučenom poštom ili osobno na Kumrovečka 6, 49210 Zabok",
-      "napomena": "Zahtjevi se podnose isključivo na propisanim obrascima.",
+      "uvjeti": "Učenici srednjih škola Krapinsko-zagorske županije koji su upisani za školsku godinu 2026./2027. Stipendije se dodjeljuju u tri kategorije: nadareni učenici, učenici po socijalnom kriteriju, i učenici 1. razreda deficitarnih zanimanja.",
+      "upute_za_prijavu": "Pročitati dokumentaciju i natječaj u prilogu | Popuniti propisani obrazac (A, B ili C) za odabranu kategoriju | Podnijeti zahtjev putem pošte preporučeno ili osobno na adresu Krapinsko-zagorske županije | Zahtjev mora biti potpuno dokumentiran",
+      "napomena": "Zahtjevi se podnose isključivo na propisanim obrascima. Tekst natječaja sa svim potrebnim obrascima i prilozima nalazi se ispod obavijesti.",
       "poveznica_natjecaj": "https://kzz.hr/natjecaj/natjecaj-za-dodjelu-stipendija-ucenicima-srednjih-skola-kzz-za-skolsku-godinu-2026-2027/",
-      "status": "OTVORENO — rok za 9 dana (2026-10-08)",
-      "zadnje_provjereno": "2026-09-29T11:31",
+      "status": "OTVORENO — rok za 7 dana (2026-10-08)",
+      "zadnje_provjereno": "2026-10-01T10:53",
       "_ima_otvoren": true,
       "_dopuna_pokusana": false
     }
@@ -1197,7 +1209,7 @@
     }
   },
   "https://opatija.hr/?s=stipendij": {
-    "hash": "v3:a252f54e950e1370",
+    "hash": "v3:ccfcd4af4cc7e9ec",
     "result": {
       "naziv": "Grad Opatija — natječaji za stipendije",
       "url": "https://opatija.hr/?s=stipendij",
@@ -1209,11 +1221,12 @@
       "rok_tekst": null,
       "uvjeti": null,
       "upute_za_prijavu": null,
-      "napomena": null,
+      "napomena": "Stranica je navigacijska struktura Grada Opatije. Spominju se odluke o stipendiranju studenata prava i učenika/studenata općenito, te dodjela stipendija za 2025./2026., ali nema konkretnog, otvorenog natječaja s rokom prijave.",
       "poveznica_natjecaj": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-09-16T11:11",
-      "_ima_otvoren": false
+      "zadnje_provjereno": "2026-10-01T10:55",
+      "_ima_otvoren": false,
+      "_dopuna_pokusana": false
     }
   },
   "https://www.grad-krk.hr/natjecaji": {
@@ -1237,7 +1250,7 @@
     }
   },
   "https://www.kutina.hr/": {
-    "hash": "v3:fa69f1161fd4bcf2",
+    "hash": "v3:e5f03898b44c3345",
     "result": {
       "naziv": "Grad Kutina — natječaji",
       "url": "https://www.kutina.hr/",
@@ -1252,7 +1265,7 @@
       "napomena": null,
       "poveznica_natjecaj": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-09-28T11:11",
+      "zadnje_provjereno": "2026-10-01T10:55",
       "_ima_otvoren": false,
       "_dopuna_pokusana": false
     }
@@ -1333,7 +1346,7 @@
     }
   },
   "https://www.slavonski-brod.hr/": {
-    "hash": "v3:d47d26f8920e4f6e",
+    "hash": "v3:cabcc88a1399e952",
     "result": {
       "naziv": "Grad Slavonski Brod — natječaji",
       "url": "https://www.slavonski-brod.hr/",
@@ -1348,7 +1361,7 @@
       "napomena": null,
       "poveznica_natjecaj": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-09-29T11:33",
+      "zadnje_provjereno": "2026-10-01T10:57",
       "_ima_otvoren": false,
       "_dopuna_pokusana": false
     }
@@ -1374,12 +1387,12 @@
     }
   },
   "https://www.jastrebarsko.hr/": {
-    "hash": "v3:9981f7b7b9443af5",
+    "hash": "v3:48f82d48dd2ae9f0",
     "result": {
       "naziv": "Grad Jastrebarsko — natječaji",
       "url": "https://www.jastrebarsko.hr/",
       "kategorija": "Grad",
-      "naslov_natjecaja": "Stipendije učenicima i studentima",
+      "naslov_natjecaja": "Stipendije učenicima i studentima 2025./2026",
       "iznos": "Stipendija za učenike iznosi 100,00 EUR mjesečno, a za studente 150,00 EUR mjesečno.",
       "iznosi": [
         {
@@ -1398,19 +1411,19 @@
         }
       ],
       "iznos_je_fond": false,
-      "rok_tekst": "20 (dvadeset) dana od dana objave na oglasnoj ploči i web-stranici Grada Jastrebarskog",
-      "uvjeti": "Pravo sudjelovanja imaju učenici drugog ili višeg razreda srednje škole i redoviti studenti, državljani RH s prebivalištem na području Grada Jastrebarskog, koji ne primaju drugu stipendiju, nisu navršili 21 (učenici) odnosno 26 godina (studenti), te ispunjavaju uvjete kriterija izvrsnosti (prosjek ocjena) ili socijalnog kriterija (prihod po članu obitelji).",
-      "upute_za_prijavu": "Preuzeti i popuniti obrazac prijave (za učenike ili studente) | Prikupiti traženu dokumentaciju (domovnica, uvjerenje o prebivalištu, potvrda o upisu, dokaz uspjeha, IBAN, životopis) | Dodatni dokazi za kriterij izvrsnosti ili socijalni kriterij ako se posjeduju | Poslati prijavu poštom na adresu Grada Jastrebarskog, e-mailom na maja.belan@jastrebarsko.hr ili putem elektroničke prijave na https://som-natjecaj.eu | Prijava mora stići u roku od 20 dana od objave natječaja",
-      "napomena": "Natječaj se odnosi na 10 stipendija za učenike i 10 stipendija za studente, dodijeljenih prema kriteriju izvrsnosti i socijalnom kriteriju; kandidati mogu ostvariti dodatne bodove za deficitarna zanimanja.",
+      "rok_tekst": "20 dana od dana objave",
+      "uvjeti": "Učenici i studenti koji su državljani RH, imaju prebivalište na području Grada Jastrebarskog, redovni su učenici drugog ili višeg razreda srednje škole odnosno redoviti studenti, ne primaju druge stipendije, nisu navršili 21 godinu (učenici) odnosno 26 godina (studenti), te ispunjavaju dodatne uvjete prema kriteriju izvrsnosti ili socijalnom kriteriju.",
+      "upute_za_prijavu": "Popuniti obrazac prijave dostupan na stranici Grada | Priložiti potrebne dokumente (domovnica, uvjerenje o prebivalištu, potvrda redovitog upisa, svjedodžbe/prijepisi ocjena, izjava o stipendijama, IBAN, životopis) | Za kriterij izvrsnosti priložiti dodatne dokaze (nagrade na natjecanjima, rektorove/dekanske nagrade) | Za socijalni kriterij priložiti dokaze dohotka obitelji i socijalnog statusa | Poslati prijavu na adresu Grada Jastrebarskog, e-mail maja.belan@jastrebarsko.hr ili elektronsku prijavu na www.jastrebarsko.hr",
+      "napomena": "Za 2025./2026. godinu dodijelit će se do 10 stipendija za učenike (6 prema izvrsnosti, 4 prema socijalnom kriteriju) i do 10 za studente (4 prema izvrsnosti, 6 prema socijalnom kriteriju). Stipendija se dodjeljuje za 10 mjeseci od 1. rujna 2025. Kandidati mogu podnijeti prijavu za obje kategorije ali mogu ostvariti samo jednu stipendiju. Za deficitarna zanimanja dodeljuju se dodatni bodovi.",
       "poveznica_natjecaj": "https://www.jastrebarsko.hr/jaska_info/natjecaji_i_javni_pozivi/stipendije/",
       "status": "PROVJERITI RUČNO (rok nije jasno parsiran)",
-      "zadnje_provjereno": "2026-09-29T11:34",
+      "zadnje_provjereno": "2026-10-01T10:58",
       "_ima_otvoren": true,
       "_dopuna_pokusana": false
     }
   },
   "https://www.virovitica.hr/": {
-    "hash": "v3:28e1303d28fa204d",
+    "hash": "v3:6f24d866d657a36b",
     "result": {
       "naziv": "Grad Virovitica — stipendije",
       "url": "https://www.virovitica.hr/",
@@ -1425,7 +1438,7 @@
       "napomena": null,
       "poveznica_natjecaj": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-09-29T11:35",
+      "zadnje_provjereno": "2026-10-01T10:58",
       "_ima_otvoren": false,
       "_dopuna_pokusana": false
     }
@@ -1520,7 +1533,7 @@
     }
   },
   "https://www.vodnjan-dignano.hr/hr/natjecaji/": {
-    "hash": "v3:893baa4441094366",
+    "hash": "v3:7ce6b386ce51a3a9",
     "result": {
       "naziv": "Grad Vodnjan — natječaji",
       "url": "https://www.vodnjan-dignano.hr/hr/natjecaji/",
@@ -1529,19 +1542,19 @@
       "iznos": null,
       "iznosi": [],
       "iznos_je_fond": false,
-      "rok_tekst": "najkasnije do 31. listopada tekuće godine",
-      "uvjeti": "Učenici i studenti koji ispunjavaju uvjete propisane Pravilnikom. Korisnik stipendije ne može istovremeno primati druge stipendije.",
-      "upute_za_prijavu": "Prate objavu Natječaja | Podnesu prijavu na propisanom obrascu | Prilože dokumentaciju navedenu u Natječaju | Prijava se podnosi u roku određenom Natječajem",
-      "napomena": "Broj i visina stipendija određuje se sukladno osiguranim sredstvima. Isplata se vrši mjesečno za deset mjeseci (rujan do lipnja), s prvom isplatom u prosincu.",
+      "rok_tekst": "najkasnije do 31. listopada",
+      "uvjeti": "Pravo na stipendiju mogu ostvariti učenici i studenti koji ispunjavaju uvjete propisane Pravilnikom.",
+      "upute_za_prijavu": "Prate objavu Natječaja | Podnose prijavu na propisanom obrascu | Prilaguju potrebnu dokumentaciju navedenu u Natječaju",
+      "napomena": "Iznos stipendije nije specificiran u tekstualnom dijelu — određuje ga Gradonačelnik sukladno osiguranim sredstvima. Isplata je mjesečna, od rujna do lipnja (deset mjeseci), s prvom isplatom u prosincu. Korisnik ne može istovremeno primati druge stipendije.",
       "poveznica_natjecaj": "https://www.vodnjan-dignano.hr/hr/djeca-i-mladi/stipendije-grada",
       "status": "OTVORENO (rok 2026-10-31)",
-      "zadnje_provjereno": "2026-09-28T14:51",
+      "zadnje_provjereno": "2026-10-01T10:59",
       "_ima_otvoren": true,
       "_dopuna_pokusana": true
     }
   },
   "https://kastela.hr/kategorija/stipendije/": {
-    "hash": "v3:8b4dc0b794bd2a53",
+    "hash": "v3:1a10ade15c5a8c17",
     "result": {
       "naziv": "Grad Kaštela — stipendije",
       "url": "https://kastela.hr/kategorija/stipendije/",
@@ -1566,12 +1579,12 @@
       ],
       "iznos_je_fond": false,
       "rok_tekst": "od 10. do 30. listopada 2025. godine",
-      "uvjeti": "Učenici srednjih škola i studenti državljani Hrvatske s prijavljenim prebivalištem na području Grada Kaštela neprekidno najmanje 3 godine (ili 1 godinu ako su udomljeni), redoviti studenti/učenici koji nisu stariji od 20/26 godina te nisu korisnici stipendije iz drugih javnih izvora.",
-      "upute_za_prijavu": "Prikupiti potrebnu dokumentaciju prema kategoriji (izvrsnost, socio-ekonomski status ili sportska stipendija) | Vlastoručno potpisati prijavnicu s izjavom o suglasnosti | Priložiti dokaze o državljanstvu, prebivalištu, upisu i akademskoj/školskoj dokumentaciji | Dostaviti sve dokumente Upravnom odjelu za društvene djelatnosti | Prijava moguća do 30. listopada 2025.",
-      "napomena": "Natječaj ima tri kategorije: izvrsnost (80 stipendija), socio-ekonomski status (80 stipendija) i sportske stipendije (20 stipendija). Ukupno 180 stipendija. Isplata je za 10 mjeseci počevši od 1. rujna 2025. Dokumentacija dostupna u PDF prijavama.",
+      "uvjeti": "Učenici i studenti s prebivalištem ili boravištem na području Grada Kaštela neprekidno najmanje tri godine (odnosno jednu godinu ako su udomljene osobe), državljani Hrvatske, redoviti učenici srednje škole ili studenti te s минimalnom prosječnom ocjenom ovisno o kategoriji (izvrsnost, socio-ekonomski status ili sportska stipendija).",
+      "upute_za_prijavu": "Preuzmi prijavnicu s obrascem | Prikupi traženu dokumentaciju (uvjerenje o prebivalištu, svjedodžbe, potvrda škole/fakulteta) | Vlastoručno potpisiši prijavnicu s izjavom o suglasnosti za obradu podataka | Slanje prijave prema uputama iz natječaja | Čekaj na odabir prema kriterijima (izvrsnost, socio-ekonomski status, sport)",
+      "napomena": "Dodjeljuje se 180 stipendija: 80 za izvrsnost (30 učenika, 50 studenata), 80 za socio-ekonomski status (30 učenika, 50 studenata), 20 sportskih (10 učenika, 10 studenata). Stipendija se isplaćuje za 10 mjeseci od 1. rujna 2025.",
       "poveznica_natjecaj": "https://kastela.hr/2025/10/10/natjecaj-za-dodjelu-stipendija-ucenicima-i-studentima-grada-kastela-za-skolsku-akademsku-godinu-2025-2026/",
       "status": "ROK ISTEKAO (2025-10-30) — čeka se novi ciklus",
-      "zadnje_provjereno": "2026-09-29T11:35",
+      "zadnje_provjereno": "2026-10-01T10:59",
       "_ima_otvoren": true,
       "_dopuna_pokusana": false
     }
@@ -1612,23 +1625,38 @@
     }
   },
   "https://kastav.hr/": {
-    "hash": "v3:45ecdb28a4063b3e",
+    "hash": "v3:4a37bce26de3679a",
     "result": {
       "naziv": "Grad Kastav — stipendije",
       "url": "https://kastav.hr/",
       "kategorija": "Grad",
-      "naslov_natjecaja": null,
-      "iznos": null,
-      "iznosi": [],
+      "naslov_natjecaja": "Stipendije za učenike i studente",
+      "iznos": "110 eura za učenike, a studentske 150 eura mjesečno",
+      "iznosi": [
+        {
+          "eur": 110.0,
+          "razdoblje": "mjesecno",
+          "mjeseci": null,
+          "za": "učenici",
+          "do": false
+        },
+        {
+          "eur": 150.0,
+          "razdoblje": "mjesecno",
+          "mjeseci": null,
+          "za": "studenti",
+          "do": false
+        }
+      ],
       "iznos_je_fond": false,
-      "rok_tekst": null,
-      "uvjeti": null,
-      "upute_za_prijavu": null,
-      "napomena": null,
-      "poveznica_natjecaj": null,
-      "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-09-29T11:36",
-      "_ima_otvoren": false,
+      "rok_tekst": "30. listopada 2026. godine za učenike; 20. studenog 2026. godine za studente",
+      "uvjeti": "Stipendije se dodjeljuju prema kriterijima za stipendiranje učenika/studenata temeljem imovinskog statusa, izvrsnih učenika/studenata i sportaša učenika/studenata.",
+      "upute_za_prijavu": "Popuniti Obrazac prijave za dodjelu stipendije za 2026./2027. godinu | Dostaviti putem digitalnih obrazaca na https://kastav.otvorenigrad.hr/ | Dostaviti osobno na Trg sv. Lucije 1, 51215 Kastav | Dostaviti putem elektronske pošte na info@kastav.hr",
+      "napomena": "Dobitnici stipendija potpisat će ugovor o stipendiranju, a tada će im se isplatiti sredstva od početka školske, odnosno akademske godine. Kontakt: Andrea Bralić, 051/691-016, andrea.bralic@kastav.hr",
+      "poveznica_natjecaj": "https://kastav.hr/natjecaj-za-dodjelu-ucenickih-i-studentskih-stipendija-grada-kastva-3/",
+      "status": "OTVORENO (rok 2026-10-30)",
+      "zadnje_provjereno": "2026-10-01T11:00",
+      "_ima_otvoren": true,
       "_dopuna_pokusana": false
     }
   },
@@ -1653,7 +1681,7 @@
     }
   },
   "https://www.vukovar.hr/gradske-vijesti/344-upravni-odjel-za-obrazovanje-sport-i-branitelje": {
-    "hash": "v3:3d41d675b3f82c56",
+    "hash": "v3:05831c17d46af60a",
     "result": {
       "naziv": "Grad Vukovar — natječaji za stipendije",
       "url": "https://www.vukovar.hr/gradske-vijesti/344-upravni-odjel-za-obrazovanje-sport-i-branitelje",
@@ -1668,12 +1696,13 @@
       "napomena": null,
       "poveznica_natjecaj": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-09-16T11:17",
-      "_ima_otvoren": false
+      "zadnje_provjereno": "2026-10-01T11:01",
+      "_ima_otvoren": false,
+      "_dopuna_pokusana": false
     }
   },
   "https://www.icm-vukovar.info/category/stipendije/": {
-    "hash": "v3:39df41aaef8b4c84",
+    "hash": "v3:a21c017c186d6f7e",
     "result": {
       "naziv": "Info centar za mlade Vukovar — stipendije",
       "url": "https://www.icm-vukovar.info/category/stipendije/",
@@ -1685,16 +1714,16 @@
       "rok_tekst": null,
       "uvjeti": null,
       "upute_za_prijavu": null,
-      "napomena": "Ovo je popisna stranica s linkovima na različite natječaje. Nema konkretnog otvorenog natječaja za trenutnu prijavu, samo kratke najave s poveznicama na detaljnije informacije.",
+      "napomena": "Ovo je arhivna stranica s popisom više stipendija. Bez pristupa pojedinim natječajima (klikanje na 'Pročitaj više') nije moguće odrediti tko je trenutno aktivno natjecaj s jasnim rokom i uvjetima.",
       "poveznica_natjecaj": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-09-29T11:37",
+      "zadnje_provjereno": "2026-10-01T11:01",
       "_ima_otvoren": false,
       "_dopuna_pokusana": false
     }
   },
   "https://sisak.hr/kategorija/natjecaji-i-javni-pozivi/": {
-    "hash": "v3:99daddbeff2867a1",
+    "hash": "v3:c5df949f957ff02f",
     "result": {
       "naziv": "Grad Sisak — natječaji i javni pozivi",
       "url": "https://sisak.hr/kategorija/natjecaji-i-javni-pozivi/",
@@ -1709,8 +1738,9 @@
       "napomena": null,
       "poveznica_natjecaj": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-09-24T12:44",
-      "_ima_otvoren": false
+      "zadnje_provjereno": "2026-10-01T11:02",
+      "_ima_otvoren": false,
+      "_dopuna_pokusana": false
     }
   },
   "https://www.cakovec.hr/kategorija/gradske-vijesti/stipendije/": {
@@ -1797,7 +1827,7 @@
     }
   },
   "https://www.unios.hr/category/natjecaji/": {
-    "hash": "v3:421a53bbdf54a28a",
+    "hash": "v3:bec2a1b69aadd9e2",
     "result": {
       "naziv": "Sveučilište u Osijeku — stipendije i potpore",
       "url": "https://www.unios.hr/category/natjecaji/",
@@ -1812,13 +1842,13 @@
       "napomena": null,
       "poveznica_natjecaj": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-09-29T11:38",
+      "zadnje_provjereno": "2026-10-01T11:03",
       "_ima_otvoren": false,
       "_dopuna_pokusana": false
     }
   },
   "https://icm-osijek.info/natjecaji": {
-    "hash": "v3:48ff2a0f76ffb9bf",
+    "hash": "v3:01071e3b97536d1a",
     "result": {
       "naziv": "Info centar za mlade Osijek — natječaji",
       "url": "https://icm-osijek.info/natjecaji",
@@ -1827,13 +1857,13 @@
       "iznos": null,
       "iznosi": [],
       "iznos_je_fond": false,
-      "rok_tekst": "do 31. srpnja 2026. godine",
+      "rok_tekst": "31. srpnja 2026.",
       "uvjeti": "Stipendije se dodjeljuju hrvatskim državljanima s visokom stručnom spremom (završen najmanje četverogodišnji studij ili petogodišnji diplomski studij), iskustvom u vođenju i pet godina radnog iskustva u jednom od navedenih područja te izvrsnim znanjem engleskoga jezika. Kandidati trebaju podnijeti dokaz o zaposlenju u RH.",
-      "upute_za_prijavu": "Ispuniti online prijavu na mrežnoj stranici Veleposlanstva SAD-a | Dostaviti dodatnu dokumentaciju elektronički uz prijavu | Rok za dostavu dokumentacije je 31. srpnja 2026. | Za pitanja obratiti se na navedenu e-mail adresu",
-      "napomena": "Stipendije nisu namijenjene za razdoblje studija niti omogućuju stjecanje akademskoga naziva u SAD-u.",
+      "upute_za_prijavu": "Pronađite više informacija i poveznicu za online prijavu na mrežnoj stranici Veleposlanstva SAD-a | Ispunite online prijavu | Dostavite dodatnu dokumentaciju elektronički uz prijavu do 31. srpnja 2026. | Za pitanja obratite se na navedenu e-mail adresu",
+      "napomena": "Stipendije nisu namijenjene za razdoblje studija niti omogućuju stjecanje akademskoga naziva u SAD-u. Razmatrat će se samo prijave s potpunom dokumentacijom.",
       "poveznica_natjecaj": "https://icm-osijek.info/natjecaji/f-stipendije",
       "status": "ROK ISTEKAO (2026-07-31) — čeka se novi ciklus",
-      "zadnje_provjereno": "2026-09-29T11:38",
+      "zadnje_provjereno": "2026-10-01T11:03",
       "_ima_otvoren": true,
       "_dopuna_pokusana": true
     }
@@ -1859,7 +1889,7 @@
     }
   },
   "https://zapresic.hr/dokumenti/": {
-    "hash": "v3:d5aaf651c65ea0ed",
+    "hash": "v3:d8d6b3ee5a118d95",
     "result": {
       "naziv": "Grad Zaprešić — dokumenti i natječaji",
       "url": "https://zapresic.hr/dokumenti/",
@@ -1869,14 +1899,14 @@
       "iznosi": [
         {
           "eur": 100.0,
-          "razdoblje": "mjesecno",
+          "razdoblje": null,
           "mjeseci": 12,
-          "za": "ucenici",
+          "za": "učenici",
           "do": false
         },
         {
           "eur": 150.0,
-          "razdoblje": "mjesecno",
+          "razdoblje": null,
           "mjeseci": 12,
           "za": "studenti",
           "do": false
@@ -1884,17 +1914,18 @@
       ],
       "iznos_je_fond": false,
       "rok_tekst": "do 24. listopada",
-      "uvjeti": "Stipendije se dodjeljuju učenicima srednjih škola i studentima za školsku/akademsku godinu 2025./2026. Dodijelit će se ukupno 60 stipendija, od čega 28 učenicima srednjih škola, a 32 studentima.",
-      "upute_za_prijavu": "Preuzmi Prijavni obrazac | Ispuni obrazac | Dostavi zahtjev do 24. listopada",
-      "napomena": "Stipendija se dodjeljuje za dvanaest mjeseci, počevši od 1. listopada 2025. godine.",
+      "uvjeti": "Stipendija se dodjeljuje učenicima srednjih škola i studentima za školsku/akademsku godinu 2025./2026.",
+      "upute_za_prijavu": "Prikupiti prijavni obrazac | Ispuniti zahtjev za dodjelu stipendije | Dostaviti do 24. listopada",
+      "napomena": "Dodijelit će se ukupno 60 stipendija (28 učenicima, 32 studentima). Stipendija se dodjeljuje za dvanaest mjeseci, počevši od 1. listopada 2025. godine.",
       "poveznica_natjecaj": "https://zapresic.hr/dokumenti/natjecaj-za-dodjelu-stipendija-ucenicima-srednjih-skola-i-studentima/",
       "status": "OTVORENO (rok 2026-10-24)",
-      "zadnje_provjereno": "2026-09-26T11:28",
-      "_ima_otvoren": true
+      "zadnje_provjereno": "2026-10-01T11:04",
+      "_ima_otvoren": true,
+      "_dopuna_pokusana": false
     }
   },
   "https://www.dugoselo.hr/": {
-    "hash": "v3:445b862c17c77f0a",
+    "hash": "v3:f52ca5c4f5983e82",
     "result": {
       "naziv": "Grad Dugo Selo — natječaji",
       "url": "https://www.dugoselo.hr/",
@@ -1909,8 +1940,9 @@
       "napomena": null,
       "poveznica_natjecaj": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-09-26T11:29",
-      "_ima_otvoren": false
+      "zadnje_provjereno": "2026-10-01T11:04",
+      "_ima_otvoren": false,
+      "_dopuna_pokusana": false
     }
   },
   "https://ivanec.hr/dokumenti/43-proracun/297-stipendija": {
@@ -1934,7 +1966,7 @@
     }
   },
   "https://www.lepoglava.hr/": {
-    "hash": "v3:1c8379dde6d0b559",
+    "hash": "v3:33290cdfc834c195",
     "result": {
       "naziv": "Grad Lepoglava — natječaji",
       "url": "https://www.lepoglava.hr/",
@@ -1949,7 +1981,7 @@
       "napomena": null,
       "poveznica_natjecaj": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-09-28T11:19",
+      "zadnje_provjereno": "2026-10-01T11:04",
       "_ima_otvoren": false,
       "_dopuna_pokusana": false
     }
@@ -1975,7 +2007,7 @@
     }
   },
   "https://grad-svetanedelja.hr/": {
-    "hash": "v3:6f5c98852ec7151d",
+    "hash": "v3:bb040bfc58b2f5ca",
     "result": {
       "naziv": "Grad Sveta Nedelja — obavijesti i natječaji",
       "url": "https://grad-svetanedelja.hr/",
@@ -1990,8 +2022,9 @@
       "napomena": null,
       "poveznica_natjecaj": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-09-26T11:30",
-      "_ima_otvoren": false
+      "zadnje_provjereno": "2026-10-01T11:05",
+      "_ima_otvoren": false,
+      "_dopuna_pokusana": false
     }
   },
   "https://vrbovec.hr/": {
@@ -2012,7 +2045,7 @@
     }
   },
   "https://zelina.hr/": {
-    "hash": "v3:0dafba520369d522",
+    "hash": "v3:a4d47bd81cebd8f4",
     "result": {
       "naziv": "Grad Sveti Ivan Zelina — natječaji",
       "url": "https://zelina.hr/",
@@ -2027,13 +2060,13 @@
       "napomena": null,
       "poveznica_natjecaj": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-09-29T11:39",
+      "zadnje_provjereno": "2026-10-01T11:06",
       "_ima_otvoren": false,
       "_dopuna_pokusana": false
     }
   },
   "https://opcina-viskovo.hr/": {
-    "hash": "v3:22f58f3f803e45a6",
+    "hash": "v3:d68a9a1e702793bd",
     "result": {
       "naziv": "Općina Viškovo — natječaji za stipendije",
       "url": "https://opcina-viskovo.hr/",
@@ -2048,13 +2081,13 @@
       "napomena": null,
       "poveznica_natjecaj": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-09-29T11:39",
+      "zadnje_provjereno": "2026-10-01T11:06",
       "_ima_otvoren": false,
       "_dopuna_pokusana": false
     }
   },
   "https://kostrena.hr/": {
-    "hash": "v3:c0cf8ae1e2ddd79c",
+    "hash": "v3:bef954a2561012e6",
     "result": {
       "naziv": "Općina Kostrena — natječaji",
       "url": "https://kostrena.hr/",
@@ -2069,13 +2102,13 @@
       "napomena": null,
       "poveznica_natjecaj": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-09-28T14:55",
+      "zadnje_provjereno": "2026-10-01T11:06",
       "_ima_otvoren": false,
       "_dopuna_pokusana": false
     }
   },
   "https://www.bakar.hr/obavijesti-bakar-2/": {
-    "hash": "v3:62e39793d6dc9afa",
+    "hash": "v3:234b03a2a69e639b",
     "result": {
       "naziv": "Grad Bakar — obavijesti",
       "url": "https://www.bakar.hr/obavijesti-bakar-2/",
@@ -2090,7 +2123,7 @@
       "napomena": null,
       "poveznica_natjecaj": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-09-29T11:40",
+      "zadnje_provjereno": "2026-10-01T11:06",
       "_ima_otvoren": false,
       "_dopuna_pokusana": false
     }
@@ -2469,7 +2502,7 @@
     }
   },
   "https://mali-losinj.hr/poduzetnici/potpore-i-stipendije/lista-studentske-stipendije/": {
-    "hash": "v3:08bfad5d6b75ff35",
+    "hash": "v3:b3fef4d30cb207f4",
     "result": {
       "naziv": "Grad Mali Lošinj — studentske stipendije",
       "url": "https://mali-losinj.hr/poduzetnici/potpore-i-stipendije/lista-studentske-stipendije/",
@@ -2484,13 +2517,13 @@
       "napomena": null,
       "poveznica_natjecaj": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-09-29T11:36",
+      "zadnje_provjereno": "2026-10-01T11:01",
       "_ima_otvoren": false,
       "_dopuna_pokusana": false
     }
   },
   "https://grad-vinkovci.hr/": {
-    "hash": "v3:7fdfce09160539e7",
+    "hash": "v3:6e7bd78177b87e11",
     "result": {
       "naziv": "Grad Vinkovci — natječaji",
       "url": "https://grad-vinkovci.hr/",
@@ -2505,28 +2538,28 @@
       "napomena": null,
       "poveznica_natjecaj": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-09-29T11:38",
+      "zadnje_provjereno": "2026-10-01T11:02",
       "_ima_otvoren": false,
       "_dopuna_pokusana": false
     }
   },
   "https://vrbovec.hr": {
-    "hash": "v3:8ab08bf47e7763e0",
+    "hash": "v3:e1d640f9950901e4",
     "result": {
       "naziv": "Grad Vrbovec — obavijesti i natječaji",
       "url": "https://vrbovec.hr",
       "kategorija": "Grad",
-      "naslov_natjecaja": null,
+      "naslov_natjecaja": "Jednokratna potpora za učenike srednjih škola",
       "iznos": null,
       "iznosi": [],
       "iznos_je_fond": false,
       "rok_tekst": null,
-      "uvjeti": null,
-      "upute_za_prijavu": null,
-      "napomena": null,
+      "uvjeti": "Učenici srednjih škola upisani u školsku 2026./2027. godinu s prebivalištem na području grada Vrbovca.",
+      "upute_za_prijavu": "Popuniti Obrazac Zahtjeva (online ili preuzeti sa www.vrbovec.hr) | Dostaviti potrebnu dokumentaciju | Javiti se na Javni poziv",
+      "napomena": "Stranica nema specificirane iznose niti konkretan rok prijave. Tekst je opća najava natječaja bez aktivnog roka.",
       "poveznica_natjecaj": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-09-29T11:39",
+      "zadnje_provjereno": "2026-10-01T11:05",
       "_ima_otvoren": false,
       "_dopuna_pokusana": false
     }
@@ -2696,7 +2729,7 @@
     }
   },
   "https://www.hops.hr/vijesti": {
-    "hash": "v3:50bbf80ab43f3ac9",
+    "hash": "v3:d782fa41d5e385f1",
     "result": {
       "naziv": "HOPS — vijesti i natječaji za stipendije",
       "url": "https://www.hops.hr/vijesti",
@@ -2711,12 +2744,13 @@
       "napomena": null,
       "poveznica_natjecaj": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-09-15T22:14",
-      "_ima_otvoren": false
+      "zadnje_provjereno": "2026-10-01T11:07",
+      "_ima_otvoren": false,
+      "_dopuna_pokusana": false
     }
   },
   "https://www.efzg.unizg.hr/za-studente-29717/stipendije-prakse-i-poslovi/29745": {
-    "hash": "v3:3c08051079d0cd3b",
+    "hash": "v3:302b40cf5e70f025",
     "result": {
       "naziv": "EFZG Karijere — stipendije, prakse i poslovi",
       "url": "https://www.efzg.unizg.hr/za-studente-29717/stipendije-prakse-i-poslovi/29745",
@@ -2731,8 +2765,9 @@
       "napomena": null,
       "poveznica_natjecaj": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-09-15T22:14",
-      "_ima_otvoren": false
+      "zadnje_provjereno": "2026-10-01T11:07",
+      "_ima_otvoren": false,
+      "_dopuna_pokusana": false
     }
   },
   "https://cpsrk.foi.hr/": {
@@ -2818,22 +2853,22 @@
     }
   },
   "https://www.ampeu.hr/natjecaji": {
-    "hash": "v3:05b5c38ca155967e",
+    "hash": "v3:d5eab18453b7d47f",
     "result": {
       "naziv": "AMPEU — Erasmus+ i programi mobilnosti",
       "url": "https://www.ampeu.hr/natjecaji",
       "kategorija": "Međunarodno",
-      "naslov_natjecaja": "Chevening stipendije za diplomski studij u UK-u",
+      "naslov_natjecaja": "Chevening stipendije za diplomski studij",
       "iznos": null,
       "iznosi": [],
       "iznos_je_fond": false,
       "rok_tekst": "do 6. listopada 2026. u 13:00 sati po hrvatskom vremenu",
-      "uvjeti": "Za Chevening se mogu prijaviti osobe koje imaju završen preddiplomski studij i najmanje dvije godine radnog iskustva stečenog nakon završetka studija. Od kandidata se očekuje da jasno obrazlože zašto žele studirati u UK-u, što žele postići u svojoj karijeri i kako će stečeno znanje nakon povratka primijeniti u Hrvatskoj.",
-      "upute_za_prijavu": "Odaberite područje studiranja | Prijavite se na tri diplomska studijska programa u Ujedinjenoj Kraljevini | Pogledajte uvjete i postupak prijave na službenoj stranici programa Chevening",
-      "napomena": "Stipendija je potpuno financirana i uključuje jednogodišnji diplomski studij; stipendisti se moraju vratiti u Hrvatsku na najmanje dvije godine nakon završetka studija.",
+      "uvjeti": "Kandidati moraju imati završen preddiplomski studij i najmanje dvije godine radnog iskustva stečenog nakon završetka studija. Od kandidata se očekuje da jasno obrazlože zašto žele studirati u UK-u.",
+      "upute_za_prijavu": "Kandidati sami biraju područje studiranja | Prijavljuju se na tri diplomska studijska programa u Ujedinjenoj Kraljevini | Prijave dostupne na službenoj stranici programa Chevening",
+      "napomena": "Chevening je program koji pokriva potpuno financiran jednogodišnji diplomski studij na UK sveučilištima. Stipendisti su obvezni vratiti se u Hrvatsku na najmanje dvije godine nakon završetka studija.",
       "poveznica_natjecaj": "https://www.ampeu.hr/natjecaji/otvorene-prijave-za-chevening-stipendije-za-studij-u-ujedinjenoj-kraljevini-velike-britanije-i-sjeverne-irske",
-      "status": "OTVORENO — rok za 8 dana (2026-10-06)",
-      "zadnje_provjereno": "2026-09-28T14:45",
+      "status": "OTVORENO — rok za 5 dana (2026-10-06)",
+      "zadnje_provjereno": "2026-10-01T10:51",
       "_ima_otvoren": true,
       "_dopuna_pokusana": true
     }
@@ -3049,28 +3084,28 @@
     }
   },
   "https://www.kraljevica.hr/javni-pozivi/": {
-    "hash": "v3:dcc879ca0679cee6",
+    "hash": "v3:2de6f498e9973f29",
     "result": {
       "naziv": "Grad Kraljevica — stipendije",
       "url": "https://www.kraljevica.hr/javni-pozivi/",
       "kategorija": "Grad",
-      "naslov_natjecaja": "Nagrade i stipendije učenicima i studentima",
+      "naslov_natjecaja": "Stipendije učenicima i studentima",
       "iznos": null,
       "iznosi": [],
       "iznos_je_fond": false,
-      "rok_tekst": "do 12.10.2026.",
-      "uvjeti": "Stipendije za učenike i studente za školsku-akademsku godinu 2026./2027., te nagrade za učenike za postignut uspjeh u školskoj godini 2025./2026.",
-      "upute_za_prijavu": null,
-      "napomena": "Natječaj je objavljen na stranici Grada Kraljevica; za detaljne uvjete i upute potrebno je preuzeti priložene dokumente (Natječaj stipendije 2026. i Obrazac-stipendije 2026.).",
+      "rok_tekst": "12.10.2026.",
+      "uvjeti": "Učenici i studenti koji se prijavljuju za dodjelu stipendija za školsku-akademsku godinu 2026./2027.",
+      "upute_za_prijavu": "Preuzeti natječaj i obrazac iz privitka | Ispuniti obrazac za stipendije | Prijaviti se do navedenog roka",
+      "napomena": "Istovremeno je raspisan i poseban natječaj za dodjelu nagrada učenicima za postignut uspjeh u školskoj godini 2025./2026.",
       "poveznica_natjecaj": "https://www.kraljevica.hr/raspisan-natjecaj-za-dodjelu-nagrada-i-stipendija-ucenicima-i-studentima-3/",
-      "status": "OTVORENO — rok za 14 dana (2026-10-12)",
-      "zadnje_provjereno": "2026-09-28T14:58",
+      "status": "OTVORENO — rok za 11 dana (2026-10-12)",
+      "zadnje_provjereno": "2026-10-01T11:08",
       "_ima_otvoren": true,
       "_dopuna_pokusana": true
     }
   },
   "https://lipik.hr/natjecaji-i-javni-pozivi/": {
-    "hash": "v3:4f7895a7f9e7dc91",
+    "hash": "v3:e39b086fb08ca39d",
     "result": {
       "naziv": "Grad Lipik — stipendije",
       "url": "https://lipik.hr/natjecaji-i-javni-pozivi/",
@@ -3085,8 +3120,9 @@
       "napomena": null,
       "poveznica_natjecaj": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-09-17T13:41",
-      "_ima_otvoren": false
+      "zadnje_provjereno": "2026-10-01T11:09",
+      "_ima_otvoren": false,
+      "_dopuna_pokusana": false
     }
   },
   "https://mursko-sredisce.hr/stipendije/": {
@@ -3111,7 +3147,7 @@
     }
   },
   "https://oroslavje.hr/stipendije/": {
-    "hash": "v3:ba67be00b0a41801",
+    "hash": "v3:da19fce4156aa309",
     "result": {
       "naziv": "Grad Oroslavje — stipendije",
       "url": "https://oroslavje.hr/stipendije/",
@@ -3123,16 +3159,16 @@
       "rok_tekst": null,
       "uvjeti": null,
       "upute_za_prijavu": null,
-      "napomena": null,
+      "napomena": "Stranica je arhivska - sadrži samo PDF-e i dokumente iz prethodnih godina (2025., 2024., 2023., itd.). Nema jasan natječaj s rokom prijave. Tekst sadrži samo datoteke i navigaciju kolačića.",
       "poveznica_natjecaj": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-09-29T11:42",
+      "zadnje_provjereno": "2026-10-01T11:10",
       "_ima_otvoren": false,
       "_dopuna_pokusana": false
     }
   },
   "https://pleternica.hr/natjecaji/": {
-    "hash": "v3:e242677811df6f0d",
+    "hash": "v3:fee0a1b22e34f4d0",
     "result": {
       "naziv": "Grad Pleternica — stipendije",
       "url": "https://pleternica.hr/natjecaji/",
@@ -3142,7 +3178,7 @@
       "iznosi": [
         {
           "eur": 100.0,
-          "razdoblje": "godisnje",
+          "razdoblje": "jednokratno",
           "mjeseci": null,
           "za": "studenti",
           "do": false
@@ -3150,32 +3186,33 @@
       ],
       "iznos_je_fond": false,
       "rok_tekst": "8. prosinca 2025. godine",
-      "uvjeti": "Studenti državljani Republike Hrvatske sa stalnim prebivalištem na području Grada Pleternice najmanje 6 mjeseci prije podnošenja zahtjeva, koji studiraju izvan područja Požesko-slavonske županije, nemaju odobreni kredit ili druge stipendije, i imaju status redovitog studenta.",
-      "upute_za_prijavu": "Registracija u sustavu ePrijave | Unos podataka o podnositelju i odabir natječaja | Popunjavanje prijave i učitavanje skenirane dokumentacije (.pdf i .jpeg) | Zaključivanje prijave klikom na gumb \"Zaključi prijavu\" | Ispis izvezene prijave, potpisivanje i dostava na adresu Grad Pleternica, Povjerenstvo za dodjelu stipendija, Trg hrvatskih branitelja 1, 34310 Pleternica",
-      "napomena": "Natječaj je za akademsku godinu 2025./2026. Dodjeljuje se 13 stipendija. Sva dokumentacija mora biti starija od tri mjeseca od dana raspisivanja natječaja. Dokumentacija se učitava kroz sustav ePrijave, nije potrebna u tiskanom obliku.",
+      "uvjeti": "Studenti državljani Republike Hrvatske sa stalnim prebivalištem na području Grada Pleternice najmanje 6 mjeseci prije prijave, koji studiraju izvan Požesko-slavonske županije, nemaju odobreni kredit ili stipendiju i imaju status redovitog studenta.",
+      "upute_za_prijavu": "Registracija fizičke osobe u sustavu ePrijave | Unos podataka o podnositelju i odabir natječaja | Popunjavanje prijave i učitavanje skeniranih dokumenata (.pdf i .jpeg) | Zaključivanje prijave klikom na gumb 'Zaključi prijavu' | Ispis zahtjeva i slanje osobno ili poštom na adresu Grada Pleternice",
+      "napomena": "Dokumentacija se učitava kroz sustav ePrijave u obliku skeniranih dokumenata i nije potrebno slati u tiskanom obliku. Za poteškoće s registracijom kontaktirati grad@pleternica.hr.",
       "poveznica_natjecaj": "https://pleternica.hr/natjecaji/javni-natjecaj-za-dodjelu-stipendija-studentima-s-podrucja-grada-pleternice-za-akademsku-godinu-2025-2026/",
       "status": "ROK ISTEKAO (2025-12-08) — čeka se novi ciklus",
-      "zadnje_provjereno": "2026-09-17T13:43",
-      "_ima_otvoren": true
+      "zadnje_provjereno": "2026-10-01T11:10",
+      "_ima_otvoren": true,
+      "_dopuna_pokusana": false
     }
   },
   "https://ploce.hr/stipendije/": {
-    "hash": "v3:a0ec5881f97106f4",
+    "hash": "v3:de15e3763e64b2c1",
     "result": {
       "naziv": "Grad Ploče — stipendije",
       "url": "https://ploce.hr/stipendije/",
       "kategorija": "Grad",
-      "naslov_natjecaja": "Stipendije za učenike i studente",
+      "naslov_natjecaja": "Stipendije za 2025.-2026",
       "iznos": null,
       "iznosi": [],
       "iznos_je_fond": false,
       "rok_tekst": null,
-      "uvjeti": "Učenici i studenti s područja Grada Ploča, uključujući one s invaliditetom.",
-      "upute_za_prijavu": "Preuzmi prijavni obrazac | Popuni obrazac i priložene dokumente | Podnesi prijavu prema uputama | Čekaj obavijest o dodjeli stipendije",
-      "napomena": "Postoje dva odvojena javna natječaja: jedan za redovne učenike i studente, drugi za učenike i studente s invaliditetom. Prijedlog liste objavljen 16. prosinca 2025., konačna odluka 23. prosinca 2025.",
+      "uvjeti": "Javni natječaj za dodjelu stipendija studentima s područja Grada Ploča za akademsku godinu 2025./2026. i za učenicima i studentima s invaliditetom s područja Grada Ploča za akademsku godinu 2025./2026.",
+      "upute_za_prijavu": "Preuzmi Prijavni obrazac | Provjeri Upute za podnošenje prijave | Ispuni Izjavu o članovima zajedničkog kućanstva | Podnesi prijavu",
+      "napomena": "Dva odvojena natječaja: jedan za studente i jedan za učenike i studente s invaliditetom. Dostupni su prijedlozi lista i odluke o dodjeli, što može ukazivati da je ovo obavijest o rezultatima.",
       "poveznica_natjecaj": "https://ploce.hr/2025/11/24/stipendije-za-2025-2026/",
       "status": "PROVJERITI RUČNO (rok nije jasno parsiran)",
-      "zadnje_provjereno": "2026-09-29T11:43",
+      "zadnje_provjereno": "2026-10-01T11:11",
       "_ima_otvoren": true,
       "_dopuna_pokusana": false
     }
@@ -3242,49 +3279,49 @@
     }
   },
   "https://zupanja.hr/stipendije-grada-zupanja/": {
-    "hash": "v3:89a614fd2e0c78f8",
+    "hash": "v3:dcacbaf0612be89c",
     "result": {
       "naziv": "Grad Županja — stipendije",
       "url": "https://zupanja.hr/stipendije-grada-zupanja/",
       "kategorija": "Grad",
-      "naslov_natjecaja": "Stipendije Grada Županja 2025./2026",
+      "naslov_natjecaja": "Stipendije grada Županja",
       "iznos": null,
       "iznosi": [],
       "iznos_je_fond": false,
       "rok_tekst": "14. studenog 2025. godine",
       "uvjeti": null,
-      "upute_za_prijavu": "Registracija na SOM Natječaj aplikaciji | Odabir natječaja iz popisa | Popunjavanje obaveznih polja označenih crvenom zvjezdicom | Učitavanje potrebnih dokumenata | Slanje prijave",
-      "napomena": "Prijave se vrše isključivo putem SOM Natječaj aplikacije. Detaljne upute dostupne u PDF-u sa stranice. Za tehnička pitanja kontakt: podrska@som-system.com",
+      "upute_za_prijavu": "Registracija na SOM Natječaj aplikaciji | Odabir natječaja iz popisa | Popunjavanje obaveznih polja | Učitavanje potrebnih dokumenata | Slanje prijave",
+      "napomena": "Prijave se vrše isključivo putem SOM Natječaj aplikacije. Dostupni su PDF dokumenti s odlukama o visinama stipendija za I godinu i više godina studija, te popis deficitarnih zanimanja. Iznosi nisu navedeni u tekstu stranice niti u prikazanom PDF-u s uputama.",
       "poveznica_natjecaj": null,
       "status": "ROK ISTEKAO (2025-11-14) — čeka se novi ciklus",
-      "zadnje_provjereno": "2026-09-29T11:44",
+      "zadnje_provjereno": "2026-10-01T11:12",
       "_ima_otvoren": true,
       "_dopuna_pokusana": true
     }
   },
   "https://www.smz.hr/natj/javni": {
-    "hash": "v3:ae3c2eaec12ecf8e",
+    "hash": "v3:b7a367f27c2d1672",
     "result": {
       "naziv": "Sisačko-moslavačka županija — natječaji i javni pozivi",
       "url": "https://www.smz.hr/natj/javni",
       "kategorija": "Županija",
-      "naslov_natjecaja": "Stipendije redovitim studentima SMŽ",
+      "naslov_natjecaja": "Stipendije redovitim studentima SMŽ 2025./2026",
       "iznos": null,
       "iznosi": [],
       "iznos_je_fond": false,
       "rok_tekst": "12 dana",
-      "uvjeti": "Redoviti studenti s područja Sisačko-moslavačke županije za akademsku godinu 2025./2026.",
-      "upute_za_prijavu": "Prijavite se on-line preko elektroničkog obrasca na www.smz.hr | Isprintajte PDF obrazac s kontrolnim brojem i vlastoručno ga potpišite | Pošaljite potpisani obrazac s dokumentacijom poštom u natječajnom roku (12 dana) na Rimska 28, 44000 SISAK s naznakom 'NE OTVARAJ'",
-      "napomena": "Rok za slanje prijava je 12 dana od objave. Odluka o dodjeli stipendija donesena je 17.12.2025.",
+      "uvjeti": "Redoviti studenti/ice s područja Sisačko-moslavačke županije.",
+      "upute_za_prijavu": "Prijava on-line putem elektroničkog obrasca na www.smz.hr | Ispisati PDF obrazac s kontrolnim brojem | Vlastoručno potpisati obrazac | Poslati poštom s dokumentacijom u natječajnom roku na određenu adresu",
+      "napomena": "Rok prijave od 12 dana; Odluka o dodjeli stipendija do 17.12.2025.",
       "poveznica_natjecaj": "https://www.smz.hr/natj/javni/107-smz/njp/prosvjeta-kultura-sport/11755-natjecaj-za-dodjelu-stipendija-redovitim-studentima-icama-s-podrucja-smz-za-akademsku-godinu-2025-2026",
       "status": "PROVJERITI RUČNO (rok nije jasno parsiran)",
-      "zadnje_provjereno": "2026-09-28T15:01",
+      "zadnje_provjereno": "2026-10-01T11:12",
       "_ima_otvoren": true,
       "_dopuna_pokusana": true
     }
   },
   "https://www.sibensko-kninska-zupanija.hr/pozivi-i-natjecaji": {
-    "hash": "v3:6442176f661d803d",
+    "hash": "v3:2246ad173de76885",
     "result": {
       "naziv": "Šibensko-kninska županija — pozivi i natječaji",
       "url": "https://www.sibensko-kninska-zupanija.hr/pozivi-i-natjecaji",
@@ -3299,7 +3336,7 @@
       "napomena": null,
       "poveznica_natjecaj": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-09-29T11:44",
+      "zadnje_provjereno": "2026-10-01T11:13",
       "_ima_otvoren": false,
       "_dopuna_pokusana": false
     }
@@ -3326,7 +3363,7 @@
     }
   },
   "https://medjimurska-zupanija.hr/natjecaji-i-pozivi/": {
-    "hash": "v3:2ca04675b875742a",
+    "hash": "v3:79f419d0c18430d8",
     "result": {
       "naziv": "Međimurska županija — natječaji i pozivi",
       "url": "https://medjimurska-zupanija.hr/natjecaji-i-pozivi/",
@@ -3341,7 +3378,240 @@
       "napomena": null,
       "poveznica_natjecaj": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-09-29T11:44",
+      "zadnje_provjereno": "2026-10-01T11:12",
+      "_ima_otvoren": false,
+      "_dopuna_pokusana": false
+    }
+  },
+  "https://www.vpz.hr/natjecaji/": {
+    "hash": "v3:f6a5edff5adcd8b5",
+    "result": {
+      "naziv": "Virovitičko-podravska županija — natječaji",
+      "url": "https://www.vpz.hr/natjecaji/",
+      "kategorija": "Županija",
+      "naslov_natjecaja": null,
+      "iznos": null,
+      "iznosi": [],
+      "iznos_je_fond": false,
+      "rok_tekst": null,
+      "uvjeti": null,
+      "upute_za_prijavu": null,
+      "napomena": null,
+      "poveznica_natjecaj": null,
+      "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
+      "zadnje_provjereno": "2026-10-01T10:53",
+      "_ima_otvoren": false,
+      "_dopuna_pokusana": false
+    }
+  },
+  "https://www.porec.hr/prva.aspx?stranica=234": {
+    "hash": "v3:0cef865d619e9398",
+    "result": {
+      "naziv": "Grad Poreč — stipendije i subvencije",
+      "url": "https://www.porec.hr/prva.aspx?stranica=234",
+      "kategorija": "Grad",
+      "naslov_natjecaja": "Učeničke stipendije školska 2026./2027",
+      "iznos": "450 eura mjesečno za deficitarna zanimanja; socijalni program i invaliditet po posebnim uvjetima",
+      "iznosi": [
+        {
+          "eur": 450.0,
+          "razdoblje": "mjesecno",
+          "mjeseci": null,
+          "za": "učenici deficitarna zanimanja",
+          "do": false
+        }
+      ],
+      "iznos_je_fond": false,
+      "rok_tekst": "12. listopada 2026. godine",
+      "uvjeti": "Učenici koji se školuju za deficitarna zanimanja (posebno medicinska sestra/medicinski tehničar), učenici s invaliditetom i učenici kojima je potrebna socijalna podrška.",
+      "upute_za_prijavu": "Preuzmi obrazac sa stranice Grada | Ispuni obrazac | Podnesi molbu osobno u pisarnici Grada Poreča-Parenzo, Obala m. Tita 4 | Kontaktiraj Upravni odjel za društvene djelatnosti za informacije",
+      "napomena": "Stipendija se može nastaviti primati u narednim godinama pod uvjetom uspješnog završetka školske godine i redovitog upisa sljedeće. Pet stipendija za deficitarna zanimanja, tri socijalne stipendije, jedna za učenika s invaliditetom.",
+      "poveznica_natjecaj": null,
+      "status": "OTVORENO — rok za 11 dana (2026-10-12)",
+      "zadnje_provjereno": "2026-10-01T10:54",
+      "_ima_otvoren": true,
+      "_dopuna_pokusana": false
+    }
+  },
+  "https://grad-metkovic.hr/kategorija/natjecaji/": {
+    "hash": "v3:34611fc1d66b5f1a",
+    "result": {
+      "naziv": "Grad Metković — natječaji",
+      "url": "https://grad-metkovic.hr/kategorija/natjecaji/",
+      "kategorija": "Grad",
+      "naslov_natjecaja": null,
+      "iznos": null,
+      "iznosi": [],
+      "iznos_je_fond": false,
+      "rok_tekst": null,
+      "uvjeti": null,
+      "upute_za_prijavu": null,
+      "napomena": null,
+      "poveznica_natjecaj": null,
+      "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
+      "zadnje_provjereno": "2026-10-01T10:57",
+      "_ima_otvoren": false,
+      "_dopuna_pokusana": false
+    }
+  },
+  "https://ivanic-grad.hr/javni-natjecaji/u-tijeku": {
+    "hash": "v3:04cfac8e5f06eae8",
+    "result": {
+      "naziv": "Grad Ivanić-Grad — javni natječaji",
+      "url": "https://ivanic-grad.hr/javni-natjecaji/u-tijeku",
+      "kategorija": "Grad",
+      "naslov_natjecaja": null,
+      "iznos": null,
+      "iznosi": [],
+      "iznos_je_fond": false,
+      "rok_tekst": null,
+      "uvjeti": null,
+      "upute_za_prijavu": null,
+      "napomena": null,
+      "poveznica_natjecaj": null,
+      "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
+      "zadnje_provjereno": "2026-10-01T10:57",
+      "_ima_otvoren": false,
+      "_dopuna_pokusana": false
+    }
+  },
+  "https://www.fer.unizg.hr/karijere/stipendije": {
+    "hash": "v3:083f9818004c5d26",
+    "result": {
+      "naziv": "FER Karijere — stipendije poslodavaca",
+      "url": "https://www.fer.unizg.hr/karijere/stipendije",
+      "kategorija": "Agregator",
+      "naslov_natjecaja": "Osam stipendija studentima",
+      "iznos": null,
+      "iznosi": [],
+      "iznos_je_fond": false,
+      "rok_tekst": "do ponedjeljka, 5. listopada 2026.",
+      "uvjeti": "Studentima viših godina prijediplomskih i diplomskih sveučilišnih studija iz područja elektrotehnike, strojarstva i računarstva.",
+      "upute_za_prijavu": "Pripremiti potvrdu o upisu | Pripremiti prijepis dosad položenih ispita odnosno izvršenih studijskih obveza | Poslati prijavu poštom na adresu Nuklearna elektrarna Krško, d. o. o., Vrbina 12, 8270 Krško, Slovenija | Ili poslati e-poštom na nek@nek.si (svi prilozi u PDF formatu)",
+      "napomena": null,
+      "poveznica_natjecaj": "https://www.fer.unizg.hr/karijere/stipendije?@=33oif#news_93995",
+      "status": "OTVORENO — rok za 4 dana (2026-10-05)",
+      "zadnje_provjereno": "2026-10-01T11:07",
+      "_ima_otvoren": true,
+      "_dopuna_pokusana": true
+    }
+  },
+  "https://zaklada-branitelja.hr/": {
+    "hash": "v3:bac1a46d7e268a1c",
+    "result": {
+      "naziv": "Zaklada hrvatskih branitelja — potpore za obrazovanje",
+      "url": "https://zaklada-branitelja.hr/",
+      "kategorija": "Zaklada",
+      "naslov_natjecaja": "Potpora za obrazovanje – srednja škola",
+      "iznos": null,
+      "iznosi": [],
+      "iznos_je_fond": false,
+      "rok_tekst": null,
+      "uvjeti": null,
+      "upute_za_prijavu": null,
+      "napomena": "Stranica sadrži samo napis 'NAJAVA NATJEČAJA' iz 21. srpnja 2026., što ukazuje da je natječaj samo najavljen, a nije još objavljen konkretni rok ili uvjeti prijave.",
+      "poveznica_natjecaj": null,
+      "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
+      "zadnje_provjereno": "2026-10-01T11:13",
+      "_ima_otvoren": false,
+      "_dopuna_pokusana": false
+    }
+  },
+  "https://zakladamikec.hr/aktualno/": {
+    "hash": "v3:f4192ef9af996291",
+    "result": {
+      "naziv": "Zaklada Mikec — stipendije",
+      "url": "https://zakladamikec.hr/aktualno/",
+      "kategorija": "Zaklada",
+      "naslov_natjecaja": "Stipendije studentima Zaklade Mikec",
+      "iznos": null,
+      "iznosi": [],
+      "iznos_je_fond": false,
+      "rok_tekst": "9. listopada 2026. godine",
+      "uvjeti": "Natječaj je namijenjen nadarenim studentima slabijeg imovinskog stanja s područja Međimurske županije. Prednost imaju prošlogodišnji stipendisti koji su u akademskoj godini 2025/2026. ostvarili prosjek ocjena 4,3 ili veći.",
+      "upute_za_prijavu": "Prikupiti zamolbu za stipendiranje | Napisati životopis s osobnim podacima i IBAN-om | Napisati izjavu o ne primanju drugih stipendija | Pribaviti potvrdu o visini dohotka za sve članove kućanstva | Pribaviti potvrdu o upisu (i prijepis ocjena za više godine) | Prijaviti se putem web obrasca na stranici Zaklade",
+      "napomena": "Prijave se zaprimaju isključivo putem web obrasca na https://zakladamikec.hr/prijava-na-natjecaj-za-dodjelu-stipendija/, a ne slanjem dokumenata direktno.",
+      "poveznica_natjecaj": "https://zakladamikec.hr/aktualno/natjecaj-za-dodjelu-stipendija-studentima-u-akademskoj-godini-2026-2027/",
+      "status": "OTVORENO — rok za 8 dana (2026-10-09)",
+      "zadnje_provjereno": "2026-10-01T11:13",
+      "_ima_otvoren": true,
+      "_dopuna_pokusana": true
+    }
+  },
+  "https://www.zaklada-dr-viktor-ruzic.hr/stipendije/": {
+    "hash": "v3:d739947253ceecd6",
+    "result": {
+      "naziv": "Zaklada dr. Viktor Ružić — stipendije",
+      "url": "https://www.zaklada-dr-viktor-ruzic.hr/stipendije/",
+      "kategorija": "Zaklada",
+      "naslov_natjecaja": "Stipendije Zaklade Dr. Viktor Ružić",
+      "iznos": "250 eura mjesečno za učenike srednjih škola, 350 eura mjesečno za studente",
+      "iznosi": [
+        {
+          "eur": 250.0,
+          "razdoblje": "mjesecno",
+          "mjeseci": 9,
+          "za": "učenici",
+          "do": false
+        },
+        {
+          "eur": 350.0,
+          "razdoblje": "mjesecno",
+          "mjeseci": 9,
+          "za": "studenti",
+          "do": false
+        }
+      ],
+      "iznos_je_fond": false,
+      "rok_tekst": "30. rujna 2026. godine",
+      "uvjeti": "Na natječaj se mogu prijaviti redovni učenici srednjih škola i redovni studenti visokoškolskih ustanova s prebivalištem na području Primorsko-goranske županije, uz prosjek ocjena najmanje 4,8, odnosno više od 90% ECTS bodova za studente.",
+      "upute_za_prijavu": "Pripremiti dokaz o upisu u srednju školu ili visokoškolsku ustanovu | Pripremiti dokaz o ostvarenim ocjenama odnosno uspjehu | Popuniti prijavnicu | Poslati zahtjev elektroničkom poštom na tajnistvo@zaklada-dr-viktor-ruzic.hr do 30. rujna 2026.",
+      "napomena": "Stipendije će se isplaćivati u razdoblju od 1. listopada 2026. do 30. lipnja 2027. godine, što iznosi 9 mjeseci isplate. Nepotpune prijave neće se razmatrati.",
+      "poveznica_natjecaj": "https://www.zaklada-dr-viktor-ruzic.hr/2026/09/15/natjecaj-zaklade-dr-viktor-ruzic-za-dodjelu-stipendija-ucenicima-i-studentima/",
+      "status": "ROK ISTEKAO (2026-09-30) — čeka se novi ciklus",
+      "zadnje_provjereno": "2026-10-01T11:13",
+      "_ima_otvoren": true,
+      "_dopuna_pokusana": false
+    }
+  },
+  "https://www.hrsume.hr/natjecaji/": {
+    "hash": "v3:14111c6f0a9d5ec1",
+    "result": {
+      "naziv": "Hrvatske šume — natječaji",
+      "url": "https://www.hrsume.hr/natjecaji/",
+      "kategorija": "Tvrtka",
+      "naslov_natjecaja": null,
+      "iznos": null,
+      "iznosi": [],
+      "iznos_je_fond": false,
+      "rok_tekst": null,
+      "uvjeti": null,
+      "upute_za_prijavu": null,
+      "napomena": null,
+      "poveznica_natjecaj": null,
+      "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
+      "zadnje_provjereno": "2026-10-01T11:14",
+      "_ima_otvoren": false,
+      "_dopuna_pokusana": false
+    }
+  },
+  "https://www.unipu.hr/studenti/stipendije/obavijesti": {
+    "hash": "v3:1cdec962328e32f3",
+    "result": {
+      "naziv": "Sveučilište u Puli — stipendije",
+      "url": "https://www.unipu.hr/studenti/stipendije/obavijesti",
+      "kategorija": "Sveučilište",
+      "naslov_natjecaja": null,
+      "iznos": null,
+      "iznosi": [],
+      "iznos_je_fond": false,
+      "rok_tekst": null,
+      "uvjeti": null,
+      "upute_za_prijavu": null,
+      "napomena": null,
+      "poveznica_natjecaj": null,
+      "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
+      "zadnje_provjereno": "2026-10-01T11:14",
       "_ima_otvoren": false,
       "_dopuna_pokusana": false
     }
