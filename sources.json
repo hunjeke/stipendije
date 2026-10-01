@@ -255,7 +255,7 @@
   },
   {
     "naziv": "Virovitičko-podravska županija — natječaji",
-    "url": "https://www.vpz.hr/",
+    "url": "https://www.vpz.hr/natjecaji/",
     "kategorija": "Županija",
     "podrucje": "Virovitičko-podravska županija",
     "zupanija": "Virovitičko-podravska županija"
@@ -297,7 +297,7 @@
   },
   {
     "naziv": "Grad Poreč — stipendije i subvencije",
-    "url": "https://www.porec.hr/prva.aspx?stranica=84",
+    "url": "https://www.porec.hr/prva.aspx?stranica=234",
     "kategorija": "Grad",
     "podrucje": "Poreč",
     "zupanija": "Istarska županija"
@@ -395,7 +395,7 @@
   },
   {
     "naziv": "Grad Metković — natječaji",
-    "url": "https://grad-metkovic.hr/",
+    "url": "https://grad-metkovic.hr/kategorija/natjecaji/",
     "kategorija": "Grad",
     "podrucje": "Metković",
     "zupanija": "Dubrovačko-neretvanska županija"
@@ -409,7 +409,7 @@
   },
   {
     "naziv": "Grad Ivanić-Grad — javni natječaji",
-    "url": "https://ivanic-grad.hr/javni-natjecaji/",
+    "url": "https://ivanic-grad.hr/javni-natjecaji/u-tijeku",
     "kategorija": "Grad",
     "podrucje": "Ivanić-Grad",
     "zupanija": "Zagrebačka županija"
@@ -760,7 +760,7 @@
   },
   {
     "naziv": "FER Karijere — stipendije poslodavaca",
-    "url": "https://karijere.fer.hr/studenti/stipendije-poslodavaca/",
+    "url": "https://www.fer.unizg.hr/karijere/stipendije",
     "kategorija": "Agregator",
     "podrucje": "Cijela Hrvatska",
     "zupanija": ""
@@ -967,5 +967,54 @@
     "kategorija": "Županija",
     "podrucje": "Vukovarsko-srijemska županija",
     "zupanija": "Vukovarsko-srijemska županija"
+  },
+  {
+    "naziv": "Zaklada hrvatskih branitelja — potpore za obrazovanje",
+    "url": "https://zaklada-branitelja.hr/",
+    "kategorija": "Zaklada",
+    "podrucje": "Cijela Hrvatska",
+    "zupanija": ""
+  },
+  {
+    "naziv": "Zaklada Mikec — stipendije",
+    "url": "https://zakladamikec.hr/aktualno/",
+    "kategorija": "Zaklada",
+    "podrucje": "Međimurska županija",
+    "zupanija": "Međimurska županija"
+  },
+  {
+    "naziv": "Zaklada dr. Viktor Ružić — stipendije",
+    "url": "https://www.zaklada-dr-viktor-ruzic.hr/stipendije/",
+    "kategorija": "Zaklada",
+    "podrucje": "Primorsko-goranska županija",
+    "zupanija": "Primorsko-goranska županija"
+  },
+  {
+    "naziv": "Grad Pazin — stipendije",
+    "url": "https://www.pazin.hr/odgoj-i-obrazovanje/stipendije/",
+    "kategorija": "Grad",
+    "podrucje": "Pazin",
+    "zupanija": "Istarska županija"
+  },
+  {
+    "naziv": "Općina Gračišće — natječaji",
+    "url": "https://gracisce.hr/natjecaji/",
+    "kategorija": "Općina",
+    "podrucje": "Gračišće",
+    "zupanija": "Istarska županija"
+  },
+  {
+    "naziv": "Hrvatske šume — natječaji",
+    "url": "https://www.hrsume.hr/natjecaji/",
+    "kategorija": "Tvrtka",
+    "podrucje": "Cijela Hrvatska",
+    "zupanija": ""
+  },
+  {
+    "naziv": "Sveučilište u Puli — stipendije",
+    "url": "https://www.unipu.hr/studenti/stipendije/obavijesti",
+    "kategorija": "Sveučilište",
+    "podrucje": "Pula",
+    "zupanija": "Istarska županija"
   }
 ]
