@@ -541,6 +541,9 @@ def _izravni(kandidat, baza):
 
 RAZDOBLJA = ("mjesecno", "godisnje", "jednokratno")
 
+# Koliko znakova smije imati oznaka "za" (kome pripada iznos) na kartici.
+MAKS_OZNAKA = 60
+
 
 def sredi_iznose(sirovo, maks=4):
     """Provjeri i ocisti listu iznosa koju je vratio model.
@@ -571,7 +574,15 @@ def sredi_iznose(sirovo, maks=4):
         mj = s.get("mjeseci")
         mj = mj if isinstance(mj, int) and 0 < mj <= 60 else None
         za = s.get("za")
-        za = re.sub(r"\s+", " ", str(za)).strip()[:40] if za else None
+        if za:
+            za = re.sub(r"\s+", " ", str(za)).strip()
+            # Rez na 40 znakova sjekao je usred rijeci ("...doktorskog s"),
+            # a oznake poput "studenti poslijediplomskoga doktorskog studija"
+            # legitimno su duge. Sada se rez radi na granici rijeci.
+            if len(za) > MAKS_OZNAKA:
+                za = za[:MAKS_OZNAKA].rsplit(" ", 1)[0].rstrip(" ,;-")
+        else:
+            za = None
         ishod.append({"eur": round(float(eur), 2), "razdoblje": razd,
                       "mjeseci": mj, "za": za or None, "do": bool(s.get("do"))})
     return ishod
