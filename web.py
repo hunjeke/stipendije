@@ -1107,7 +1107,18 @@ def main():
     print("  stranica po natjecaju: %d (novih %d)"
           % (len(arhiv), novih_natjecaja))
 
-    putevi = [("", "1.0"), ("drzavna-stipendija.html", "0.9"), ("vodic.html", "0.7"),
+    # stranice po skupini: "ucenicke stipendije" i "studentske stipendije" su
+    # medu najtrazenijim upitima, a naslovnica se za njih natjecala zajedno sa
+    # svime ostalim
+    from skupine import stranica as stranica_skupine
+    for kljuc in ("ucenik", "student"):
+        stranica_skupine(MAPA, kljuc, otvorene, zatvorene, za_koga, kartica,
+                         oblik, glava, navigacija, podnozje, izvora_ukupno,
+                         vrijeme, _slug_zup, adrese)
+
+    putevi = [("", "1.0"), ("drzavna-stipendija.html", "0.9"),
+              ("ucenicke-stipendije.html", "0.9"),
+              ("studentske-stipendije.html", "0.9"), ("vodic.html", "0.7"),
               ("impressum.html", "0.3"), ("privatnost.html", "0.3")]
 
     for zup in sve_zup:
