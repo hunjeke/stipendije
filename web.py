@@ -306,6 +306,48 @@ def s_kvacicama(t):
     return re.sub(r"[a-zćčžšđ]+", zamijeni, str(t))
 
 
+def ocisti_oznaku(t):
+    """Makni rep odrezane rijeci iz oznake koja je nastala prije popravka.
+
+    Stariji zapisi u kesu imaju "za" odsjeceno na tocno 40 znakova, usred
+    rijeci ("studenti poslijediplomskoga doktorskog s"). Dok se izvor ponovno
+    ne procita, takav rep se ovdje odreze da se na kartici ne vidi.
+    """
+    t = str(t or "").strip()
+    if len(t) < 38 or t.endswith((".", ")", "%")):
+        return t
+    zadnja = t.rsplit(" ", 1)[-1]
+    # rijec od 1-2 slova na kraju duge oznake je gotovo sigurno odsjecena
+    if len(zadnja) <= 2 and " " in t:
+        return t.rsplit(" ", 1)[0].rstrip(" ,;-")
+    return t
+
+
+def spoji_raspone(stavke):
+    """'od 1.025,50 do 1.470 € poslijedoktorandima' je JEDAN raspon, ne dvije
+    stipendije. Model ga vraca kao dva unosa s istom oznakom, od kojih drugi
+    ima do=True. Dva retka citaju se kao dva razlicita novca, pa se spajaju."""
+    ishod, preskoci = [], set()
+    for i, s in enumerate(stavke):
+        if i in preskoci:
+            continue
+        par = None
+        for j in range(i + 1, len(stavke)):
+            d = stavke[j]
+            if (j not in preskoci and d.get("za") == s.get("za")
+                    and d.get("razdoblje") == s.get("razdoblje")
+                    and bool(d.get("do")) != bool(s.get("do"))):
+                par = (j, d)
+                break
+        if par and not s.get("do"):
+            j, d = par
+            if d["eur"] > s["eur"]:
+                preskoci.add(j)
+                s = dict(s, raspon_do=d["eur"], do=False)
+        ishod.append(s)
+    return ishod
+
+
 def iznos_polja(r, otvorena=False, ima_vezu=False):
     """Iznos razlozen u retke tablice: [(oznaka, sadrzaj, monospace), ...].
 
@@ -343,6 +385,7 @@ def iznos_polja(r, otvorena=False, ima_vezu=False):
               for s in stavke}
     if len(bez_za) == 1:
         stavke = [dict(stavke[0], za=None)]
+    stavke = spoji_raspone(stavke)
 
     oznaka = "Ukupni fond" if r.get("iznos_je_fond") else "Iznos"
     dinamike = {_dinamika(s) for s in stavke}
@@ -351,12 +394,15 @@ def iznos_polja(r, otvorena=False, ima_vezu=False):
     polja = []
     for i, s in enumerate(stavke):
         dio = ("do " if s.get("do") else "") + eur(s["eur"])
+        if s.get("raspon_do"):
+            dio = eur(s["eur"]) + " – " + eur(s["raspon_do"])
         if zajednicka is None:
             d = _dinamika(s)
             if d:
                 dio += " " + d
         if s.get("za") and len(stavke) > 1:
-            dio = f'<span class="za">{esc(s_kvacicama(s["za"]))}</span> ' + dio
+            dio = (f'<span class="za">{esc(s_kvacicama(ocisti_oznaku(s["za"])))}</span> '
+                   + dio)
         polja.append((oznaka if i == 0 else "", dio, True))
 
     if zajednicka:
@@ -474,8 +520,14 @@ def _kljuc_naslova(s):
 
 def _popunjenost(r):
     """Koliko je zapis bogat — kod duplikata zadrzavamo potpuniji."""
-    return sum(1 for k in ("iznos", "rok_tekst", "uvjeti", "upute_za_prijavu",
-                           "poveznica_natjecaj") if r.get(k))
+    n = sum(1 for k in ("iznos", "rok_tekst", "uvjeti", "upute_za_prijavu",
+                        "poveznica_natjecaj") if r.get(k))
+    # Isti natjecaj s dva izvora zna doci jednom s razdobljem isplate, a jednom
+    # bez njega. "620 €" i "620 € mjesecno" nisu isti podatak, pa zapis koji zna
+    # razdoblje vrijedi vise — inace pobijedi onaj koji je slucajno prvi.
+    if any(i.get("razdoblje") for i in (r.get("iznosi") or [])):
+        n += 1
+    return n
 
 
 # rijeci koje nista ne razlikuju — gotovo svaki natjecaj ih ima u naslovu
