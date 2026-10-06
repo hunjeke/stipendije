@@ -183,7 +183,8 @@ def _hr_datum(iso):
 
 
 def stranica(mapa, z, eur, iznos_polja_f, datumi_u_brojke, esc,
-             glava, navigacija, podnozje, broj_izvora, vrijeme, slug_zup):
+             glava, navigacija, podnozje, broj_izvora, vrijeme, slug_zup,
+             poziv_kanal=None):
     """Napise docs/natjecaj/<slug>.html za jedan zapis iz arhiva."""
     otvoren = bool(z.get("rok_iso")) and z["rok_iso"] >= date.today().isoformat()
     naslov = z.get("naslov") or "Natječaj za stipendiju"
@@ -238,6 +239,8 @@ def stranica(mapa, z, eur, iznos_polja_f, datumi_u_brojke, esc,
                 'obično raspisuje u isto doba — čim izađe, pojavit će se na '
                 '<a href="../">popisu otvorenih natječaja</a>.</p>')
 
+    # Tko cita istekli natjecaj najvise treba obavijest kad izade novi.
+    poziv = poziv_kanal() if poziv_kanal else ""
     put_gore = ""
     if zup and slug_zup:
         put_gore = (f' &rsaquo; <a href="../zupanija/{slug_zup}.html">'
@@ -258,6 +261,7 @@ def stranica(mapa, z, eur, iznos_polja_f, datumi_u_brojke, esc,
 {upute}{nap}
 {gumb}
 {upoz}
+{poziv}
 <a class="natrag-popis" href="../">&larr; Svi otvoreni natječaji za stipendije</a>
 </section></main>"""
     html += podnozje(broj_izvora, vrijeme, "../")
