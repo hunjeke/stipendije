@@ -903,6 +903,17 @@ def main():
     d = json.load(open(ULAZ, encoding="utf-8"))
     pod_map, zup_map, _, usko_map = ucitaj_izvore()
 
+    # Natjecaji koje smo upisali rukom jer ih scraper ne moze procitati
+    # (server blokira, robots.txt zabranjuje, natjecaj je skenirani PDF).
+    # Prolaze isti racun statusa i istu provjeru iznosa kao i procitani.
+    from scraper import compute_status, sredi_iznose
+    import rucni
+    rucni_zapisi, rucna_podrucja = rucni.ucitaj(compute_status, sredi_iznose)
+    for u, (p, z) in rucna_podrucja.items():
+        pod_map.setdefault(u, p)
+        zup_map.setdefault(u, z)
+    d = d + rucni_zapisi
+
     otvorene, zatvorene = [], []
     for r in d:
         s = r.get("status") or ""
