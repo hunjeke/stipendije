@@ -75,7 +75,7 @@ def _raspon(otvorene, skupina, za_koga):
 
 def stranica(mapa, kljuc, otvorene, zatvorene, za_koga, kartica, oblik,
              glava, navigacija, podnozje, broj_izvora, vrijeme, slug_zup,
-             adrese=None):
+             adrese=None, poziv_kanal=None):
     k = SKUPINE[kljuc]
     adrese = adrese or {}
     moji_otv = [(r, p, z) for r, p, z in otvorene
@@ -120,6 +120,10 @@ def stranica(mapa, kljuc, otvorene, zatvorene, za_koga, kartica, oblik,
                    f'pa se pojave ovdje čim budu raspisani.</p>'
                    f'<div class="grupa">{kartice_zat}</div>')
 
+    # Ovo su stranice na koje Google salje ljude s pretrage. Bez poziva na
+    # kanal posjetitelj procita i ode, a kanal je jedini nacin da mu se javimo
+    # kad se otvori natjecaj koji danas jos ne postoji.
+    poziv = poziv_kanal() if poziv_kanal else ""
     drugi_kljuc, drugi_put, drugi_naziv = k["druga"]
     html = glava(k["naslov"], k["opis"], CSS)
     html += navigacija("natjecaji")
@@ -140,6 +144,7 @@ na kojem se objavljuju, nego {broj_izvora} različitih stranica.</p>
 često samo 15 dana od objave. Dio gradova objavljuje i u studenom ili
 siječnju, pa se isplati pogledati i izvan glavne sezone.</p>
 {sek_otv}
+{poziv}
 {sek_zat}
 <a class="prijelaz" href="{drugi_put}">Tražiš {drugi_naziv}? &rarr;</a>
 </section></main>"""
