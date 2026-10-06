@@ -1288,23 +1288,23 @@
     }
   },
   "https://daruvar.hr/stipendije/": {
-    "hash": "v3:dd7bf51d06b6b2ce",
+    "hash": "v3:dc0f65a1db8a5ea0",
     "result": {
       "naziv": "Grad Daruvar — stipendije",
       "url": "https://daruvar.hr/stipendije/",
       "kategorija": "Grad",
-      "naslov_natjecaja": "Stipendije studentima Grada Daruvara",
+      "naslov_natjecaja": null,
       "iznos": null,
       "iznosi": [],
       "iznos_je_fond": false,
       "rok_tekst": null,
-      "uvjeti": "Studenti s područja Grada Daruvara mogu se prijaviti na natječaj za dodjelu stipendija za akademsku godinu 2026./2027.",
-      "upute_za_prijavu": "Preuzeti obrazac prijave na Javni natječaj | Ispuniti Izjavu o članovima zajedničkog kućanstva | Priložiti traženu dokumentaciju | Predati prijavu u za to predviđenom roku",
-      "napomena": "Tekst stranice ne sadrži detalje o iznosu stipendije niti o roku prijave, već upućuje na priložene obrasce.",
-      "poveznica_natjecaj": "https://daruvar.hr/javni-natjecaj-za-dodjelu-stipendija-studentima-s-podrucja-grada-daruvara-u-akademskoj-godini-2026-2027/",
-      "status": "PROVJERITI RUČNO (rok nije jasno parsiran)",
-      "zadnje_provjereno": "2026-10-05T15:29",
-      "_ima_otvoren": true,
+      "uvjeti": null,
+      "upute_za_prijavu": null,
+      "napomena": null,
+      "poveznica_natjecaj": null,
+      "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
+      "zadnje_provjereno": "2026-10-06T07:59",
+      "_ima_otvoren": false,
       "_dopuna_pokusana": false
     }
   },
@@ -1405,12 +1405,12 @@
     }
   },
   "https://www.jastrebarsko.hr/": {
-    "hash": "v3:255b5e082cfb7ebc",
+    "hash": "v3:707a3ac94fb2966a",
     "result": {
       "naziv": "Grad Jastrebarsko — natječaji",
       "url": "https://www.jastrebarsko.hr/",
       "kategorija": "Grad",
-      "naslov_natjecaja": "Stipendija za učenike i studente",
+      "naslov_natjecaja": "Stipendije za učenike i studente",
       "iznos": "Stipendija za učenike iznosi 100,00 EUR mjesečno, a za studente 150,00 EUR mjesečno.",
       "iznosi": [
         {
@@ -1429,13 +1429,13 @@
         }
       ],
       "iznos_je_fond": false,
-      "rok_tekst": "20 dana od dana objave na oglasnoj ploči i web-stranici Grada Jastrebarskog",
-      "uvjeti": "Učenici i studenti s područja Grada Jastrebarskog koji su državljani RH, redovni učenici drugog ili višeg razreda srednje škole odnosno redoviti studenti, nisu navršili 21 godinu (učenici) ili 26 godina (studenti), i ne primaju stipendiju iz drugih izvora. Za kriterij izvrsnosti prosjek od najmanje 4,50 (učenici prve godine) odnosno 4,00 (studenti i učenici viših razreda). Za socijalni kriterij prosječni ukupni neto prihod po članu obitelji ne smije prelaziti 100% neoporezivog dijela mjesečne plaće.",
-      "upute_za_prijavu": "Preuzmi obrazac prijave sa stranica Grada Jastrebarskog | Priloži sve tražene dokumente (domovnica, uvjerenje o prebivalištu, potvrda redovnog upisa, svjedodžbe, IBAN, životopis) | Pošalji prijavu osobno, e-mailom (maja.belan@jastrebarsko.hr) ili elektronskom prijavi na www.jastrebarsko.hr | Dostavi na adresu: Grad Jastrebarsko, Trg J. J. Strossmayera 13, 10450 Jastrebarsko | Prijave koje ne pristignu u roku, nepotpune i nepotpisane neće se razmatrati",
-      "napomena": "Kandidat može podnijeti prijavu za obje kategorije (izvrsnost i socijalni kriterij), ali može ostvariti samo jednu stipendiju. Dokumenti se prilažu u preslici, ali upravni odjel može tražiti originale. Nakon završetka natječaja priloženi dokumenti se ne vraćaju. Stipendija se dodjeljuje za 10 mjeseci od 1. rujna 2025. godine.",
+      "rok_tekst": "20 dana od dana objave",
+      "uvjeti": "Učenici i studenti koji su državljani RH, imaju prebivalište na području Grada Jastrebarskog, redovni su učenici drugog ili višeg razreda srednje škole odnosno redoviti studenti, nisu navršili 21 godinu (učenici) odnosno 26 godina (studenti), te ne primaju stipendiju iz drugih izvora. Za kriterij izvrsnosti potreban je prosjek od najmanje 4,50 za učenike ili 4,00 za studente viših godina; za socijalni kriterij prosječni neto prihod po članu obitelji ne smije prelaziti 100% neoporezivog dijela mjesečne plaće.",
+      "upute_za_prijavu": "Popunite obrazac prijave dostupan na stranicama Grada | Priložite sve tražene dokumente (domovnica, uvjerenje o prebivalištu, potvrda upisa, svjedodžbe, IBAN, životopis) | Dostavljajte prijavu na adresu Grad Jastrebarsko, Trg J. J. Strossmayera 13, putem e-maila maja.belan@jastrebarsko.hr ili preko elektronske prijave na www.jastrebarsko.hr | Rok za podnošenje je 20 dana od objave natječaja",
+      "napomena": "Kandidati mogu podnijeti prijavu za obje kategorije (izvrsnost i socijalni kriterij), ali mogu ostvariti pravo samo na jednu stipendiju. Za školsku/akademsku 2025./2026. godinu dodijelit će se najviše 10 stipendija za učenike i najviše 10 stipendija za studente. Stipendija se dodjeljuje za 10 mjeseci od 1. rujna 2025. godine. Dodatni bodovi mogu se ostvariti za deficitarna zanimanja, status hrvatskog branitelja, aktivnog člana DVD-a, dobrovoljnog darivatelja krvi ili za volontiranje.",
       "poveznica_natjecaj": "https://www.jastrebarsko.hr/jaska_info/natjecaji_i_javni_pozivi/stipendije/",
       "status": "PROVJERITI RUČNO (rok nije jasno parsiran)",
-      "zadnje_provjereno": "2026-10-05T15:32",
+      "zadnje_provjereno": "2026-10-06T08:02",
       "_ima_otvoren": true,
       "_dopuna_pokusana": false
     }
@@ -1565,7 +1565,7 @@
     }
   },
   "https://kastela.hr/kategorija/stipendije/": {
-    "hash": "v3:5a0f5427bccdb8d1",
+    "hash": "v3:020035feb4d1df55",
     "result": {
       "naziv": "Grad Kaštela — stipendije",
       "url": "https://kastela.hr/kategorija/stipendije/",
@@ -1590,12 +1590,12 @@
       ],
       "iznos_je_fond": false,
       "rok_tekst": "od 10. do 30. listopada 2025. godine",
-      "uvjeti": "Redoviti učenici srednjih škola i studenti sveučilišnih ili stručnih studija koji su državljani Republike Hrvatske, imaju prebivalište na području Grada Kaštela najmanje 3 godine, nisu stariji od 20 odnosno 26 godina te ispunjavaju kriterije prema kategoriji (izvrsnost, socio-ekonomski status ili sportska stipendija).",
-      "upute_za_prijavu": "Popuniti vlastoručno potpisanu prijavnicu | Priložiti dokaz o državljanstvu i prebivalištu | Priložiti potvrdu o redovnom upisu i svjedodžbe | Priložiti dokaze za ostvarivanje dodatnih bodova prema kategoriji | Podnijeti prijavu u roku natječaja",
-      "napomena": "Dodjeljuje se ukupno 180 stipendija (80 prema izvrsnosti, 80 prema socio-ekonomskom statusu, 20 sportskih). Stipendija se isplaćuje za 10 mjeseci računajući od 1. rujna 2025. Cjelovit tekst natječaja dostupan je u priloženim PDF dokumentima.",
+      "uvjeti": "Učenici i studenti koji su državljani Hrvatske, imaju prijavljeno prebivalište ili boravište na području Grada Kaštela, redoviti su učenici/studenti, nisu stariji od 20/26 godina te ispunjavaju kriterije prema kategoriji (izvrsnost, socio-ekonomski status ili sportska stipendija).",
+      "upute_za_prijavu": "Preuzmi obrazac za prijavu | Prikupi traženu dokumentaciju (identitet, uvjerenje o prebivalištu, svjedodžbe, potvrde) | Ispuni prijavnicu s izjavom o suglasnosti | Podnesi kompletnu prijavu tijekom období natječaja",
+      "napomena": "Ukupno 180 stipendija: 80 prema izvrsnosti (30 učenika + 50 studenata), 80 prema socio-ekonomskom statusu (30 učenika + 50 studenata), 20 sportskih (10 učenika + 10 studenata). Stipendija se isplaćuje za 10 mjeseci od 1. rujna 2025.",
       "poveznica_natjecaj": "https://kastela.hr/2025/10/10/natjecaj-za-dodjelu-stipendija-ucenicima-i-studentima-grada-kastela-za-skolsku-akademsku-godinu-2025-2026/",
       "status": "ROK ISTEKAO (2025-10-30) — čeka se novi ciklus",
-      "zadnje_provjereno": "2026-10-06T07:16",
+      "zadnje_provjereno": "2026-10-06T08:03",
       "_ima_otvoren": true,
       "_dopuna_pokusana": false
     }
@@ -1860,7 +1860,7 @@
     }
   },
   "https://icm-osijek.info/natjecaji": {
-    "hash": "v3:1c942de158d8492b",
+    "hash": "v3:02aaf7cb9eb5cc9d",
     "result": {
       "naziv": "Info centar za mlade Osijek — natječaji",
       "url": "https://icm-osijek.info/natjecaji",
@@ -1870,12 +1870,12 @@
       "iznosi": [],
       "iznos_je_fond": false,
       "rok_tekst": "do 31. srpnja 2026. godine",
-      "uvjeti": "Hrvatski državljani s završenim četverogodišnjim ili petogodišnjim diplomskim studijem, najmanje pet godina radnog iskustva u jednom od navedenih područja, iskustvom u vođenju i izvrsnim znanjem engleskoga jezika.",
-      "upute_za_prijavu": "Posjetiti mrežnu stranicu Veleposlanstva SAD-a | Popuniti online prijavu | Dostaviti dodatnu dokumentaciju elektronički | Priložiti dokaz o zaposlenju u RH",
-      "napomena": "Stipendije nisu namijenjene za razdoblje studija niti omogućuju stjecanje akademskoga naziva u SAD-u. Program je za znanstveno-stručno usavršavanje na jednom od 11 odabranih sveučilišta u SAD-u.",
+      "uvjeti": "Hrvatski državljani s završenim najmanje četverogodišnjim studijem ili petogodišnjim diplomskim studijem, iskustvom u vođenju i pet godina radnog iskustva u jednom od navedenih područja te izvrsnim znanjem engleskoga jezika.",
+      "upute_za_prijavu": "Posjetiti mrežnu stranicu Veleposlanstva SAD-a | Popuniti online prijavu | Dostaviti dodatnu dokumentaciju elektronički uz prijavu | Kontaktirati Veleposlanstvo za dodatna pitanja",
+      "napomena": "Stipendije nisu namijenjene za razdoblje studija niti omogućuju stjecanje akademskoga naziva u SAD-u. Kandidati trebaju podnijeti dokaz o zaposlenju u RH. Program je namjenjen iskusnim profesionalcima s radnim iskustvom, ne studentima.",
       "poveznica_natjecaj": "https://icm-osijek.info/natjecaji/f-stipendije",
       "status": "ROK ISTEKAO (2026-07-31) — čeka se novi ciklus",
-      "zadnje_provjereno": "2026-10-06T07:20",
+      "zadnje_provjereno": "2026-10-06T08:06",
       "_ima_otvoren": true,
       "_dopuna_pokusana": true
     }
@@ -3357,7 +3357,7 @@
     }
   },
   "https://zupanja.hr/stipendije-grada-zupanja/": {
-    "hash": "v3:7e428f931aeb489f",
+    "hash": "v3:d38b3a770d4ddfee",
     "result": {
       "naziv": "Grad Županja — stipendije",
       "url": "https://zupanja.hr/stipendije-grada-zupanja/",
@@ -3368,11 +3368,11 @@
       "iznos_je_fond": false,
       "rok_tekst": "14. studenog 2025. godine",
       "uvjeti": null,
-      "upute_za_prijavu": "Registracija na SOM Natječaj aplikaciji | Odabir natječaja iz popisa | Popunjavanje obaveznih polja označenih crvenom zvjezdicom | Učitavanje potrebnih datoteka | Slanje prijave klikom na 'Pošalji prijavu'",
-      "napomena": "Natječaj se vrši isključivo putem SOM Natječaj aplikacije. Dostupni su dokumenti: Odluka o deficitarnim zanimanjima, Odluka visina stipendije I godina, Odluka visina stipendije više godine studija.",
+      "upute_za_prijavu": "Registracija na SOM Natječaj aplikaciji | Pregled dostupnih natječaja | Popunjavanje obaveznih polja označenih crvenom zvjezdicom | Učitavanje traženih datoteka | Slanje ili sprema prijave",
+      "napomena": "Prijave se vrše isključivo putem SOM Natječaj aplikacije. Dostupni su linkovi za prijavu postojećih korisnika i registraciju novih korisnika. Potrebni su različiti dokumenti (izjave, suglasnosti) dostupni za preuzimanje.",
       "poveznica_natjecaj": null,
       "status": "ROK ISTEKAO (2025-11-14) — čeka se novi ciklus",
-      "zadnje_provjereno": "2026-10-06T07:29",
+      "zadnje_provjereno": "2026-10-06T08:09",
       "_ima_otvoren": true,
       "_dopuna_pokusana": true
     }
@@ -3533,7 +3533,7 @@
     }
   },
   "https://ivanic-grad.hr/javni-natjecaji/u-tijeku": {
-    "hash": "v3:04cfac8e5f06eae8",
+    "hash": "v3:ec7f8db3af8aba95",
     "result": {
       "naziv": "Grad Ivanić-Grad — javni natječaji",
       "url": "https://ivanic-grad.hr/javni-natjecaji/u-tijeku",
@@ -3548,7 +3548,7 @@
       "napomena": null,
       "poveznica_natjecaj": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-10-01T10:57",
+      "zadnje_provjereno": "2026-10-06T08:02",
       "_ima_otvoren": false,
       "_dopuna_pokusana": false
     }

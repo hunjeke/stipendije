@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Studentske stipendije 2026./2027. — otvoreni natječaji i iznosi</title>
+<meta name="description" content="Stipendije za studente u Hrvatskoj: otvoreni natječaji, iznosi, rokovi prijave i upute za prijavu. Automatski ažurirano dvaput tjedno.">
+<meta property="og:title" content="Studentske stipendije 2026./2027. — otvoreni natječaji i iznosi">
+<meta property="og:description" content="Stipendije za studente u Hrvatskoj: otvoreni natječaji, iznosi, rokovi prijave i upute za prijavu. Automatski ažurirano dvaput tjedno.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://stipendije.hr/pregled.png?v=3">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="hr_HR">
+<meta property="og:site_name" content="Stipendije.hr">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://stipendije.hr/pregled.png?v=3">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="48x48" href="favicon-48.png">
+<link rel="icon" type="image/png" sizes="96x96" href="favicon-96.png">
+<link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#1D4ED8">
+<link rel="preload" href="f/plex-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="f/bricolage-800.woff2" as="font" type="font/woff2" crossorigin>
+
+<style>
+@font-face{font-family:"Bricolage";src:url("f/bricolage-700.woff2") format("woff2");
+  font-weight:700;font-style:normal;font-display:swap}
+@font-face{font-family:"Bricolage";src:url("f/bricolage-800.woff2") format("woff2");
+  font-weight:800;font-style:normal;font-display:swap}
+@font-face{font-family:"Plex";src:url("f/plex-400.woff2") format("woff2");
+  font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"Plex";src:url("f/plex-500.woff2") format("woff2");
+  font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:"Plex";src:url("f/plex-600.woff2") format("woff2");
+  font-weight:600;font-style:normal;font-display:swap}
+@font-face{font-family:"PlexMono";src:url("f/plexmono-500.woff2") format("woff2");
+  font-weight:400 500;font-style:normal;font-display:swap}
+
+.kol{position:fixed;left:0;right:0;bottom:0;z-index:80;background:var(--tinta);
+  color:#F2F4F8;padding:1rem 1.15rem;display:none}
+.kol.vidljiva{display:block}
+.kol-w{max-width:780px;margin:0 auto;display:flex;gap:1rem;
+  align-items:center;justify-content:space-between;flex-wrap:wrap}
+.kol p{margin:0;font-size:.86rem;line-height:1.5;max-width:52ch;color:#D6D9D2}
+.kol a{color:#F2F4F8;text-decoration:underline}
+.kol-gumbi{display:flex;gap:.6rem;flex-shrink:0}
+.kol button{font-family:"Plex",sans-serif;font-size:.87rem;
+  padding:.55rem 1rem;border:1.5px solid #F2F4F8;background:none;
+  color:#F2F4F8;cursor:pointer}
+.kol button.da{background:#F2F4F8;color:var(--tinta);font-weight:600}
+.kol button:hover{border-color:#fff}
+@media(max-width:600px){
+  /* traka je na mobitelu zauzimala 138 px prvog ekrana i prekrivala prvu
+     karticu; sada stane u jedan redak s tipkama uz tekst */
+  .kol{padding:.6rem .8rem}
+  .kol-w{gap:.6rem;flex-wrap:nowrap}
+  .kol p{font-size:.78rem;line-height:1.35}
+  .kol button{padding:.45rem .7rem;font-size:.82rem;white-space:nowrap}
+}
+
+:root{
+  --papir:#F2F4F8;      /* papir s plavim tonom */
+  --karta:#FFFFFF;
+  --tinta:#141B2D;      /* mornarska tinta */
+  --tinta-2:#565F76;    /* prigusena */
+  --linija:#DBE0EA;
+  --plava:#1D4ED8;      /* glavna boja: veze, naglasci, znak */
+  --plava-t:#1739A0;    /* tamnija, za hover */
+  --otvoreno:#15803D;   /* zelena znaci samo: natjecaj je otvoren */
+  --hitno:#B91C1C;      /* rok istjece */
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--papir);color:var(--tinta);
+  font-family:"Plex",system-ui,sans-serif;font-size:16px;line-height:1.6;
+  -webkit-font-smoothing:antialiased}
+.w{max-width:780px;margin:0 auto;padding:0 1.15rem}
+
+/* --- navigacija --- */
+.vrh{border-bottom:1px solid var(--linija);background:var(--papir);
+  position:sticky;top:0;z-index:30}
+.vrh .w{display:flex;align-items:center;justify-content:space-between;
+  gap:.8rem;padding-top:.7rem;padding-bottom:.7rem}
+.logo{display:flex;align-items:center;gap:.6rem;text-decoration:none;
+  color:var(--tinta)}
+.znak{width:40px;height:40px;flex-shrink:0;display:block}
+.ime{font-family:"Bricolage",sans-serif;font-weight:800;
+  font-size:1.32rem;letter-spacing:-.022em}
+.ime span{color:var(--plava)}
+.nav{display:flex;gap:.2rem}
+.nav a{font-size:.86rem;color:var(--tinta-2);text-decoration:none;
+  padding:.55rem .5rem;border-bottom:1.5px solid transparent;
+  line-height:1.2}
+.nav a:hover{color:var(--plava)}
+.nav a.tu{color:var(--plava);border-bottom-color:var(--plava)}
+
+/* --- mobitel --- */
+@media(max-width:600px){
+  body{font-size:15.5px}
+  .w{padding:0 .95rem}
+  .znak{width:34px;height:34px}
+  .ime{font-size:1.12rem}
+  .nav{gap:0}
+  .nav a{font-size:.8rem;padding:.55rem .38rem}
+  footer{font-size:.84rem}
+}
+@media(max-width:380px){
+  .ime span{display:none}          /* ".hr" ide van kad je stvarno tijesno */
+  .nav a{font-size:.76rem;padding:.55rem .3rem}
+}
+
+/* --- tipografija --- */
+h1{font-family:"Bricolage",sans-serif;font-weight:800;
+  font-size:clamp(1.9rem,5.5vw,2.7rem);line-height:1.08;letter-spacing:-.028em;
+  margin:0 0 .5rem}
+h2{font-family:"Bricolage",sans-serif;font-weight:700;
+  font-size:1.18rem;letter-spacing:-.015em;margin:0}
+h3{font-family:"Bricolage",sans-serif;font-weight:700;
+  font-size:1.04rem;letter-spacing:-.012em;margin:0 0 .15rem;line-height:1.28}
+.meta{font-family:"PlexMono",monospace;font-size:.7rem;
+  letter-spacing:.09em;text-transform:uppercase;color:var(--tinta-2)}
+
+/* --- sekcije --- */
+.sek{padding:2.6rem 0 0}
+.sek-vrh{display:flex;align-items:baseline;gap:.7rem;
+  padding-bottom:.7rem;border-bottom:1.5px solid var(--tinta);margin-bottom:1.1rem}
+.sek-vrh .broj{font-family:"PlexMono",monospace;font-size:.95rem;
+  font-weight:500;color:var(--tinta);margin-left:auto}
+.uvod{color:var(--tinta-2);font-size:.92rem;margin:-.5rem 0 1.2rem}
+
+/* --- podnozje --- */
+footer{margin-top:3.5rem;border-top:1px solid var(--linija);
+  padding:1.8rem 0 3rem;font-size:.87rem;color:var(--tinta-2)}
+footer p{margin:.55rem 0}
+footer .upoz-p{border-left:3px solid var(--plava);padding-left:.9rem;
+  margin:0 0 1rem;color:var(--tinta-2)}
+footer .upoz-p strong{color:var(--tinta)}
+footer a{color:var(--plava)}
+footer .sitno{font-family:"PlexMono",monospace;font-size:.7rem;
+  letter-spacing:.05em;margin-top:1.4rem;color:#8A909E}
+
+/* --- upozorenje --- */
+
+a:focus-visible,button:focus-visible,summary:focus-visible,
+input:focus-visible,select:focus-visible{outline:2px solid var(--plava);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+}
+
+/* --- kartice --- */
+.k{background:var(--karta);border:1px solid var(--linija);
+  padding:1.05rem 1.15rem;margin-bottom:.75rem}
+.k.otv{border-left:3px solid var(--otvoreno)}
+.k.skriveno{display:none}
+.k .zag{display:flex;justify-content:flex-start;gap:.7rem;
+  align-items:baseline;flex-wrap:wrap}
+.status{font-family:"PlexMono",monospace;font-size:.66rem;letter-spacing:.09em;
+  text-transform:uppercase;padding:.2rem .5rem;white-space:nowrap;
+  flex-shrink:0;align-self:flex-start;max-width:100%}
+.status.otv{background:#DCFCE7;color:var(--otvoreno)}
+.status.zat{background:var(--papir);color:var(--tinta-2)}
+/* stupnjevi hitnosti: crveno do 3 dana, zuto do 14, dalje ostaje zeleno */
+.status.hitno{background:#FEE2E2;color:var(--hitno)}
+.status.uskoro{background:#FEF3C7;color:#92400E}
+.k .izvor{font-family:"PlexMono",monospace;font-size:.68rem;
+  letter-spacing:.06em;text-transform:uppercase;color:var(--tinta-2);
+  margin-bottom:.55rem}
+.polja{display:grid;grid-template-columns:8.5rem 1fr;gap:.28rem .9rem;
+  font-size:.9rem;margin:.5rem 0 0}
+.polja dt{color:var(--tinta-2)}
+.polja dd{margin:0}
+.polja dd.iznos{font-family:"PlexMono",monospace;font-weight:500}
+/* podatak kojeg na izvoru nema — vidljiv, ali tisi od stvarnog iznosa */
+.polja .nema{color:var(--tinta-2);font-style:italic}
+/* kome pripada koji iznos kad ih natjecaj ima vise (ucenici / studenti) */
+.polja .za{color:var(--tinta-2);font-family:"Plex",sans-serif;font-weight:400}
+.polja .za::after{content:" —";}
+/* duga recenica o uvjetima zauzme pola kartice; skracena je na dva retka
+   i otvara se klikom. Bez JS-a ostaje skracena, ali je "vise" skriven. */
+.polja dd.skrati .tekst{display:-webkit-box;-webkit-line-clamp:2;
+  -webkit-box-orient:vertical;overflow:hidden}
+.polja .vise{display:none;background:none;border:0;padding:.12rem 0 0;
+  font-family:inherit;font-size:.83rem;color:var(--plava);cursor:pointer}
+.polja .vise:hover{text-decoration:underline}
+.js .polja .vise{display:block}
+.k details{margin-top:.75rem;font-size:.88rem}
+.k summary{cursor:pointer;color:var(--plava);font-weight:500}
+.k details ol{margin:.55rem 0 0;padding-left:1.25rem;color:var(--tinta-2)}
+.k details li{margin-bottom:.3rem}
+.k .dno{display:flex;align-items:center;gap:1.1rem;flex-wrap:wrap;margin-top:.8rem}
+.k .dno .veza{margin-top:0}
+/* tiha poveznica na vlastitu stranicu natjecaja — glavni poziv ostaje izvor */
+.detalji{font-size:.85rem;color:var(--tinta-2);text-decoration:underline;
+  text-underline-offset:3px}
+.detalji:hover{color:var(--plava)}
+.veza{display:inline-block;margin-top:.8rem;font-size:.88rem;font-weight:500;
+  color:var(--tinta);text-decoration:none;border-bottom:1.5px solid var(--plava);
+  padding-bottom:1px}
+.veza:hover{color:var(--plava)}
+.nema-rez{display:none;border:1px dashed var(--linija);padding:1.05rem 1.15rem;
+  color:var(--tinta-2);font-size:.9rem;margin:0}
+.nema-rez.vidljivo{display:block}
+.zatvoreni-omot{margin-top:.4rem}
+@media(max-width:600px){
+  /* kartice */
+  .k{padding:.95rem .9rem}
+  /* oznaka uvijek iznad naslova, da ne skace i ne izlazi van */
+  .k .zag{flex-direction:column-reverse;align-items:flex-start;gap:.45rem}
+  .k .zag h3{min-width:0;width:100%}
+  h3{font-size:.97rem}
+  .status{font-size:.62rem;padding:.18rem .45rem}
+  /* oznaka i podatak dijele redak i na mobitelu: kartica je upola niza,
+     a stupac oznaka drzi pogled na istoj crti kroz sve natjecaje */
+  .polja{grid-template-columns:6.6rem 1fr;gap:.3rem .6rem}
+  .polja dt{font-size:.74rem;line-height:1.35;color:#8A909E}
+  .polja dd{font-size:.92rem}
+  /* veca povrsina za prst */
+  .k summary{padding:.35rem 0}
+  .veza{padding:.4rem 0 .3rem}
+}
+
+.sk{padding:2.4rem 0 0}
+.sk h1{font-size:clamp(1.6rem,4.6vw,2.2rem);margin-bottom:.5rem}
+.sk .lead{font-size:1.02rem;color:var(--tinta-2);max-width:56ch;margin:0 0 1.5rem}
+.sk h2{font-size:1.14rem;margin:2.4rem 0 .4rem}
+.sk p{font-size:.96rem;line-height:1.65;max-width:60ch}
+.sk .uz{color:var(--tinta-2);font-size:.92rem;margin:0 0 1rem;max-width:58ch}
+.tko-daje{display:flex;flex-wrap:wrap;gap:.45rem;margin:.6rem 0 0}
+.tko-daje span{border:1px solid var(--linija);background:var(--karta);
+  padding:.35rem .7rem;font-size:.85rem;color:var(--tinta-2)}
+.tko-daje b{color:var(--tinta);font-weight:500}
+.prijelaz{display:block;margin-top:2.2rem;padding-top:1.2rem;
+  border-top:1px solid var(--linija);font-size:.94rem}
+</style>
+</head>
+<body><header class="vrh"><div class="w">
+  <a class="logo" href="./" aria-label="stipendije.hr, početna">
+    <svg class="znak" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+      <rect x="0" y="0" width="100" height="100" rx="22" fill="#1D4ED8"/>
+      <text x="50" y="53" text-anchor="middle" dominant-baseline="central"
+            font-family="'Plex',sans-serif" font-weight="700"
+            font-size="62" fill="#FFFFFF">S</text>
+    </svg>
+    <span class="ime">Stipendije<span>.hr</span></span>
+  </a>
+  <nav class="nav">
+    <a href="./" class="tu">Natječaji</a>
+    <a href="drzavna-stipendija.html">Državna</a>
+    <a href="vodic.html">Vodič</a>
+  </nav>
+</div></header><main class="w"><section class="sk">
+<h1>Studentske stipendije</h1>
+<p class="lead">Trenutno je otvoreno <b>11</b> natječaja za stipendije namijenjene studentima. Mjesečni iznosi kreću se od 110 do 1470 €.</p>
+
+<h2>Tko dodjeljuje stipendije studentima</h2>
+<p>Najviše ih daju gradovi i općine — svaki po svojim pravilima, s vlastitim
+rokom i obrascem. Uz njih stipendiraju i županije, ministarstva, zaklade,
+sveučilišta i pojedine tvrtke. Zato ih je teško pratiti: nema jednog mjesta
+na kojem se objavljuju, nego 146 različitih stranica.</p>
+<p>Ovu stranicu gradi program koji te izvore obilazi dvaput tjedno i s njih
+čita iznos, rok i upute za prijavu. Ništa se ne upisuje ručno.</p>
+
+<h2>Kad se objavljuju</h2>
+<p>Većina natječaja izlazi između rujna i prosinca, a rokovi su kratki —
+često samo 15 dana od objave. Dio gradova objavljuje i u studenom ili
+siječnju, pa se isplati pogledati i izvan glavne sezone.</p>
+<div class="sek-vrh" style="margin-top:1.6rem"><h2 style="margin:0">Otvoreno za prijave</h2><span class="broj">11 natječaja</span></div><div class="grupa"><article class="k otv" data-podrucje="Velika Gorica" data-zupanija="Zagrebačka županija" data-rok="2026-10-06" data-za="oba"><div class="zag"><h3>Stipendija Grada Velike Gorice</h3><span class="status otv" data-znak>Otvoreno</span></div><div class="izvor">Velika Gorica</div><dl class="polja"><dt>Iznos</dt><dd class=""><span class="nema">piše u tekstu natječaja</span></dd><dt>Rok prijave</dt><dd>06.10.2026.</dd><dt>Tko se prijavljuje</dt><dd>Učenici od 2. razreda srednjih škola nadalje i studenti od druge godine studija nadalje.</dd></dl><div class="dno"><a class="veza" href="https://gorica.hr/2026/10/natjecaj-za-dodjelu-stipendije-grada-velike-gorice-za-skolsku-godinu-2026-2027/" target="_blank" rel="noopener">Otvori natječaj &rarr;</a><a class="detalji" href="natjecaj/velika-gorica-stipendija-grada-velike-gorice-2026.html">Detalji natječaja</a></div></article><article class="k otv" data-podrucje="Međimurska županija" data-zupanija="Međimurska županija" data-rok="2026-10-09" data-za="student"><div class="zag"><h3>Stipendije studentima Zaklade Mikec</h3><span class="status otv" data-znak>Otvoreno</span></div><div class="izvor">Međimurska županija</div><dl class="polja"><dt>Iznos</dt><dd class=""><span class="nema">piše u tekstu natječaja</span></dd><dt>Rok prijave</dt><dd>09.10.2026.</dd><dt>Tko se prijavljuje</dt><dd class="skrati"><span class="tekst">Natječaj je namijenjen nadarenim studentima slabijeg imovinskog stanja s područja Međimurske županije. Prednost imaju prošlogodišnji stipendisti koji su u akademskoj godini 2025/2026. ostvarili prosjek ocjena 4,3 ili veći.</span><button type="button" class="vise" data-vise>više</button></dd></dl><details><summary>Kako se prijaviti</summary><ol><li>Prikupiti zamolbu za stipendiranje</li><li>Napisati životopis s osobnim podacima i IBAN-om</li><li>Napisati izjavu o ne primanju drugih stipendija</li><li>Pribaviti potvrdu o visini dohotka za sve članove kućanstva</li><li>Pribaviti potvrdu o upisu (i prijepis ocjena za više godine)</li><li>Prijaviti se putem web obrasca na stranici Zaklade</li></ol></details><div class="dno"><a class="veza" href="https://zakladamikec.hr/aktualno/natjecaj-za-dodjelu-stipendija-studentima-u-akademskoj-godini-2026-2027/" target="_blank" rel="noopener">Otvori natječaj &rarr;</a><a class="detalji" href="natjecaj/medimurska-zupanija-stipendije-studentima-zaklade-mikec-2026.html">Detalji natječaja</a></div></article><article class="k otv" data-podrucje="Kraljevica" data-zupanija="Primorsko-goranska županija" data-rok="2026-10-12" data-za="oba"><div class="zag"><h3>Stipendije učenicima i studentima</h3><span class="status otv" data-znak>Otvoreno</span></div><div class="izvor">Kraljevica</div><dl class="polja"><dt>Iznos</dt><dd class=""><span class="nema">piše u tekstu natječaja</span></dd><dt>Rok prijave</dt><dd>12.10.2026.</dd><dt>Tko se prijavljuje</dt><dd>Učenici i studenti koji se prijavljuju za dodjelu stipendija za školsku-akademsku godinu 2026./2027.</dd></dl><details><summary>Kako se prijaviti</summary><ol><li>Preuzeti natječaj i obrazac iz privitka</li><li>Ispuniti obrazac za stipendije</li><li>Prijaviti se do navedenog roka</li></ol></details><div class="dno"><a class="veza" href="https://www.kraljevica.hr/raspisan-natjecaj-za-dodjelu-nagrada-i-stipendija-ucenicima-i-studentima-3/" target="_blank" rel="noopener">Otvori natječaj &rarr;</a><a class="detalji" href="natjecaj/kraljevica-stipendije-ucenicima-studentima-2026.html">Detalji natječaja</a></div></article><article class="k otv" data-podrucje="Cijela Hrvatska" data-zupanija="" data-rok="2026-10-18" data-za="student" data-eur="640"><div class="zag"><h3>Stipendije za studente Elektrotehnika</h3><span class="status otv" data-znak>Otvoreno</span></div><div class="izvor">Cijela Hrvatska</div><dl class="polja"><dt>Iznos</dt><dd class="iznos">400 € – 640 € mjesečno</dd><dt>Rok prijave</dt><dd>18.10.2026.</dd><dt>Tko se prijavljuje</dt><dd class="skrati"><span class="tekst">Redovni student upisane 3. godine preddiplomskog ili 1./2. godine diplomskog studija na FER-u, studijski program Elektrotehnika i informacijska tehnologija (smjerovi Elektroenergetika ili Elektrostrojarstvo i automatizacija). Prosjek ocjena minimalno 3,5 i poznavanje engleskog jezika.</span><button type="button" class="vise" data-vise>više</button></dd></dl><details><summary>Kako se prijaviti</summary><ol><li>Prikupiti životopis (opcionalno motivacijsko pismo)</li><li>Pribaviti potvrdu o redovnom upisu za akademsku godinu 2026./2027.</li><li>Dostaviti ovjereni prijepis ocjena</li><li>Prikupiti izjavu da nije korisnik druge obvezujuće stipendije</li><li>Poslati potvrdu o posebnim postignućima ako postoje</li><li>Poslati sve dokumente do 18.10.2026.</li></ol></details><div class="dno"><a class="veza" href="https://www.fer.unizg.hr/karijere/stipendije?@=33rxj#news_93995" target="_blank" rel="noopener">Otvori natječaj &rarr;</a><a class="detalji" href="natjecaj/stipendije-studente-elektrotehnika-2026.html">Detalji natječaja</a></div></article><article class="k otv" data-podrucje="Kostrena" data-zupanija="Primorsko-goranska županija" data-rok="2026-10-20" data-za="oba"><div class="zag"><h3>Stipendije učenicima i studentima</h3><span class="status otv" data-znak>Otvoreno</span></div><div class="izvor">Kostrena</div><dl class="polja"><dt>Iznos</dt><dd class=""><span class="nema">nije naveden na stranici izvora</span></dd><dt>Rok prijave</dt><dd>20.10.2026.</dd></dl><div class="dno"><a class="veza" href="https://kostrena.hr/" target="_blank" rel="noopener">Službena stranica &rarr;</a><a class="detalji" href="natjecaj/kostrena-stipendije-ucenicima-studentima-2026.html">Detalji natječaja</a></div></article><article class="k otv" data-podrucje="Viškovo" data-zupanija="Primorsko-goranska županija" data-rok="2026-10-21" data-za="oba"><div class="zag"><h3>Stipendije učenicima i studentima 2026./2027</h3><span class="status otv" data-znak>Otvoreno</span></div><div class="izvor">Viškovo</div><dl class="polja"><dt>Iznos</dt><dd class=""><span class="nema">piše u tekstu natječaja</span></dd><dt>Rok prijave</dt><dd>21.10.2026.</dd><dt>Tko se prijavljuje</dt><dd class="skrati"><span class="tekst">Natječaj je otvoren za učenike i studente na temelju Odluke o dodjeli stipendija učenicima i studentima Općine Viškovo.</span><button type="button" class="vise" data-vise>više</button></dd></dl><details><summary>Kako se prijaviti</summary><ol><li>Preuzeti prijavni obrazac</li><li>Ispuniti obrazac doslovno</li><li>Staviti u zatvorenu kuvertu s naznakom</li><li>Poslati preporučenom pošiljkom ili dostaviti osobno u Pisarnicu Općine Viškovo, Vozišće 3</li></ol></details><div class="dno"><a class="veza" href="https://opcina-viskovo.hr/natjecaj-za-dodjelu-stipendija-ucenicima-i-studentima-za-nastavnu-godinu-2026/2027" target="_blank" rel="noopener">Otvori natječaj &rarr;</a><a class="detalji" href="natjecaj/viskovo-stipendije-ucenicima-studentima-2026.html">Detalji natječaja</a></div></article><article class="k otv" data-podrucje="Zaprešić" data-zupanija="Zagrebačka županija" data-rok="2026-10-24" data-za="oba"><div class="zag"><h3>Stipendije za učenike i studente</h3><span class="status otv" data-znak>Otvoreno</span></div><div class="izvor">Zaprešić</div><dl class="polja"><dt>Iznos</dt><dd class="iznos"><span class="za">učenici</span> 100 €</dd><dt></dt><dd class="iznos"><span class="za">studenti</span> 150 €</dd><dt>Isplata</dt><dd class="">12 mjeseci</dd><dt>Rok prijave</dt><dd>24.10.2026.</dd><dt>Tko se prijavljuje</dt><dd class="skrati"><span class="tekst">Učenici srednjih škola i studenti. Dodijelit će se ukupno 60 stipendija, od čega 28 učenicima srednjih škola, a 32 studentima.</span><button type="button" class="vise" data-vise>više</button></dd></dl><details><summary>Kako se prijaviti</summary><ol><li>Preuzmi Natječaj za dodjelu stipendija</li><li>Preuzmi Prijavni obrazac</li><li>Dostavi zahtjev do 24.10.</li></ol></details><div class="dno"><a class="veza" href="https://zapresic.hr/dokumenti/natjecaj-za-dodjelu-stipendija-ucenicima-srednjih-skola-i-studentima/" target="_blank" rel="noopener">Otvori natječaj &rarr;</a><a class="detalji" href="natjecaj/zapresic-stipendije-ucenike-studente-2026.html">Detalji natječaja</a></div></article><article class="k otv" data-podrucje="Kastav" data-zupanija="Primorsko-goranska županija" data-rok="2026-10-30" data-za="oba" data-eur="150"><div class="zag"><h3>Stipendije za učenike i studente</h3><span class="status otv" data-znak>Otvoreno</span></div><div class="izvor">Kastav</div><dl class="polja"><dt>Iznos</dt><dd class="iznos"><span class="za">učenici</span> 110 €</dd><dt></dt><dd class="iznos"><span class="za">studenti</span> 150 €</dd><dt>Isplata</dt><dd class="">mjesečno</dd><dt>Rok prijave</dt><dd>30.10.2026.</dd><dt>Tko se prijavljuje</dt><dd class="skrati"><span class="tekst">Stipendije se dodjeljuju prema kriterijima za stipendiranje učenika/studenata temeljem imovinskog statusa, izvrsnih učenika/studenata i sportaša učenika/studenata.</span><button type="button" class="vise" data-vise>više</button></dd></dl><details><summary>Kako se prijaviti</summary><ol><li>Popuniti digitalni obrazac na https://kastav.otvorenigrad.hr/</li><li>Dostaviti osobno na adresu GRAD KASTAV, Trg sv. Lucije 1, 51215 Kastav</li><li>Poslati putem elektronske pošte na info@kastav.hr</li><li>Dobitnici potpisuju ugovor o stipendiranju</li><li>Sredstva se isplaćuju od početka školske/akademske godine</li></ol></details><div class="dno"><a class="veza" href="https://kastav.hr/natjecaj-za-dodjelu-ucenickih-i-studentskih-stipendija-grada-kastva-3/" target="_blank" rel="noopener">Otvori natječaj &rarr;</a><a class="detalji" href="natjecaj/kastav-stipendije-ucenike-studente-2026.html">Detalji natječaja</a></div></article><article class="k otv" data-podrucje="Cijela Hrvatska" data-zupanija="" data-rok="2026-10-31" data-za="student" data-eur="1470"><div class="zag"><h3>Stipendije Nacionalnog stipendijskog programa Slovačke</h3><span class="status otv" data-znak>Otvoreno</span></div><div class="izvor">Cijela Hrvatska</div><dl class="polja"><dt>Iznos</dt><dd class="iznos"><span class="za">studenti prijediplomskog i diplomskog studija</span> 620 €</dd><dt></dt><dd class="iznos"><span class="za">studenti poslijediplomskog doktorskog studija</span> 1.025,50 €</dd><dt></dt><dd class="iznos"><span class="za">poslijedoktorandi</span> 1.025,50 € – 1.470 €</dd><dt>Isplata</dt><dd class="">mjesečno</dd><dt>Rok prijave</dt><dd>31.10.2026.</dd><dt>Tko se prijavljuje</dt><dd class="skrati"><span class="tekst">Stipendije su namijenjene studentima, sveučilišnim profesorima, istraživačima i umjetnicima za studij, znanstveno istraživanje, stručno usavršavanje ili držanje predavanja na slovačkim sveučilištima i znanstvenim institutima.</span><button type="button" class="vise" data-vise>više</button></dd></dl><details><summary>Kako se prijaviti</summary><ol><li>Prijava putem elektroničkog sustava za prijavu</li><li>Više informacija dostupne na mrežnim stranicama Nacionalnog stipendijskog programa Slovačke Republike</li></ol></details><div class="dno"><a class="veza" href="https://www.ampeu.hr/natjecaji/natjecaj-za-stipendije-nacionalnoga-stipendijskog-programa-slovacke-republike-u-akademskoj-godini-2026-2027-ljetni-semestar" target="_blank" rel="noopener">Otvori natječaj &rarr;</a><a class="detalji" href="natjecaj/stipendije-nacionalnog-stipendijskog-programa-slovacke-2026.html">Detalji natječaja</a></div></article><article class="k otv" data-podrucje="Vodnjan" data-zupanija="Istarska županija" data-rok="2026-10-31" data-za="oba"><div class="zag"><h3>Stipendije Grada Vodnjan</h3><span class="status otv" data-znak>Otvoreno</span></div><div class="izvor">Vodnjan</div><dl class="polja"><dt>Iznos</dt><dd class=""><span class="nema">piše u tekstu natječaja</span></dd><dt>Rok prijave</dt><dd>31.10.2026.</dd><dt>Tko se prijavljuje</dt><dd class="skrati"><span class="tekst">Učenici i studenti koji ispunjavaju uvjete propisane Pravilnikom. Korisnik stipendije Grada ne može istovremeno primati druge stipendije.</span><button type="button" class="vise" data-vise>više</button></dd></dl><details><summary>Kako se prijaviti</summary><ol><li>Pratiti obavu Natječaja</li><li>Podnjeti prijavu na propisanom obrascu</li><li>Priložiti dokumentaciju navedenu u Natječaju</li><li>Čekati objavu privremene bodovne liste</li><li>Podnijeti prigovor ako je potrebno</li><li>Čekati konačnu bodovnu listu</li></ol></details><div class="dno"><a class="veza" href="https://www.vodnjan-dignano.hr/hr/djeca-i-mladi/stipendije-grada" target="_blank" rel="noopener">Otvori natječaj &rarr;</a><a class="detalji" href="natjecaj/vodnjan-stipendije-grada-2026.html">Detalji natječaja</a></div></article><article class="k otv" data-podrucje="Cijela Hrvatska" data-zupanija="" data-rok="2026-10-31" data-za="student" data-eur="600"><div class="zag"><h3>Stipendije za vojne studente IT</h3><span class="status otv" data-znak>Otvoreno</span></div><div class="izvor">Cijela Hrvatska</div><dl class="polja"><dt>Iznos</dt><dd class="iznos"><span class="za">1. godina studija</span> 300 €</dd><dt></dt><dd class="iznos"><span class="za">2. godina studija</span> 400 €</dd><dt></dt><dd class="iznos"><span class="za">3. godina studija</span> 500 €</dd><dt></dt><dd class="iznos"><span class="za">4. godina studija</span> 600 €</dd><dt>Isplata</dt><dd class="">mjesečno</dd><dt>Rok prijave</dt><dd>31.10.2026.</dd><dt>Tko se prijavljuje</dt><dd class="skrati"><span class="tekst">Redoviti studenti sveučilišnih ili stručnih studija na akreditiranim studijima iz područja elektrotehnika, računarstva, informacijsko-komunikacijskih znanosti i srodnih IT studija. Moraju biti hrvatski državljani s prebivalištem u RH najmanje godinu dana, s prosjekom najmanje 3.00, bez kaznenih presuda i nisu korisnici drugih stipendija.</span><button type="button" class="vise" data-vise>više</button></dd></dl><details><summary>Kako se prijaviti</summary><ol><li>Prijaviti se na javni natječaj objavljen u siječnju 2026.</li><li>Proći zdravstveni pregled u Zavodu za zrakoplovnu medicinu Zagreb ili Zavodu za pomorsku medicinu Split</li><li>Proći provjeru tjelesne spremnosti u organizaciji Središnjice za upravljanje osobljem</li><li>Potpisati Ugovor o stipendiranju ako ste odabrani</li></ol></details><div class="dno"><a class="veza" href="https://www.morh.hr/dodjela-stipendija-vojnim-stipendistima-studentima-iz-podrucja-informacijsko-komunikacijskih-tehnologija/" target="_blank" rel="noopener">Službena stranica &rarr;</a><a class="detalji" href="natjecaj/stipendije-vojne-studente-it-2026.html">Detalji natječaja</a></div></article></div>
+<h2>Izvori koje pratimo</h2><p class="uz">Ovi natječaji trenutno nisu otvoreni. Provjeravamo ih automatski svaki ponedjeljak i četvrtak, pa se pojave ovdje čim budu raspisani.</p><div class="grupa"><article class="k" data-podrucje="Bjelovarsko-bilogorska županija" data-zupanija="Bjelovarsko-bilogorska županija" data-rok="" data-za="oba"><div class="zag"><h3>Bjelovarsko-bilogorska županija — stipendije</h3><span class="status zat">Zatvoreno</span></div><div class="izvor">Bjelovarsko-bilogorska županija</div><div class="dno"><a class="veza" href="https://bbz.hr/uo-obrazovanje-stipendije/" target="_blank" rel="noopener">Službena stranica &rarr;</a></div></article><article class="k" data-podrucje="Cijela Hrvatska" data-zupanija="" data-rok="" data-za="student"><div class="zag"><h3>Stipendije DAAD-a</h3><span class="status zat">Zatvoreno</span></div><div class="izvor">Cijela Hrvatska</div><dl class="polja"><dt>Tko se prijavljuje</dt><dd class="skrati"><span class="tekst">Namijenjeni hrvatskim studentima, doktorandima, poslijedoktorandima, mladim znanstvenicima i sveučilišnim nastavnicima. Projekti na njemačkom ili engleskom jeziku.</span><button type="button" class="vise" data-vise>više</button></dd></dl><div class="dno"><a class="veza" href="https://zagreb.diplo.de/hr-hr/themen/kultur/daad/2100844" target="_blank" rel="noopener">Službena stranica &rarr;</a></div></article><article class="k" data-podrucje="Dubrovačko-neretvanska županija" data-zupanija="Dubrovačko-neretvanska županija" data-rok="" data-za="oba" data-eur="146"><div class="zag"><h3>Stipendije za učenike i studente</h3><span class="status zat">Zatvoreno</span></div><div class="izvor">Dubrovačko-neretvanska županija</div><dl class="polja"><dt>Iznos</dt><dd class="iznos"><span class="za">učenici</span> 88 € mjesečno · 10 mjeseci</dd><dt></dt><dd class="iznos"><span class="za">studenti</span> 146 € mjesečno</dd><dt>Tko se prijavljuje</dt><dd class="skrati"><span class="tekst">Učenici koji su daroviti ili se obrazuju za deficitarna zanimanja, te studenti koji su daroviti ili se obrazuju za deficitarna zanimanja.</span><button type="button" class="vise" data-vise>više</button></dd></dl><div class="dno"><a class="veza" href="https://www.dnz.hr/stipendije/" target="_blank" rel="noopener">Službena stranica &rarr;</a></div></article><article class="k" data-podrucje="Cijela Hrvatska" data-zupanija="" data-rok="" data-za="oba"><div class="zag"><h3>EFZG Karijere — stipendije, prakse i poslovi</h3><span class="status zat">Zatvoreno</span></div><div class="izvor">Cijela Hrvatska</div><div class="dno"><a class="veza" href="https://www.efzg.unizg.hr/za-studente-29717/stipendije-prakse-i-poslovi/29745" target="_blank" rel="noopener">Službena stranica &rarr;</a></div></article><article class="k" data-podrucje="Cijela Hrvatska" data-zupanija="" data-rok="2026-09-25" data-za="student"><div class="zag"><h3>Stipendije za studente konferencijskog prevođenja</h3><span class="status zat">Zatvoreno</span></div><div class="izvor">Cijela Hrvatska</div><dl class="polja"><dt>Iznos</dt><dd class="iznos">do 3.000 € jednokratno</dd><dt>Tko se prijavljuje</dt><dd class="skrati"><span class="tekst">Studenti diplomskih/poslijediplomskih studija konferencijskog prevođenja. Više informacija dostupno u pozivu za podnošenje prijava.</span><button type="button" class="vise" data-vise>više</button></dd></dl><div class="dno"><a class="veza" href="https://commission.europa.eu/funding-tenders/find-funding/find-calls-funding-topic/education-and-training-funding/funding-opportunities-conference-interpreting-programmes/bursaries-conference-interpreting-students_hr" target="_blank" rel="noopener">Službena stranica &rarr;</a></div></article><article class="k" data-podrucje="Cijela Hrvatska" data-zupanija="" data-rok="" data-za="student"><div class="zag"><h3>FOI — centar za podršku studentima i razvoj karijera</h3><span class="status zat">Zatvoreno</span></div><div class="izvor">Cijela Hrvatska</div><div class="dno"><a class="veza" href="https://cpsrk.foi.hr/" target="_blank" rel="noopener">Službena stranica &rarr;</a></div></article><article class="k" data-podrucje="Cijela Hrvatska" data-zupanija="" data-rok="" data-za="student"><div class="zag"><h3>Fina — prilike za studente (stipendije)</h3><span class="status zat">Zatvoreno</span></div><div class="izvor">Cijela Hrvatska</div><div class="dno"><a class="veza" href="https://www.fina.hr/karijere/prilike-za-studente" target="_blank" rel="noopener">Službena stranica &rarr;</a></div></article><article class="k" data-podrucje="Bakar" data-zupanija="Primorsko-goranska županija" data-rok="" data-za="oba"><div class="zag"><h3>Grad Bakar — obavijesti</h3><span class="status zat">Zatvoreno</span></div><div class="izvor">Bakar</div><div class="dno"><a class="veza" href="https://www.bakar.hr/obavijesti-bakar-2/" target="_blank" rel="noopener">Službena stranica &rarr;</a></div></article><article class="k" data-podrucje="Beli Manastir" data-zupanija="Osječko-baranjska županija" data-rok="" data-za="oba"><div class="zag"><h3>Grad Beli Manastir — natječaji</h3><span class="status zat">Zatvoreno</span></div><div class="izvor">Beli Manastir</div><div class="dno"><a class="veza" href="https://www.beli-manastir.hr/natjecaji/" target="_blank" rel="noopener">Službena stranica &rarr;</a></div></article><article class="k" data-podrucje="Buzet" data-zupanija="Istarska županija" data-rok="" data-za="oba"><div class="zag"><h3>Grad Buzet — stipendije</h3><span class="status zat">Zatvoreno</span></div><div class="izvor">Buzet</div><div class="dno"><a class="veza" href="https://www.buzet.hr/natjecaji" target="_blank" rel="noopener">Službena stranica &rarr;</a></div></article><article class="k" data-podrucje="Cres" data-zupanija="Primorsko-goranska županija" data-rok="2024-12-06" data-za="oba" data-eur="300"><div class="zag"><h3>Stipendije za studente i učenike srednjih škola</h3><span class="status zat">Zatvoreno</span></div><div class="izvor">Cres</div><dl class="polja"><dt>Iznos</dt><dd class="iznos"><span class="za">studenti i učenici srednjih škola</span> 70 €</dd><dt></dt><dd class="iznos"><span class="za">daroviti studenti i daroviti učenici srednjih škola</span> 85 €</dd><dt></dt><dd class="iznos"><span class="za">studenti i učenici srednjih škola za deficitarna zanimanja</span> 150 €</dd><dt></dt><dd class="iznos"><span class="za">studenti deficitarnog zanimanja medicina</span> 300 €</dd><dt>Isplata</dt><dd class="">mjesečno</dd><dt>Tko se prijavljuje</dt><dd class="skrati"><span class="tekst">Pravo imaju studenti i učenici srednjih škola koji se školuju izvan područja Grada Cresa i Grada Malog Lošinja, te državljani Republike Hrvatske s prebivalištem na području Grada Cresa najmanje 2 godine do dana podnošenja zahtjeva.</span><button type="button" class="vise" data-vise>više</button></dd></dl><div class="dno"><a class="veza" href="https://www.cres.hr/natjecaj-za-dodjelu-stipendija-12/" target="_blank" rel="noopener">Službena stranica &rarr;</a></div></article><article class="k" data-podrucje="Crikvenica" data-zupanija="Primorsko-goranska županija" data-rok="2025-11-05" data-za="oba" data-eur="150"><div class="zag"><h3>Stipendije za izvrsnost učenicima i studentima</h3><span class="status zat">Zatvoreno</span></div><div class="izvor">Crikvenica</div><dl class="polja"><dt>Iznos</dt><dd class="iznos"><span class="za">učenici</span> 100 €</dd><dt></dt><dd class="iznos"><span class="za">studenti</span> 150 €</dd><dt>Isplata</dt><dd class="">mjesečno · 10 mjeseci</dd><dt>Tko se prijavljuje</dt><dd class="skrati"><span class="tekst">Redovni učenici i redovni studenti hrvatskih državljani s prebivalištem na području Grada Crikvenice. Učenici srednjih škola (3. i 4. razred) trebaju prosjek ocjena od 4,500 i više, a studenti sveučilišta prosjek od 4,000 i više.</span><button type="button" class="vise" data-vise>više</button></dd></dl><div class="dno"><a class="veza" href="https://www.crikvenica.hr/djeca-i-mladi/" target="_blank" rel="noopener">Službena stranica &rarr;</a></div></article><article class="k" data-podrucje="Daruvar" data-zupanija="Bjelovarsko-bilogorska županija" data-rok="" data-za="oba"><div class="zag"><h3>Grad Daruvar — stipendije</h3><span class="status zat">Zatvoreno</span></div><div class="izvor">Daruvar</div><div class="dno"><a class="veza" href="https://daruvar.hr/stipendije/" target="_blank" rel="noopener">Službena stranica &rarr;</a></div></article><article class="k" data-podrucje="Donji Miholjac" data-zupanija="Osječko-baranjska županija" data-rok="" data-za="oba"><div class="zag"><h3>Grad Donji Miholjac — stipendije</h3><span class="status zat">Zatvoreno</span></div><div class="izvor">Donji Miholjac</div><div class="dno"><a class="veza" href="https://donjimiholjac.hr/natjecaji" target="_blank" rel="noopener">Službena stranica &rarr;</a></div></article><article class="k" data-podrucje="Dubrovnik" data-zupanija="Dubrovačko-neretvanska županija" data-rok="" data-za="oba"><div class="zag"><h3>Grad Dubrovnik — natječaji</h3><span class="status zat">Zatvoreno</span></div><div class="izvor">Dubrovnik</div><div class="dno"><a class="veza" href="https://www.dubrovnik.hr/natjecaji" target="_blank" rel="noopener">Službena stranica &rarr;</a></div></article><article class="k" data-podrucje="Dugo Selo" data-zupanija="Zagrebačka županija" data-rok="" data-za="oba"><div class="zag"><h3>Grad Dugo Selo — natječaji</h3><span class="status zat">Zatvoreno</span></div><div class="izvor">Dugo Selo</div><div class="dno"><a class="veza" href="https://www.dugoselo.hr/" target="_blank" rel="noopener">Službena stranica &rarr;</a></div></article><article class="k" data-podrucje="Hvar" data-zupanija="Splitsko-dalmatinska županija" data-rok="" data-za="oba"><div class="zag"><h3>Grad Hvar — natječaji</h3><span class="status zat">Zatvoreno</span></div><div class="izvor">Hvar</div><div class="dno"><a class="veza" href="https://www.hvar.hr/portal/" target="_blank" rel="noopener">Službena stranica &rarr;</a></div></article><article class="k" data-podrucje="Ivanec" data-zupanija="Varaždinska županija" data-rok="" data-za="oba"><div class="zag"><h3>Grad Ivanec — stipendije</h3><span class="status zat">Zatvoreno</span></div><div class="izvor">Ivanec</div><div class="dno"><a class="veza" href="https://ivanec.hr/dokumenti/43-proracun/297-stipendija" target="_blank" rel="noopener">Službena stranica &rarr;</a></div></article><article class="k" data-podrucje="Ivanić-Grad" data-zupanija="Zagrebačka županija" data-rok="" data-za="oba"><div class="zag"><h3>Grad Ivanić-Grad — javni natječaji</h3><span class="status zat">Zatvoreno</span></div><div class="izvor">Ivanić-Grad</div><div class="dno"><a class="veza" href="https://ivanic-grad.hr/javni-natjecaji/u-tijeku" target="_blank" rel="noopener">Službena stranica &rarr;</a></div></article><article class="k" data-podrucje="Karlovac" data-zupanija="Karlovačka županija" data-rok="" data-za="oba"><div class="zag"><h3>Grad Karlovac — natječaji i pozivi</h3><span class="status zat">Zatvoreno</span></div><div class="izvor">Karlovac</div><div class="dno"><a class="veza" href="https://www.karlovac.hr/natjecaji_pozivi/" target="_blank" rel="noopener">Službena stranica &rarr;</a></div></article><article class="k" data-podrucje="Kaštela" data-zupanija="Splitsko-dalmatinska županija" data-rok="2025-10-30" data-za="oba" data-eur="160"><div class="zag"><h3>Stipendije učenicima i studentima Grada Kaštela</h3><span class="status zat">Zatvoreno</span></div><div class="izvor">Kaštela</div><dl class="polja"><dt>Iznos</dt><dd class="iznos"><span class="za">učenici</span> 90 €</dd><dt></dt><dd class="iznos"><span class="za">studenti</span> 160 €</dd><dt>Isplata</dt><dd class="">mjesečno · 10 mjeseci</dd><dt>Tko se prijavljuje</dt><dd class="skrati"><span class="tekst">Učenici i studenti koji su državljani Hrvatske, imaju prijavljeno prebivalište ili boravište na području Grada Kaštela, redoviti su učenici/studenti, nisu stariji od 20/26 godina te ispunjavaju kriterije prema kategoriji (izvrsnost, socio-ekonomski status ili sportska stipendija).</span><button type="button" class="vise" data-vise>više</button></dd></dl><div class="dno"><a class="veza" href="https://kastela.hr/2025/10/10/natjecaj-za-dodjelu-stipendija-ucenicima-i-studentima-grada-kastela-za-skolsku-akademsku-godinu-2025-2026/" target="_blank" rel="noopener">Službena stranica &rarr;</a></div></article><article class="k" data-podrucje="Koprivnica" data-zupanija="Koprivničko-križevačka županija" data-rok="" data-za="student" data-eur="290"><div class="zag"><h3>Studentske stipendije Grada Koprivnice</h3><span class="status zat">Zatvoreno</span></div><div class="izvor">Koprivnica</div><dl class="polja"><dt>Iznos</dt><dd class="iznos"><span class="za">studenti u RH</span> 130 €</dd><dt></dt><dd class="iznos"><span class="za">studenti izvan RH</span> 210 €</dd><dt></dt><dd class="iznos"><span class="za">studenti u RH s invaliditetom</span> 170 €</dd><dt></dt><dd class="iznos"><span class="za">studenti izvan RH s invaliditetom</span> 290 €</dd><dt>Isplata</dt><dd class="">mjesečno · 12 mjeseci</dd><dt>Tko se prijavljuje</dt><dd class="skrati"><span class="tekst">Redoviti studenti s prebivalištem na području Grada Koprivnice upisani na prijediplomski, diplomski ili poslijediplomski studij.</span><button type="button" class="vise" data-vise>više</button></dd></dl><div class="dno"><a class="veza" href="https://koprivnica.hr/gradani/odgoj-i-obrazovanje/stipendije/" target="_blank" rel="noopener">Službena stranica &rarr;</a></div></article><article class="k" data-podrucje="Križevci" data-zupanija="Koprivničko-križevačka županija" data-rok="" data-za="oba"><div class="zag"><h3>Grad Križevci — dokumenti i natječaji</h3><span class="status zat">Zatvoreno</span></div><div class="izvor">Križevci</div><div class="dno"><a class="veza" href="https://krizevci.hr/dokumenti" target="_blank" rel="noopener">Službena stranica &rarr;</a></div></article><article class="k" data-podrucje="Krk" data-zupanija="Primorsko-goranska županija" data-rok="" data-za="oba"><div class="zag"><h3>Grad Krk — natječaji</h3><span class="status zat">Zatvoreno</span></div><div class="izvor">Krk</div><div class="dno"><a class="veza" href="https://www.grad-krk.hr/natjecaji" target="_blank" rel="noopener">Službena stranica &rarr;</a></div></article><article class="k" data-podrucje="Kutina" data-zupanija="Sisačko-moslavačka županija" data-rok="" data-za="oba"><div class="zag"><h3>Grad Kutina — natječaji</h3><span class="status zat">Zatvoreno</span></div><div class="izvor">Kutina</div><div class="dno"><a class="veza" href="https://www.kutina.hr/" target="_blank" rel="noopener">Službena stranica &rarr;</a></div></article><article class="k" data-podrucje="Lepoglava" data-zupanija="Varaždinska županija" data-rok="" data-za="oba"><div class="zag"><h3>Grad Lepoglava — natječaji</h3><span class="status zat">Zatvoreno</span></div><div class="izvor">Lepoglava</div><div class="dno"><a class="veza" href="https://www.lepoglava.hr/" target="_blank" rel="noopener">Službena stranica &rarr;</a></div></article><article class="k" data-podrucje="Lipik" data-zupanija="Požeško-slavonska županija" data-rok="" data-za="oba"><div class="zag"><h3>Grad Lipik — stipendije</h3><span class="status zat">Zatvoreno</span></div><div class="izvor">Lipik</div><div class="dno"><a class="veza" href="https://lipik.hr/natjecaji-i-javni-pozivi/" target="_blank" rel="noopener">Službena stranica &rarr;</a></div></article><article class="k" data-podrucje="Makarska" data-zupanija="Splitsko-dalmatinska županija" data-rok="" data-za="oba"><div class="zag"><h3>Grad Makarska — natječaji i javni pozivi</h3><span class="status zat">Zatvoreno</span></div><div class="izvor">Makarska</div><div class="dno"><a class="veza" href="https://makarska.hr/natjecaji-i-javni-pozivi/" target="_blank" rel="noopener">Službena stranica &rarr;</a></div></article><article class="k" data-podrucje="Mali Lošinj" data-zupanija="Primorsko-goranska županija" data-rok="" data-za="student"><div class="zag"><h3>Grad Mali Lošinj — studentske stipendije</h3><span class="status zat">Zatvoreno</span></div><div class="izvor">Mali Lošinj</div><div class="dno"><a class="veza" href="https://mali-losinj.hr/poduzetnici/potpore-i-stipendije/lista-studentske-stipendije/" target="_blank" rel="noopener">Službena stranica &rarr;</a></div></article><article class="k" data-podrucje="Metković" data-zupanija="Dubrovačko-neretvanska županija" data-rok="" data-za="oba"><div class="zag"><h3>Grad Metković — natječaji</h3><span class="status zat">Zatvoreno</span></div><div class="izvor">Metković</div><div class="dno"><a class="veza" href="https://grad-metkovic.hr/kategorija/natjecaji/" target="_blank" rel="noopener">Službena stranica &rarr;</a></div></article><article class="k" data-podrucje="Mursko Središće" data-zupanija="Međimurska županija" data-rok="" data-za="oba"><div class="zag"><h3>Grad Mursko Središće — stipendije</h3><span class="status zat">Zatvoreno</span></div><div class="izvor">Mursko Središće</div><div class="dno"><a class="veza" href="https://mursko-sredisce.hr/stipendije/" target="_blank" rel="noopener">Službena stranica &rarr;</a></div></article><article class="k" data-podrucje="Novi Vinodolski" data-zupanija="Primorsko-goranska županija" data-rok="2012-11-02" data-za="oba"><div class="zag"><h3>Stipendije nadarenim socijalno ugroženim učenicima i studentima</h3><span class="status zat">Zatvoreno</span></div><div class="izvor">Novi Vinodolski</div><dl class="polja"><dt>Iznos</dt><dd class="">Za učenike srednjih škola stipendije iznose 600,00 kn mjesečno, a za studente 800,00 kn mjesečno.</dd><dt>Tko se prijavljuje</dt><dd class="skrati"><span class="tekst">Učenici srednjih škola i redovni studenti fakulteta svih smjerova koji su hrvatski državljani s prebivalištem na području Grada Novi Vinodolski, nadareni i socijalno ugroženi s minimalnim prosjekom ocjena.</span><button type="button" class="vise" data-vise>više</button></dd></dl><div class="dno"><a class="veza" href="https://novi-vinodolski.hr/natjecaj-za-dodjelu-stipendija-nadarenim-socijalno-ugrozenim-ucenicima-i-studentima-za-skolsku-akademsku-godinu-2012-2013/" target="_blank" rel="noopener">Službena stranica &rarr;</a></div></article><article class="k" data-podrucje="Opatija" data-zupanija="Primorsko-goranska županija" data-rok="" data-za="oba"><div class="zag"><h3>Grad Opatija — natječaji za stipendije</h3><span class="status zat">Zatvoreno</span></div><div class="izvor">Opatija</div><div class="dno"><a class="veza" href="https://opatija.hr/?s=stipendij" target="_blank" rel="noopener">Službena stranica &rarr;</a></div></article><article class="k" data-podrucje="Oroslavje" data-zupanija="Krapinsko-zagorska županija" data-rok="" data-za="oba"><div class="zag"><h3>Grad Oroslavje — stipendije</h3><span class="status zat">Zatvoreno</span></div><div class="izvor">Oroslavje</div><div class="dno"><a class="veza" href="https://oroslavje.hr/stipendije/" target="_blank" rel="noopener">Službena stranica &rarr;</a></div></article><article class="k" data-podrucje="Osijek" data-zupanija="Osječko-baranjska županija" data-rok="" data-za="oba"><div class="zag"><h3>Grad Osijek — natječaji</h3><span class="status zat">Zatvoreno</span></div><div class="izvor">Osijek</div><div class="dno"><a class="veza" href="https://www.osijek.hr/natjecaji/" target="_blank" rel="noopener">Službena stranica &rarr;</a></div></article><article class="k" data-podrucje="Pleternica" data-zupanija="Požeško-slavonska županija" data-rok="2025-12-08" data-za="student"><div class="zag"><h3>Stipendije studentima Grada Pleternice</h3><span class="status zat">Zatvoreno</span></div><div class="izvor">Pleternica</div><dl class="polja"><dt>Iznos</dt><dd class="iznos">100 € jednokratno</dd><dt>Tko se prijavljuje</dt><dd class="skrati"><span class="tekst">Studenti državljani Republike Hrvatske sa stalnim prebivalištem na području Grada Pleternice najmanje 6 mjeseci prije prijave, koji studiraju izvan Požesko-slavonske županije, nemaju odobreni kredit ili stipendiju i imaju status redovitog studenta.</span><button type="button" class="vise" data-vise>više</button></dd></dl><div class="dno"><a class="veza" href="https://pleternica.hr/natjecaji/javni-natjecaj-za-dodjelu-stipendija-studentima-s-podrucja-grada-pleternice-za-akademsku-godinu-2025-2026/" target="_blank" rel="noopener">Službena stranica &rarr;</a></div></article><article class="k" data-podrucje="Pregrada" data-zupanija="Krapinsko-zagorska županija" data-rok="" data-za="oba"><div class="zag"><h3>Grad Pregrada — stipendije</h3><span class="status zat">Zatvoreno</span></div><div class="izvor">Pregrada</div><div class="dno"><a class="veza" href="https://www.pregrada.hr/stipendije" target="_blank" rel="noopener">Službena stranica &rarr;</a></div></article><article class="k" data-podrucje="Pula" data-zupanija="Istarska županija" data-rok="" data-za="oba"><div class="zag"><h3>Grad Pula — novosti i natječaji</h3><span class="status zat">Zatvoreno</span></div><div class="izvor">Pula</div><div class="dno"><a class="veza" href="https://www.pula.hr/hr/novosti/" target="_blank" rel="noopener">Službena stranica &rarr;</a></div></article><article class="k" data-podrucje="Rijeka" data-zupanija="Primorsko-goranska županija" data-rok="" data-za="oba"><div class="zag"><h3>Grad Rijeka — stipendije</h3><span class="status zat">Zatvoreno</span></div><div class="izvor">Rijeka</div><div class="dno"><a class="veza" href="https://www.rijeka.hr/teme-za-gradane/odgoj-i-obrazovanje/stipendije/" target="_blank" rel="noopener">Službena stranica &rarr;</a></div></article><article class="k" data-podrucje="Rovinj" data-zupanija="Istarska županija" data-rok="" data-za="oba"><div class="zag"><h3>Grad Rovinj — stipendije</h3><span class="status zat">Zatvoreno</span></div><div class="izvor">Rovinj</div><div class="dno"><a class="veza" href="https://www.rovinj-rovigno.hr/odgoj-i-obrazovanje/stipendije/" target="_blank" rel="noopener">Službena stranica &rarr;</a></div></article></div>
+<a class="prijelaz" href="ucenicke-stipendije.html">Tražiš učeničke stipendije? &rarr;</a>
+</section></main><footer><div class="w">
+  <p class="upoz-p"><strong>Provjeri prije prijave.</strong> Podatke prikupljamo
+     automatski, pa su greške moguće. Vrijede rok i uvjeti sa službene stranice
+     natječaja, na koju vodi poveznica uz svaki unos.</p>
+  <p><strong>Kontakt:</strong> <a href="mailto:erik.hunjek@gmail.com">erik.hunjek@gmail.com</a></p>
+  <p>Nedostaje neka stipendija ili je podatak netočan? Javi nam — ispravljamo brzo.
+     Posebno nam je važno ako je netočan <strong>rok prijave</strong>.</p>
+  <p>Ne procjenjujemo tvoje šanse za pojedinu stipendiju. Za to pitaj instituciju
+     koja je natječaj objavila.</p>
+  <p class="sitno">Zadnja provjera 06.10.2026. &nbsp;·&nbsp; 146 izvora &nbsp;·&nbsp;
+     podaci prikupljeni automatski &nbsp;·&nbsp;
+     <a class="tiho" href="impressum.html">Impressum</a> &nbsp;·&nbsp;
+     <a class="tiho" href="privatnost.html">Privatnost</a></p>
+</div></footer>
+<div class="kol" id="kol">
+  <div class="kol-w">
+    <p>Google Analytics, samo uz tvoj pristanak.
+       <a href="privatnost.html">Više o tome</a>.</p>
+    <div class="kol-gumbi">
+      <button type="button" id="kol-ne">Odbij</button>
+      <button type="button" class="da" id="kol-da">Prihvaćam</button>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  var ID="G-2BPS973W81", K="kolacici-pristanak";
+  function ucitajGA(){
+    if(window.__ga_ucitan) return;
+    window.__ga_ucitan=true;
+    var s=document.createElement("script");
+    s.async=true;
+    s.src="https://www.googletagmanager.com/gtag/js?id="+ID;
+    document.head.appendChild(s);
+    window.dataLayer=window.dataLayer||[];
+    window.gtag=function(){dataLayer.push(arguments)};
+    gtag("js",new Date());
+    gtag("config",ID,{anonymize_ip:true});
+  }
+  var traka=document.getElementById("kol");
+  var izbor=null;
+  try{ izbor=localStorage.getItem(K); }catch(e){}
+  if(izbor==="da"){ ucitajGA(); }
+  else if(izbor!=="ne"){ traka.classList.add("vidljiva"); }
+  document.getElementById("kol-da").addEventListener("click",function(){
+    try{ localStorage.setItem(K,"da"); }catch(e){}
+    traka.classList.remove("vidljiva"); ucitajGA();
+  });
+  document.getElementById("kol-ne").addEventListener("click",function(){
+    try{ localStorage.setItem(K,"ne"); }catch(e){}
+    traka.classList.remove("vidljiva");
+  });
+})();
+</script>
+</body>
+</html>
