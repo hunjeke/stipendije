@@ -1113,7 +1113,8 @@ def main():
         rel, otv = stranica_natjecaja(
             MAPA, z, eur, iznos_polja, datumi_u_brojke, esc,
             glava, navigacija, podnozje, izvora_ukupno, vrijeme,
-            _slug_zup(z["zupanija"]) if z.get("zupanija") else "")
+            _slug_zup(z["zupanija"]) if z.get("zupanija") else "",
+            poziv_kanal)
         putevi_natjecaja.append((rel, "0.8" if otv else "0.4"))
     print("  stranica po natjecaju: %d (novih %d)"
           % (len(arhiv), novih_natjecaja))
@@ -1125,7 +1126,7 @@ def main():
     for kljuc in ("ucenik", "student"):
         stranica_skupine(MAPA, kljuc, otvorene, zatvorene, za_koga, kartica,
                          oblik, glava, navigacija, podnozje, izvora_ukupno,
-                         vrijeme, _slug_zup, adrese)
+                         vrijeme, _slug_zup, adrese, poziv_kanal)
 
     putevi = [("", "1.0"), ("drzavna-stipendija.html", "0.9"),
               ("ucenicke-stipendije.html", "0.9"),
