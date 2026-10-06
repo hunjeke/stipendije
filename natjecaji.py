@@ -117,6 +117,9 @@ def azuriraj(arhiv, otvorene):
             "uvjeti": r.get("uvjeti") or "",
             "upute_za_prijavu": r.get("upute_za_prijavu") or "",
             "napomena": r.get("napomena") or "",
+            "rucni": bool(r.get("_rucni")),
+            "zasto_rucno": r.get("zasto_rucno") or "",
+            "potvrda": r.get("potvrda") or "",
             "prvi_put": stari.get("prvi_put") or danas,
             "zadnji_put": danas,
         }
@@ -208,6 +211,16 @@ def stranica(mapa, z, eur, iznos_polja_f, datumi_u_brojke, esc,
     upute = (f'<h2>Kako se prijaviti</h2><ol>{koraci}</ol>') if koraci else ""
     nap = (f'<h2>Obrati pažnju</h2><p>{esc(datumi_u_brojke(z["napomena"]))}</p>'
            if z.get("napomena") else "")
+    # Rucno upisan natjecaj mora reci da je rucno upisan i gdje se provjerava.
+    # Podnozje stranice tvrdi da se podaci prikupljaju automatski, pa bi sutjeti
+    # o tome znacilo pustiti da ta tvrdnja vrijedi i za ono sto smo sami utipkali.
+    if z.get("rucni"):
+        p = esc(z.get("zasto_rucno") or
+                "Ovaj natječaj upisali smo ručno jer ga nije moguće pročitati automatski.")
+        if z.get("potvrda"):
+            p += (f' Podatke smo preuzeli s <a href="{esc(z["potvrda"])}" '
+                  f'target="_blank" rel="noopener">ove objave</a>.')
+        nap += f'<p class="upoz-n">{p}</p>'
 
     veza = z.get("poveznica") or z.get("url") or ""
     if otvoren:
