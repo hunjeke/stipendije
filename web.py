@@ -452,7 +452,7 @@ def za_koga(r):
     return "oba"
 
 
-def kartica(r, otvorena, podrucje, zupanija):
+def kartica(r, otvorena, podrucje, zupanija, vlastita=None):
     naziv = esc(naslov_kartice(r))
     # ako je scraper nasao izravnu poveznicu na natjecaj, koristi nju
     izravna = r.get("poveznica_natjecaj")
@@ -496,6 +496,11 @@ def kartica(r, otvorena, podrucje, zupanija):
         znak = '<span class="status zat">Zatvoreno</span>'
         klasa = "k"
 
+    # Poveznica na vlastitu stranicu natjecaja. Kartica ostaje kratka, a tko
+    # hoce cijele uvjete i upute ide na stranicu koja se moze i indeksirati.
+    detalji = (f'<a class="detalji" href="{esc(vlastita)}">Detalji natječaja</a>'
+               if vlastita else "")
+
     # najveci mjesecni iznos na kartici — traka na vrhu iz njih racuna "do X €"
     mjesecni = [i.get("eur") for i in (r.get("iznosi") or [])
                 if i.get("razdoblje") == "mjesecno" and i.get("eur")]
@@ -507,8 +512,9 @@ def kartica(r, otvorena, podrucje, zupanija):
             f'<div class="zag"><h3>{naziv}</h3>{znak}</div>'
             f'<div class="izvor">{esc(podrucje)}</div>'
             f'{polja}{upute_html}'
+            f'<div class="dno">'
             f'<a class="veza" href="{url}" target="_blank" rel="noopener">'
-            f'{tekst_veze} &rarr;</a></article>')
+            f'{tekst_veze} &rarr;</a>{detalji}</div></article>')
 
 
 def _kljuc_naslova(s):
@@ -701,25 +707,48 @@ JS_ROKOVI = """
 
   // Traka na vrhu: brojke se racunaju ovdje, a ne pri gradnji stranice.
   // Stranica se gradi dvaput tjedno, pa bi "jos 3 dana" drugi dan bilo netocno.
-  var bNaj=document.querySelector("[data-najblizi]");
-  if(bNaj && najblizi!==null){
-    bNaj.textContent = najblizi===0 ? "danas"
-      : najblizi+" "+oblik(najblizi,"dan","dana","dana");
-    if(najblizi<=3) bNaj.className="hitno";
+  // Brojke i traka na vrhu moraju pratiti ono sto je NA EKRANU, a ne sve sto
+  // postoji. Kad se odabere "Ucenik" ili zupanija, dio kartica se sakrije, pa
+  // bi stari broj tvrdio da je otvoreno deset natjecaja dok se vidi troje.
+  // Zato racun stoji u funkciji koju filter poziva nakon svake promjene.
+  function osvjeziBrojke(){
+    var otvB=0, zatB=0, blizi=null, maks=0;
+    document.querySelectorAll(".k:not(.isteklo):not(.skriveno)").forEach(function(k){
+      if(k.classList.contains("otv")){
+        otvB++;
+        var n=dana(k.getAttribute("data-rok"));
+        if(n!==null && n>=0 && (blizi===null || n<blizi)) blizi=n;
+        var e=parseInt(k.getAttribute("data-eur")||"0",10);
+        if(e>maks) maks=e;
+      } else { zatB++; }
+    });
+    document.querySelectorAll("[data-broj-otv]").forEach(function(b){
+      b.textContent = otvB+" "+oblik(otvB,"natječaj","natječaja","natječaja");
+    });
+    document.querySelectorAll("[data-broj-otv-n]").forEach(function(b){
+      b.textContent = otvB;
+    });
+    document.querySelectorAll("[data-broj-zat]").forEach(function(b){
+      b.textContent = zatB+" "+oblik(zatB,"izvor","izvora","izvora");
+    });
+    document.querySelectorAll("[data-broj-zat-n]").forEach(function(b){
+      b.textContent = zatB;
+    });
+    var bNaj=document.querySelector("[data-najblizi]");
+    if(bNaj){
+      bNaj.textContent = blizi===null ? "\\u2014"
+        : (blizi===0 ? "danas" : blizi+" "+oblik(blizi,"dan","dana","dana"));
+      bNaj.className = (blizi!==null && blizi<=3) ? "hitno" : "";
+    }
+    var bEur=document.querySelector("[data-najveci]");
+    if(bEur) bEur.textContent = maks>0 ? maks+" \\u20AC/mj." : "\\u2014";
   }
-  var bEur=document.querySelector("[data-najveci]");
-  if(bEur) bEur.textContent = najveci>0 ? najveci+" \\u20AC/mj." : "\\u2014";
+  window.__osvjeziBrojke = osvjeziBrojke;
+  osvjeziBrojke();
 
   if(!istekle) return;
 
-  // brojke i naslovi moraju pratiti ono sto se stvarno vidi
   var ziv=document.querySelectorAll(".k.otv:not(.isteklo)").length;
-  document.querySelectorAll("[data-broj-otv]").forEach(function(b){
-    b.textContent = ziv+" "+oblik(ziv,"natječaj","natječaja","natječaja");
-  });
-  document.querySelectorAll("[data-broj-otv-n]").forEach(function(b){
-    b.textContent = ziv;
-  });
   if(ziv>0) return;
 
   var sek=document.getElementById("sek-otv");
@@ -782,6 +811,7 @@ JS = """
       var por=g.querySelector(".nema-rez");
       if(por)por.classList.toggle("vidljivo",!ima);
     });
+    if(window.__osvjeziBrojke) window.__osvjeziBrojke();
     sklopiDrzavne(!!z);
   }
 
@@ -905,6 +935,26 @@ def main():
     # bi tvrditi da ga ne pratimo.
     izvora_ukupno = len(d)
 
+    # --- stranica po natjecaju + arhiv ---
+    # Svaki otvoren natjecaj dobiva vlastitu stranicu i ostaje zapisan kad mu
+    # rok prode. Bez arhiva bi iznos i rok nestali cim se gradska stranica vrati
+    # na obicnu, pa bi osam mjeseci u godini stranica imala sto reci samo o
+    # onome sto je bas tad otvoreno.
+    from natjecaji import (ucitaj_arhiv, spremi_arhiv, azuriraj,
+                           slug_natjecaja, stranica as stranica_natjecaja)
+    from stranice import slug as _slug_zup
+    arhiv = ucitaj_arhiv()
+    novih_natjecaja = azuriraj(arhiv, otvorene)
+    spremi_arhiv(arhiv)
+
+    # adresa vlastite stranice po kljucu zapisa iz output.json
+    adrese = {}
+    for r, p, z in otvorene:
+        iso = iso_rok(r.get("status") or "")
+        god = iso[:4] if iso else str(datetime.now().year)
+        s = slug_natjecaja(r.get("naslov_natjecaja") or r.get("naziv") or "", p, god)
+        adrese[id(r)] = f"natjecaj/{s}.html"
+
     # ---------- hero ----------
     # Uski natjecaji (npr. samo za jedan studij) ostaju u popisu, ali ne idu
     # na vrh stranice — ondje ide nesto sto se tice vise ljudi. Ako su otvoreni
@@ -949,7 +999,8 @@ def main():
                    f'{oblik(len(otvorene), "natječaj", "natječaja", "natječaja")}'
                    f'</span></div>'
                    f'<div class="grupa">'
-                   + "".join(kartica(r, True, p, z) for r, p, z in otvorene)
+                   + "".join(kartica(r, True, p, z, adrese.get(id(r)))
+                               for r, p, z in otvorene)
                    + '<div class="medja">Otvoreno svima u Hrvatskoj</div>'
                    + '<p class="nema-rez">Za odabrano područje nema otvorenih natječaja. '
                      'Pogledaj popis izvora ispod.</p></div></section>')
@@ -961,7 +1012,7 @@ def main():
         # natjecaji gore i izvori bez uspjesnog citanja takoder se prate.
         sek_zat = (f'<section class="sek"><div class="sek-vrh">'
                    f'<h2>Trenutno bez otvorenog natječaja</h2>'
-                   f'<span class="broj">{len(zatvorene)} '
+                   f'<span class="broj" data-broj-zat>{len(zatvorene)} '
                    f'{oblik(len(zatvorene), "izvor", "izvora", "izvora")}'
                    f'</span></div>'
                    f'<p class="uvod">Ove izvore provjeravamo automatski svaki '
@@ -1043,8 +1094,19 @@ def main():
     privatnost(MAPA, izvora_ukupno, vrijeme)
 
     # --- zasebna stranica po zupaniji (za trazilice) ---
+    putevi_natjecaja = []
     sve_zup = sorted({z if z else p for _, p, z in otvorene + zatvorene
                       if p != SVI})
+    # stranice natjecaja u sitemap: otvoreni visoko, istekli nize ali ostaju
+    for s, z in sorted(arhiv.items()):
+        rel, otv = stranica_natjecaja(
+            MAPA, z, eur, iznos_polja, datumi_u_brojke, esc,
+            glava, navigacija, podnozje, izvora_ukupno, vrijeme,
+            _slug_zup(z["zupanija"]) if z.get("zupanija") else "")
+        putevi_natjecaja.append((rel, "0.8" if otv else "0.4"))
+    print("  stranica po natjecaju: %d (novih %d)"
+          % (len(arhiv), novih_natjecaja))
+
     putevi = [("", "1.0"), ("drzavna-stipendija.html", "0.9"), ("vodic.html", "0.7"),
               ("impressum.html", "0.3"), ("privatnost.html", "0.3")]
 
@@ -1057,11 +1119,13 @@ def main():
         if otv_z:
             dio += ('<div class="sek-vrh" id="sek-otv"><h2>Otvoreno za prijave</h2>'
                     f'<span class="broj" data-broj-otv-n>{len(otv_z)}</span></div>'
-                    + "".join(kartica(r, True, p, z) for r, p, z in otv_z))
+                    + "".join(kartica(r, True, p, z,
+                                      ("../" + adrese[id(r)]) if id(r) in adrese else None)
+                              for r, p, z in otv_z))
         if zat_z:
             dio += ('<div class="sek-vrh" style="margin-top:2.2rem">'
                     '<h2>Trenutno bez otvorenog natječaja</h2>'
-                    f'<span class="broj">{len(zat_z)}</span></div>'
+                    f'<span class="broj" data-broj-zat-n>{len(zat_z)}</span></div>'
                     + "".join(kartica(r, False, p, z) for r, p, z in zat_z))
         # i zupanijska stranica sama izbacuje istekle rokove
         dio += poziv_kanal()
@@ -1073,7 +1137,7 @@ def main():
                                 izvora_ukupno, vrijeme, popis)
         putevi.append((put, "0.8"))
 
-    sitemap(MAPA, putevi)
+    sitemap(MAPA, putevi + putevi_natjecaja)
     print("  stranica po zupanijama: %d" % len(sve_zup))
 
     print("Napisano %s/index.html, vodic.html, impressum.html" % MAPA)
