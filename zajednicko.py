@@ -192,6 +192,12 @@ CSS_KARTICE = """
 .k summary{cursor:pointer;color:var(--plava);font-weight:500}
 .k details ol{margin:.55rem 0 0;padding-left:1.25rem;color:var(--tinta-2)}
 .k details li{margin-bottom:.3rem}
+.k .dno{display:flex;align-items:center;gap:1.1rem;flex-wrap:wrap;margin-top:.8rem}
+.k .dno .veza{margin-top:0}
+/* tiha poveznica na vlastitu stranicu natjecaja — glavni poziv ostaje izvor */
+.detalji{font-size:.85rem;color:var(--tinta-2);text-decoration:underline;
+  text-underline-offset:3px}
+.detalji:hover{color:var(--plava)}
 .veza{display:inline-block;margin-top:.8rem;font-size:.88rem;font-weight:500;
   color:var(--tinta);text-decoration:none;border-bottom:1.5px solid var(--plava);
   padding-bottom:1px}
