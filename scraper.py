@@ -45,8 +45,10 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 try:
     import anthropic
 except ImportError:
-    print("GRESKA: nedostaje 'anthropic' paket. Instaliraj s: pip install anthropic")
-    sys.exit(1)
+    # Nedostatak paketa ne smije rusiti sam uvoz modula: web.py iz njega
+    # posuduje racun statusa i provjeru iznosa, a za to klijent ne treba.
+    # Greska se javlja tek kad se scraper stvarno pokrene.
+    anthropic = None
 
 try:
     from pypdf import PdfReader
@@ -905,6 +907,9 @@ def main():
         print(f"GRESKA: {SOURCES_FILE} ne postoji.")
         sys.exit(1)
 
+    if anthropic is None:
+        print("GRESKA: nedostaje 'anthropic' paket. Instaliraj s: pip install anthropic")
+        sys.exit(1)
     client = anthropic.Anthropic(api_key=api_key)
     with open(SOURCES_FILE, "r", encoding="utf-8") as f:
         sources = json.load(f)
