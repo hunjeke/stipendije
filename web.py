@@ -140,6 +140,9 @@ CSS_INDEX = CSS_KARTICE + """
 /* kad je odabrana zupanija, lokalne stipendije idu prve */
 .grupa{display:flex;flex-direction:column}
 .grupa .k{order:0}
+/* drzavna stipendija ostaje prva i kad se odabere zupanija */
+.grupa .k.prvo{order:-1}
+.k.prvo{border-left:3px solid var(--plava)}
 .grupa .k.drzavna{order:1}
 .grupa .nema-rez{order:2}
 .medja{order:1;display:none;margin:.5rem 0 .9rem;
@@ -452,6 +455,18 @@ def za_koga(r):
     return "oba"
 
 
+def je_drzavna(r):
+    """Je li ovo natjecaj za drzavnu stipendiju (MZO, socio-ekonomski status).
+
+    Jedini natjecaj koji vrijedi za cijelu zemlju i za koji se prijavljuju
+    desetci tisuca ljudi odjednom. Zato smije na vrh popisa, dok su ostali
+    poredani po hitnosti roka — rok u Sibeniku Zagrepcaninu ne znaci nista,
+    a ovaj znaci svima.
+    """
+    from drzavna import MZO_SOCIO
+    return (r.get("url") or "").rstrip("/") == MZO_SOCIO.rstrip("/")
+
+
 def kartica(r, otvorena, podrucje, zupanija, vlastita=None):
     naziv = esc(naslov_kartice(r))
     # ako je scraper nasao izravnu poveznicu na natjecaj, koristi nju
@@ -491,7 +506,7 @@ def kartica(r, otvorena, podrucje, zupanija, vlastita=None):
 
     if otvorena:
         znak = '<span class="status otv" data-znak>Otvoreno</span>'
-        klasa = "k otv"
+        klasa = "k otv prvo" if je_drzavna(r) else "k otv"
     else:
         znak = '<span class="status zat">Zatvoreno</span>'
         klasa = "k"
@@ -926,8 +941,9 @@ def main():
 
     otvorene = spoji_duplikate(otvorene)
 
-    # najhitniji prvi
-    otvorene.sort(key=lambda t: (iso_rok(t[0].get("status") or "") or "9999",
+    # najhitniji prvi, ali drzavna stipendija ispred svih dok je otvorena
+    otvorene.sort(key=lambda t: (0 if je_drzavna(t[0]) else 1,
+                                 iso_rok(t[0].get("status") or "") or "9999",
                                  t[0].get("naziv") or ""))
     zatvorene.sort(key=lambda t: t[0].get("naziv") or "")
 
