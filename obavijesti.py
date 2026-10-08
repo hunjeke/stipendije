@@ -130,7 +130,8 @@ def obrazac():
     <input type="checkbox" id="pristanak" required>
     <span><label for="pristanak" style="display:inline;font-weight:400">
       Slažem se da mi stipendije.hr šalje obavijesti o natječajima na mail.
-      Odjaviti se mogu kad hoću, poveznicom u svakoj poruci.</label>
+      Odjaviti se mogu kad hoću, poveznicom u svakoj poruci. Imam 16 ili više
+      godina, ili suglasnost roditelja.</label>
       <a href="privatnost.html">Što radimo s podacima</a></span>
   </div>
   <!-- Brevo ocekuje oba. email_address_check je zamka za robote i mora
