@@ -234,51 +234,51 @@
     }
   },
   "https://www.grad-zadar.hr/vijesti/odgoj-i-skolstvo--stipendiranje--natjecaji-i-obrasci-59/": {
-    "hash": "v3:99b9cf34dab19106",
+    "hash": "v3:7266c2ea38202ae3",
     "result": {
       "naziv": "Grad Zadar — stipendiranje, natječaji i obrasci",
       "url": "https://www.grad-zadar.hr/vijesti/odgoj-i-skolstvo--stipendiranje--natjecaji-i-obrasci-59/",
       "kategorija": "Grad",
-      "naslov_natjecaja": "Stipendije učenicima i studentima 2025./2026",
+      "naslov_natjecaja": "Stipendije učenicima i studentima 2024./2025",
       "iznos": "Stipendija za učenike iznosi 70,00 eura mjesečno, za studente koji studiraju u mjestu prebivališta 120,00 eura mjesečno, za studente koji studiraju izvan mjesta prebivališta 150,00 eura mjesečno, a za studente koji se školuju za deficitarna zvanja 180,00 eura mjesečno.",
       "iznosi": [
         {
           "eur": 70.0,
           "razdoblje": null,
-          "mjeseci": 10,
-          "za": "ucenici",
+          "mjeseci": null,
+          "za": "učenici",
           "do": false
         },
         {
           "eur": 120.0,
           "razdoblje": null,
-          "mjeseci": 10,
-          "za": "studenti",
+          "mjeseci": null,
+          "za": "studenti koji studiraju u mjestu prebivališta",
           "do": false
         },
         {
           "eur": 150.0,
           "razdoblje": null,
-          "mjeseci": 10,
-          "za": "studenti",
+          "mjeseci": null,
+          "za": "studenti koji studiraju izvan mjesta prebivališta",
           "do": false
         },
         {
           "eur": 180.0,
           "razdoblje": null,
-          "mjeseci": 10,
-          "za": "studenti",
+          "mjeseci": null,
+          "za": "studenti koji se školuju za deficitarna zvanja",
           "do": false
         }
       ],
       "iznos_je_fond": false,
-      "rok_tekst": "24. studenog 2025. do 8. prosinca 2025.",
-      "uvjeti": "Učenici srednjih škola i studenti preddiplomskih/diplomskih studija koji su državljani RH s prebivalištem na području Grada Zadra, imaju status redovnog učenika ili studenta bez odobene stipendije ili kredita od drugog subjekta, te nisu stariji od 25, odnosno 27 godina za diplomski studij.",
-      "upute_za_prijavu": "Prijava putem e-usluge \"Stipendije\" na https://ezadrani.hr/stipendije | Učitati potvrdu o redovitom upisu u 2025./2026. godinu | Priložiti potrebnu dokumentaciju za dokazivanje opće uspjeha | Priložiti dodatnu dokumentaciju za natjecanja, radove, nagrade ili socijalno-materijalno stanje | Potvrditi pristanak na korištenje osobnih podataka",
-      "napomena": "Za studentske stipendije OIB se povlači iz NIAS prijave, a za učeničke stipendije obavezno ga unijeti u online obrazac. Studenti stariji od 25 godina mogu biti stipendirani samo ako upisuju diplomski studij (do 27 godina). Deficitarna zvanja imaju posebnu listu i veće iznose stipendije.",
-      "poveznica_natjecaj": "https://www.grad-zadar.hr/vijest/odgoj-i-skolstvo--stipendiranje--natjecaji-i-obrasci-59/n-a-t-j-e-c-a-j-za-dodjelu-stipendija-ucenicima-i-studentima-za-skolskuakademsku-20252026-godinu-9057.html",
-      "status": "ROK ISTEKAO (2025-11-24) — čeka se novi ciklus",
-      "zadnje_provjereno": "2026-09-28T11:04",
+      "rok_tekst": "od 22.11.2024. do 06. prosinca 2024. (do 23:59 sati)",
+      "uvjeti": "Pravo mogu ostvariti učenici srednjih škola i studenti preddiplomskih/diplomskih studija koji su državljani Republike Hrvatske s prebivalištem na području Grada Zadra, imaju status redovitog učenika ili studenta, nemaju odobrenu stipendiju ili kredit od drugog subjekta, te nisu prethodno koristili Stipendiju Grada Zadra za isti stupanj i studijsku godinu.",
+      "upute_za_prijavu": "Unijeti OIB kandidata u online obrazac | Učitati potvrdu o redovitom upisu u 2024./2025. godinu | Učitati obvezne priloge (svjedožba ocjena) | Dodati dodatne priloge ako ste imali natjecanja, radove ili nagrade | Poslati prijavu putem e-usluge Stipendije na https://ezadrani.hr/stipendije",
+      "napomena": "Grad Zadar dodjeljuje 145 stipendija (20 za učenike srednjih škola, 20 za učenike strukovna zvanja, 30 za studente prve godine, 35 za studente starijih godišta, 40 za studente deficitarnih zvanja). Studenti mogu natjecati se na obje liste (redovnoj i deficitarnoj) i imaju mogućnost izbora ako ostvare pravo po oba osnova.",
+      "poveznica_natjecaj": "https://www.grad-zadar.hr/vijest/odgoj-i-skolstvo--stipendiranje--natjecaji-i-obrasci-59/natjecaj-za-dodjelu-stipendija-ucenicima-i-studentima-za-skolskuakademsku-20242025-godinu-8636.html",
+      "status": "ROK ISTEKAO (2024-12-06) — čeka se novi ciklus",
+      "zadnje_provjereno": "2026-10-08T15:32",
       "_ima_otvoren": true,
       "_dopuna_pokusana": false
     }
@@ -1454,22 +1454,22 @@
     }
   },
   "https://www.hvar.hr/portal/": {
-    "hash": "v3:cf346ddf1977d44f",
+    "hash": "v3:040d42745bf2ae84",
     "result": {
       "naziv": "Grad Hvar — natječaji",
       "url": "https://www.hvar.hr/portal/",
       "kategorija": "Grad",
-      "naslov_natjecaja": "Stipendije za učenike i studente",
+      "naslov_natjecaja": null,
       "iznos": null,
       "iznosi": [],
       "iznos_je_fond": false,
       "rok_tekst": null,
       "uvjeti": null,
       "upute_za_prijavu": null,
-      "napomena": "Stranica sadrži samo naslov natječaja bez detaljnog teksta, roka ili uvjeta prijave. Kompletan natječaj dostupan je na povezanoj podstranici.",
+      "napomena": null,
       "poveznica_natjecaj": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-10-08T14:44",
+      "zadnje_provjereno": "2026-10-08T15:38",
       "_ima_otvoren": false,
       "_dopuna_pokusana": false
     }
@@ -1557,7 +1557,7 @@
     }
   },
   "https://kastela.hr/kategorija/stipendije/": {
-    "hash": "v3:7e27362763fa22e5",
+    "hash": "v3:b197dfffad268127",
     "result": {
       "naziv": "Grad Kaštela — stipendije",
       "url": "https://kastela.hr/kategorija/stipendije/",
@@ -1582,12 +1582,12 @@
       ],
       "iznos_je_fond": false,
       "rok_tekst": "od 10. do 30. listopada 2025. godine",
-      "uvjeti": "Učenici i studenti koji su državljani RH, imaju prijavljeno prebivalište na području Grada Kaštela neprekidno najmanje 3 godine, su redoviti učenici/studenti i ispunjavaju kriterije u jednoj od tri kategorije (izvrsnost, socio-ekonomski status, sportske stipendije).",
-      "upute_za_prijavu": "Popuniti prijavnicu s izjavom o suglasnosti za obradu podataka | Priložiti dokaz o državljanstvu (preslika domovnice ili e-zapis) | Priložiti uvjerenje o prebivalištu od MUP-a ili e-uvjerenje | Priložiti potvrdu o redovnom upisu i svjedodžbe te ostalu dokumentaciju prema kategoriji | Predati prijavu u roku od 10. do 30. listopada 2025.",
-      "napomena": "180 stipendija ukupno: 80 prema izvrsnosti (30 učenika + 50 studenata), 80 prema socio-ekonomskom statusu (30 učenika + 50 studenata), 20 sportskih (10 učenika + 10 studenata). Stipendija se dodjeljuje za 10 mjeseci od 1. rujna 2025. Kompletan tekst natječaja s pravilnikom dostupan u priloženim dokumentima.",
+      "uvjeti": "Učenici i studenti Grada Kaštela koji su državljani Republike Hrvatske, imaju prijavljeno prebivalište na području grada neprekidno najmanje tri godine, su redoviti učenici/studenti, nisu stariji od 20/26 godina te ispunjavaju uvjete prema jednoj od tri kategorije: izvrsnost, socio-ekonomski status ili sportska stipendija.",
+      "upute_za_prijavu": "Preuzmi prijavnicu s obrascem | Priloži tražene dokaze (svjedodžbe, uvjerenja, dokazom statusa) | Vlastoručno potpiši izjavu o suglasnosti za obradu podataka | Podnesi prijavu tijekom roka natječaja | Dostava na oglasnoj ploči Gradske uprave ili prema uputama",
+      "napomena": "Dodjeljuje se ukupno 180 stipendija (80 za izvrsnost, 80 za socio-ekonomski status, 20 sportskih). Stipendija se dodjeljuje za 10 mjeseci od 1. rujna 2025. godine. Dostupan je cjelokupan tekst natječaja s pravilnikom, uputama i obrascem.",
       "poveznica_natjecaj": "https://kastela.hr/2025/10/10/natjecaj-za-dodjelu-stipendija-ucenicima-i-studentima-grada-kastela-za-skolsku-akademsku-godinu-2025-2026/",
       "status": "ROK ISTEKAO (2025-10-30) — čeka se novi ciklus",
-      "zadnje_provjereno": "2026-10-08T14:44",
+      "zadnje_provjereno": "2026-10-08T15:39",
       "_ima_otvoren": true,
       "_dopuna_pokusana": false
     }
@@ -1852,7 +1852,7 @@
     }
   },
   "https://icm-osijek.info/natjecaji": {
-    "hash": "v3:40a9cbd147d162bd",
+    "hash": "v3:8e91a28672d008c0",
     "result": {
       "naziv": "Info centar za mlade Osijek — natječaji",
       "url": "https://icm-osijek.info/natjecaji",
@@ -1862,12 +1862,12 @@
       "iznosi": [],
       "iznos_je_fond": false,
       "rok_tekst": "do 31. srpnja 2026. godine",
-      "uvjeti": "Hrvatski državljani s visokom stručnom spremom (najmanje četverogodišnji studij ili petogodišnji diplomski studij), pet godina radnog iskustva u odabranom području te izvrsno znanje engleskoga jezika.",
-      "upute_za_prijavu": "Posjetiti mrežnu stranicu Veleposlanstva SAD-a | Ispuniti online prijavu | Dostaviti dodatnu dokumentaciju elektronički uz prijavu | Razmotriti se samo prijave s potpunom dokumentacijom",
-      "napomena": "Stipendije nisu namijenjene za razdoblje studija niti omogućuju stjecanje akademskoga naziva u SAD-u. Kandidati trebaju podnijeti dokaz o zaposlenju u RH.",
-      "poveznica_natjecaj": "https://icm-osijek.info/natjecaji/f-stipendije",
+      "uvjeti": "Hrvatski državljani s visokom stručnom spremom (najmanje četverogodišnji studij ili petogodišnji diplomski studij), pet godina radnog iskustva u navedenim područjima i izvrsnim znanjem engleskog jezika.",
+      "upute_za_prijavu": "Posjetiti mrežnu stranicu Veleposlanstva SAD-a | Ispuniti online prijavu | Dostaviti dodatnu dokumentaciju elektronički | Priložiti dokaz o zaposlenju u RH | Osigurati da je dokumentacija potpuna do roka",
+      "napomena": "Stipendija ne omogućuje stjecanje akademskog naziva. Znanstveno-stručno usavršavanje na jednom od 11 odabranih sveučilišta u SAD-u.",
+      "poveznica_natjecaj": "https://icm-osijek.info/natjecaji/f-stipendije#total-count-wrapper",
       "status": "ROK ISTEKAO (2026-07-31) — čeka se novi ciklus",
-      "zadnje_provjereno": "2026-10-08T14:48",
+      "zadnje_provjereno": "2026-10-08T15:41",
       "_ima_otvoren": true,
       "_dopuna_pokusana": true
     }
@@ -3351,22 +3351,22 @@
     }
   },
   "https://zupanja.hr/stipendije-grada-zupanja/": {
-    "hash": "v3:77dad448436cf05e",
+    "hash": "v3:f957bbe23da7f7fb",
     "result": {
       "naziv": "Grad Županja — stipendije",
       "url": "https://zupanja.hr/stipendije-grada-zupanja/",
       "kategorija": "Grad",
-      "naslov_natjecaja": "Stipendije Grada Županja za školsku godinu 2025./2026",
+      "naslov_natjecaja": "Stipendije grada Županja",
       "iznos": null,
       "iznosi": [],
       "iznos_je_fond": false,
       "rok_tekst": "14. studenog 2025. godine",
       "uvjeti": null,
-      "upute_za_prijavu": "Kreiraj korisnički račun na SOM Natječaj aplikaciji | Prijavi se na natječaj iz popisa objavljenih natječaja | Popuni sva obavezna polja označena crvenom zvjezdicom | Učitaj potrebne dokumente | Pošalji prijavu",
-      "napomena": "Iznos stipendija nije naveden u tekstu stranice, dostupan je samo u priloženoj PDF datoteci 'Odluka visina stipendije I godina' i 'Odluka visina stipendije više godine studija'. Prijave se vrše isključivo putem SOM Natječaj aplikacije.",
+      "upute_za_prijavu": "Registracija na SOM Natječaj aplikaciji | Odabir natječaja iz popisa | Popunjavanje obaveznih polja (označena crvenom zvjezdicom) | Učitavanje potrebnih dokumenata | Slanje prijave klikom na 'Pošalji prijavu'",
+      "napomena": "Prijave se vrše isključivo putem SOM Natječaj aplikacije. Iznosi stipendije definirani su posebnim odlukama (Odluka visina stipendije I godina i Odluka visina stipendije više godine studija) koje nije moguće pročitati iz ovog teksta.",
       "poveznica_natjecaj": null,
       "status": "ROK ISTEKAO (2025-11-14) — čeka se novi ciklus",
-      "zadnje_provjereno": "2026-10-08T14:56",
+      "zadnje_provjereno": "2026-10-08T15:44",
       "_ima_otvoren": true,
       "_dopuna_pokusana": true
     }
@@ -3393,7 +3393,7 @@
     }
   },
   "https://www.sibensko-kninska-zupanija.hr/pozivi-i-natjecaji": {
-    "hash": "v3:26b9388d6599913d",
+    "hash": "v3:b4d6864b43104c24",
     "result": {
       "naziv": "Šibensko-kninska županija — pozivi i natječaji",
       "url": "https://www.sibensko-kninska-zupanija.hr/pozivi-i-natjecaji",
@@ -3408,7 +3408,7 @@
       "napomena": null,
       "poveznica_natjecaj": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-10-08T14:57",
+      "zadnje_provjereno": "2026-10-08T15:44",
       "_ima_otvoren": false,
       "_dopuna_pokusana": false
     }

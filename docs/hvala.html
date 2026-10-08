@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Provjeri mail — stipendije.hr</title>
+<meta name="description" content="Prijava je zaprimljena. Ostao je jos jedan korak: potvrda poveznicom u mailu koji smo upravo poslali.">
+<meta property="og:title" content="Provjeri mail — stipendije.hr">
+<meta property="og:description" content="Prijava je zaprimljena. Ostao je jos jedan korak: potvrda poveznicom u mailu koji smo upravo poslali.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://stipendije.hr/pregled.png?v=3">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="hr_HR">
+<meta property="og:site_name" content="Stipendije.hr">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://stipendije.hr/pregled.png?v=3">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="48x48" href="favicon-48.png">
+<link rel="icon" type="image/png" sizes="96x96" href="favicon-96.png">
+<link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#1D4ED8">
+<link rel="preload" href="f/plex-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="f/bricolage-800.woff2" as="font" type="font/woff2" crossorigin>
+<meta name="robots" content="noindex">
+<style>
+@font-face{font-family:"Bricolage";src:url("f/bricolage-700.woff2") format("woff2");
+  font-weight:700;font-style:normal;font-display:swap}
+@font-face{font-family:"Bricolage";src:url("f/bricolage-800.woff2") format("woff2");
+  font-weight:800;font-style:normal;font-display:swap}
+@font-face{font-family:"Plex";src:url("f/plex-400.woff2") format("woff2");
+  font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"Plex";src:url("f/plex-500.woff2") format("woff2");
+  font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:"Plex";src:url("f/plex-600.woff2") format("woff2");
+  font-weight:600;font-style:normal;font-display:swap}
+@font-face{font-family:"PlexMono";src:url("f/plexmono-500.woff2") format("woff2");
+  font-weight:400 500;font-style:normal;font-display:swap}
+
+.kol{position:fixed;left:0;right:0;bottom:0;z-index:80;background:var(--tinta);
+  color:#F2F4F8;padding:1rem 1.15rem;display:none}
+.kol.vidljiva{display:block}
+.kol-w{max-width:780px;margin:0 auto;display:flex;gap:1rem;
+  align-items:center;justify-content:space-between;flex-wrap:wrap}
+.kol p{margin:0;font-size:.86rem;line-height:1.5;max-width:52ch;color:#D6D9D2}
+.kol a{color:#F2F4F8;text-decoration:underline}
+.kol-gumbi{display:flex;gap:.6rem;flex-shrink:0}
+.kol button{font-family:"Plex",sans-serif;font-size:.87rem;
+  padding:.55rem 1rem;border:1.5px solid #F2F4F8;background:none;
+  color:#F2F4F8;cursor:pointer}
+.kol button.da{background:#F2F4F8;color:var(--tinta);font-weight:600}
+.kol button:hover{border-color:#fff}
+@media(max-width:600px){
+  /* traka je na mobitelu zauzimala 138 px prvog ekrana i prekrivala prvu
+     karticu; sada stane u jedan redak s tipkama uz tekst */
+  .kol{padding:.6rem .8rem}
+  .kol-w{gap:.6rem;flex-wrap:nowrap}
+  .kol p{font-size:.78rem;line-height:1.35}
+  .kol button{padding:.45rem .7rem;font-size:.82rem;white-space:nowrap}
+}
+
+:root{
+  --papir:#F2F4F8;      /* papir s plavim tonom */
+  --karta:#FFFFFF;
+  --tinta:#141B2D;      /* mornarska tinta */
+  --tinta-2:#565F76;    /* prigusena */
+  --linija:#DBE0EA;
+  --plava:#1D4ED8;      /* glavna boja: veze, naglasci, znak */
+  --plava-t:#1739A0;    /* tamnija, za hover */
+  --otvoreno:#15803D;   /* zelena znaci samo: natjecaj je otvoren */
+  --hitno:#B91C1C;      /* rok istjece */
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--papir);color:var(--tinta);
+  font-family:"Plex",system-ui,sans-serif;font-size:16px;line-height:1.6;
+  -webkit-font-smoothing:antialiased}
+.w{max-width:780px;margin:0 auto;padding:0 1.15rem}
+
+/* --- navigacija --- */
+.vrh{border-bottom:1px solid var(--linija);background:var(--papir);
+  position:sticky;top:0;z-index:30}
+.vrh .w{display:flex;align-items:center;justify-content:space-between;
+  gap:.8rem;padding-top:.7rem;padding-bottom:.7rem}
+.logo{display:flex;align-items:center;gap:.6rem;text-decoration:none;
+  color:var(--tinta)}
+.znak{width:40px;height:40px;flex-shrink:0;display:block}
+.ime{font-family:"Bricolage",sans-serif;font-weight:800;
+  font-size:1.32rem;letter-spacing:-.022em}
+.ime span{color:var(--plava)}
+.nav{display:flex;gap:.2rem}
+.nav a{font-size:.86rem;color:var(--tinta-2);text-decoration:none;
+  padding:.55rem .5rem;border-bottom:1.5px solid transparent;
+  line-height:1.2}
+.nav a:hover{color:var(--plava)}
+.nav a.tu{color:var(--plava);border-bottom-color:var(--plava)}
+
+/* --- mobitel --- */
+@media(max-width:600px){
+  body{font-size:15.5px}
+  .w{padding:0 .95rem}
+  .znak{width:34px;height:34px}
+  .ime{font-size:1.12rem}
+  .nav{gap:0}
+  .nav a{font-size:.8rem;padding:.55rem .38rem}
+  footer{font-size:.84rem}
+}
+@media(max-width:380px){
+  .ime span{display:none}          /* ".hr" ide van kad je stvarno tijesno */
+  .nav a{font-size:.76rem;padding:.55rem .3rem}
+}
+
+/* --- tipografija --- */
+h1{font-family:"Bricolage",sans-serif;font-weight:800;
+  font-size:clamp(1.9rem,5.5vw,2.7rem);line-height:1.08;letter-spacing:-.028em;
+  margin:0 0 .5rem}
+h2{font-family:"Bricolage",sans-serif;font-weight:700;
+  font-size:1.18rem;letter-spacing:-.015em;margin:0}
+h3{font-family:"Bricolage",sans-serif;font-weight:700;
+  font-size:1.04rem;letter-spacing:-.012em;margin:0 0 .15rem;line-height:1.28}
+.meta{font-family:"PlexMono",monospace;font-size:.7rem;
+  letter-spacing:.09em;text-transform:uppercase;color:var(--tinta-2)}
+
+/* --- sekcije --- */
+.sek{padding:2.6rem 0 0}
+.sek-vrh{display:flex;align-items:baseline;gap:.7rem;
+  padding-bottom:.7rem;border-bottom:1.5px solid var(--tinta);margin-bottom:1.1rem}
+.sek-vrh .broj{font-family:"PlexMono",monospace;font-size:.95rem;
+  font-weight:500;color:var(--tinta);margin-left:auto}
+.uvod{color:var(--tinta-2);font-size:.92rem;margin:-.5rem 0 1.2rem}
+
+/* --- podnozje --- */
+footer{margin-top:3.5rem;border-top:1px solid var(--linija);
+  padding:1.8rem 0 3rem;font-size:.87rem;color:var(--tinta-2)}
+footer p{margin:.55rem 0}
+footer .upoz-p{border-left:3px solid var(--plava);padding-left:.9rem;
+  margin:0 0 1rem;color:var(--tinta-2)}
+footer .upoz-p strong{color:var(--tinta)}
+footer a{color:var(--plava)}
+footer .sitno{font-family:"PlexMono",monospace;font-size:.7rem;
+  letter-spacing:.05em;margin-top:1.4rem;color:#8A909E}
+
+/* --- upozorenje --- */
+
+a:focus-visible,button:focus-visible,summary:focus-visible,
+input:focus-visible,select:focus-visible{outline:2px solid var(--plava);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+}
+
+.ob{padding:2.6rem 0 0;max-width:46rem}
+.ob h1{font-size:clamp(1.7rem,5vw,2.3rem);margin-bottom:.6rem}
+.ob .lead{font-size:1.04rem;color:var(--tinta-2);max-width:52ch;margin:0 0 1.8rem}
+.ob h2{font-size:1.16rem;margin:2.4rem 0 .5rem}
+.ob p{font-size:.96rem;line-height:1.65}
+.ob .sitno{font-size:.86rem;color:var(--tinta-2)}
+
+.obr{border:1.5px solid var(--tinta);background:var(--karta);padding:1.4rem 1.3rem}
+.obr label{display:block;font-size:.84rem;font-weight:600;color:var(--tinta);
+  margin:0 0 .3rem}
+.obr .red{margin-bottom:1rem}
+.obr input[type=email],.obr select{width:100%;font-family:"Plex",sans-serif;
+  font-size:.95rem;padding:.65rem .7rem;border:1px solid var(--linija);
+  background:var(--papir);color:var(--tinta)}
+.obr input[type=email]:focus,.obr select:focus{outline:2px solid var(--plava);
+  outline-offset:-1px}
+.obr button{width:100%;background:var(--plava);color:#fff;border:0;
+  font-family:"Plex",sans-serif;font-weight:600;font-size:.98rem;
+  padding:.8rem 1rem;cursor:pointer}
+.obr button:hover{filter:brightness(1.12)}
+.obr .pristanak{display:flex;gap:.6rem;align-items:flex-start;margin:0 0 1.1rem}
+.obr .pristanak input{margin-top:.2rem;flex-shrink:0}
+.obr .pristanak span{font-size:.84rem;color:var(--tinta-2);line-height:1.5}
+.obr .pristanak a{color:var(--plava)}
+.zamka{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+
+.sto{display:grid;grid-template-columns:1fr 1fr;gap:.9rem;margin:.4rem 0 0}
+.sto div{border:1px solid var(--linija);background:var(--karta);padding:.95rem 1rem}
+.sto .ozn{font-family:"PlexMono",monospace;font-size:.68rem;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--plava);margin-bottom:.35rem}
+.sto p{margin:0;font-size:.9rem;line-height:1.55}
+@media(max-width:600px){.sto{grid-template-columns:1fr}}
+
+.hv{text-align:center;padding:4rem 0 3rem;max-width:34rem;margin:0 auto}
+.hv .kvaka{width:3.2rem;height:3.2rem;margin:0 auto 1.2rem;border-radius:50%;
+  background:var(--plava);display:flex;align-items:center;justify-content:center}
+.hv .kvaka svg{width:1.6rem;height:1.6rem;stroke:#fff;stroke-width:2.6;fill:none;
+  stroke-linecap:round;stroke-linejoin:round}
+.hv h1{font-size:clamp(1.5rem,4.5vw,2rem);margin-bottom:.7rem}
+.hv p{color:var(--tinta-2);line-height:1.65}
+.hv .koraci{text-align:left;border:1px solid var(--linija);background:var(--karta);
+  padding:1.1rem 1.2rem;margin:1.8rem 0}
+.hv .koraci p{margin:.45rem 0;font-size:.93rem;color:var(--tinta)}
+.hv .natrag{display:inline-block;margin-top:.6rem;color:var(--plava);
+  font-weight:600;text-decoration:none}
+.hv .natrag:hover{text-decoration:underline}
+</style>
+</head>
+<body><header class="vrh"><div class="w">
+  <a class="logo" href="./" aria-label="stipendije.hr, početna">
+    <svg class="znak" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+      <rect x="0" y="0" width="100" height="100" rx="22" fill="#1D4ED8"/>
+      <text x="50" y="53" text-anchor="middle" dominant-baseline="central"
+            font-family="'Plex',sans-serif" font-weight="700"
+            font-size="62" fill="#FFFFFF">S</text>
+    </svg>
+    <span class="ime">Stipendije<span>.hr</span></span>
+  </a>
+  <nav class="nav">
+    <a href="./">Natječaji</a>
+    <a href="drzavna-stipendija.html">Državna</a>
+    <a href="vodic.html">Vodič</a>
+  </nav>
+</div></header><main class="w">
+<div class="hv">
+  <div class="kvaka"><svg viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M4 12.5l5.5 5.5L20 7"/></svg></div>
+  <h1>Skoro gotovo — provjeri mail</h1>
+  <p>Poslali smo ti poruku s poveznicom za potvrdu. Dok ne klikneš na nju,
+     nisi upisan i nećemo ti ništa slati.</p>
+  <div class="koraci">
+    <p>Otvori mail koji si upisao.</p>
+    <p>Klikni na poveznicu u poruci.</p>
+    <p>Ako poruke nema za koju minutu, pogledaj u neželjenu poštu.</p>
+  </div>
+  <a class="natrag" href="./">&larr; Natrag na natječaje</a>
+</div>
+</main>
+<footer><div class="w">
+  <p class="upoz-p"><strong>Provjeri prije prijave.</strong> Podatke prikupljamo
+     automatski, pa su greške moguće. Vrijede rok i uvjeti sa službene stranice
+     natječaja, na koju vodi poveznica uz svaki unos.</p>
+  <p><strong>Kontakt:</strong> <a href="mailto:erik.hunjek@gmail.com">erik.hunjek@gmail.com</a></p>
+  <p>Nedostaje neka stipendija ili je podatak netočan? Javi nam — ispravljamo brzo.
+     Posebno nam je važno ako je netočan <strong>rok prijave</strong>.</p>
+  <p>Ne procjenjujemo tvoje šanse za pojedinu stipendiju. Za to pitaj instituciju
+     koja je natječaj objavila.</p>
+  <p class="sitno">Zadnja provjera 08.10.2026. &nbsp;·&nbsp; 146 izvora &nbsp;·&nbsp;
+     podaci prikupljeni automatski &nbsp;·&nbsp;
+     <a class="tiho" href="impressum.html">Impressum</a> &nbsp;·&nbsp;
+     <a class="tiho" href="privatnost.html">Privatnost</a></p>
+</div></footer>
+<div class="kol" id="kol">
+  <div class="kol-w">
+    <p>Google Analytics, samo uz tvoj pristanak.
+       <a href="privatnost.html">Više o tome</a>.</p>
+    <div class="kol-gumbi">
+      <button type="button" id="kol-ne">Odbij</button>
+      <button type="button" class="da" id="kol-da">Prihvaćam</button>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  var ID="G-2BPS973W81", K="kolacici-pristanak";
+  function ucitajGA(){
+    if(window.__ga_ucitan) return;
+    window.__ga_ucitan=true;
+    var s=document.createElement("script");
+    s.async=true;
+    s.src="https://www.googletagmanager.com/gtag/js?id="+ID;
+    document.head.appendChild(s);
+    window.dataLayer=window.dataLayer||[];
+    window.gtag=function(){dataLayer.push(arguments)};
+    gtag("js",new Date());
+    gtag("config",ID,{anonymize_ip:true});
+  }
+  var traka=document.getElementById("kol");
+  var izbor=null;
+  try{ izbor=localStorage.getItem(K); }catch(e){}
+  if(izbor==="da"){ ucitajGA(); }
+  else if(izbor!=="ne"){ traka.classList.add("vidljiva"); }
+  document.getElementById("kol-da").addEventListener("click",function(){
+    try{ localStorage.setItem(K,"da"); }catch(e){}
+    traka.classList.remove("vidljiva"); ucitajGA();
+  });
+  document.getElementById("kol-ne").addEventListener("click",function(){
+    try{ localStorage.setItem(K,"ne"); }catch(e){}
+    traka.classList.remove("vidljiva");
+  });
+})();
+</script>
+</body>
+</html>
