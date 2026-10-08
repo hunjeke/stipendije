@@ -120,6 +120,7 @@ sitno, a odlučuje hoće li tvoja prijava proći.</p>
 
 
 def impressum(mapa, broj, vrijeme):
+    from zajednicko import EMAIL
     html = glava("Impressum — stipendije.hr",
                  "Podaci o pružatelju usluge i uvjeti korištenja stranice "
                  "stipendije.hr.", CSS)
@@ -132,8 +133,11 @@ podaci na ovoj stranici objavljuju.</p>
 <div class="q"><h3>O stranici</h3>
 <p>stipendije.hr je privatan i nekomercijalan projekt. Stranica je besplatna,
 nema oglasa i ne naplaćuje ništa.</p>
-<p>Za sva pitanja, prijave grešaka i prijedloge javi se na adresu
-u podnožju stranice.</p></div>
+<p>Stranicu vodi <strong>Erik Hunjek</strong> kao fizička osoba. Za sva pitanja,
+prijave grešaka i prijedloge javi se na <a href="mailto:{EMAIL}">{EMAIL}</a>.</p>
+<p class="sitno">Isti kontakt vrijedi i za sve o osobnim podacima — Erik Hunjek
+je voditelj obrade podataka pretplatnika na obavijesti. Pojedinosti su na
+stranici <a href="privatnost.html">Privatnost</a>.</p></div>
 
 <div class="q"><h3>Odakle podaci</h3>
 <p>Podatke o natječajima automatski prikupljamo sa službenih stranica institucija
@@ -275,7 +279,7 @@ def sitemap(mapa, putevi):
 
 
 def privatnost(mapa, broj, vrijeme):
-    from zajednicko import GA_ID
+    from zajednicko import GA_ID, EMAIL
     ga_dio = ""
     if GA_ID:
         ga_dio = """
@@ -289,24 +293,65 @@ u punom obliku.</p>
 <p><strong>Ako odbiješ, ne postavlja se nijedan kolačić</strong> i mjerenje se
 ne pokreće. Stranica radi jednako u oba slučaja.</p></div>
 
-<div class="q"><h3>Kako promijeniti odluku</h3>
+<div class="q"><h3>Kako promijeniti odluku o kolačićima</h3>
 <p>Tvoj odabir sprema se lokalno u pregledniku. Ako ga želiš promijeniti,
 obriši podatke stranice u postavkama preglednika — traka s pitanjem
 pojavit će se ponovno pri sljedećem posjetu.</p></div>
 """
 
     html = glava("Privatnost — stipendije.hr",
-                 "Koje podatke prikuplja stipendije.hr i kako se koriste.", CSS)
+                 "Koje podatke prikuplja stipendije.hr, zašto, gdje se čuvaju "
+                 "i kako ih možeš obrisati.", CSS)
     html += navigacija("")
     html += f"""<main class="w"><section class="tekst">
 <h1>Privatnost</h1>
-<p class="lead">Kratko i bez pravničkog jezika: što se bilježi kad posjetiš
-ovu stranicu.</p>
+<p class="lead">Kratko i bez pravničkog jezika. Stranicu možeš koristiti bez
+ostavljanja ijednog podatka. Podatke tražimo samo ako se sam prijaviš na
+obavijesti o natječajima.</p>
 
-<div class="q"><h3>Ne tražimo nikakve podatke</h3>
-<p>Stranica nema registraciju, prijavu ni obrasce. Ne tražimo ime, e-poštu
-ni bilo što drugo. Ako nam pišeš na e-poštu, tvoju poruku vidimo samo mi
-i ne koristimo je ni za što drugo osim odgovora.</p></div>
+<div class="q"><h3>Ako samo gledaš stranicu</h3>
+<p>Ne tražimo ništa. Nema registracije ni prijave, a popis natječaja je
+dostupan svima bez ikakvog upisivanja.</p></div>
+
+<div class="q"><h3>Ako se prijaviš na obavijesti</h3>
+<p>Tada od tebe tražimo tri podatka: <strong>e-mail adresu</strong>,
+<strong>županiju</strong> i jesi li <strong>učenik ili student</strong>.</p>
+<p>Županija i status služe isključivo tome da ti ne šaljemo natječaje koji te
+se ne tiču. Ničemu drugome.</p>
+<p>Podatke koristimo samo za slanje obavijesti o natječajima za stipendije.
+Ne šaljemo reklame, ne prodajemo ni ne ustupamo adrese nikome, i ne
+povezujemo ih s podacima o posjetima stranici.</p></div>
+
+<div class="q"><h3>Na temelju čega</h3>
+<p>Na temelju tvoje privole, koju daješ ispunjavanjem obrasca i potvrđuješ
+klikom na poveznicu u mailu koji ti pošaljemo. <strong>Dok ne klikneš na tu
+poveznicu, nisi upisan i ne dobivaš ništa.</strong></p>
+<p>Privolu možeš povući u svakom trenutku i bez obrazloženja.</p></div>
+
+<div class="q"><h3>Gdje se podaci čuvaju</h3>
+<p>Popis pretplatnika vodi se u servisu <strong>Brevo</strong> (Sendinblue SAS,
+Francuska), koji za nas obavlja slanje poruka. Podaci se obrađuju unutar
+Europske unije.</p>
+<p>Čuvamo ih dok si prijavljen. Kad se odjaviš, briše se i zapis.</p></div>
+
+<div class="q"><h3>Odjava i brisanje</h3>
+<p>Poveznica za odjavu stoji u svakoj poruci koju pošaljemo i radi odmah,
+bez pitanja.</p>
+<p>Ako želiš da te obrišemo iz evidencije ili te zanima koje podatke o tebi
+imamo, javi se na <a href="mailto:{EMAIL}">{EMAIL}</a> i odgovorit ćemo ti.</p></div>
+
+<div class="q"><h3>Dob</h3>
+<p>Obavijesti su namijenjene osobama od <strong>16 godina</strong> naviše. U
+Hrvatskoj je to dob od koje osoba može sama dati privolu za ovakve usluge.</p>
+<p>Ako imaš manje od 16 godina, za prijavu je potrebna suglasnost roditelja ili
+skrbnika. Popis natječaja možeš i bez prijave slobodno pregledavati — on je
+svima otvoren.</p></div>
+
+<div class="q"><h3>Tvoja prava</h3>
+<p>Imaš pravo zatražiti pristup svojim podacima, ispravak netočnih podataka,
+brisanje, ograničenje obrade i prijenos podataka, te povući privolu.</p>
+<p>Ako smatraš da s tvojim podacima nešto nije u redu, možeš se obratiti
+Agenciji za zaštitu osobnih podataka (AZOP), Selska cesta 136, Zagreb.</p></div>
 {ga_dio}
 <div class="q"><h3>Poslužitelj</h3>
 <p>Stranicu poslužuje GitHub Pages. Kao i svaki poslužitelj na internetu,
@@ -317,12 +362,13 @@ podatke ne vidimo.</p></div>
 <p>Svaki natječaj vodi na stranicu institucije koja ga je objavila. Kad
 klikneš takvu poveznicu, vrijede pravila privatnosti te stranice, ne naša.</p></div>
 
-<div class="q"><h3>Bez vanjskih usluga</h3>
-<p>Sve što stranica učitava — pisma, ikone, slike — nalazi se na ovoj domeni.
-Ne šaljemo tvoje podatke drugim uslugama za prikaz stranice.</p></div>
+<div class="q"><h3>Tko je voditelj obrade</h3>
+<p>Erik Hunjek, kao fizička osoba. Kontakt je
+<a href="mailto:{EMAIL}">{EMAIL}</a>, a ostali podaci su u
+<a href="impressum.html">impressumu</a>.</p></div>
 
 <div class="q"><h3>Pitanja</h3>
-<p>Za sve o privatnosti javi se na adresu u podnožju stranice.</p></div>
+<p>Za sve o privatnosti javi se na <a href="mailto:{EMAIL}">{EMAIL}</a>.</p></div>
 </section></main>"""
     html += podnozje(broj, vrijeme)
     open(os.path.join(mapa, "privatnost.html"), "w", encoding="utf-8").write(html)
