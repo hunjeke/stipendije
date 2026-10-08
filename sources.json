@@ -667,13 +667,6 @@
     "zupanija": "Primorsko-goranska županija"
   },
   {
-    "naziv": "Zaklada Novo Sutra — stipendije",
-    "url": "https://novosutra.hr/stipendije/",
-    "kategorija": "Zaklada",
-    "podrucje": "Cijela Hrvatska",
-    "zupanija": ""
-  },
-  {
     "naziv": "Ministarstvo gospodarstva — stipendiranje u obrtničkim zanimanjima",
     "url": "https://mingo.gov.hr/javni-pozivi-i-natjecaji-7371/javni-pozivi-i-natjecaji-ministarstva/otvoreni-javni-pozivi-i-natjecaji/7390",
     "kategorija": "Ministarstvo",
@@ -991,7 +984,7 @@
   },
   {
     "naziv": "Grad Pazin — stipendije",
-    "url": "https://www.pazin.hr/odgoj-i-obrazovanje/stipendije/",
+    "url": "https://www.pazin.hr/odgoj-obrazovanje/stipendije/aktualne-vijesti/",
     "kategorija": "Grad",
     "podrucje": "Pazin",
     "zupanija": "Istarska županija"
