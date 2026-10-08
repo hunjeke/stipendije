@@ -1,0 +1,58 @@
+name: Obavijesti pretplatnicima
+
+# Pokrece se samo rucno, u dva koraka:
+#
+#   1. Run workflow s potvrdi = false  ->  napise novosti.md i stane
+#      Otvoris novosti.md u repozitoriju, posaljes poruke iz Breva.
+#   2. Run workflow s potvrdi = true   ->  oznaci te natjecaje kao poslane
+#
+# Dva koraka postoje zato sto skripta ne zna jesi li stvarno poslao. Da sama
+# oznacava, jedno pokretanje bez slanja trajno bi pojelo natjecaj i nitko za
+# njega ne bi saznao.
+#
+# Ne trosi Claude API — samo cita natjecaji.json koji je vec u repozitoriju.
+
+on:
+  workflow_dispatch:
+    inputs:
+      potvrdi:
+        description: "Oznaci kao poslano (tek NAKON sto si poslao u Brevu)"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+jobs:
+  obavijesti:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Preuzmi kod
+        uses: actions/checkout@v4
+
+      - name: Postavi Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      # web.py se uvozi zbog funkcije za razvrstavanje ucenik/student, pa
+      # mu trebaju njegovi paketi. Scraper se ne pokrece.
+      - name: Instaliraj pakete
+        run: pip install anthropic requests beautifulsoup4 pypdf
+
+      - name: Pogledaj sto je novo
+        if: ${{ !inputs.potvrdi }}
+        run: python novosti.py
+
+      - name: Oznaci kao poslano
+        if: ${{ inputs.potvrdi }}
+        run: python novosti.py --potvrdi
+
+      - name: Spremi u repozitorij
+        if: always()
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add -A novosti.md poslano.json || true
+          git diff --staged --quiet || git commit -m "Obavijesti $(date +'%d.%m.%Y')"
+          git push || true
