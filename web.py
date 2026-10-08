@@ -12,7 +12,8 @@ import os
 import re
 from datetime import datetime
 
-from zajednicko import CSS_KARTICE, glava, navigacija, podnozje, oblik, EMAIL, DOMENA, BAZA
+from zajednicko import (CSS_KARTICE, glava, navigacija, podnozje, oblik,
+                        EMAIL, DOMENA, BAZA, WA_KANAL)
 
 ULAZ = "output.json"
 IZVORI = "sources.json"
@@ -881,7 +882,18 @@ JS = """
 # Klik iz WhatsApp grupe je jednokratan: tko danas ne nade nista za sebe, ne
 # vraca se. Poziv stoji odmah ispod otvorenih natjecaja, jer je to trenutak
 # kad covjek vidi da za njega jos nema nista — i kad mu obavijest najvise treba.
-WA_KANAL = "https://whatsapp.com/channel/0029Vb8yRo75Ui2aMzBAjv1a"
+
+
+def __obavijesti_skocni():
+    """Skocni prozor s prijavom. Prazno dok servis nije spojen."""
+    import obavijesti
+    return obavijesti.skocni()
+
+
+def __obavijesti_poziv(put=""):
+    """Blok s prijavom na mail obavijesti. Prazno dok servis nije spojen."""
+    import obavijesti
+    return obavijesti.poziv(put)
 
 
 def poziv_kanal():
@@ -1102,9 +1114,9 @@ def main():
       na koje imaju pravo svi.</p>
   </div>
 </div></section>
-<div class="w">{sek_otv}{poziv_kanal()}{sek_zat}{sek_zup}</div>
+<div class="w">{sek_otv}{__obavijesti_poziv()}{poziv_kanal()}{sek_zat}{sek_zup}</div>
 </main>
-<script>{js}</script>"""
+<script>{js}</script>{__obavijesti_skocni()}"""
     html += podnozje(izvora_ukupno, vrijeme)
 
     os.makedirs(MAPA, exist_ok=True)
@@ -1117,6 +1129,12 @@ def main():
     # spremna tjednima prije nego natjecaj izade (vidi drzavna.py)
     from drzavna import stranica as drzavna_stranica
     drzavna_stranica(MAPA, izvora_ukupno, vrijeme)
+
+    # Prijava na obavijesti mailom. Gradi se tek kad je servis spojen —
+    # dok nije, stranice nema i nigdje ne stoji poveznica na nju.
+    import obavijesti
+    if obavijesti.stranica(MAPA, izvora_ukupno, vrijeme):
+        print("  stranica prijave na obavijesti: da")
     impressum(MAPA, izvora_ukupno, vrijeme)
     privatnost(MAPA, izvora_ukupno, vrijeme)
 
