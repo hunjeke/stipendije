@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Kako do stipendije — stipendije.hr</title>
-<meta name="description" content="Rokovi, uvjeti i dokumentacija: što treba znati prije prijave na natječaj za stipendiju u Hrvatskoj.">
-<meta property="og:title" content="Kako do stipendije — stipendije.hr">
-<meta property="og:description" content="Rokovi, uvjeti i dokumentacija: što treba znati prije prijave na natječaj za stipendiju u Hrvatskoj.">
+<title>Obavijesti o stipendijama na mail — stipendije.hr</title>
+<meta name="description" content="Ostavi mail i županiju pa ti javimo čim se otvori natječaj za stipendiju koji se odnosi na tebe. Bez reklama i bez drugih poruka.">
+<meta property="og:title" content="Obavijesti o stipendijama na mail — stipendije.hr">
+<meta property="og:description" content="Ostavi mail i županiju pa ti javimo čim se otvori natječaj za stipendiju koji se odnosi na tebe. Bez reklama i bez drugih poruka.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://stipendije.hr/pregled.png?v=3">
 <meta property="og:image:width" content="1200">
@@ -149,25 +149,38 @@ input:focus-visible,select:focus-visible{outline:2px solid var(--plava);outline-
   *{animation:none!important;transition:none!important}
 }
 
-.tekst{padding:2.6rem 0 0}
-.tekst h1{margin-bottom:.6rem}
-.lead{font-size:1.02rem;color:var(--tinta-2);max-width:52ch;margin:0 0 2rem}
-.q{border-top:1px solid var(--linija);padding:1.15rem 0}
-.q:last-of-type{border-bottom:1px solid var(--linija)}
-.q h3{margin-bottom:.4rem}
-.q p{margin:.5rem 0;font-size:.94rem;color:var(--tinta-2)}
-.q ul{margin:.5rem 0;padding-left:1.2rem;font-size:.94rem;color:var(--tinta-2)}
-.q li{margin-bottom:.3rem}
-.q strong{color:var(--tinta)}
-@media(max-width:600px){
-  .tekst{padding:2rem 0 0}
-  .lead{font-size:.97rem;margin-bottom:1.5rem}
-  .q{padding:.9rem 0}
-  .q h3{font-size:1rem;line-height:1.3}
-  .q summary{padding:.3rem 0}
-  .q p,.q ul{font-size:.91rem}
-}
+.ob{padding:2.6rem 0 0;max-width:46rem}
+.ob h1{font-size:clamp(1.7rem,5vw,2.3rem);margin-bottom:.6rem}
+.ob .lead{font-size:1.04rem;color:var(--tinta-2);max-width:52ch;margin:0 0 1.8rem}
+.ob h2{font-size:1.16rem;margin:2.4rem 0 .5rem}
+.ob p{font-size:.96rem;line-height:1.65}
+.ob .sitno{font-size:.86rem;color:var(--tinta-2)}
 
+.obr{border:1.5px solid var(--tinta);background:var(--karta);padding:1.4rem 1.3rem}
+.obr label{display:block;font-size:.84rem;font-weight:600;color:var(--tinta);
+  margin:0 0 .3rem}
+.obr .red{margin-bottom:1rem}
+.obr input[type=email],.obr select{width:100%;font-family:"Plex",sans-serif;
+  font-size:.95rem;padding:.65rem .7rem;border:1px solid var(--linija);
+  background:var(--papir);color:var(--tinta)}
+.obr input[type=email]:focus,.obr select:focus{outline:2px solid var(--plava);
+  outline-offset:-1px}
+.obr button{width:100%;background:var(--plava);color:#fff;border:0;
+  font-family:"Plex",sans-serif;font-weight:600;font-size:.98rem;
+  padding:.8rem 1rem;cursor:pointer}
+.obr button:hover{filter:brightness(1.12)}
+.obr .pristanak{display:flex;gap:.6rem;align-items:flex-start;margin:0 0 1.1rem}
+.obr .pristanak input{margin-top:.2rem;flex-shrink:0}
+.obr .pristanak span{font-size:.84rem;color:var(--tinta-2);line-height:1.5}
+.obr .pristanak a{color:var(--plava)}
+.zamka{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+
+.sto{display:grid;grid-template-columns:1fr 1fr;gap:.9rem;margin:.4rem 0 0}
+.sto div{border:1px solid var(--linija);background:var(--karta);padding:.95rem 1rem}
+.sto .ozn{font-family:"PlexMono",monospace;font-size:.68rem;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--plava);margin-bottom:.35rem}
+.sto p{margin:0;font-size:.9rem;line-height:1.55}
+@media(max-width:600px){.sto{grid-template-columns:1fr}}
 </style>
 </head>
 <body><header class="vrh"><div class="w">
@@ -183,14 +196,93 @@ input:focus-visible,select:focus-visible{outline:2px solid var(--plava);outline-
   <nav class="nav">
     <a href="./">Natječaji</a>
     <a href="drzavna-stipendija.html">Državna</a>
-    <a href="vodic.html" class="tu">Vodič</a>
+    <a href="vodic.html">Vodič</a>
   </nav>
-</div></header><main class="w"><section class="tekst">
-<h1>Kako do stipendije</h1>
-<p class="lead">Prijavljuješ li se prvi put, ovdje je ono što u natječajima piše
-sitno, a odlučuje hoće li tvoja prijava proći.</p>
-<div class="q"><h3>Kada se natječaji objavljuju</h3><p>Većina se otvara <strong>između rujna i prosinca</strong>, za akademsku godinu koja je već počela. Rokovi su kratki — nerijetko 15 dana od objave.</p><p>Dio programa ide drugim ritmom: neki se objavljuju u svibnju i lipnju, a poneki i u siječnju. Zato provjeravaj i izvan jeseni.</p></div><div class="q"><h3>Ne možeš primati dvije javne stipendije odjednom</h3><p>Dok primaš državnu stipendiju, ne smiješ primati nijednu drugu koja se financira iz javnih izvora. Slično ograničenje traže i mnogi gradovi i županije — obično potpisuješ izjavu da ne primaš drugu stipendiju.</p><p>Prijaviš li se na više natječaja, u svakome pročitaj što se smije kombinirati.</p></div><div class="q"><h3>Što znači „deficitarno zanimanje”</h3><p>Zanimanja za kojima postoji manjak kadra. Ako studiraš nešto s tog popisa, često imaš <strong>veće šanse i veći iznos</strong>, a ponegdje se traži i niži prosjek ocjena.</p><p>Popis nije jedinstven — svaki grad i županija utvrđuje svoj prema lokalnom tržištu rada, i uvijek je priložen natječaju. Neki gradovi objavljuju i obrnut popis — zanimanja koja te godine <strong>neće</strong> stipendirati.</p></div><div class="q"><h3>Prebivalište je najčešći uvjet</h3><p>Gradske i županijske stipendije gotovo uvijek traže prijavljeno prebivalište na njihovu području, i to određeno vrijeme unaprijed — negdje šest mjeseci, negdje dvije godine prije objave natječaja.</p><p>Mjesto <em>studiranja</em> i mjesto <em>prebivališta</em> nije isto. Možeš studirati u Zagrebu i primati stipendiju rodnog grada — kod mnogih gradova iznos je čak <strong>veći</strong> ako studiraš izvan njih.</p></div><div class="q"><h3>Ne mogu se svi prijaviti na sve</h3><p>Česta ograničenja koja se lako previde:</p><ul><li>neki gradovi primaju samo studente <strong>druge i viših godina</strong></li><li>negdje je uvjet minimalan broj ECTS bodova iz prethodne godine</li><li>negdje postoji gornja dobna granica</li><li>negdje se iz jedne obitelji stipendira samo jedna osoba</li></ul></div><div class="q"><h3>Što je SOM aplikacija</h3><p>Više gradova i županija prijave prima preko vanjske aplikacije „SOM natječaji”. Napraviš korisnički račun i kroz njega se prijaviš.</p><p>Račun izrađuješ jednom i vrijedi za sve institucije koje taj sustav koriste. Nakon prijave u sustavu odabereš instituciju čiji natječaj tražiš.</p></div><div class="q"><h3>Dokumentacija koju treba pripremiti</h3><p>Razlikuje se po natječaju, ali ovo se traži najčešće:</p><ul><li>potvrda o upisu na studij</li><li>prijepis ocjena ili potvrda o prosjeku</li><li>uvjerenje o prebivalištu (često ne starije od tri mjeseca)</li><li>izjava da ne primaš drugu stipendiju</li><li>dokazi o postignućima, ako se boduju</li><li>za socijalne kategorije: potvrde o prihodima kućanstva</li></ul><p>Na neke potvrde čeka se danima. Ako znaš da ti se natječaj otvara u listopadu, pripremi ih ranije.</p></div><div class="q"><h3>Nepotpuna prijava je odbijena prijava</h3><p>Gotovo svi natječaji pišu da se nepotpune prijave i one predane nakon roka <strong>ne razmatraju</strong>. Nema naknadnog dopunjavanja.</p><p>Provjeri i <em>način</em> predaje — neki primaju samo elektronički, neki samo poštom ili osobno u pisarnici. Prijava poslana krivim putem tretira se kao da nije poslana.</p></div>
-</section></main><footer><div class="w">
+</div></header><main class="w">
+<div class="ob">
+<h1>Javi mi kad izađe natječaj za mene</h1>
+<p class="lead">Natječaji se otvaraju kroz cijelu jesen, svatko na svoj dan, i
+  rokovi su kratki — često petnaest dana od objave. Umjesto da provjeravaš,
+  ostavi mail i javimo ti.</p>
+
+<form class="obr" method="POST" action="https://b61131ba.sibforms.com/serve/MUIFAJWhHDPHDllmv3n8haYPynJiODYXR6hb0JSOer_RGjh48yZUwYNtHCLk5L80DDSOGD4DS2TREuM_ySiaPA28xfflYaPO38yiWwFBUQn-Pf4NJua26qCfiLBIHbq8Mx7qevm2akOP1dCoxNw1GXoMqyIghRmwbWxDpM18iflgc7dOFNkg11RkYzwLE4nwoXq8_y4v5iTa9A0Q4g==">
+  <div class="red">
+    <label for="EMAIL">Tvoj mail</label>
+    <input type="email" id="EMAIL" name="EMAIL" required
+           placeholder="ime@primjer.com" autocomplete="email">
+  </div>
+  <div class="red">
+    <label for="ZUPANIJA">Gdje živiš</label>
+    <select id="ZUPANIJA" name="ZUPANIJA" required>
+      <option value="">Odaberi županiju</option>
+      <option value="Bjelovarsko-bilogorska županija">Bjelovarsko-bilogorska županija</option><option value="Brodsko-posavska županija">Brodsko-posavska županija</option><option value="Dubrovačko-neretvanska županija">Dubrovačko-neretvanska županija</option><option value="Grad Zagreb">Grad Zagreb</option><option value="Istarska županija">Istarska županija</option><option value="Karlovačka županija">Karlovačka županija</option><option value="Koprivničko-križevačka županija">Koprivničko-križevačka županija</option><option value="Krapinsko-zagorska županija">Krapinsko-zagorska županija</option><option value="Ličko-senjska županija">Ličko-senjska županija</option><option value="Međimurska županija">Međimurska županija</option><option value="Osječko-baranjska županija">Osječko-baranjska županija</option><option value="Požeško-slavonska županija">Požeško-slavonska županija</option><option value="Primorsko-goranska županija">Primorsko-goranska županija</option><option value="Sisačko-moslavačka županija">Sisačko-moslavačka županija</option><option value="Splitsko-dalmatinska županija">Splitsko-dalmatinska županija</option><option value="Šibensko-kninska županija">Šibensko-kninska županija</option><option value="Varaždinska županija">Varaždinska županija</option><option value="Virovitičko-podravska županija">Virovitičko-podravska županija</option><option value="Vukovarsko-srijemska županija">Vukovarsko-srijemska županija</option><option value="Zadarska županija">Zadarska županija</option><option value="Zagrebačka županija">Zagrebačka županija</option>
+    </select>
+  </div>
+  <div class="red">
+    <label for="TIP">Tko si</label>
+    <select id="TIP" name="TIP" required>
+      <option value="">Odaberi</option>
+      <option value="ucenik">Učenik srednje škole</option>
+      <option value="student">Student</option>
+      <option value="oba">I jedno i drugo me zanima</option>
+    </select>
+  </div>
+  <div class="pristanak">
+    <input type="checkbox" id="pristanak" required>
+    <span><label for="pristanak" style="display:inline;font-weight:400">
+      Slažem se da mi stipendije.hr šalje obavijesti o natječajima na mail.
+      Odjaviti se mogu kad hoću, poveznicom u svakoj poruci.</label>
+      <a href="privatnost.html">Što radimo s podacima</a></span>
+  </div>
+  <!-- Brevo ocekuje oba. email_address_check je zamka za robote i mora
+       ostati prazno; covjek ga ne vidi, robot ga popuni i prijava otpada.
+       locale je ono sto njihov obrazac salje, pa saljemo isto. -->
+  <input type="text" name="email_address_check" value="" class="zamka"
+         tabindex="-1" autocomplete="off" aria-hidden="true">
+  <input type="hidden" name="locale" value="en">
+  <button type="submit">Prijavi me na obavijesti</button>
+</form>
+<script>
+(function(){
+  var p = new URLSearchParams(location.search).get("z");
+  if(!p) return;
+  var s = document.getElementById("ZUPANIJA");
+  if(!s) return;
+  for(var i=0;i<s.options.length;i++){
+    if(s.options[i].value === p){ s.selectedIndex = i; break; }
+  }
+})();
+</script>
+
+<h2>Što točno stiže</h2>
+<div class="sto">
+  <div><p class="ozn">Stiže</p>
+    <p>Natječaj otvoren u tvojoj županiji, i onaj koji vrijedi za cijelu
+       Hrvatsku. U poruci su rok, iznos i poveznica na službenu stranicu.</p></div>
+  <div><p class="ozn">Ne stiže</p>
+    <p>Natječaji iz drugih županija, podsjetnici, novosti o stranici,
+       reklame. Tvoj mail ne dajemo nikome i ne koristimo ga ni za što
+       drugo.</p></div>
+</div>
+
+<h2>Koliko često</h2>
+<p>Onoliko koliko ima natječaja, a to je neravnomjerno. U rujnu i listopadu
+  može biti nekoliko poruka mjesečno, a od veljače do ljeta najčešće nijedna.
+  Provjera ide dvaput tjedno, pa poruka stigne najkasnije koji dan nakon
+  objave.</p>
+
+<h2>Odjava</h2>
+<p>Poveznica za odjavu stoji u svakoj poruci i radi odmah, bez pitanja. Ako
+  hoćeš da ti obrišemo mail iz evidencije, javi na
+  <a href="mailto:erik.hunjek@gmail.com">erik.hunjek@gmail.com</a> i brišemo ga.</p>
+
+<h2>Ako ti je draže WhatsApp</h2>
+<p>Veće natječaje javljamo i na <a href="https://whatsapp.com/channel/0029Vb8yRo75Ui2aMzBAjv1a" target="_blank"
+  rel="noopener">WhatsApp kanalu</a>. Tamo ne biraš županiju, nego stiže
+  sve — a mailom stiže samo tvoje.</p>
+</div>
+</main>
+<footer><div class="w">
   <p class="upoz-p"><strong>Provjeri prije prijave.</strong> Podatke prikupljamo
      automatski, pa su greške moguće. Vrijede rok i uvjeti sa službene stranice
      natječaja, na koju vodi poveznica uz svaki unos.</p>
