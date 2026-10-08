@@ -40,7 +40,11 @@ jobs:
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
-          git add -A output.html output.json output.csv .cache.json natjecaji.json docs || true
+          # Zasebno, iz istog razloga: jedna datoteka koja jos ne postoji
+          # inace odnese cijeli git add i run zavrsi "uspjesno" bez icega.
+          for f in output.html output.json output.csv .cache.json natjecaji.json docs; do
+            git add -A "$f" || true
+          done
           git diff --staged --quiet || git commit -m "Rezultati provjere $(date +'%d.%m.%Y')"
           git push || true
 
