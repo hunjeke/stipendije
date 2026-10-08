@@ -14,7 +14,9 @@ Svi podaci ovdje su prepisani s ministarstvovih stranica i iz proslogodisnjeg
 natjecaja. Nijedan nije procijenjen. Sve sto se odnosi na prosli natjecaj je
 tako i oznaceno, jer ove godine brojke mogu biti druge.
 """
+import json
 import os
+import re
 
 from zajednicko import glava, navigacija, podnozje
 
@@ -30,6 +32,24 @@ MZO_SOCIO = ("https://mzom.gov.hr/istaknute-teme/odgoj-i-obrazovanje/"
              "visoko-obrazovanje/drzavne-stipendije/drzavne-stipendije-za-"
              "studente-nizega-socio-ekonomskoga-statusa/1563")
 MZO_STEM = "https://mzom.gov.hr/drzavne-stipendije-za-studente-u-stem-podrucjima-znanosti/1562"
+# --- RUCNO GAZENJE -------------------------------------------------------
+# Stranica se od sada sama prebaci kad scraper uhvati otvoren natjecaj na
+# MZO izvoru (vidi _iz_podataka nize). Ove konstante trebaju samo ako to
+# zakaze ili ako nesto treba ispraviti rukom:
+#
+#   OTVOREN = True   -> stranica pise da je otvoreno, bez obzira na podatke
+#   OTVOREN = None   -> odlucuju podaci iz output.json (zadano)
+#   OTVOREN = False  -> stranica pise da nije objavljen, bez obzira na podatke
+#
+OTVOREN = None
+ROK = ""          # npr. "4. studenoga 2026. do 12:00" — gazi procitani rok
+POVEZNICA = ""    # adresa natjecaja na mzom.gov.hr — gazi procitanu
+BROJ = ""         # npr. "12.150" — ovo se NE cita automatski, upisuje se rukom
+                  # jer scraper iznose i brojeve vraca kao jednu pomijesanu
+                  # recenicu, pa je bolje da brojke nema nego da bude kriva
+PODACI = "output.json"
+# -------------------------------------------------------------------------
+
 MZO_NATJECAJ = ("https://mzom.gov.hr/istaknute-teme/natjecaji-196/natjecaj-za-"
                 "dodjelu-12-150-drzavnih-stipendija-za-akademsku-godinu-2025-"
                 "2026-studentima-u-redovitom-statusu-koji-studiraju-na-visokim-"
@@ -270,8 +290,66 @@ VREMENSKA = [
 ]
 
 
+def _iz_podataka():
+    """Procita output.json i vrati (otvoren, rok, poveznica) za MZO izvor.
+
+    Vraca (False, "", "") ako natjecaj nije otvoren ili ako se podaci ne
+    mogu procitati. Namjerno ne dira iznose ni broj stipendija — scraper
+    ih vraca kao jednu recenicu u kojoj su pomijesane STEM i socio brojke,
+    pa bi automatsko citanje lako objavilo krivu brojku.
+    """
+    try:
+        with open(PODACI, encoding="utf-8") as f:
+            zapisi = json.load(f)
+    except (OSError, ValueError):
+        return False, "", ""
+
+    kljuc = MZO_SOCIO.rstrip("/")
+    for r in zapisi:
+        if (r.get("url") or "").rstrip("/") != kljuc:
+            continue
+        if not (r.get("status") or "").startswith("OTVORENO"):
+            return False, "", ""
+        rok = (r.get("rok_tekst") or "").strip().rstrip(".")
+        # "4. listopada 2025. do 12.00 sati" -> "4. listopada 2025. do 12:00"
+        rok = re.sub(r"(\d{1,2})[.:](\d{2})\s*(sati|h)?$", r"\1:\2", rok)
+        return True, rok, r.get("url") or MZO_SOCIO
+    return False, "", ""
+
+
+def _blok_stanja():
+    """Plavi okvir na vrhu — sam se prebaci kad scraper uhvati natjecaj."""
+    citan_otvoren, citan_rok, citana_veza = _iz_podataka()
+    otvoren = citan_otvoren if OTVOREN is None else OTVOREN
+    rok_txt = ROK or citan_rok
+    veza = POVEZNICA or citana_veza
+
+    if otvoren:
+        rok = f" Rok prijave je <strong>{rok_txt}</strong>." if rok_txt else ""
+        kolko = f" Dodjeljuje se {BROJ} stipendija." if BROJ else ""
+        gumb = (f'<a href="{veza}" target="_blank" rel="noopener">'
+                f'Otvori natječaj &rarr;</a>') if veza else ""
+        return f"""<div class="stanje">
+  <div class="txt">
+    <b>Natječaj je objavljen — prijave su otvorene</b>
+    <span>Prijavljuje se elektronički, kroz sustav VIDRA.{rok}{kolko}</span>
+  </div>
+  {gumb}
+</div>"""
+    return """<div class="stanje">
+  <div class="txt">
+    <b>Natječaj za 2026./2027. još nije objavljen</b>
+    <span>Ministar ga po pravilu raspisuje do 15. listopada. Prošle je godine
+      izašao 14. listopada. Javimo ti na WhatsAppu istoga dana.</span>
+  </div>
+  <a href="https://whatsapp.com/channel/0029Vb8yRo75Ui2aMzBAjv1a"
+     target="_blank" rel="noopener">Obavijesti me &rarr;</a>
+</div>"""
+
+
 def stranica(mapa, broj_izvora, vrijeme):
     """Napise docs/drzavna-stipendija.html."""
+    blok_stanja = _blok_stanja()
     koraci = ""
     for i, (naslov, odlomci, upozorenje) in enumerate(KORACI, 1):
         tijelo = "".join(f"<p>{o}</p>" for o in odlomci)
@@ -304,15 +382,7 @@ def stranica(mapa, broj_izvora, vrijeme):
 godine dodijeljeno je {BROJ_STIPENDIJA} stipendija po {IZNOS} mjesečno. Ovdje je
 kako se prijaviti, korak po korak.</p>
 
-<div class="stanje">
-  <div class="txt">
-    <b>Natječaj za 2026./2027. još nije objavljen</b>
-    <span>Ministar ga po pravilu raspisuje do 15. listopada. Prošle je godine
-      izašao 14. listopada. Javimo ti na WhatsAppu istoga dana.</span>
-  </div>
-  <a href="https://whatsapp.com/channel/0029Vb8yRo75Ui2aMzBAjv1a"
-     target="_blank" rel="noopener">Obavijesti me &rarr;</a>
-</div>
+{blok_stanja}
 
 <div class="cifre">
   <div><b>{IZNOS}</b><span>mjesečno</span></div>
