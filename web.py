@@ -1134,7 +1134,8 @@ def main():
     # dok nije, stranice nema i nigdje ne stoji poveznica na nju.
     import obavijesti
     if obavijesti.stranica(MAPA, izvora_ukupno, vrijeme):
-        print("  stranica prijave na obavijesti: da")
+        obavijesti.hvala(MAPA, izvora_ukupno, vrijeme)
+        print("  stranice obavijesti: prijava + hvala")
     impressum(MAPA, izvora_ukupno, vrijeme)
     privatnost(MAPA, izvora_ukupno, vrijeme)
 
