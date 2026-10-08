@@ -2,6 +2,7 @@
 """Zajednicki dijelovi svih stranica: tokeni, CSS, navigacija, podnozje."""
 
 EMAIL = "erik.hunjek@gmail.com"
+WA_KANAL = "https://whatsapp.com/channel/0029Vb8yRo75Ui2aMzBAjv1a"
 DOMENA = "stipendije.hr"
 
 # Puna adresa stranice — koristi se za sliku u pregledu linka.
