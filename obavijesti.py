@@ -405,3 +405,59 @@ _SKOCNI_JS = """<script>
   });
 })();
 </script>"""
+
+def hvala(mapa, broj_izvora, vrijeme):
+    """Stranica na koju Brevo vrati covjeka nakon slanja obrasca.
+
+    Bez nje Brevo prikaze goli JSON odgovor, sto izgleda kao da je nesto
+    puklo. Stranica postoji samo zato da covjek zna da treba otici u mail —
+    kod dvostruke potvrde tu otpadne najvise ljudi.
+    """
+    put_html = os.path.join(mapa, "hvala.html")
+    if not BREVO_FORMA:
+        if os.path.exists(put_html):
+            os.remove(put_html)
+        return False
+
+    html = glava(
+        "Provjeri mail — stipendije.hr",
+        "Prijava je zaprimljena. Ostao je jos jedan korak: potvrda poveznicom "
+        "u mailu koji smo upravo poslali.",
+        dodatni_css=CSS + """
+.hv{text-align:center;padding:4rem 0 3rem;max-width:34rem;margin:0 auto}
+.hv .kvaka{width:3.2rem;height:3.2rem;margin:0 auto 1.2rem;border-radius:50%;
+  background:var(--plava);display:flex;align-items:center;justify-content:center}
+.hv .kvaka svg{width:1.6rem;height:1.6rem;stroke:#fff;stroke-width:2.6;fill:none;
+  stroke-linecap:round;stroke-linejoin:round}
+.hv h1{font-size:clamp(1.5rem,4.5vw,2rem);margin-bottom:.7rem}
+.hv p{color:var(--tinta-2);line-height:1.65}
+.hv .koraci{text-align:left;border:1px solid var(--linija);background:var(--karta);
+  padding:1.1rem 1.2rem;margin:1.8rem 0}
+.hv .koraci p{margin:.45rem 0;font-size:.93rem;color:var(--tinta)}
+.hv .natrag{display:inline-block;margin-top:.6rem;color:var(--plava);
+  font-weight:600;text-decoration:none}
+.hv .natrag:hover{text-decoration:underline}
+""",
+        dodatni_head='<meta name="robots" content="noindex">',
+    )
+    html += navigacija("")
+    html += """<main class="w">
+<div class="hv">
+  <div class="kvaka"><svg viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M4 12.5l5.5 5.5L20 7"/></svg></div>
+  <h1>Skoro gotovo — provjeri mail</h1>
+  <p>Poslali smo ti poruku s poveznicom za potvrdu. Dok ne klikneš na nju,
+     nisi upisan i nećemo ti ništa slati.</p>
+  <div class="koraci">
+    <p>Otvori mail koji si upisao.</p>
+    <p>Klikni na poveznicu u poruci.</p>
+    <p>Ako poruke nema za koju minutu, pogledaj u neželjenu poštu.</p>
+  </div>
+  <a class="natrag" href="./">&larr; Natrag na natječaje</a>
+</div>
+</main>
+"""
+    html += podnozje(broj_izvora, vrijeme)
+    with open(put_html, "w", encoding="utf-8") as f:
+        f.write(html)
+    return True
