@@ -21,6 +21,103 @@
     "zasto_rucno": "",
     "zupanija": ""
   },
+  "daruvar-stipendije-grada-daruvara-studente-2026": {
+    "iznos": "200,00 eura mjesečno",
+    "iznos_je_fond": false,
+    "iznosi": [
+      {
+        "do": false,
+        "eur": 200.0,
+        "mjeseci": null,
+        "razdoblje": "mjesecno",
+        "za": "studenti"
+      }
+    ],
+    "izvor_naziv": "Grad Daruvar — stipendije",
+    "napomena": "",
+    "naslov": "Stipendije Grada Daruvara za studente",
+    "podrucje": "Daruvar",
+    "potvrda": "https://daruvar.hr/wp-content/uploads/2026/dokumenti/stipendije/Javni%20natje%C4%8Daj%20za%202026.-2027.pdf",
+    "poveznica": "",
+    "prvi_put": "2026-10-10",
+    "rok_iso": "2026-10-16",
+    "rok_tekst": "16. listopada 2026.",
+    "rucni": true,
+    "slug": "daruvar-stipendije-grada-daruvara-studente-2026",
+    "upute_za_prijavu": "",
+    "url": "https://daruvar.hr/javni-natjecaj-za-dodjelu-stipendija-studentima-s-podrucja-grada-daruvara-u-akademskoj-godini-2026-2027/",
+    "uvjeti": "Redoviti studenti s područja Grada Daruvara. Dodjeljuje se pet stipendija.",
+    "zadnji_put": "2026-10-10",
+    "zasto_rucno": "Sustav je prepoznao natječaj, ali mu nije pročitao rok.",
+    "zupanija": "Bjelovarsko-bilogorska županija"
+  },
+  "gracisce-stipendije-opcine-studente-2026": {
+    "iznos": "100,00 eura mjesečno za studente",
+    "iznos_je_fond": false,
+    "iznosi": [
+      {
+        "do": false,
+        "eur": 100.0,
+        "mjeseci": null,
+        "razdoblje": "mjesecno",
+        "za": "studenti"
+      }
+    ],
+    "izvor_naziv": "Općina Gračišće — stipendije",
+    "napomena": "",
+    "naslov": "Stipendije Općine Gračišće za studente",
+    "podrucje": "Gračišće",
+    "potvrda": "https://gracisce.hr/wp-content/uploads/2026/09/1-NATJECAJ.pdf",
+    "poveznica": "",
+    "prvi_put": "2026-10-10",
+    "rok_iso": "2026-10-31",
+    "rok_tekst": "31. listopada 2026.",
+    "rucni": true,
+    "slug": "gracisce-stipendije-opcine-studente-2026",
+    "upute_za_prijavu": "",
+    "url": "https://gracisce.hr/natjecaj-za-stipendiranje-ucenika-i-studenata-u-skolskoj-studentskoj-2026-2027-godini/",
+    "uvjeti": "Redoviti studenti s prebivalištem u Općini Gračišće koji se obrazuju izvan općine, do 26 godina. Dodjeljuju se dvije studentske stipendije. Učenički dio istog natječaja zatvoren je 30. rujna 2026.",
+    "zadnji_put": "2026-10-10",
+    "zasto_rucno": "Aktualni natječaj nije na stranici s natječajima nego među novostima, pa ga sustav ne nalazi.",
+    "zupanija": "Istarska županija"
+  },
+  "grad-zagreb-stipendije-grada-zagreba-2026": {
+    "iznos": "380,00 eura mjesečno za učenike, 520,00 eura mjesečno za studente, 10 mjeseci",
+    "iznos_je_fond": false,
+    "iznosi": [
+      {
+        "do": false,
+        "eur": 380.0,
+        "mjeseci": 10,
+        "razdoblje": "mjesecno",
+        "za": "ucenici"
+      },
+      {
+        "do": false,
+        "eur": 520.0,
+        "mjeseci": 10,
+        "razdoblje": "mjesecno",
+        "za": "studenti"
+      }
+    ],
+    "izvor_naziv": "Grad Zagreb — stipendije 2026./2027.",
+    "napomena": "",
+    "naslov": "Stipendije Grada Zagreba",
+    "podrucje": "Grad Zagreb",
+    "potvrda": "https://zagreb.hr/stipendije-grada-zagreba-2026-2027/224294",
+    "poveznica": "",
+    "prvi_put": "2026-10-10",
+    "rok_iso": "2026-10-29",
+    "rok_tekst": "29. listopada 2026. do 13:00 za učenike, 30. listopada 2026. do 13:00 za studente prve godine",
+    "rucni": true,
+    "slug": "grad-zagreb-stipendije-grada-zagreba-2026",
+    "upute_za_prijavu": "",
+    "url": "https://zagreb.hr/stipendije-grada-zagreba-2026-2027/224294",
+    "uvjeti": "Pet vrsta stipendija: za izvrsnost, socioekonomski status, romsku nacionalnu manjinu, osobe s invaliditetom i deficitarna zanimanja. Ukupno oko 1.350 stipendija. Prijava je isključivo elektronička, kroz aplikaciju eStipendije na ePisarnici Grada Zagreba. Natječaj za studente viših godina raspisuje se do kraja listopada.",
+    "zadnji_put": "2026-10-10",
+    "zasto_rucno": "Izvor je pokazivao samo opća pravila bez rokova; natječaj s rokovima je na zasebnoj stranici koja se mijenja svake godine.",
+    "zupanija": ""
+  },
   "kastav-stipendije-ucenike-studente-2026": {
     "iznos": "110 eura za učenike, a studentske 150 eura mjesečno",
     "iznos_je_fond": false,
@@ -249,6 +346,28 @@
     "zadnji_put": "2026-10-08",
     "zasto_rucno": "Stranica Grada Novog Marofa u robots.txt zabranjuje automatsko čitanje rubrike s natječajima.",
     "zupanija": "Varaždinska županija"
+  },
+  "osjecko-baranjska-zupanija-stipendije-baranjske-zupanije-ucenike-stude-2026": {
+    "iznos": "",
+    "iznos_je_fond": false,
+    "iznosi": [],
+    "izvor_naziv": "Osječko-baranjska županija — stipendije",
+    "napomena": "",
+    "naslov": "Stipendije Osječko-baranjske županije za učenike i studente",
+    "podrucje": "Osječko-baranjska županija",
+    "potvrda": "https://www.unios.hr/natjecaj-za-dodjelu-stipendija-ucenicima-i-studentima-za-2026-2027-skolsku-odnosno-akademsku-godinu/",
+    "poveznica": "",
+    "prvi_put": "2026-10-10",
+    "rok_iso": "2026-10-21",
+    "rok_tekst": "21. listopada 2026.",
+    "rucni": true,
+    "slug": "osjecko-baranjska-zupanija-stipendije-baranjske-zupanije-ucenike-stude-2026",
+    "upute_za_prijavu": "",
+    "url": "https://www.obz.hr/index.php/oglasnik/natjecaji-i-javni-pozivi/8498-natjecaj-za-dodjelu-stipendija-ucenicima-i-studentima-za-2026-2027-skolsku-odnosno-akademsku-godinu",
+    "uvjeti": "Učenici srednjih škola i studenti prve, druge i treće godine s područja Osječko-baranjske županije. Kategorije: daroviti, STEM, deficitarna zanimanja, socio-ekonomski status te medicinske sestre i tehničari. Iznosi su objavljeni u tekstu natječaja.",
+    "zadnji_put": "2026-10-10",
+    "zasto_rucno": "Sustav je prepoznao natječaj preko sveučilišne stranice, ali mu nije pročitao rok.",
+    "zupanija": "Osječko-baranjska županija"
   },
   "pazin-stipendije-grada-pazina-studente-2026": {
     "iznos": "200,00 eura mjesečno za studente",
