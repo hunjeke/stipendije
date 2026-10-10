@@ -250,6 +250,36 @@
     "zasto_rucno": "Stranica Grada Novog Marofa u robots.txt zabranjuje automatsko čitanje rubrike s natječajima.",
     "zupanija": "Varaždinska županija"
   },
+  "pazin-stipendije-grada-pazina-studente-2026": {
+    "iznos": "200,00 eura mjesečno za studente",
+    "iznos_je_fond": false,
+    "iznosi": [
+      {
+        "do": false,
+        "eur": 200.0,
+        "mjeseci": null,
+        "razdoblje": "mjesecno",
+        "za": "studenti"
+      }
+    ],
+    "izvor_naziv": "Grad Pazin — stipendije",
+    "napomena": "",
+    "naslov": "Stipendije Grada Pazina za studente",
+    "podrucje": "Pazin",
+    "potvrda": "https://www.pazin.hr/wp-content/uploads/2026/08/Natjecaj-za-dodjelu-stipendija-od-skolske-studijske-2026.-2027.pdf",
+    "poveznica": "",
+    "prvi_put": "2026-10-10",
+    "rok_iso": "2026-10-31",
+    "rok_tekst": "31. listopada 2026.",
+    "rucni": true,
+    "slug": "pazin-stipendije-grada-pazina-studente-2026",
+    "upute_za_prijavu": "",
+    "url": "https://www.pazin.hr/objavljen-natjecaj-za-dodjelu-stipendija-od-skolske-studijske-2026-2027-godine/",
+    "uvjeti": "Studenti s područja Grada Pazina. Dodjeljuje se do 17 studentskih stipendija, prema A, B i C listi. Učenički dio istog natječaja zatvoren je 30. rujna 2026.",
+    "zadnji_put": "2026-10-10",
+    "zasto_rucno": "Stranica Grada Pazina odbija automatsko čitanje (HTTP 403), pa se natječaj ne može dohvatiti sam.",
+    "zupanija": "Istarska županija"
+  },
   "porec-stipendije-ucenike-skolske-godine-2026": {
     "iznos": "450 eura mjesečno za deficitarna zanimanja",
     "iznos_je_fond": false,
@@ -503,6 +533,36 @@
     "upute_za_prijavu": "Prijaviti se na javni natječaj objavljen u siječnju 2026. | Proći zdravstveni pregled u Zavodu za zrakoplovnu medicinu Zagreb ili Zavodu za pomorsku medicinu Split | Proći provjeru tjelesne spremnosti u organizaciji Središnjice za upravljanje osobljem | Potpisati Ugovor o stipendiranju ako ste odabrani",
     "url": "https://www.morh.hr/dodjela-stipendija-vojnim-stipendistima-studentima-iz-podrucja-informacijsko-komunikacijskih-tehnologija/",
     "uvjeti": "Redoviti studenti sveučilišnih ili stručnih studija na akreditiranim studijima iz područja elektrotehnika, računarstva, informacijsko-komunikacijskih znanosti i srodnih IT studija. Moraju biti hrvatski državljani s prebivalištem u RH najmanje godinu dana, s prosjekom najmanje 3.00, bez kaznenih presuda i nisu korisnici drugih stipendija.",
+    "zadnji_put": "2026-10-10",
+    "zasto_rucno": "",
+    "zupanija": ""
+  },
+  "stipendije-vojnim-stipendistima-it-a-2026": {
+    "iznos": "300–700 EUR mjesecno",
+    "iznos_je_fond": false,
+    "iznosi": [
+      {
+        "do": false,
+        "eur": 300.0,
+        "mjeseci": null,
+        "razdoblje": "mjesecno",
+        "za": "studenti 1. godine"
+      }
+    ],
+    "izvor_naziv": "Ministarstvo obrane — stipendije za studente IT-a",
+    "napomena": "Vojni stipendisti dužni su poslije završetka studija odslužiti vojnu službu u dvostrukom trajanju primanja stipendije, inače moraju vratiti isplaćene stipendije s kamatom.",
+    "naslov": "Stipendije vojnim stipendistima iz IT-a",
+    "podrucje": "Cijela Hrvatska",
+    "potvrda": "",
+    "poveznica": "",
+    "prvi_put": "2026-10-10",
+    "rok_iso": "2026-10-31",
+    "rok_tekst": "do kraja listopada 2026.",
+    "rucni": false,
+    "slug": "stipendije-vojnim-stipendistima-it-a-2026",
+    "upute_za_prijavu": "Kontaktirati Službu za izobrazbu MORH (01/4567-739, 01/4567-648) | Dostaviti prijavu prije kraja listopada 2026. | Odazivanje zdravstvenim pregledima i provjeri tjelesne spremnosti | Potpisivanje Ugovora o stipendiranju nakon odabira",
+    "url": "https://www.morh.hr/dodjela-stipendija-vojnim-stipendistima-studentima-iz-podrucja-informacijsko-komunikacijskih-tehnologija/",
+    "uvjeti": "Redoviti studenti sveučilišnih ili stručnih studija u Hrvatskoj iz područja elektrotehnika, računarstva, informacijsko-komunikacijskih znanosti i srodnih IT studija. Moraju biti hrvatski državljani, imati opći uspjeh najmanje 3.00, neprekidno prebivalište u Hrvatskoj najmanje godinu dana, i zadovoljiti zdravstvene i tjelesne preglede.",
     "zadnji_put": "2026-10-10",
     "zasto_rucno": "",
     "zupanija": ""

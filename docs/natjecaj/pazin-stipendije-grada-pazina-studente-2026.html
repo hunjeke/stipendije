@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Privatnost — stipendije.hr</title>
-<meta name="description" content="Koje podatke prikuplja stipendije.hr, zašto, gdje se čuvaju i kako ih možeš obrisati.">
-<meta property="og:title" content="Privatnost — stipendije.hr">
-<meta property="og:description" content="Koje podatke prikuplja stipendije.hr, zašto, gdje se čuvaju i kako ih možeš obrisati.">
+<title>Stipendije Grada Pazina za studente — Pazin | stipendije.hr</title>
+<meta name="description" content="Stipendije Grada Pazina za studente — Pazin. Iznos: 200,00 eura mjesečno za studente. Rok prijave 31.10.2026. Uvjeti i upute za prijavu.">
+<meta property="og:title" content="Stipendije Grada Pazina za studente — Pazin | stipendije.hr">
+<meta property="og:description" content="Stipendije Grada Pazina za studente — Pazin. Iznos: 200,00 eura mjesečno za studente. Rok prijave 31.10.2026. Uvjeti i upute za prijavu.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://stipendije.hr/pregled.png?v=3">
 <meta property="og:image:width" content="1200">
@@ -15,27 +15,27 @@
 <meta property="og:site_name" content="Stipendije.hr">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://stipendije.hr/pregled.png?v=3">
-<link rel="icon" href="favicon.ico" sizes="any">
-<link rel="icon" type="image/png" sizes="48x48" href="favicon-48.png">
-<link rel="icon" type="image/png" sizes="96x96" href="favicon-96.png">
-<link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" href="../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="48x48" href="../favicon-48.png">
+<link rel="icon" type="image/png" sizes="96x96" href="../favicon-96.png">
+<link rel="icon" type="image/png" sizes="192x192" href="../favicon-192.png">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
 <meta name="theme-color" content="#1D4ED8">
-<link rel="preload" href="f/plex-400.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="f/bricolage-800.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../f/plex-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../f/bricolage-800.woff2" as="font" type="font/woff2" crossorigin>
 
 <style>
-@font-face{font-family:"Bricolage";src:url("f/bricolage-700.woff2") format("woff2");
+@font-face{font-family:"Bricolage";src:url("../f/bricolage-700.woff2") format("woff2");
   font-weight:700;font-style:normal;font-display:swap}
-@font-face{font-family:"Bricolage";src:url("f/bricolage-800.woff2") format("woff2");
+@font-face{font-family:"Bricolage";src:url("../f/bricolage-800.woff2") format("woff2");
   font-weight:800;font-style:normal;font-display:swap}
-@font-face{font-family:"Plex";src:url("f/plex-400.woff2") format("woff2");
+@font-face{font-family:"Plex";src:url("../f/plex-400.woff2") format("woff2");
   font-weight:400;font-style:normal;font-display:swap}
-@font-face{font-family:"Plex";src:url("f/plex-500.woff2") format("woff2");
+@font-face{font-family:"Plex";src:url("../f/plex-500.woff2") format("woff2");
   font-weight:500;font-style:normal;font-display:swap}
-@font-face{font-family:"Plex";src:url("f/plex-600.woff2") format("woff2");
+@font-face{font-family:"Plex";src:url("../f/plex-600.woff2") format("woff2");
   font-weight:600;font-style:normal;font-display:swap}
-@font-face{font-family:"PlexMono";src:url("f/plexmono-500.woff2") format("woff2");
+@font-face{font-family:"PlexMono";src:url("../f/plexmono-500.woff2") format("woff2");
   font-weight:400 500;font-style:normal;font-display:swap}
 
 .kol{position:fixed;left:0;right:0;bottom:0;z-index:80;background:var(--tinta);
@@ -149,29 +149,47 @@ input:focus-visible,select:focus-visible{outline:2px solid var(--plava);outline-
   *{animation:none!important;transition:none!important}
 }
 
-.tekst{padding:2.6rem 0 0}
-.tekst h1{margin-bottom:.6rem}
-.lead{font-size:1.02rem;color:var(--tinta-2);max-width:52ch;margin:0 0 2rem}
-.q{border-top:1px solid var(--linija);padding:1.15rem 0}
-.q:last-of-type{border-bottom:1px solid var(--linija)}
-.q h3{margin-bottom:.4rem}
-.q p{margin:.5rem 0;font-size:.94rem;color:var(--tinta-2)}
-.q ul{margin:.5rem 0;padding-left:1.2rem;font-size:.94rem;color:var(--tinta-2)}
-.q li{margin-bottom:.3rem}
-.q strong{color:var(--tinta)}
+.nat{padding:2.2rem 0 0}
+.put{font-size:.85rem;color:var(--tinta-2);margin-bottom:.9rem}
+.put a{color:var(--tinta-2);text-decoration:none;border-bottom:1px solid var(--linija)}
+.put a:hover{color:var(--plava)}
+.nat h1{font-size:clamp(1.5rem,4.4vw,2.1rem);margin-bottom:.4rem;line-height:1.18}
+.nat .odakle{font-family:"PlexMono",monospace;font-size:.72rem;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--tinta-2);margin-bottom:1.3rem}
+.stanje-n{display:inline-block;font-family:"PlexMono",monospace;font-size:.68rem;
+  letter-spacing:.09em;text-transform:uppercase;padding:.25rem .6rem;margin-bottom:1.1rem}
+.stanje-n.otv{background:#DCFCE7;color:var(--otvoreno)}
+.stanje-n.zat{background:var(--papir);color:var(--tinta-2);border:1px solid var(--linija)}
+.kutija{border:1px solid var(--linija);background:var(--karta);padding:1.1rem 1.15rem;
+  margin-bottom:1.5rem}
+.kutija dl{display:grid;grid-template-columns:9rem 1fr;gap:.45rem 1rem;margin:0;
+  font-size:.95rem}
+.kutija dt{color:var(--tinta-2)}
+.kutija dd{margin:0}
+.kutija dd.iznos{font-family:"PlexMono",monospace;font-weight:500}
+.kutija .za{color:var(--tinta-2);font-weight:400}
+.kutija .za::after{content:" —"}
+.nat h2{font-size:1.1rem;margin:2rem 0 .5rem}
+.nat p{font-size:.96rem;line-height:1.65;max-width:60ch}
+.nat ol{padding-left:1.3rem;font-size:.96rem;line-height:1.6;max-width:60ch}
+.nat ol li{margin-bottom:.45rem}
+.izlaz{display:inline-block;margin-top:1.4rem;background:var(--plava);color:#fff;
+  text-decoration:none;font-weight:600;font-size:.95rem;padding:.8rem 1.2rem}
+.izlaz:hover{filter:brightness(1.12)}
+.natrag-popis{display:block;margin-top:2.4rem;padding-top:1.2rem;
+  border-top:1px solid var(--linija);font-size:.92rem}
+.upoz-n{margin-top:1.6rem;border:1px dashed var(--linija);padding:.9rem 1rem;
+  font-size:.9rem;color:var(--tinta-2);line-height:1.6}
 @media(max-width:600px){
-  .tekst{padding:2rem 0 0}
-  .lead{font-size:.97rem;margin-bottom:1.5rem}
-  .q{padding:.9rem 0}
-  .q h3{font-size:1rem;line-height:1.3}
-  .q summary{padding:.3rem 0}
-  .q p,.q ul{font-size:.91rem}
+  .nat{padding:1.6rem 0 0}
+  .kutija{padding:.9rem}
+  .kutija dl{grid-template-columns:7rem 1fr;gap:.4rem .7rem;font-size:.92rem}
+  .izlaz{display:block;text-align:center}
 }
-
 </style>
 </head>
 <body><header class="vrh"><div class="w">
-  <a class="logo" href="./" aria-label="stipendije.hr, početna">
+  <a class="logo" href=".././" aria-label="stipendije.hr, početna">
     <svg class="znak" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
       <rect x="0" y="0" width="100" height="100" rx="22" fill="#1D4ED8"/>
       <text x="50" y="53" text-anchor="middle" dominant-baseline="central"
@@ -181,91 +199,40 @@ input:focus-visible,select:focus-visible{outline:2px solid var(--plava);outline-
     <span class="ime">Stipendije<span>.hr</span></span>
   </a>
   <nav class="nav">
-    <a href="./">Natječaji</a>
-    <a href="drzavna-stipendija.html">Državna</a>
-    <a href="vodic.html">Vodič</a>
+    <a href=".././" class="tu">Natječaji</a>
+    <a href="../drzavna-stipendija.html">Državna</a>
+    <a href="../vodic.html">Vodič</a>
   </nav>
-</div></header><main class="w"><section class="tekst">
-<h1>Privatnost</h1>
-<p class="lead">Kratko i bez pravničkog jezika. Stranicu možeš koristiti bez
-ostavljanja ijednog podatka. Podatke tražimo samo ako se sam prijaviš na
-obavijesti o natječajima.</p>
+</div></header><main class="w"><section class="nat">
+<p class="put"><a href="../">Sve stipendije</a> &rsaquo; <a href="../zupanija/istarska.html">Istarska županija</a></p>
+<span class="stanje-n otv">Otvoreno za prijave</span>
+<h1>Stipendije Grada Pazina za studente</h1>
+<div class="odakle">Pazin</div>
+<div class="kutija"><dl><dt>Iznos</dt><dd class="iznos">200 € mjesečno</dd><dt>Rok prijave</dt><dd>31.10.2026.</dd><dt>Tko se prijavljuje</dt><dd>Studenti s područja Grada Pazina. Dodjeljuje se do 17 studentskih stipendija, prema A, B i C listi. Učenički dio istog natječaja zatvoren je 30.09.2026.</dd><dt>Izvor</dt><dd>Grad Pazin — stipendije</dd></dl></div>
+<p class="upoz-n">Stranica Grada Pazina odbija automatsko čitanje (HTTP 403), pa se natječaj ne može dohvatiti sam. Podatke smo preuzeli s <a href="https://www.pazin.hr/wp-content/uploads/2026/08/Natjecaj-za-dodjelu-stipendija-od-skolske-studijske-2026.-2027.pdf" target="_blank" rel="noopener">ove objave</a>.</p>
+<a class="izlaz" href="https://www.pazin.hr/objavljen-natjecaj-za-dodjelu-stipendija-od-skolske-studijske-2026-2027-godine/" target="_blank" rel="noopener">Otvori službeni natječaj &rarr;</a>
 
-<div class="q"><h3>Ako samo gledaš stranicu</h3>
-<p>Ne tražimo ništa. Nema registracije ni prijave, a popis natječaja je
-dostupan svima bez ikakvog upisivanja.</p></div>
-
-<div class="q"><h3>Ako se prijaviš na obavijesti</h3>
-<p>Tada od tebe tražimo tri podatka: <strong>e-mail adresu</strong>,
-<strong>županiju</strong> i jesi li <strong>učenik ili student</strong>.</p>
-<p>Županija i status služe isključivo tome da ti ne šaljemo natječaje koji te
-se ne tiču. Ničemu drugome.</p>
-<p>Podatke koristimo samo za slanje obavijesti o natječajima za stipendije.
-Ne šaljemo reklame, ne prodajemo ni ne ustupamo adrese nikome, i ne
-povezujemo ih s podacima o posjetima stranici.</p></div>
-
-<div class="q"><h3>Na temelju čega</h3>
-<p>Na temelju tvoje privole, koju daješ ispunjavanjem obrasca i potvrđuješ
-klikom na poveznicu u mailu koji ti pošaljemo. <strong>Dok ne klikneš na tu
-poveznicu, nisi upisan i ne dobivaš ništa.</strong></p>
-<p>Privolu možeš povući u svakom trenutku i bez obrazloženja.</p></div>
-
-<div class="q"><h3>Gdje se podaci čuvaju</h3>
-<p>Popis pretplatnika vodi se u servisu <strong>Brevo</strong> (Sendinblue SAS,
-Francuska), koji za nas obavlja slanje poruka. Podaci se obrađuju unutar
-Europske unije.</p>
-<p>Čuvamo ih dok si prijavljen. Kad se odjaviš, briše se i zapis.</p></div>
-
-<div class="q"><h3>Odjava i brisanje</h3>
-<p>Poveznica za odjavu stoji u svakoj poruci koju pošaljemo i radi odmah,
-bez pitanja.</p>
-<p>Ako želiš da te obrišemo iz evidencije ili te zanima koje podatke o tebi
-imamo, javi se na <a href="mailto:erik.hunjek@gmail.com">erik.hunjek@gmail.com</a> i odgovorit ćemo ti.</p></div>
-
-<div class="q"><h3>Dob</h3>
-<p>Obavijesti su namijenjene osobama od <strong>16 godina</strong> naviše. U
-Hrvatskoj je to dob od koje osoba može sama dati privolu za ovakve usluge.</p>
-<p>Ako imaš manje od 16 godina, za prijavu je potrebna suglasnost roditelja ili
-skrbnika. Popis natječaja možeš i bez prijave slobodno pregledavati — on je
-svima otvoren.</p></div>
-
-<div class="q"><h3>Tvoja prava</h3>
-<p>Imaš pravo zatražiti pristup svojim podacima, ispravak netočnih podataka,
-brisanje, ograničenje obrade i prijenos podataka, te povući privolu.</p>
-<p>Ako smatraš da s tvojim podacima nešto nije u redu, možeš se obratiti
-Agenciji za zaštitu osobnih podataka (AZOP), Selska cesta 136, Zagreb.</p></div>
-
-<div class="q"><h3>Google Analytics</h3>
-<p>Ako pristaneš, koristimo Google Analytics kako bismo vidjeli koliko ljudi
-posjećuje stranicu, s kojih uređaja dolaze i koje stranice gledaju. To nam
-pomaže da znamo koje županije treba bolje pokriti.</p>
-<p>Google Analytics postavlja kolačiće na tvoj uređaj i podatke obrađuje Google.
-Postavili smo ga tako da se <strong>IP adresa skraćuje</strong>, pa se ne bilježi
-u punom obliku.</p>
-<p><strong>Ako odbiješ, ne postavlja se nijedan kolačić</strong> i mjerenje se
-ne pokreće. Stranica radi jednako u oba slučaja.</p></div>
-
-<div class="q"><h3>Kako promijeniti odluku o kolačićima</h3>
-<p>Tvoj odabir sprema se lokalno u pregledniku. Ako ga želiš promijeniti,
-obriši podatke stranice u postavkama preglednika — traka s pitanjem
-pojavit će se ponovno pri sljedećem posjetu.</p></div>
-
-<div class="q"><h3>Poslužitelj</h3>
-<p>Stranicu poslužuje GitHub Pages. Kao i svaki poslužitelj na internetu,
-GitHub bilježi tehničke podatke o zahtjevima. Na to nemamo utjecaja i te
-podatke ne vidimo.</p></div>
-
-<div class="q"><h3>Vanjske poveznice</h3>
-<p>Svaki natječaj vodi na stranicu institucije koja ga je objavila. Kad
-klikneš takvu poveznicu, vrijede pravila privatnosti te stranice, ne naša.</p></div>
-
-<div class="q"><h3>Tko je voditelj obrade</h3>
-<p>Erik Hunjek, kao fizička osoba. Kontakt je
-<a href="mailto:erik.hunjek@gmail.com">erik.hunjek@gmail.com</a>, a ostali podaci su u
-<a href="impressum.html">impressumu</a>.</p></div>
-
-<div class="q"><h3>Pitanja</h3>
-<p>Za sve o privatnosti javi se na <a href="mailto:erik.hunjek@gmail.com">erik.hunjek@gmail.com</a>.</p></div>
+<style>
+.kanal{margin:1.6rem 0 .4rem;border:1.5px solid var(--tinta);background:var(--karta);
+  padding:1.1rem 1.15rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
+.kanal-txt{flex:1;min-width:15rem}
+.kanal-txt b{display:block;font-family:"Bricolage",sans-serif;font-weight:700;
+  font-size:1.08rem;letter-spacing:-.012em;color:var(--tinta);margin-bottom:.2rem}
+.kanal-txt span{font-size:.88rem;color:var(--tinta-2)}
+.kanal-gumb{display:inline-block;background:var(--plava);color:#fff;
+  text-decoration:none;font-weight:600;font-size:.92rem;padding:.72rem 1.1rem;
+  white-space:nowrap}
+.kanal-gumb:hover{filter:brightness(1.12)}
+@media(max-width:600px){.kanal-gumb{width:100%;text-align:center}}
+</style>
+<aside class="kanal">
+  <div class="kanal-txt">
+    <b>Ne propusti novi natječaj</b>
+    <span>Rokovi su često samo 15 dana. Javimo ti na WhatsAppu čim se neki otvori.</span>
+  </div>
+  <a class="kanal-gumb" href="https://whatsapp.com/channel/0029Vb8yRo75Ui2aMzBAjv1a" target="_blank" rel="noopener">Prati na WhatsAppu &rarr;</a>
+</aside>
+<a class="natrag-popis" href="../">&larr; Svi otvoreni natječaji za stipendije</a>
 </section></main><footer><div class="w">
   <p class="upoz-p"><strong>Provjeri prije prijave.</strong> Podatke prikupljamo
      automatski, pa su greške moguće. Vrijede rok i uvjeti sa službene stranice
@@ -277,13 +244,13 @@ klikneš takvu poveznicu, vrijede pravila privatnosti te stranice, ne naša.</p>
      koja je natječaj objavila.</p>
   <p class="sitno">Zadnja provjera 10.10.2026. &nbsp;·&nbsp; 146 izvora &nbsp;·&nbsp;
      podaci prikupljeni automatski &nbsp;·&nbsp;
-     <a class="tiho" href="impressum.html">Impressum</a> &nbsp;·&nbsp;
-     <a class="tiho" href="privatnost.html">Privatnost</a></p>
+     <a class="tiho" href="../impressum.html">Impressum</a> &nbsp;·&nbsp;
+     <a class="tiho" href="../privatnost.html">Privatnost</a></p>
 </div></footer>
 <div class="kol" id="kol">
   <div class="kol-w">
     <p>Google Analytics, samo uz tvoj pristanak.
-       <a href="privatnost.html">Više o tome</a>.</p>
+       <a href="../privatnost.html">Više o tome</a>.</p>
     <div class="kol-gumbi">
       <button type="button" id="kol-ne">Odbij</button>
       <button type="button" class="da" id="kol-da">Prihvaćam</button>
