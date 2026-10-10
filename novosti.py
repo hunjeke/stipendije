@@ -27,6 +27,7 @@ from datetime import date
 from web import za_koga
 
 ARHIV = "natjecaji.json"
+IZLAZ = "output.json"
 POSLANO = "poslano.json"
 IZVJESTAJ = "novosti.md"
 
@@ -74,6 +75,53 @@ def _iznos(z):
         return ""
     naj = max(int(i["eur"]) for i in mj)
     return f"{naj} € mjesečno" + (" (najviši iznos)" if len(mj) > 1 else "")
+
+
+def zapelo():
+    """Izvori koji nesto imaju, ali se javno ne prikazuju.
+
+    Dvije vrste. Prvi su oni gdje je natjecaj prepoznat ali mu rok nije
+    procitan — takav zapis nikad ne izade na stranicu, pa se o njemu ne
+    sazna nista dok ga netko ne pogleda rucno. Drugi su izvori koji se
+    uopce ne daju dohvatiti.
+
+    Ovo stoji uz obavijesti namjerno: to je jedini trenutak u tjednu kad
+    covjek ionako gleda sto je novo, pa je najmanja sansa da promakne.
+    """
+    sumnjivi, greske = [], []
+    for r in _ucitaj(IZLAZ, []):
+        s = r.get("status") or ""
+        if s.startswith("PROVJERITI"):
+            sumnjivi.append(r)
+        elif s.startswith("GREŠKA"):
+            greske.append(r)
+    kljuc = lambda r: (r.get("naziv") or "").lower()
+    return sorted(sumnjivi, key=kljuc), sorted(greske, key=kljuc)
+
+
+def _blok_zapelo(sumnjivi, greske):
+    if not sumnjivi and not greske:
+        return ["---", "", "Nijedan izvor ne zapinje. ", ""]
+    L = ["---", "", "## Za ručnu provjeru", ""]
+    if sumnjivi:
+        L += [f"**{len(sumnjivi)} izvora je prepoznalo natječaj, ali mu nije "
+              "pročitalo rok.** Takvi se javno ne prikazuju — ako je koji "
+              "otvoren, nitko ga ne vidi.", "",
+              "| Izvor | Što je pročitano kao rok | Stranica |",
+              "|---|---|---|"]
+        for r in sumnjivi:
+            rok = (r.get("rok_tekst") or "—").replace("|", "/")[:46]
+            L.append(f"| {(r.get('naziv') or '')[:40]} | {rok} | {r.get('url') or ''} |")
+        L.append("")
+    if greske:
+        L += [f"**{len(greske)} izvora se ne da dohvatiti.** Ako neki od njih "
+              "ima otvoren natječaj, treba ga upisati u `rucni.json`.", "",
+              "| Izvor | Problem |", "|---|---|"]
+        for r in greske:
+            st = (r.get("status") or "").replace("|", "/")[:60]
+            L.append(f"| {(r.get('naziv') or '')[:40]} | {st} |")
+        L.append("")
+    return L
 
 
 def novi_natjecaji():
@@ -142,9 +190,11 @@ def _filtar(zupanija, skupina):
 
 def izvjestaj(grupe, otvoreni, novi):
     L = [f"# Nove obavijesti — {date.today().strftime('%d.%m.%Y.')}", ""]
+    sumnjivi, greske = zapelo()
     if not novi:
         L += ["Nema novih natječaja od zadnje obavijesti.", "",
-              f"Otvorenih ukupno: {len(otvoreni)}. O svima je već javljeno."]
+              f"Otvorenih ukupno: {len(otvoreni)}. O svima je već javljeno.", ""]
+        L += _blok_zapelo(sumnjivi, greske)
         return "\n".join(L) + "\n"
 
     L += [f"Novih natječaja: **{len(novi)}**", "",
@@ -158,6 +208,7 @@ def izvjestaj(grupe, otvoreni, novi):
               f"**Filtar u Brevu:** {_filtar(zup, sk)}", ""]
         predmet, tijelo = _poruka(zapisi, zup, sk)
         L += [f"**Predmet:** {predmet}", "", "```", tijelo, "```", ""]
+    L += _blok_zapelo(sumnjivi, greske)
     return "\n".join(L) + "\n"
 
 
@@ -186,13 +237,22 @@ def main():
         print(f"Označeno kao poslano: {len(novi)} natječaja.")
         return
 
+    sumnjivi, greske = zapelo()
+    zapinje = len(sumnjivi) + len(greske)
+
     if not novi:
         print(f"Nema novih natječaja. Otvorenih ukupno: {len(otvoreni)}.")
+        if zapinje:
+            print(f"ALI: {len(sumnjivi)} izvora s nepročitanim rokom i "
+                  f"{len(greske)} nedohvatljivih — popis je u {IZVJESTAJ}.")
         return
 
     print(f"\nNovih natječaja: {len(novi)}   ·   skupina primatelja: {len(grupe)}\n")
     for (zup, sk), zapisi in sorted(grupe.items()):
         print(f"  {zup or 'SVI':32} {sk:8} {len(zapisi)}")
+    if zapinje:
+        print(f"\nZa ručnu provjeru: {len(sumnjivi)} s nepročitanim rokom, "
+              f"{len(greske)} nedohvatljivih")
     print(f"\nTekstovi poruka: {IZVJESTAJ}")
     print("Kad pošalješ, pokreni: python novosti.py --potvrdi")
 
