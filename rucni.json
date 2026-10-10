@@ -8,12 +8,41 @@
     "kategorija": "Grad",
     "iznos": "80,00 eura mjesečno, 10 mjeseci (rujan 2026. – lipanj 2027.)",
     "iznosi": [
-      {"eur": 80, "razdoblje": "mjesecno", "mjeseci": 10, "za": null, "do": false}
+      {
+        "eur": 80,
+        "razdoblje": "mjesecno",
+        "mjeseci": 10,
+        "za": null,
+        "do": false
+      }
     ],
     "iznos_je_fond": false,
     "rok_tekst": "8. listopada 2026.",
     "uvjeti": "Učenici srednjih škola koji se u školskoj godini 2026./2027. obrazuju za deficitarna zanimanja (autoelektričar, elektroinstalater, kuhar, medicinska sestra, zavarivač, zidar i druga navedena u natječaju). Osigurano je ukupno 120 stipendija.",
     "zasto_rucno": "Stranica Grada Novog Marofa u robots.txt zabranjuje automatsko čitanje rubrike s natječajima.",
     "potvrda": "https://zagorje-international.hr/2026/09/23/grad-novi-marof-raspisao-natjecaj-za-120-stipendija-ucenicima-koji-se-obrazuju-za-deficitarna-zanimanja/"
+  },
+  {
+    "naziv": "Grad Pazin — stipendije",
+    "naslov_natjecaja": "Stipendije Grada Pazina za studente",
+    "url": "https://www.pazin.hr/objavljen-natjecaj-za-dodjelu-stipendija-od-skolske-studijske-2026-2027-godine/",
+    "podrucje": "Pazin",
+    "zupanija": "Istarska županija",
+    "kategorija": "Grad",
+    "iznos": "200,00 eura mjesečno za studente",
+    "iznosi": [
+      {
+        "eur": 200,
+        "razdoblje": "mjesecno",
+        "mjeseci": null,
+        "za": "studenti",
+        "do": false
+      }
+    ],
+    "iznos_je_fond": false,
+    "rok_tekst": "31. listopada 2026.",
+    "uvjeti": "Studenti s područja Grada Pazina. Dodjeljuje se do 17 studentskih stipendija, prema A, B i C listi. Učenički dio istog natječaja zatvoren je 30. rujna 2026.",
+    "zasto_rucno": "Stranica Grada Pazina odbija automatsko čitanje (HTTP 403), pa se natječaj ne može dohvatiti sam.",
+    "potvrda": "https://www.pazin.hr/wp-content/uploads/2026/08/Natjecaj-za-dodjelu-stipendija-od-skolske-studijske-2026.-2027.pdf"
   }
 ]
