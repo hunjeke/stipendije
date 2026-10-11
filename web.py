@@ -46,6 +46,19 @@ def iso_rok(status):
     return m.group(1) if m else ""
 
 
+def domena_izvora(url):
+    """Institucija kojoj adresa pripada ("www.opatija.hr/80032-2/" -> "opatija.hr").
+
+    Sluzi za brojanje izvora. Rucni upis iz rucni.json nosi adresu samog
+    natjecaja, a ne naslovnice izvora, pa se po punoj adresi ne bi prepoznao
+    kao izvor koji se vec prati."""
+    m = re.match(r"https?://([^/?#]+)", (url or "").strip(), re.I)
+    if not m:
+        return ""
+    h = m.group(1).lower().split(":")[0]
+    return h[4:] if h.startswith("www.") else h
+
+
 def ucitaj_izvore():
     """URL -> (podrucje, zupanija, ocekivani mjesec, je li usko usmjeren)."""
     p, z, o, u = {}, {}, {}, {}
@@ -929,6 +942,9 @@ def main():
 
     d = json.load(open(ULAZ, encoding="utf-8"))
     pod_map, zup_map, _, usko_map = ucitaj_izvore()
+    # Adrese pracenih stranica, zapamcene PRIJE nego se u pod_map dopisu rucni
+    # upisi — inace bi se rucni natjecaji brojali kao novi izvori.
+    adrese_izvora = set(pod_map)
 
     # Natjecaji koje smo upisali rukom jer ih scraper ne moze procitati
     # (server blokira, robots.txt zabranjuje, natjecaj je skenirani PDF).
@@ -951,6 +967,17 @@ def main():
         elif s.startswith("ROK ISTEKAO") or s.startswith("NEMA AKTIVNOG"):
             zatvorene.append(par)
 
+    # Izvor kojemu je natjecaj upisan rukom ne smije istovremeno stajati u
+    # popisu zatvorenih. Grad Krk bi inace imao dva reda: "stipendije — rok
+    # 31.10." gore i "natjecaji — nema aktivnog natjecaja" dolje. Rucni upis
+    # postoji bas zato sto se ta stranica ne da procitati, pa je njezino
+    # "nema aktivnog natjecaja" pogresno, a ne dodatna informacija.
+    rucno_pokriveno = {domena_izvora(r.get("url"))
+                       for r in rucni_zapisi
+                       if (r.get("status") or "").startswith("OTVORENO")} - {""}
+    zatvorene = [t_ for t_ in zatvorene
+                 if domena_izvora(t_[0].get("url")) not in rucno_pokriveno]
+
     otvorene = spoji_duplikate(otvorene)
 
     # najhitniji prvi, ali drzavna stipendija ispred svih dok je otvorena
@@ -972,7 +999,15 @@ def main():
     # sto i broj prikazanih: izvor kojemu citanje ovaj put nije uspjelo i dalje
     # pratimo, samo o njemu nemamo sto reci. Odbiti ga od ukupnog broja znacilo
     # bi tvrditi da ga ne pratimo.
-    izvora_ukupno = len(d)
+    #
+    # Broje se pracene stranice iz sources.json, a ne zapisi. Rucni upis iz
+    # rucni.json nosi adresu samog natjecaja, pa bi kao zapis izgledao kao
+    # jedanaesti izvor — dva natjecaja Opatije digla bi broj za dva, a oba su
+    # s izvora koji se i tako prati. Rucni upis se broji samo ako je s domene
+    # koje u sources.json nema.
+    izvori_domene = {domena_izvora(k) for k in adrese_izvora} - {""}
+    rucne_domene = {domena_izvora(r.get("url")) for r in rucni_zapisi} - {""}
+    izvora_ukupno = len(adrese_izvora) + len(rucne_domene - izvori_domene)
 
     # --- stranica po natjecaju + arhiv ---
     # Svaki otvoren natjecaj dobiva vlastitu stranicu i ostaje zapisan kad mu
