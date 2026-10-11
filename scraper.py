@@ -371,6 +371,24 @@ NIJE_NATJECAJ = ("rezultat", "rang", "zapisnik", "zakljuc", "odluka",
                  "arhiva", "ponisten", "isprav")
 
 
+
+def _o_stipendiji(spoj):
+    """Govori li naslov poveznice o stipendiji.
+
+    Dio gradova svoju stipendiju ne zove tako: Rovinj dodjeljuje "novcane
+    potpore ucenicima i studentima", drugi "pomoc za skolovanje". Trazenje
+    same rijeci "stipendija" takve je natjecaje preskakalo.
+
+    "Potpora" se prima samo uz ucenika, studenta ili skolovanje — inace bi
+    ulazile i potpore poljoprivrednicima i novorodencadi, kojih je po
+    gradskim rubrikama vise nego stipendija."""
+    if "stipendij" in spoj or "skolarin" in spoj:
+        return True
+    if "potpor" in spoj or "pomoc" in spoj:
+        return any(k in spoj for k in ("ucenic", "student", "skolovanj", "ucenik"))
+    return False
+
+
 def natjecaj_poveznice(html, baza, maks=2):
     """Nadi poveznice s popisne stranice koje vode na sam natjecaj za stipendiju.
 
@@ -390,7 +408,7 @@ def natjecaj_poveznice(html, baza, maks=2):
         cist = bez_kvacica(re.sub(r"<[^>]+>", " ", tekst))
         spoj = cist + " " + bez_kvacica(href)
         # mora mirisati na stipendiju, a ne na bilo koji javni natjecaj
-        if "stipendij" not in spoj and "skolarin" not in spoj:
+        if not _o_stipendiji(spoj):
             continue
         if any(k in spoj for k in NIJE_NATJECAJ):
             continue
@@ -726,6 +744,55 @@ def ucitaj_prethodno(putanja=None):
         return {}
 
 
+
+# Koliko natjecaja smije doci s jedne rubrike uz onaj glavni. Zagreb ih ima
+# pet, Rovinj tri; bez granice bi jedna losa stranica mogla povuci desetke
+# poziva modelu.
+MAKS_DODATNIH = 3
+
+
+def sastavi_zapis(ime, adresa, kategorija, extracted, tekst_izvora, now,
+                  poveznica=None, izvor_url=None):
+    """Zapis iz procitanog natjecaja, s istim provjerama kao glavni.
+
+    Postoji zato sto jedna rubrika zna nositi vise natjecaja. Dosad se uzimao
+    prvi i stalo se; Rovinj je tako od tri natjecaja pokazivao jedan, a romska
+    drzavna stipendija nije se vidjela uopce. Sada svaki dobiva svoj zapis,
+    a ova funkcija osigurava da prolazi kroz istu provjeru iznosa i navoda
+    kao i glavni — da se popustljivost ne uvuce na sporedni ulaz."""
+    ima_otvoren = extracted.get("ima_otvoren_natjecaj", False)
+    iznosi, odbaceno = provjeri_iznose(
+        sredi_iznose(extracted.get("iznosi")), extracted.get("iznos"))
+
+    if dokaz_vrijedi(extracted.get("dokaz_iznos"), tekst_izvora) is False and iznosi:
+        iznosi = []
+
+    r = {
+        "naziv": ime,
+        "url": adresa,
+        "kategorija": kategorija,
+        "naslov_natjecaja": cist_naslov(extracted.get("naslov_natjecaja")),
+        "iznos": extracted.get("iznos"),
+        "iznosi": iznosi,
+        "iznos_je_fond": bool(extracted.get("iznos_je_fond")),
+        "rok_tekst": extracted.get("rok_tekst"),
+        "uvjeti": extracted.get("uvjeti"),
+        "upute_za_prijavu": extracted.get("upute_za_prijavu"),
+        "napomena": extracted.get("napomena"),
+        "poveznica_natjecaj": poveznica,
+        "status": compute_status(extracted.get("rok_tekst"), ima_otvoren),
+        "zadnje_provjereno": now,
+        "_ima_otvoren": ima_otvoren,
+        "_dopuna_pokusana": True,
+    }
+    if izvor_url:
+        # Adresa zapisa je adresa samog natjecaja, a ne rubrike s koje je
+        # dosao. Bez ovoga stranica ne bi znala kojoj zupaniji pripada, jer
+        # tu adresu u sources.json ne bi nasla.
+        r["_izvor_url"] = izvor_url
+    return r, odbaceno
+
+
 def zadrzi_ako_je_nestao(novi, stari):
     """Ne daj da jedno lose citanje izbrise natjecaj koji jos traje.
 
@@ -1004,6 +1071,16 @@ def main():
             # status se PONOVO racuna jer se datum promijenio i ako se stranica nije
             r["status"] = compute_status(r.get("rok_tekst"), r.get("_ima_otvoren", False))
             results.append(r)
+            # Uz glavni zapis kes nosi i ostale natjecaje s iste rubrike.
+            # Bez ovoga bi nestali cim bi se stranica procitala iz kesa.
+            for dr in cached.get("dodatni") or []:
+                dr = dict(dr)
+                dr["zadnje_provjereno"] = now
+                dr["status"] = compute_status(dr.get("rok_tekst"),
+                                              dr.get("_ima_otvoren", False))
+                results.append(dr)
+                if "PROVJERITI" in dr["status"]:
+                    needs_review.append(dr)
             skipped += 1
             print(f"  = nepromijenjeno (cache) -> {r['status']}")
             if "PROVJERITI" in r["status"]:
@@ -1037,8 +1114,14 @@ def main():
         # poveznice koje na njoj izgledaju kao natjecaj za stipendiju. Tek ako
         # ni ondje nema roka, ostaje "nema aktivnog natjecaja".
         pricuva = None
-        if sirovi and not (ima_otvoren and extracted.get("rok_tekst")):
-            for pod_url in natjecaj_poveznice(sirovi, url):
+        dodatni_izvori = []          # (procitano, adresa, tekst) za ostale natjecaje
+        # Rubrika s vise natjecaja: prvi ide kao glavni zapis, ostali dobivaju
+        # svoj. Prije se stalo na prvome, pa je Rovinj od tri natjecaja
+        # pokazivao jedan, a romska drzavna stipendija nijedan.
+        veze = natjecaj_poveznice(sirovi, url, maks=4) if sirovi else []
+        trazi_jos = len(veze) > 1
+        if veze and (trazi_jos or not (ima_otvoren and extracted.get("rok_tekst"))):
+            for pod_url in veze:
                 if drugih_poziva >= MAKS_DRUGI_PROLAZ:
                     if not granica_javljena:
                         print(f"  ! dosegnuta granica od {MAKS_DRUGI_PROLAZ} "
@@ -1074,13 +1157,24 @@ def main():
                 if not pod.get("ima_otvoren_natjecaj"):
                     continue
                 if pod.get("rok_tekst"):
-                    print(f"  + natjecaj nadem na podstranici: {pod_url[:70]}")
-                    extracted = pod
-                    ima_otvoren = True
-                    izvor_natjecaja = pod_url
-                    tekst_izvora = pod_text
-                    nadeno_drugim += 1
-                    break
+                    if not (ima_otvoren and extracted.get("rok_tekst")):
+                        print(f"  + natjecaj nadem na podstranici: {pod_url[:70]}")
+                        extracted = pod
+                        ima_otvoren = True
+                        izvor_natjecaja = pod_url
+                        tekst_izvora = pod_text
+                        nadeno_drugim += 1
+                        continue
+                    # Podstranica zna biti bas onaj natjecaj koji je rubrika
+                    # vec dala. Isti naslov i isti rok znaci isti natjecaj.
+                    isti = (bez_kvacica(pod.get("naslov_natjecaja") or "")
+                            == bez_kvacica(extracted.get("naslov_natjecaja") or "")
+                            and pod.get("rok_tekst") == extracted.get("rok_tekst"))
+                    if not isti and len(dodatni_izvori) < MAKS_DODATNIH:
+                        print(f"  + jos jedan natjecaj na istoj rubrici: "
+                              f"{pod_url[:60]}")
+                        dodatni_izvori.append((pod, pod_url, pod_text))
+                    continue
                 # Natjecaj bez citljivog roka nije bezvrijedan — ide u pricuvu.
                 # Ako nijedna druga poveznica ne da bolji, uzet ce se ovaj i
                 # zavrsiti kao "provjeriti rucno", sto je posteno: postoji, ali
@@ -1229,7 +1323,23 @@ def main():
             status = r.get("status") or status
 
         results.append(r)
-        cache[url] = {"hash": kljuc, "result": r}
+
+        # Ostali natjecaji s iste rubrike. Svaki dobiva zapis na vlastitoj
+        # adresi, pa se u arhivi i na stranici vodi zasebno — kao sto i jest
+        # zaseban natjecaj, s vlastitim rokom i iznosom.
+        dodatni_zapisi = []
+        for pod, pod_url, pod_text in dodatni_izvori:
+            dr, odb = sastavi_zapis(name, pod_url, src.get("kategorija", ""),
+                                    pod, pod_text, now,
+                                    poveznica=pod_url, izvor_url=url)
+            odbacenih_iznosa += odb
+            dodatni_zapisi.append(dr)
+            results.append(dr)
+            print(f"  -> uz to: {dr['status'][:50]}  ({dr.get('naslov_natjecaja') or ''}" + ")")
+            if "PROVJERITI" in dr["status"] or "GREŠKA" in dr["status"]:
+                needs_review.append(dr)
+
+        cache[url] = {"hash": kljuc, "result": r, "dodatni": dodatni_zapisi}
 
         if "PROVJERITI" in status or "GREŠKA" in status or ok_rok is False or zadrzan:
             needs_review.append(r)
