@@ -37,7 +37,7 @@
   },
   {
     "naziv": "Grad Split — stipendiranje učenika i studenata",
-    "url": "https://split.hr/natjecaji/natjecaji-za-stipendiranje-i-sufinanciranje-ucenika-i-studenata",
+    "url": "https://split.hr/natjecaji-i-oglasi",
     "kategorija": "Grad",
     "podrucje": "Split",
     "zupanija": "Splitsko-dalmatinska županija"
@@ -220,7 +220,7 @@
   },
   {
     "naziv": "Bjelovarsko-bilogorska županija — stipendije",
-    "url": "https://bbz.hr/uo-obrazovanje-stipendije/",
+    "url": "https://bbz.hr/zupanijska-uprava/stipendije",
     "kategorija": "Županija",
     "podrucje": "Bjelovarsko-bilogorska županija",
     "zupanija": "Bjelovarsko-bilogorska županija"
@@ -346,14 +346,14 @@
   },
   {
     "naziv": "Grad Krk — natječaji",
-    "url": "https://www.grad-krk.hr/natjecaji",
+    "url": "https://www.grad-krk.hr/desnibanner/natjecaji",
     "kategorija": "Grad",
     "podrucje": "Krk",
     "zupanija": "Primorsko-goranska županija"
   },
   {
     "naziv": "Grad Kutina — natječaji",
-    "url": "https://www.kutina.hr/",
+    "url": "https://www.kutina.hr/transparentnost/natjecaji-i-e-oglasi/",
     "kategorija": "Grad",
     "podrucje": "Kutina",
     "zupanija": "Sisačko-moslavačka županija"
@@ -402,7 +402,7 @@
   },
   {
     "naziv": "Grad Đakovo — natječaji",
-    "url": "https://djakovo.hr/index.php/natje%C4%8Daji.html",
+    "url": "https://djakovo.hr/",
     "kategorija": "Grad",
     "podrucje": "Đakovo",
     "zupanija": "Osječko-baranjska županija"
@@ -535,7 +535,7 @@
   },
   {
     "naziv": "Grad Vinkovci — natječaji",
-    "url": "https://grad-vinkovci.hr/",
+    "url": "https://vinkovci.hr/",
     "kategorija": "Grad",
     "podrucje": "Vinkovci",
     "zupanija": "Vukovarsko-srijemska županija"
@@ -774,7 +774,7 @@
   },
   {
     "naziv": "OIV — stipendije",
-    "url": "https://www.oiv.hr/hr/karijera/stipendije/",
+    "url": "https://secondary.oiv.hr/hr/karijera/stipendije/",
     "kategorija": "Tvrtka",
     "podrucje": "Cijela Hrvatska",
     "zupanija": ""
