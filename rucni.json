@@ -310,5 +310,192 @@
     "upute_za_prijavu": "Prijava preko aplikacije e-obrasci: https://rovinj.eobrasci.hr/branches/grad-rovinj/. Natječaj je otvoren od 1. do 15. listopada 2026.",
     "napomena": "Iznos potpore nije naveden u tekstu natječaja. Brojke u natječaju (484,20 – 807,00 EUR) su granice prihoda po članu obitelji, a ne iznos potpore.",
     "potvrda": "https://www.rovinj-rovigno.hr/wp-content/uploads/2026/09/tekst-natjecaja-socijalne-2026.docx"
+  },
+  {
+    "naziv": "MZO — državne stipendije za studente pripadnike romske nacionalne manjine",
+    "naslov_natjecaja": "Državne stipendije za studente pripadnike romske nacionalne manjine",
+    "url": "https://mzom.gov.hr/istaknute-teme/natjecaji-196/8068",
+    "podrucje": "Cijela Hrvatska",
+    "zupanija": "",
+    "kategorija": "Ministarstvo",
+    "iznos": "360,00 eura mjesečno za studente koji upisuju višu godinu; 292,00 eura mjesečno uz zaostajanje ili ponavljanje godine — deset rata, listopad 2026. do srpanj 2027.",
+    "iznosi": [
+      {
+        "eur": 360,
+        "razdoblje": "mjesecno",
+        "mjeseci": 10,
+        "za": "studenti koji upisuju višu godinu",
+        "do": false
+      },
+      {
+        "eur": 292,
+        "razdoblje": "mjesecno",
+        "mjeseci": 10,
+        "za": "studenti sa zaostajanjem ili ponavljanjem",
+        "do": false
+      }
+    ],
+    "iznos_je_fond": false,
+    "rok_tekst": "31. listopada 2026.",
+    "uvjeti": "Studenti pripadnici romske nacionalne manjine na sveučilišnim i stručnim studijima u Hrvatskoj. Potreban je dokaz o pripadnosti (rodni list ili ispis iz popisa birača), najmanje 30 ECTS bodova u prethodnoj akademskoj godini (ne vrijedi za prvu godinu) i da student ne prima drugu stipendiju financiranu iz javnih izvora.",
+    "upute_za_prijavu": "Obrazac se preuzima s mzom.gov.hr, ovjerava ga visoko učilište, i šalje se poštom s dokumentacijom na: Ministarstvo znanosti, obrazovanja i mladih, Uprava za nacionalne manjine, Donje Svetice 38, 10000 Zagreb. Vrijedi datum poštanskog žiga. Prijave teku od 1. do 31. listopada 2026.",
+    "zasto_rucno": "Izvor je rubrika s više natječaja, a automatsko čitanje iz nje izvuče samo jedan.",
+    "potvrda": "https://mzom.gov.hr/istaknute-teme/natjecaji-196/8068"
+  },
+  {
+    "naziv": "MZO — stipendije za učenike srednjih škola pripadnike romske nacionalne manjine",
+    "naslov_natjecaja": "Stipendije Ministarstva za učenike srednjih škola pripadnike romske nacionalne manjine",
+    "url": "https://mzom.gov.hr/istaknute-teme/natjecaji-196/javni-poziv-polaznicima-srednjih-skola-pripadnicima-romske-nacionalne-manjine-za-stipendiju-ministarstva-znanosti-obrazovanja-i-mladih-za-skolsku-godinu-2026-2027/8040",
+    "podrucje": "Cijela Hrvatska",
+    "zupanija": "",
+    "kategorija": "Ministarstvo",
+    "iznos": "133,00 eura mjesečno; 40,00 eura mjesečno za učenike koji upisuju isti razred — isplata rujan 2026. do lipanj 2027.",
+    "iznosi": [
+      {
+        "eur": 133,
+        "razdoblje": "mjesecno",
+        "mjeseci": 10,
+        "za": "učenici srednjih škola",
+        "do": false
+      },
+      {
+        "eur": 40,
+        "razdoblje": "mjesecno",
+        "mjeseci": 10,
+        "za": "učenici koji upisuju isti razred",
+        "do": false
+      }
+    ],
+    "iznos_je_fond": false,
+    "rok_tekst": "21. listopada 2026. do 23:59",
+    "uvjeti": "Redoviti učenici srednjih škola, hrvatski državljani, pripadnici romske nacionalne manjine s prebivalištem u Hrvatskoj. Ne mogu se prijaviti učenici koji već primaju drugu stipendiju.",
+    "upute_za_prijavu": "Prijavu šalje škola, ne učenik sam. Obrazac zahtjeva je na mzom.gov.hr, popunjava se preko srednje škole koja ga s dokumentacijom šalje na Ministarstvo znanosti, obrazovanja i mladih, Donje Svetice 38, Zagreb. Vrijedi datum poštanskog žiga.",
+    "zasto_rucno": "Izvor je rubrika s više natječaja, a automatsko čitanje iz nje izvuče samo jedan.",
+    "potvrda": "https://mzom.gov.hr/istaknute-teme/natjecaji-196/javni-poziv-polaznicima-srednjih-skola-pripadnicima-romske-nacionalne-manjine-za-stipendiju-ministarstva-znanosti-obrazovanja-i-mladih-za-skolsku-godinu-2026-2027/8040"
+  },
+  {
+    "naziv": "SPD „Privrednik“ — Fond „Vladimir Matijević“",
+    "naslov_natjecaja": "Stipendije Fonda „Vladimir Matijević“ za učenike i studente",
+    "url": "https://privrednik.hr/wp-content/uploads/2026/09/2026-27.-NATJECAJ-FVM.pdf",
+    "poveznica_natjecaj": "https://privrednik.hr/",
+    "podrucje": "Cijela Hrvatska",
+    "zupanija": "",
+    "kategorija": "Zaklada",
+    "iznos": "220,00 eura mjesečno studentima, 100,00 eura mjesečno učenicima",
+    "iznosi": [
+      {
+        "eur": 220,
+        "razdoblje": "mjesecno",
+        "za": "studenti",
+        "do": false
+      },
+      {
+        "eur": 100,
+        "razdoblje": "mjesecno",
+        "za": "učenici srednjih škola",
+        "do": false
+      }
+    ],
+    "iznos_je_fond": false,
+    "rok_tekst": "15. listopada 2026.",
+    "uvjeti": "Talentirani učenici i studenti iz obitelji slabijih materijalnih mogućnosti. Državljanstvo RH, školovanje u Hrvatskoj, prosjek najmanje 3,5 za učenike i prvu godinu studija odnosno 3,0 za više godine, do 25 godina. Pripadnost nacionalnoj manjini nije uvjet.",
+    "upute_za_prijavu": "Prijava preko online obrasca uz natječaj na privrednik.hr. Natječaji su otvoreni od 23. rujna do 15. listopada 2026. Informacije: ured@privrednik.hr, 01/485-44-78.",
+    "zasto_rucno": "Izvor nije bio praćen — dodan nakon provjere stipendija za nacionalne manjine.",
+    "potvrda": "https://privrednik.hr/"
+  },
+  {
+    "naziv": "SPD „Privrednik“ — Fond „Ivana Vujnović“",
+    "naslov_natjecaja": "Stipendije Fonda „Ivana Vujnović“ za odlične studente",
+    "url": "https://privrednik.hr/wp-content/uploads/2026/09/2026-27.-NATJECAJ-FIV.pdf",
+    "poveznica_natjecaj": "https://privrednik.hr/",
+    "podrucje": "Cijela Hrvatska",
+    "zupanija": "",
+    "kategorija": "Zaklada",
+    "iznos": "300,00 eura mjesečno",
+    "iznosi": [
+      {
+        "eur": 300,
+        "razdoblje": "mjesecno",
+        "za": "odlični studenti",
+        "do": false
+      }
+    ],
+    "iznos_je_fond": false,
+    "rok_tekst": "15. listopada 2026.",
+    "uvjeti": "Odlični studenti. Pripadnost nacionalnoj manjini nije uvjet.",
+    "upute_za_prijavu": "Prijava preko online obrasca uz natječaj na privrednik.hr. Otvoreno od 23. rujna do 15. listopada 2026. Informacije: ured@privrednik.hr, 01/485-44-78.",
+    "zasto_rucno": "Izvor nije bio praćen — dodan nakon provjere stipendija za nacionalne manjine.",
+    "potvrda": "https://privrednik.hr/"
+  },
+  {
+    "naziv": "SPD „Privrednik“ — Fond „Maja Prodanović“",
+    "naslov_natjecaja": "Stipendije Fonda „Maja Prodanović“ za odlične studente",
+    "url": "https://privrednik.hr/wp-content/uploads/2026/09/2026-27.-NATJECAJ-FMP.pdf",
+    "poveznica_natjecaj": "https://privrednik.hr/",
+    "podrucje": "Cijela Hrvatska",
+    "zupanija": "",
+    "kategorija": "Zaklada",
+    "iznos": "300,00 eura mjesečno",
+    "iznosi": [
+      {
+        "eur": 300,
+        "razdoblje": "mjesecno",
+        "za": "odlični studenti",
+        "do": false
+      }
+    ],
+    "iznos_je_fond": false,
+    "rok_tekst": "15. listopada 2026.",
+    "uvjeti": "Odlični studenti. Pripadnost nacionalnoj manjini nije uvjet.",
+    "upute_za_prijavu": "Prijava preko online obrasca uz natječaj na privrednik.hr. Otvoreno od 23. rujna do 15. listopada 2026. Informacije: ured@privrednik.hr, 01/485-44-78.",
+    "zasto_rucno": "Izvor nije bio praćen — dodan nakon provjere stipendija za nacionalne manjine.",
+    "potvrda": "https://privrednik.hr/"
+  },
+  {
+    "naziv": "Grad Zagreb — stipendije za učenike pripadnike romske nacionalne manjine",
+    "naslov_natjecaja": "Stipendija Grada Zagreba za učenike pripadnike romske nacionalne manjine",
+    "url": "https://zagreb.hr/natjecaj-za-dodjelu-stipendije-grada-zagreba-za-pr/224336",
+    "podrucje": "Grad Zagreb",
+    "zupanija": "",
+    "kategorija": "Grad",
+    "iznos": "380,00 eura neto mjesečno, najduže deset mjeseci",
+    "iznosi": [
+      {
+        "eur": 380,
+        "razdoblje": "mjesecno",
+        "mjeseci": 10,
+        "za": "učenici srednjih škola",
+        "do": false
+      }
+    ],
+    "iznos_je_fond": false,
+    "rok_tekst": "29. listopada 2026. do 13:00",
+    "uvjeti": "Dodjeljuje se 100 stipendija. Redoviti učenici srednjih škola pripadnici romske nacionalne manjine, državljani RH, upisani u zagrebačku srednju školu, s prebivalištem u Zagrebu.",
+    "upute_za_prijavu": "Prijava isključivo preko aplikacije eStipendije na https://e-pisarnica.zagreb.hr/ePisarnica/. Prijave od 30. rujna 13:00 do 29. listopada 2026. 13:00. Informacije: stipendije@zagreb.hr, 01/616-6056.",
+    "zasto_rucno": "Izvor vraća samo jedan od pet zagrebačkih natječaja.",
+    "potvrda": "https://zagreb.hr/natjecaj-za-dodjelu-stipendije-grada-zagreba-za-pr/224336"
+  },
+  {
+    "naziv": "Grad Zagreb — stipendije za studente prve godine pripadnike romske nacionalne manjine",
+    "naslov_natjecaja": "Stipendija Grada Zagreba za studente prve godine pripadnike romske nacionalne manjine",
+    "url": "https://zagreb.hr/natjecaj-za-dodjelu-stipendije-grada-zagreba-za-pr/224331",
+    "podrucje": "Grad Zagreb",
+    "zupanija": "",
+    "kategorija": "Grad",
+    "iznos": "520,00 eura neto mjesečno",
+    "iznosi": [
+      {
+        "eur": 520,
+        "razdoblje": "mjesecno",
+        "za": "studenti prve godine",
+        "do": false
+      }
+    ],
+    "iznos_je_fond": false,
+    "rok_tekst": "30. listopada 2026. do 13:00",
+    "uvjeti": "Dodjeljuje se 5 stipendija. Studenti pripadnici romske nacionalne manjine koji su prvi put upisali prvu godinu studija u Zagrebu ili na sastavnici Sveučilišta u Zagrebu.",
+    "upute_za_prijavu": "Prijava isključivo preko aplikacije eStipendije na https://e-pisarnica.zagreb.hr/ePisarnica/. Prijave od 1. listopada 13:00 do 30. listopada 2026. 13:00. Informacije: stipendije@zagreb.hr, 01/616-6056.",
+    "zasto_rucno": "Izvor vraća samo jedan od pet zagrebačkih natječaja.",
+    "potvrda": "https://zagreb.hr/natjecaj-za-dodjelu-stipendije-grada-zagreba-za-pr/224331"
   }
 ]
