@@ -135,5 +135,104 @@
     "uvjeti": "Učenici srednjih škola i studenti prve, druge i treće godine s područja Osječko-baranjske županije. Kategorije: daroviti, STEM, deficitarna zanimanja, socio-ekonomski status te medicinske sestre i tehničari. Iznosi su objavljeni u tekstu natječaja.",
     "zasto_rucno": "Sustav je prepoznao natječaj preko sveučilišne stranice, ali mu nije pročitao rok.",
     "potvrda": "https://www.unios.hr/natjecaj-za-dodjelu-stipendija-ucenicima-i-studentima-za-2026-2027-skolsku-odnosno-akademsku-godinu/"
+  },
+  {
+    "naziv": "Grad Križevci — stipendije",
+    "naslov_natjecaja": "Stipendije Grada Križevaca za deficitarna zanimanja",
+    "url": "https://krizevci.hr/objavljen-javni-natjecaj-za-dodjelu-stipendija-studentima-deficitarnih-zanimanja-u-ak-god-2026-2027/",
+    "podrucje": "Križevci",
+    "zupanija": "Koprivničko-križevačka županija",
+    "kategorija": "Grad",
+    "iznos": "250,00 eura mjesečno, 12 rata",
+    "iznosi": [
+      {
+        "eur": 250,
+        "razdoblje": "mjesecno",
+        "mjeseci": 12,
+        "za": "studenti",
+        "do": false
+      }
+    ],
+    "iznos_je_fond": false,
+    "rok_tekst": "30. listopada 2026. do 23:59",
+    "uvjeti": "Studenti s područja Grada Križevaca koji se obrazuju za deficitarna zanimanja.",
+    "zasto_rucno": "Sustav na izvoru nije prepoznao natječaj.",
+    "potvrda": "https://krizevci.hr/objavljen-javni-natjecaj-za-dodjelu-stipendija-studentima-deficitarnih-zanimanja-u-ak-god-2026-2027/"
+  },
+  {
+    "naziv": "Grad Krk — stipendije",
+    "naslov_natjecaja": "Stipendije Grada Krka za učenike",
+    "url": "https://www.grad-krk.hr/jedinstveni-upravni-odjel/odsjek-za-drustvene-djelatnosti/stipendisti-grada-krka/natjecaj-za-dodjelu-stipendija-ucenicima-za-skolsku-2026/2027-godinu",
+    "podrucje": "Krk",
+    "zupanija": "Primorsko-goranska županija",
+    "kategorija": "Grad",
+    "iznos": "150,00 eura mjesečno",
+    "iznosi": [
+      {
+        "eur": 150,
+        "razdoblje": "mjesecno",
+        "mjeseci": null,
+        "za": "ucenici",
+        "do": false
+      }
+    ],
+    "iznos_je_fond": false,
+    "rok_tekst": "31. listopada 2026.",
+    "uvjeti": "Redoviti učenici 2., 3. ili 4. razreda srednje škole.",
+    "zasto_rucno": "Natječaji su na drugoj stranici od one koju izvor gleda.",
+    "potvrda": "https://www.grad-krk.hr/desnibanner/natjecaji"
+  },
+  {
+    "naziv": "Grad Opatija — stipendije",
+    "naslov_natjecaja": "Stipendije Grada Opatije za učenike i studente",
+    "url": "https://opatija.hr/natjecaj-za-dodjelu-stipendija-ucenicima-i-studentima-za-skolsku-akademsku-godinu-2026-2027/",
+    "podrucje": "Opatija",
+    "zupanija": "Primorsko-goranska županija",
+    "kategorija": "Grad",
+    "iznos": "100,00 eura mjesečno za učenike, 200,00 eura mjesečno za studente",
+    "iznosi": [
+      {
+        "eur": 100,
+        "razdoblje": "mjesecno",
+        "mjeseci": null,
+        "za": "ucenici",
+        "do": false
+      },
+      {
+        "eur": 200,
+        "razdoblje": "mjesecno",
+        "mjeseci": null,
+        "za": "studenti",
+        "do": false
+      }
+    ],
+    "iznos_je_fond": false,
+    "rok_tekst": "16. listopada 2026.",
+    "uvjeti": "Učenici 2., 3. i 4. razreda srednje škole, a za deficitarna zanimanja i prvi razred. Studenti svih razina. Kategorije: školski uspjeh, imovinski status, deficitarna zanimanja. Za poslijediplomski doktorski studij postoji jednokratna potpora do 1.500 eura.",
+    "zasto_rucno": "Sustav na izvoru nije prepoznao natječaj.",
+    "potvrda": "https://opatija.hr/natjecaj-za-dodjelu-stipendija-ucenicima-i-studentima-za-skolsku-akademsku-godinu-2026-2027/"
+  },
+  {
+    "naziv": "Grad Opatija — stipendija Jadranko Crnić",
+    "naslov_natjecaja": "Stipendija „Dr. sc. Jadranko Crnić” za studente prava",
+    "url": "https://opatija.hr/80032-2/",
+    "podrucje": "Opatija",
+    "zupanija": "Primorsko-goranska županija",
+    "kategorija": "Grad",
+    "iznos": "230,00 eura mjesečno, 12 mjeseci",
+    "iznosi": [
+      {
+        "eur": 230,
+        "razdoblje": "mjesecno",
+        "mjeseci": 12,
+        "za": "studenti prava",
+        "do": false
+      }
+    ],
+    "iznos_je_fond": false,
+    "rok_tekst": "16. listopada 2026.",
+    "uvjeti": "Studenti integriranog sveučilišnog studija prava. Dodjeljuje se jedna stipendija.",
+    "zasto_rucno": "Sustav na izvoru nije prepoznao natječaj.",
+    "potvrda": "https://opatija.hr/80032-2/"
   }
 ]
