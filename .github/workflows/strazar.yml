@@ -1,0 +1,67 @@
+name: Stražar — državna stipendija
+
+# Redovna provjera ide ponedjeljkom i četvrtkom. Za državnu stipendiju to je
+# premalo: ministarstvo je zna objaviti u utorak poslijepodne, a rok je kratak.
+# Ovaj posao gleda samo dvije stranice ministarstva, pet puta na radni dan.
+#
+# Ne troši Claude API — samo dohvati tekst stranice i potraži u njemu natječaj
+# za tekuću akademsku godinu. Kad nađe, otvori obavijest i sam pokrene punu
+# provjeru, pa se stranica prebaci bez čekanja na tebe.
+
+on:
+  schedule:
+    # 07, 09, 11, 13 i 15 UTC = 09:00–17:00 po hrvatskom ljetnom vremenu.
+    # Zimi je sat ranije (08:00–16:00) — ministarstvo ionako objavljuje
+    # unutar radnog vremena.
+    - cron: '0 7,9,11,13,15 * * 1-5'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+  actions: write        # da može pokrenuti „Provjera stipendija”
+
+jobs:
+  strazari:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Preuzmi kod
+        uses: actions/checkout@v4
+
+      - name: Postavi Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      # scraper.py se uvozi zbog dohvata stranice. Claude API se ne dira,
+      # pa paket anthropic ne treba — uvoz ga preskače ako ga nema.
+      - name: Instaliraj pakete
+        run: pip install requests beautifulsoup4
+
+      - name: Pogledaj stranice ministarstva
+        id: strazar
+        run: python strazar.py
+
+      - name: Zapamti što je javljeno
+        if: always()
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add strazar.json || true
+          git diff --staged --quiet || git commit -m "Stražar $(date +'%d.%m.%Y %H:%M')"
+          git push || true
+
+      - name: Javi da je natječaj možda izašao
+        if: steps.strazar.outputs.naslo != '0' && steps.strazar.outputs.naslo != ''
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh issue create \
+            --title "DRŽAVNA STIPENDIJA — moguća objava ($(date +'%d.%m.%Y %H:%M'))" \
+            --body-file strazar.md
+
+      - name: Pokreni punu provjeru
+        if: steps.strazar.outputs.naslo != '0' && steps.strazar.outputs.naslo != ''
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh workflow run "Provjera stipendija" || true
