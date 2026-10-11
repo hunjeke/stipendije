@@ -128,7 +128,6 @@
     "podrucje": "Osječko-baranjska županija",
     "zupanija": "Osječko-baranjska županija",
     "kategorija": "Županija",
-    "iznos": "",
     "iznosi": [],
     "iznos_je_fond": false,
     "rok_tekst": "21. listopada 2026.",
@@ -234,5 +233,82 @@
     "uvjeti": "Studenti integriranog sveučilišnog studija prava. Dodjeljuje se jedna stipendija.",
     "zasto_rucno": "Sustav na izvoru nije prepoznao natječaj.",
     "potvrda": "https://opatija.hr/80032-2/"
+  },
+  {
+    "naziv": "Grad Đurđevac — studentske stipendije",
+    "naslov_natjecaja": "Studentske stipendije Grada Đurđevca",
+    "url": "https://djurdjevac.hr/javna-nabava-i-natjecaji/natjecaji/natjecaj-za-dodjelu-studentskih-stipendija-u-akademskoj-godini-2026-2027/",
+    "podrucje": "Đurđevac",
+    "zupanija": "Koprivničko-križevačka županija",
+    "kategorija": "Grad",
+    "iznos": "15,00 eura po ECTS bodu, najviše 900,00 eura godišnje; za Sveučilište Sjever u Đurđevcu 20,00 eura po ECTS bodu, najviše 1.200,00 eura godišnje",
+    "iznosi": [
+      {
+        "eur": 900,
+        "razdoblje": "godisnje",
+        "za": "studenti",
+        "do": true
+      },
+      {
+        "eur": 1200,
+        "razdoblje": "godisnje",
+        "za": "studenti Sveučilišta Sjever u Đurđevcu",
+        "do": true
+      }
+    ],
+    "iznos_je_fond": false,
+    "rok_tekst": "30. listopada 2026.",
+    "uvjeti": "Redoviti studenti prijediplomskog ili diplomskog studija u Hrvatskoj s prebivalištem u Gradu Đurđevcu, te redoviti i izvanredni studenti prijediplomskog stručnog studija računarstva i informatike u Đurđevcu. Samo studenti — učenici se ne prijavljuju.",
+    "upute_za_prijavu": "Obrazac, potvrda o upisu (za starije godine i prijepis ocjena) i kopija osobne — poštom na Stjepana Radića 1, 48350 Đurđevac, s napomenom „Prijava na natječaj za studentske stipendije“, ili e-poštom na grad@djurdjevac.hr.",
+    "zasto_rucno": "Praćena rubrika izvora pokazuje natječaj iz 2021., a aktualni je objavljen na drugoj adresi.",
+    "potvrda": "https://djurdjevac.hr/wp-content/uploads/2026/09/2.-Natjecaj-za-dodjelu-studentskih-stipendija-u-akademskoj-godini-2026-2027.pdf"
+  },
+  {
+    "podrucje": "Rovinj",
+    "zupanija": "Istarska županija",
+    "kategorija": "Grad",
+    "rok_tekst": "15. listopada 2026.",
+    "iznosi": [],
+    "iznos_je_fond": false,
+    "zasto_rucno": "Server izvora ne dopušta automatsko čitanje rubrike natječaja.",
+    "naziv": "Grad Rovinj-Rovigno — novčane potpore učenicima i studentima",
+    "naslov_natjecaja": "Novčane potpore učenicima srednjih škola i studentima Grada Rovinja-Rovigno",
+    "url": "https://www.rovinj-rovigno.hr/natjecaji/n-a-t-j-e-c-a-j-za-dodjelu-novcanih-potpora-ucenicima-srednjih-skola-i-studentima-za-nastavnu-akademsku-godinu-2026-2027/",
+    "uvjeti": "Dodjeljuje se 25 potpora studentima i 3 učenicima srednjih škola. Prebivalište u Rovinju najmanje 3 godine, barem jedan roditelj/skrbnik također; školovanje izvan mjesta prebivališta; do 26 godina; prosjek 3,50 i više u srednjoj školi, odnosno 3,00 i više na studiju u prethodne dvije godine; ne prima drugu stipendiju.",
+    "upute_za_prijavu": "Prijava samo elektronski, preko aplikacije e-obrasci: https://rovinj.eobrasci.hr/branches/grad-rovinj/. Natječaj je otvoren od 1. do 15. listopada 2026.",
+    "napomena": "Iznos potpore nije naveden u tekstu natječaja.",
+    "potvrda": "https://www.rovinj-rovigno.hr/wp-content/uploads/2026/09/tekst-natjecaja-redovne-2026.docx"
+  },
+  {
+    "podrucje": "Rovinj",
+    "zupanija": "Istarska županija",
+    "kategorija": "Grad",
+    "rok_tekst": "15. listopada 2026.",
+    "iznosi": [],
+    "iznos_je_fond": false,
+    "zasto_rucno": "Server izvora ne dopušta automatsko čitanje rubrike natječaja.",
+    "naziv": "Grad Rovinj-Rovigno — potpore za deficitarna zanimanja",
+    "naslov_natjecaja": "Novčane potpore studentima deficitarnih zanimanja Grada Rovinja-Rovigno",
+    "url": "https://www.rovinj-rovigno.hr/natjecaji/n-a-t-j-e-c-a-j-za-dodjelu-novcanih-potpora-za-studente-koji-se-obrazuju-za-deficitarna-zanimanja-od-javnog-interesa-za-grad-rovinj-rovigno-za-akademsku-godinu-2026-2027/",
+    "uvjeti": "Dodjeljuju se 2 potpore. Studiji: matematika, fizika, kemija i informatika (nastavnički smjer), rani i predškolski odgoj, medicina, učiteljski studij, pedagogija, psihologija, socijalni rad. Prebivalište u Rovinju najmanje godinu dana, barem jedan roditelj/skrbnik također; do 24 godine; ne prima drugu stipendiju.",
+    "upute_za_prijavu": "Prijava preko aplikacije e-obrasci: https://rovinj.eobrasci.hr/branches/grad-rovinj/. Natječaj je otvoren od 1. do 15. listopada 2026.",
+    "napomena": "Iznos potpore nije naveden u tekstu natječaja.",
+    "potvrda": "https://www.rovinj-rovigno.hr/wp-content/uploads/2026/09/Tekst-natjecaja-za-dodjelu-stipendija-studentima-koji-se-obrazuju-za-deficitarna-zanimanja-24-9.docx"
+  },
+  {
+    "podrucje": "Rovinj",
+    "zupanija": "Istarska županija",
+    "kategorija": "Grad",
+    "rok_tekst": "15. listopada 2026.",
+    "iznosi": [],
+    "iznos_je_fond": false,
+    "zasto_rucno": "Server izvora ne dopušta automatsko čitanje rubrike natječaja.",
+    "naziv": "Grad Rovinj-Rovigno — potpore studentima slabijeg socijalnog statusa",
+    "naslov_natjecaja": "Novčane potpore studentima slabijeg socijalnog statusa Grada Rovinja-Rovigno",
+    "url": "https://www.rovinj-rovigno.hr/natjecaji/n-a-t-j-e-c-a-j-za-dodjelu-novcanih-potpora-studentima-slabijeg-socijalnog-statusa-za-akademsku-godinu-2026-2027/",
+    "uvjeti": "Dodjeljuje se 5 potpora studentima slabijeg socijalnog statusa. Boduje se prema prihodu po članu obitelji, od 60 do 100 % osnovice.",
+    "upute_za_prijavu": "Prijava preko aplikacije e-obrasci: https://rovinj.eobrasci.hr/branches/grad-rovinj/. Natječaj je otvoren od 1. do 15. listopada 2026.",
+    "napomena": "Iznos potpore nije naveden u tekstu natječaja. Brojke u natječaju (484,20 – 807,00 EUR) su granice prihoda po članu obitelji, a ne iznos potpore.",
+    "potvrda": "https://www.rovinj-rovigno.hr/wp-content/uploads/2026/09/tekst-natjecaja-socijalne-2026.docx"
   }
 ]
