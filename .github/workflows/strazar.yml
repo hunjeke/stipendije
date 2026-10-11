@@ -10,10 +10,13 @@ name: Stražar — državna stipendija
 
 on:
   schedule:
-    # 07, 09, 11, 13 i 15 UTC = 09:00–17:00 po hrvatskom ljetnom vremenu.
-    # Zimi je sat ranije (08:00–16:00) — ministarstvo ionako objavljuje
-    # unutar radnog vremena.
-    - cron: '0 7,9,11,13,15 * * 1-5'
+    # Svakih pola sata, 06:00–15:30 UTC = 08:00–17:30 po hrvatskom ljetnom
+    # vremenu (zimi sat ranije). Dvadeset provjera po radnom danu.
+    #
+    # Zašto pola sata, a ne češće: GitHub odgađa česte cronove kad je
+    # opterećen, pa stvarni dobitak ispod toga nije pouzdan. Ovako je
+    # najgore kašnjenje oko 40 minuta.
+    - cron: '*/30 6-15 * * 1-5'
   workflow_dispatch:
 
 permissions:
