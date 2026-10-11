@@ -983,6 +983,12 @@ def main():
     for r in d:
         s = r.get("status") or ""
         k = (r.get("url") or "").rstrip("/")
+        # Rubrika s vise natjecaja daje zapise na adresama samih natjecaja.
+        # Takva adresa nije u sources.json, pa se podrucje trazi po adresi
+        # rubrike s koje je zapis dosao — inace bi natjecaj Grada Krka
+        # zavrsio pod "Cijela Hrvatska".
+        if k not in pod_map and r.get("_izvor_url"):
+            k = r["_izvor_url"].rstrip("/")
         par = (r, pod_map.get(k, SVI), zup_map.get(k, ""))
         if s.startswith("OTVORENO"):
             otvorene.append(par)
