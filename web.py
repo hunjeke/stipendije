@@ -436,8 +436,19 @@ def naslov_kartice(r):
 
     Ime izvora ("MZO — svi natjecaji") ne govori ucieniku nista o tome sto
     dobiva. Kad scraper zna naslov samog natjecaja, ide on; ime izvora ostaje
-    na poveznici pri dnu kartice."""
-    return r.get("naslov_natjecaja") or r.get("naziv")
+    na poveznici pri dnu kartice.
+
+    Iznimka su stranice koje godinama drze staru objavu: Durdevac je u rubrici
+    stipendija imao natjecaj iz 2021., Novi Vinodolski iz 2012. Takav naslov
+    ("Studentske stipendije Grada Durdevca 2021./2022.") u redu zatvorenih
+    izgleda kao da smo procitali nesto aktualno. Kad je rok iz prosle godine
+    ili starije, ide ime izvora."""
+    naslov = r.get("naslov_natjecaja")
+    if naslov:
+        rok = iso_rok(r.get("status") or "")
+        if rok and rok[:4] < str(datetime.now().year):
+            return r.get("naziv") or naslov
+    return naslov or r.get("naziv")
 
 
 # Iznad ovoliko znakova recenica o uvjetima prelazi dva retka i kartica
@@ -579,7 +590,7 @@ def _rijeci(s):
             if w not in _VEZNE and len(w) > 2}
 
 
-def _isti_natjecaj(a, b, prag=0.5):
+def _isti_natjecaj(a, b, prag=0.5, bez=()):
     """Jesu li dva naslova isti natjecaj isprican drugim rijecima.
 
     Model istom natjecaju zna dati dva naslova — Chevening je dosao kao
@@ -588,8 +599,13 @@ def _isti_natjecaj(a, b, prag=0.5):
 
     Uz preklapanje mora postojati barem jedna zajednicka rijec koja nesto
     znaci. Bez toga bi se dva razlicita natjecaja, oba nazvana tek
-    "Stipendije za studente", stopila u jedan i jedan bi nestao sa stranice."""
-    A, B = _rijeci(a), _rijeci(b)
+    "Stipendije za studente", stopila u jedan i jedan bi nestao sa stranice.
+
+    "bez" su rijeci koje se izbacuju iz usporedbe — ime podrucja. Usporedba
+    se radi unutar istog podrucja, pa "Rovinja-Rovigno" u oba naslova ne
+    govori nista o tome je li rijec o istom natjecaju, a napuni preklapanje:
+    tri rovinjska natjecaja s istim rokom tako su se stopila u jedan."""
+    A, B = _rijeci(a) - set(bez), _rijeci(b) - set(bez)
     if not A or not B:
         return False
     zajednicke = A & B
@@ -625,7 +641,13 @@ def spoji_duplikate(otvorene):
             isti_rok = bool(rok) and rok == rok2
             doslovno = (_kljuc_naslova(naslov) == _kljuc_naslova(n2)
                         and (isti_rok or not rok or not rok2))
-            if doslovno or (isti_rok and _isti_natjecaj(naslov, n2)):
+            # Dva rucna upisa se ne spajaju: spajanje postoji zato sto isti
+            # natjecaj dode preko dva razlicita izvora, a rucne upise je
+            # covjek napisao jedan po jedan i svaki je drugi natjecaj.
+            if r.get("_rucni") and r2.get("_rucni"):
+                continue
+            if doslovno or (isti_rok and _isti_natjecaj(naslov, n2,
+                                                        bez=_rijeci(p))):
                 if _popunjenost(r) > _popunjenost(r2):
                     ishod[i] = par           # zadrzi potpuniji zapis
                 break
