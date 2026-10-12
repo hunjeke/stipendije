@@ -16,7 +16,9 @@ on:
     # Zašto pola sata, a ne češće: GitHub odgađa česte cronove kad je
     # opterećen, pa stvarni dobitak ispod toga nije pouzdan. Ovako je
     # najgore kašnjenje oko 40 minuta.
-    - cron: '*/30 6-15 * * 1-5'
+    # Minute 7 i 37 umjesto 0 i 30: na punoj i poloj uri GitHub ima najdulji
+    # red za zakazane poslove, pa posao zna kasniti ili biti preskocen.
+    - cron: '7,37 6-15 * * 1-5'
   workflow_dispatch:
 
 permissions:
