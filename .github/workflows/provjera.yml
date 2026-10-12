@@ -2,8 +2,13 @@ name: Provjera stipendija
 
 on:
   schedule:
-    # Ponedjeljak i cetvrtak u 07:00 UTC (09:00 po hrvatskom ljetnom vremenu)
-    - cron: '0 7 * * 1,4'
+    # Ponedjeljak i cetvrtak u 06:17 UTC (08:17 po hrvatskom ljetnom vremenu).
+    #
+    # Zasto 06:17, a ne okrugli sat: GitHub posao sa zakazanim vremenom stavlja
+    # u red, a na punoj uri red je najduzi jer ondje zakazuje gotovo svatko.
+    # Takav posao zna kasniti satima ili biti preskocen — 12.10.2026. ovaj se
+    # uopce nije pokrenuo. Neobicna minuta cesto prode odmah.
+    - cron: '17 6 * * 1,4'
   workflow_dispatch:
 
 permissions:
