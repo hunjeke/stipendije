@@ -188,6 +188,10 @@ Dvije stvari zbog kojih ljudi propuste:
 
 Sve ostale otvorene stipendije: https://stipendije.hr
 
+Još nešto: ako odabereš svoj grad, javljamo ti i kad tvoj grad ili
+općina raspiše stipendiju — a takvih je kroz jesen daleko najviše.
+Traje deset sekundi, obrazac je već popunjen: {{ update_profile }}
+
 Ovo dobivaš jer si se prijavio na obavijesti za svoju županiju."""
 
 
