@@ -1,26 +1,36 @@
 name: Potraži nove izvore
 
-# Rucno, po potrebi. Ne dira sources.json ni stranicu — samo zapise prijedlog
-# u prijedlozi_izvora.json, koji ti pregledas. Ne trosi API kljuc.
+# Stranica prati osamdesetak gradova, a Hrvatska ih ima 555. Svaki nepracen
+# grad je natjecaj koji nitko ne vidi, i jedan grad manje u izborniku na
+# obrascu za prijavu — pa covjek iz tog grada ne moze ni reci gdje zivi.
+#
+# Ovaj posao prolazi kroz sve gradove, opcine i zupanije, proba im otvoriti
+# rubriku sa stipendijama i zapise sto je nasao u prijedlozi_izvora.json.
+#
+# Ne trosi Claude API — samo otvara stranice. I NIKAD ne dira sources.json:
+# prijedloge pregledas ti i odlucujes sto ulazi.
 
 on:
   workflow_dispatch:
     inputs:
-      opseg:
-        description: 'Koje jedinice provjeriti'
-        required: true
-        default: 'gradovi'
-        type: choice
-        options:
-          - gradovi
-          - sve
+      sve:
+        description: "Uključi i općine (dulje traje, nađe puno više)"
+        type: boolean
+        default: true
+      limit:
+        description: "Isprobaj samo prvih N (ostavi prazno za sve)"
+        type: string
+        default: ""
 
 permissions:
   contents: write
+  issues: write
 
 jobs:
   trazi:
     runs-on: ubuntu-latest
+    # Prolaz kroz 555 jedinica s ponavljanjima zna potrajati; bez ovoga bi
+    # GitHub posao prekinuo nakon sest sati, usred pisanja rezultata.
     timeout-minutes: 120
     steps:
       - name: Preuzmi kod
@@ -31,29 +41,64 @@ jobs:
         with:
           python-version: '3.12'
 
+      # pandas i openpyxl trebaju samo za adresar s opcinama; bez njih
+      # skripta radi, ali vidi samo gradove i zupanije iz ugradenog popisa.
       - name: Instaliraj pakete
-        run: pip install requests beautifulsoup4 pandas openpyxl xlrd
+        run: pip install requests beautifulsoup4 pandas openpyxl
 
-      - name: Potraži izvore
-        env:
-          OPSEG: ${{ inputs.opseg }}
+      - name: Traži izvore
+        id: trazi
         run: |
-          if [ "$OPSEG" = "sve" ]; then
-            python predlozi_izvore.py --sve
-          else
-            python predlozi_izvore.py
-          fi
+          ZASTAVE=""
+          if [ "${{ inputs.sve }}" = "true" ]; then ZASTAVE="$ZASTAVE --sve"; fi
+          if [ -n "${{ inputs.limit }}" ]; then ZASTAVE="$ZASTAVE --limit ${{ inputs.limit }}"; fi
+          echo "Pokrecem: python predlozi_izvore.py $ZASTAVE"
+          python predlozi_izvore.py $ZASTAVE | tee ispis.txt
+          python - <<'PY' >> "$GITHUB_OUTPUT"
+          import json, os
+          try:
+              d = json.load(open("prijedlozi_izvora.json", encoding="utf-8"))
+          except Exception:
+              d = []
+          cisti = [x for x in d if "_provjeri" not in x]
+          print(f"broj={len(d)}")
+          print(f"cisti={len(cisti)}")
+          PY
 
-      - name: Spremi prijedlog
+      - name: Spremi prijedloge
+        if: always()
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
-          git add -A prijedlozi_izvora.json || true
+          git add prijedlozi_izvora.json || true
           git diff --staged --quiet || git commit -m "Prijedlozi izvora $(date +'%d.%m.%Y')"
           git push || true
 
-      - name: Prijedlog za preuzimanje
+      - name: Javi koliko je nađeno
+        if: steps.trazi.outputs.broj != '0' && steps.trazi.outputs.broj != ''
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          {
+            echo "Pretraga je našla **${{ steps.trazi.outputs.broj }}** mogućih novih izvora."
+            echo ""
+            echo "Od toga **${{ steps.trazi.outputs.cisti }}** izgleda spremno za unos;"
+            echo "ostali su označeni s \`_provjeri\` jer poveznica vodi na pojedinu"
+            echo "objavu umjesto na rubriku — njih pogledaj prije nego ih uzmeš."
+            echo ""
+            echo "Popis je u \`prijedlozi_izvora.json\`. Prenesi u \`sources.json\`"
+            echo "one koje želiš; županija je već upisana gdje ju je tablica imala."
+            echo ""
+            echo "Skripta sama NIJE dirala \`sources.json\`."
+          } > poruka.md
+          gh issue create \
+            --title "Novi izvori: ${{ steps.trazi.outputs.broj }} prijedloga ($(date +'%d.%m.%Y'))" \
+            --body-file poruka.md
+
+      - name: Sačuvaj ispis
+        if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: prijedlozi-izvora
-          path: prijedlozi_izvora.json
+          name: ispis-pretrage
+          path: ispis.txt
+          if-no-files-found: ignore
