@@ -614,6 +614,36 @@ def _isti_natjecaj(a, b, prag=0.5, bez=()):
     return len(zajednicke) / len(A | B) >= prag
 
 
+
+def _adrese(r):
+    """Sve adrese pod kojima se zapis moze pojaviti."""
+    out = set()
+    for k in ("url", "poveznica_natjecaj", "_izvor_url"):
+        v = (r.get(k) or "").strip().rstrip("/")
+        if v:
+            out.add(v.lower())
+    return out
+
+
+def _ista_adresa(a, b):
+    """Jesu li dva zapisa isti natjecaj zato sto vode na isto mjesto.
+
+    Tri slucaja, sva tri videna uzivo:
+      - ista "url" (isti natjecaj doslo i rukom i procitano),
+      - "url" jednog je "poveznica_natjecaj" drugog (Krk: rucni upis vodi na
+        natjecaj, procitani na rubriku koja na njega pokazuje),
+      - "url" jednog je "_izvor_url" drugog (MORH: rubrika i natjecaj s nje).
+
+    Namjerno se NE gleda poklapanje dvaju "_izvor_url": dva natjecaja s iste
+    rubrike dijele roditelja, a razliciti su — to je upravo ono sto smo
+    htjeli prikazati odvojeno."""
+    ua = (a.get("url") or "").strip().rstrip("/").lower()
+    ub = (b.get("url") or "").strip().rstrip("/").lower()
+    if ua and ua == ub:
+        return True
+    return bool((ua and ua in _adrese(b)) or (ub and ub in _adrese(a)))
+
+
 def spoji_duplikate(otvorene):
     """Isti natjecaj zna doci preko dva izvora (Chevening i s MZO-a i s
     AMPEU-a) pa se na stranici pojavi dvaput.
@@ -641,8 +671,15 @@ def spoji_duplikate(otvorene):
             isti_rok = bool(rok) and rok == rok2
             doslovno = (_kljuc_naslova(naslov) == _kljuc_naslova(n2)
                         and (isti_rok or not rok or not rok2))
-            # Dva rucna upisa se ne spajaju: spajanje postoji zato sto isti
-            # natjecaj dode preko dva razlicita izvora, a rucne upise je
+            # Ista adresa znaci isti natjecaj, bez obzira kako se zove.
+            # Ovo ide prije svih ostalih provjera jer je jedino sigurno.
+            if _ista_adresa(r, r2):
+                if _popunjenost(r) > _popunjenost(r2):
+                    ishod[i] = par
+                break
+
+            # Dva rucna upisa se inace ne spajaju: spajanje postoji zato sto
+            # isti natjecaj dode preko dva razlicita izvora, a rucne upise je
             # covjek napisao jedan po jedan i svaki je drugi natjecaj.
             if r.get("_rucni") and r2.get("_rucni"):
                 continue
