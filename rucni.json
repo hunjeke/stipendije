@@ -551,5 +551,29 @@
     "zasto_rucno": "Automatsko čitanje iz rečenice o iznosima izvuklo je samo donju brojku (300 eura), pa je kartica podcjenjivala stipendiju.",
     "potvrda": "https://www.morh.hr/javni-poziv-za-dodjelu-stipendija-redovitim-studentima-iz-podrucja-informacijsko-komunikacijskih-tehnologija-2026/",
     "poveznica_natjecaj": "https://www.morh.hr/javni-poziv-za-dodjelu-stipendija-redovitim-studentima-iz-podrucja-informacijsko-komunikacijskih-tehnologija-2026/"
+  },
+  {
+    "naziv": "Grad Sinj — studentske stipendije",
+    "naslov_natjecaja": "Stipendije Grada Sinja za studente",
+    "url": "https://www.sinj.hr/otvoren-natjecaj-za-studentske-stipendije-od-150-eura-mjesecno/",
+    "podrucje": "Sinj",
+    "zupanija": "Splitsko-dalmatinska županija",
+    "kategorija": "Grad",
+    "iznos": "150,00 eura mjesečno, 10 mjeseci (ukupno 1.500,00 eura)",
+    "iznosi": [
+      {
+        "eur": 150,
+        "razdoblje": "mjesecno",
+        "mjeseci": 10,
+        "za": "studenti",
+        "do": false
+      }
+    ],
+    "iznos_je_fond": false,
+    "rok_tekst": "6. studenoga 2026.",
+    "uvjeti": "Redoviti studenti, državljani Republike Hrvatske, s prebivalištem na području Grada Sinja najmanje četiri godine prije objave natječaja, koji ne koriste drugu stipendiju ili potporu. Vrijedi za sveučilišne i stručne studije u Hrvatskoj i s njima izjednačene studije u inozemstvu. Studenti prve godine moraju imati prosjek iz srednje škole najmanje 4,00. Pravo nemaju studenti koji su ponovno upisali prvu godinu ni oni koji su tijekom studija ponavljali godinu.",
+    "upute_za_prijavu": "Obrazac je na www.sinj.hr/stipendije. Uz njega se prilažu potvrda o redovitom upisu u 2026./2027. s podacima o godini prvog upisa, potvrda o prebivalištu, izjava o nekorištenju druge stipendije, a studenti prve godine i preslike svjedodžbi svih razreda srednje škole. Prijava se predaje osobno preko pisarnice, e-poštom na info@sinj.hr ili poštom na Grad Sinj, Dragašev prolaz 24, 21230 Sinj.",
+    "zasto_rucno": "Grad Sinj nije bio među praćenim izvorima — natječaj se objavljuje kao vijest na naslovnici, a stranica /stipendije je samo obrazac za prijavu. Pronađeno ručno 12.10.2026., izvor je dodan u sources.json.",
+    "potvrda": "https://www.sinj.hr/wp-content/uploads/2026/10/Studentske-stipendije_natjecaj_2026-1.pdf"
   }
 ]
