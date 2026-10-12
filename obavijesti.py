@@ -7,11 +7,18 @@ je BREVO_FORMA popunjena. Dok nije, web.py ju preskace i nigdje ne stoji
 poveznica na nju — bolje da ne postoji nego da postoji i ne radi.
 
 Sto Brevo mora imati prije nego se ovo ukljuci:
-  1. obrazac (Contacts -> Forms) s poljima EMAIL, ZUPANIJA, TIP
+  1. obrazac (Contacts -> Forms) s poljima EMAIL, ZUPANIJA, TIP, GRAD
   2. ukljucenu dvostruku potvrdu (double opt-in)
   3. stranicu zahvale koja vraca na stipendije.hr
+  4. atribut GRAD (Contacts -> Settings -> Contact attributes, tip Text)
 Iz Brevovog ugradbenog koda treba samo adresa iz action="...", nista drugo.
+
+GRAD je namjerno neobavezan. Pratimo oko 80 mjesta, ne sva, pa bi obavezno
+polje natjeralo covjeka iz nepracenog mjesta da izmisli odgovor ili odustane.
+Tko ga preskoci dobiva drzavne i zupanijske natjecaje, tko ga ispuni dobiva
+jos i svoj grad — a gradskih natjecaja je daleko najvise.
 """
+import json
 import os
 
 from zajednicko import glava, navigacija, podnozje, WA_KANAL
@@ -19,6 +26,40 @@ from zajednicko import glava, navigacija, podnozje, WA_KANAL
 # --- UKLJUCIVANJE --------------------------------------------------------
 BREVO_FORMA = "https://b61131ba.sibforms.com/serve/MUIFAJWhHDPHDllmv3n8haYPynJiODYXR6hb0JSOer_RGjh48yZUwYNtHCLk5L80DDSOGD4DS2TREuM_ySiaPA28xfflYaPO38yiWwFBUQn-Pf4NJua26qCfiLBIHbq8Mx7qevm2akOP1dCoxNw1GXoMqyIghRmwbWxDpM18iflgc7dOFNkg11RkYzwLE4nwoXq8_y4v5iTa9A0Q4g=="
 # -------------------------------------------------------------------------
+
+IZVORI = "sources.json"
+
+
+def mjesta_po_zupaniji(put=IZVORI):
+    """{zupanija: [mjesto, ...]} za mjesta koja stvarno pratimo.
+
+    Ponuda gradova mora biti popis izvora, ne popis svih hrvatskih gradova.
+    Grad koji ne pratimo ne bismo mogli javiti, pa bi odabir bio obecanje
+    koje ne mozemo odrzati. Zato se popis gradi iz sources.json i raste sam
+    kad se doda novi izvor.
+
+    Grad Zagreb nema svoja mjesta (zupanija i grad su isto), pa mu polje
+    grada ostaje skriveno."""
+    m = {}
+    if not os.path.exists(put):
+        return m
+    for s in json.load(open(put, encoding="utf-8")):
+        p = (s.get("podrucje") or "").strip()
+        z = (s.get("zupanija") or "").strip()
+        if not p or not z or p == z:
+            continue
+        if p == "Cijela Hrvatska" or p.endswith("županija"):
+            continue
+        m.setdefault(z, set()).add(p)
+    return {z: sorted(v, key=_abc) for z, v in m.items()}
+
+
+def _abc(t):
+    """Sortiranje koje č, ć, š, ž ne baca na kraj popisa."""
+    for a, b in (("č", "c"), ("ć", "c"), ("đ", "d"), ("š", "s"), ("ž", "z")):
+        t = t.replace(a, b).replace(a.upper(), b.upper())
+    return t.lower()
+
 
 ZUPANIJE = [
     "Bjelovarsko-bilogorska županija",
@@ -65,6 +106,8 @@ CSS = """
   font-family:"Plex",sans-serif;font-weight:600;font-size:.98rem;
   padding:.8rem 1rem;cursor:pointer}
 .obr button:hover{filter:brightness(1.12)}
+.obr .pom{font-size:.8rem;color:var(--tinta-2);margin:.35rem 0 0;line-height:1.45}
+.obr .neo{font-weight:400;color:var(--tinta-2);font-size:.78rem}
 .obr .pristanak{display:flex;gap:.6rem;align-items:flex-start;margin:0 0 1.1rem}
 .obr .pristanak input{margin-top:.2rem;flex-shrink:0}
 .obr .pristanak span{font-size:.84rem;color:var(--tinta-2);line-height:1.5}
@@ -78,6 +121,58 @@ CSS = """
 .sto p{margin:0;font-size:.9rem;line-height:1.55}
 @media(max-width:600px){.sto{grid-template-columns:1fr}}
 """
+
+
+MJESTA = mjesta_po_zupaniji()
+
+
+def _skripta_grad():
+    """Puni izbornik gradova prema odabranoj zupaniji.
+
+    Popis gradova se ne salje cijeli u svaki <select> jer bi obrazac imao
+    80 opcija od kojih 75 ne vrijede. Umjesto toga red s gradom stoji
+    skriven dok covjek ne odabere zupaniju, pa se napuni samo njezinim
+    mjestima. Zupanija bez pracenih mjesta (Grad Zagreb) ga ne otvara."""
+    return """<script>
+(function(){
+  if(window.__gradSpojen) return;
+  window.__gradSpojen = true;
+  var MJESTA = __MJESTA__;
+
+  function spoji(zup){
+    var obr = zup.form;
+    if(!obr) return;
+    var grad = obr.querySelector("select[name=GRAD]");
+    if(!grad) return;
+    var red = grad.closest(".red") || grad;
+
+    function osvjezi(){
+      var popis = MJESTA[zup.value] || [];
+      grad.innerHTML = "";
+      var prvi = document.createElement("option");
+      prvi.value = "";
+      prvi.textContent = popis.length
+        ? "Preskoči — samo županijski natječaji"
+        : "—";
+      grad.appendChild(prvi);
+      for(var i=0;i<popis.length;i++){
+        var o = document.createElement("option");
+        o.value = popis[i]; o.textContent = popis[i];
+        grad.appendChild(o);
+      }
+      if(red.hasAttribute) {
+        if(popis.length) red.removeAttribute("hidden");
+        else red.setAttribute("hidden","");
+      }
+    }
+    zup.addEventListener("change", osvjezi);
+    osvjezi();
+  }
+
+  var sve = document.querySelectorAll("select[name=ZUPANIJA]");
+  for(var i=0;i<sve.length;i++) spoji(sve[i]);
+})();
+</script>""".replace("__MJESTA__", json.dumps(MJESTA, ensure_ascii=False))
 
 
 def _opcije():
@@ -94,7 +189,11 @@ _PRESELEKT = """
   var s = document.getElementById("ZUPANIJA");
   if(!s) return;
   for(var i=0;i<s.options.length;i++){
-    if(s.options[i].value === p){ s.selectedIndex = i; break; }
+    if(s.options[i].value === p){
+      s.selectedIndex = i;
+      s.dispatchEvent(new Event("change"));
+      break;
+    }
   }
 })();
 </script>"""
@@ -116,6 +215,16 @@ def obrazac():
       <option value="">Odaberi županiju</option>
       {_opcije()}
     </select>
+  </div>
+  <div class="red" id="red-grad" hidden>
+    <label for="GRAD">Tvoj grad ili općina
+      <span class="neo">— nije obavezno</span></label>
+    <select id="GRAD" name="GRAD">
+      <option value="">Preskoči — samo županijski natječaji</option>
+    </select>
+    <p class="pom">Ako ga odabereš, javljamo ti i kad tvoj grad ili općina
+      raspiše stipendiju — a takvih je kroz jesen daleko najviše. Ako tvog
+      mjesta nema na popisu, preskoči; ne gubiš ništa.</p>
   </div>
   <div class="red">
     <label for="TIP">Tko si</label>
@@ -141,7 +250,7 @@ def obrazac():
          tabindex="-1" autocomplete="off" aria-hidden="true">
   <input type="hidden" name="locale" value="en">
   <button type="submit">Prijavi me na obavijesti</button>
-</form>""" + _PRESELEKT
+</form>""" + _skripta_grad() + _PRESELEKT
 
 
 def poziv(put=""):
@@ -209,7 +318,8 @@ def stranica(mapa, broj_izvora, vrijeme):
 <div class="sto">
   <div><p class="ozn">Stiže</p>
     <p>Natječaj otvoren u tvojoj županiji, i onaj koji vrijedi za cijelu
-       Hrvatsku. U poruci su rok, iznos i poveznica na službenu stranicu.</p></div>
+       Hrvatsku. Ako si upisao grad, i natječaj tvog grada ili općine.
+       U poruci su rok, iznos i poveznica na službenu stranicu.</p></div>
   <div><p class="ozn">Ne stiže</p>
     <p>Natječaji iz drugih županija, podsjetnici, novosti o stranici,
        reklame. Tvoj mail ne dajemo nikome i ne koristimo ga ni za što
@@ -307,6 +417,11 @@ def skocni():
         <option value="">Odaberi županiju</option>
         {_opcije()}
       </select>
+      <div class="red" hidden>
+        <select name="GRAD" aria-label="Tvoj grad ili općina">
+          <option value="">Preskoči — samo županijski natječaji</option>
+        </select>
+      </div>
       <select name="TIP" required aria-label="Tko si">
         <option value="">Učenik ili student?</option>
         <option value="ucenik">Učenik srednje škole</option>
@@ -325,7 +440,7 @@ def skocni():
       Odjava je u svakoj poruci. <a href="privatnost.html">Što radimo s podacima</a></p>
   </div>
 </div>
-""" + _SKOCNI_JS.replace(
+""" + _skripta_grad() + _SKOCNI_JS.replace(
         "__DANA__", str(DANA_MIRA)).replace(
         "__PIKS__", str(PRAG_PIKSELA)).replace(
         "__SEK__", str(PRAG_SEKUNDI))
