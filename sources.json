@@ -1,5 +1,33 @@
 [
   {
+    "naziv": "Grad Sinj — novosti i natječaji",
+    "url": "https://www.sinj.hr/",
+    "kategorija": "Grad",
+    "podrucje": "Sinj",
+    "zupanija": "Splitsko-dalmatinska županija"
+  },
+  {
+    "naziv": "Grad Krapina — objave o stipendijama",
+    "url": "https://krapina.hr/?s=stipendij",
+    "kategorija": "Grad",
+    "podrucje": "Krapina",
+    "zupanija": "Krapinsko-zagorska županija"
+  },
+  {
+    "naziv": "Grad Delnice — obavijesti i natječaji",
+    "url": "https://delnice.hr/obavijesti/",
+    "kategorija": "Grad",
+    "podrucje": "Delnice",
+    "zupanija": "Primorsko-goranska županija"
+  },
+  {
+    "naziv": "Grad Novigrad-Cittanova — natječaji, oglasi, javni pozivi",
+    "url": "https://novigrad.hr/natjecaji-oglasi-javni-pozivi/",
+    "kategorija": "Grad",
+    "podrucje": "Novigrad",
+    "zupanija": "Istarska županija"
+  },
+  {
     "naziv": "SPD „Privrednik“ — stipendije",
     "url": "https://privrednik.hr/",
     "kategorija": "Zaklada",
