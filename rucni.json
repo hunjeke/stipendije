@@ -497,5 +497,54 @@
     "upute_za_prijavu": "Prijava isključivo preko aplikacije eStipendije na https://e-pisarnica.zagreb.hr/ePisarnica/. Prijave od 1. listopada 13:00 do 30. listopada 2026. 13:00. Informacije: stipendije@zagreb.hr, 01/616-6056.",
     "zasto_rucno": "Izvor vraća samo jedan od pet zagrebačkih natječaja.",
     "potvrda": "https://zagreb.hr/natjecaj-za-dodjelu-stipendije-grada-zagreba-za-pr/224331"
+  },
+  {
+    "naziv": "Ministarstvo obrane — stipendije za studente IKT-a",
+    "naslov_natjecaja": "Stipendije Ministarstva obrane za studente informacijsko-komunikacijskih tehnologija",
+    "url": "https://www.morh.hr/javni-poziv-za-dodjelu-stipendija-redovitim-studentima-iz-podrucja-informacijsko-komunikacijskih-tehnologija-2026/",
+    "podrucje": "Cijela Hrvatska",
+    "zupanija": "",
+    "kategorija": "Ministarstvo",
+    "iznos": "Mjesečno po godini studija: 1. godina 300,00 eura, 2. godina 400,00 eura, 3. godina 500,00 eura, 4. godina 600,00 eura, 5. godina 700,00 eura.",
+    "iznosi": [
+      {
+        "eur": 300,
+        "razdoblje": "mjesecno",
+        "za": "1. godina studija",
+        "do": false
+      },
+      {
+        "eur": 400,
+        "razdoblje": "mjesecno",
+        "za": "2. godina studija",
+        "do": false
+      },
+      {
+        "eur": 500,
+        "razdoblje": "mjesecno",
+        "za": "3. godina studija",
+        "do": false
+      },
+      {
+        "eur": 600,
+        "razdoblje": "mjesecno",
+        "za": "4. godina studija",
+        "do": false
+      },
+      {
+        "eur": 700,
+        "razdoblje": "mjesecno",
+        "za": "5. godina studija",
+        "do": false
+      }
+    ],
+    "iznos_je_fond": false,
+    "rok_tekst": "31. listopada 2026.",
+    "uvjeti": "Ovo je vojna stipendija: stipendist se nakon završetka studija prima u službu u Oružane snage Republike Hrvatske prema propisanoj proceduri. Koliko ta obveza traje, u pozivu ne piše. Prijaviti se mogu redoviti studenti sveučilišnih ili stručnih studija informacijsko-komunikacijskih tehnologija u Hrvatskoj koji nisu ponavljali nijednu godinu i imaju opći uspjeh najmanje 3,00 u posljednjoj godini obrazovanja. Traži se državljanstvo RH i prebivalište u RH neprekidno najmanje godinu dana do objave poziva. Ne smiju primati stipendiju drugog poslodavca. Dodjeljuje se do pet stipendija po generaciji, za one koji studij završavaju 2027., 2028., 2029. i 2030. godine.",
+    "upute_za_prijavu": "Prijavni obrazac (Prilog 1.) uz presliku osobne iskaznice ili domovnice i rodni list, dokaz o prosjeku ocjena (završni razred srednje škole za brucose, odnosno prethodna godina studija za starije), potvrdu o upisu u 2026./2027., dokaz o prebivalištu i uvjerenje da se ne vodi kazneni postupak ne starije od šest mjeseci. Šalje se e-poštom na prijam_dvs@morh.hr ili poštom na: Središnjica za upravljanje osobljem, Ilica 256b, Zagreb.",
+    "napomena": "Kandidati koji uđu u uži izbor idu na liječnički pregled (Zavod za zrakoplovnu medicinu u Zagrebu ili Zavod za pomorsku medicinu u Splitu) i provjeru tjelesne spremnosti, te moraju zadovoljiti sigurnosne uvjete.",
+    "zasto_rucno": "Automatsko čitanje iz rečenice o iznosima izvuklo je samo donju brojku (300 eura), pa je kartica podcjenjivala stipendiju.",
+    "potvrda": "https://www.morh.hr/javni-poziv-za-dodjelu-stipendija-redovitim-studentima-iz-podrucja-informacijsko-komunikacijskih-tehnologija-2026/",
+    "poveznica_natjecaj": "https://www.morh.hr/javni-poziv-za-dodjelu-stipendija-redovitim-studentima-iz-podrucja-informacijsko-komunikacijskih-tehnologija-2026/"
   }
 ]
