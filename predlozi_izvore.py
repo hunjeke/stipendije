@@ -101,6 +101,26 @@ ZUPANIJE = [
     "Dubrovačko-neretvanska", "Međimurska"
 ]
 
+
+def kanonska_zupanija(sirovo):
+    """Ime zupanije onako kako ga pise sources.json.
+
+    Sluzbena tablica zna napisati "OSJECKO-BARANJSKA", "Osjecko-baranjska" ili
+    "Osjecko-baranjska zupanija". Stranica filtrira po tocnom nizu, pa jedna
+    kriva varijanta znaci da natjecaj tog grada nikad ne stigne onome tko je
+    u obrascu odabrao tu zupaniju."""
+    s = bez_kvacica(str(sirovo or "")).strip()
+    if not s or s in ("nan", "none", "-"):
+        return ""
+    s = re.sub(r"\s*zupanija\s*$", "", s).strip()
+    if "zagreb" in s and "zagrebacka" not in s:
+        return "Grad Zagreb"
+    for z in ZUPANIJE:
+        if bez_kvacica(z) == s:
+            return f"{z} županija"
+    return ""
+
+
 # Stranica mora spominjati stipendiju, inace je to samo rubrika o nabavi.
 TRAZI = ("stipendij", "školarin", "skolarin", "učenic", "ucenic", "student")
 
@@ -266,6 +286,9 @@ def procitaj_adresar(putanja, samo_gradovi=True):
                        if "web" in c or "intern" in c or "stranic" in c), None)
         st_mail = next((c for c in df.columns if "mail" in c or "epos" in c), None)
         st_vrsta = next((c for c in df.columns if "vrsta" in c or "tip" in c), None)
+        # Zupanija iz iste sluzbene tablice. Bez nje bi je trebalo upisati
+        # rukom za svaki prijedlog, a o njoj ovisi kome stranica salje mail.
+        st_zup = next((c for c in df.columns if "zupanij" in c), None)
         print(f"  list '{ime_lista}': zaglavlje u {red_zaglavlja + 1}. retku, "
               f"{len(df)} redaka | naziv='{st_ime}' web='{st_web}' mail='{st_mail}'")
         if not st_ime:
@@ -300,7 +323,9 @@ def procitaj_adresar(putanja, samo_gradovi=True):
                     domene.append(d)
             domene += [d for d in domene_iz_imena(ime, vrsta) if d not in domene]
             if domene:
-                jedinice.append({"naziv": ime, "vrsta": vrsta, "domene": domene})
+                zup = kanonska_zupanija(red.get(st_zup)) if st_zup else ""
+                jedinice.append({"naziv": ime, "vrsta": vrsta,
+                                 "zupanija": zup, "domene": domene})
 
     if samo_gradovi:
         jedinice = [j for j in jedinice if j["vrsta"] != "Općina"]
@@ -317,6 +342,7 @@ def jedinice_iz_popisa(samo_gradovi=True):
     jedinice = [{"naziv": f"Grad {g}", "vrsta": "Grad",
                  "domene": domene_iz_imena(g, "Grad")} for g in GRADOVI]
     jedinice += [{"naziv": f"{z} županija", "vrsta": "Županija",
+                  "zupanija": f"{z} županija",
                   "domene": domene_iz_imena(z, "Županija")} for z in ZUPANIJE]
     return jedinice
 
@@ -474,7 +500,7 @@ def main():
                   "url": r["url"],
                   "kategorija": r["vrsta"],
                   "podrucje": r["naziv"],
-                  "zupanija": "",
+                  "zupanija": r.get("zupanija", ""),
                   "_naslov_stranice": r["naslov"]}
         upozorenje = sumnjiv(r["zavrsni"])
         if upozorenje:
