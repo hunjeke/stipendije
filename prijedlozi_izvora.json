@@ -1,73 +1,13 @@
 [
   {
-    "naziv": "Grad Delnice — stipendije",
-    "url": "https://delnice.hr/obavijesti",
-    "kategorija": "Grad",
-    "podrucje": "Grad Delnice",
-    "zupanija": "",
-    "_naslov_stranice": "Obavijesti | Grad Delnice"
-  },
-  {
-    "naziv": "Grad Orahovica — stipendije",
-    "url": "https://www.orahovica.hr/obavijesti",
-    "kategorija": "Grad",
-    "podrucje": "Grad Orahovica",
-    "zupanija": "",
-    "_naslov_stranice": "Obavijesti - Službene stranice Grada Orahovice"
-  },
-  {
-    "naziv": "Grad Rab — stipendije",
-    "url": "https://www.rab.hr/javni-pozivi",
-    "kategorija": "Grad",
-    "podrucje": "Grad Rab",
-    "zupanija": "",
-    "_naslov_stranice": "Javni pozivi|Rab - službene stranice"
-  },
-  {
-    "naziv": "Grad Rovinj — stipendije",
-    "url": "https://www.rovinj-rovigno.hr/stipendije",
-    "kategorija": "Grad",
-    "podrucje": "Grad Rovinj",
-    "zupanija": "",
-    "_naslov_stranice": "Stipendije - Grad Rovinj-Rovigno"
-  },
-  {
     "naziv": "Grad Sinj — stipendije",
     "url": "https://www.sinj.hr/stipendije",
     "kategorija": "Grad",
     "podrucje": "Grad Sinj",
     "zupanija": "",
-    "_naslov_stranice": "Stipendije - Grad Sinj"
-  },
-  {
-    "naziv": "Grad Belišće — stipendije",
-    "url": "https://belisce.hr/stipendije",
-    "kategorija": "Grad",
-    "podrucje": "Grad Belišće",
-    "zupanija": "",
-    "_naslov_stranice": "Stipendije MINGORP-a u suradnji s EFOS-om, PSS Poduzetništvo za 2011./2012. | Grad Belišće",
-    "_provjeri": "preusmjereno na datirani članak",
-    "_zavrsni_url": "https://belisce.hr/stipendije-mingorp-a-u-suradnji-s-efos-om-pss-poduzetnistvo-za-2011-2012/"
-  },
-  {
-    "naziv": "Grad Buje — stipendije",
-    "url": "https://buje.hr/stipendije",
-    "kategorija": "Grad",
-    "podrucje": "Grad Buje",
-    "zupanija": "",
-    "_naslov_stranice": "Stipendije učenicima i studentima 2022./2023. - Grad Buje - Città di Buie",
-    "_provjeri": "preusmjereno na datirani članak",
-    "_zavrsni_url": "https://buje.hr/stipendije-ucenicima-i-studentima-2022-2023/"
-  },
-  {
-    "naziv": "Grad Hrvatska Kostajnica — stipendije",
-    "url": "https://hrvatska-kostajnica.hr/stipendije",
-    "kategorija": "Grad",
-    "podrucje": "Grad Hrvatska Kostajnica",
-    "zupanija": "",
-    "_naslov_stranice": "STIPENDIJE STUDENTIMA SA PODRUČJA GRADA HRVATSKE KOSTAJNICE - Hrvatska Kostajnica",
-    "_provjeri": "preusmjereno na pojedinačnu objavu",
-    "_zavrsni_url": "https://hrvatska-kostajnica.hr/stipendije-studentima-sa-podrucja-grada-hrvatska-kostajnica/"
+    "_naslov_stranice": "Stipendije - Grad Sinj",
+    "_pregledano": "12.10.2026.",
+    "_nalaz": "stranica je obrazac za prijavu, ne popis; Sinj IMA otvoren natječaj 2026./2027., treba naći stranicu natječaja"
   },
   {
     "naziv": "Grad Krapina — stipendije",
@@ -76,57 +16,8 @@
     "podrucje": "Grad Krapina",
     "zupanija": "",
     "_naslov_stranice": "Stipendije za učenike i studente - Grad Krapina",
-    "_provjeri": "preusmjereno na pojedinačnu objavu",
-    "_zavrsni_url": "https://krapina.hr/stipendije-za-ucenike-i-studente/"
-  },
-  {
-    "naziv": "Grad Kutjevo — stipendije",
-    "url": "https://www.kutjevo.hr/stipendije",
-    "kategorija": "Grad",
-    "podrucje": "Grad Kutjevo",
-    "zupanija": "",
-    "_naslov_stranice": "Stipendije 2018./2019. | Grad Kutjevo",
-    "_provjeri": "preusmjereno na datirani članak",
-    "_zavrsni_url": "https://www.kutjevo.hr/stipendije-2018-2019/"
-  },
-  {
-    "naziv": "Grad Novigrad — stipendije",
-    "url": "https://novigrad.hr/natjecaji",
-    "kategorija": "Grad",
-    "podrucje": "Grad Novigrad",
-    "zupanija": "",
-    "_naslov_stranice": "Natječaji, oglasi, javni pozivi – Grad Novigrad-Cittanova | La Città di Novigrad-Cittanova",
-    "_provjeri": "preusmjereno na pojedinačnu objavu",
-    "_zavrsni_url": "https://novigrad.hr/natjecaji-oglasi-javni-pozivi/"
-  },
-  {
-    "naziv": "Grad Ogulin — stipendije",
-    "url": "https://www.ogulin.hr/stipendije",
-    "kategorija": "Grad",
-    "podrucje": "Grad Ogulin",
-    "zupanija": "",
-    "_naslov_stranice": "Stipendije studentima Karlovačke županije - Grad Ogulin",
-    "_provjeri": "preusmjereno na pojedinačnu objavu",
-    "_zavrsni_url": "https://www.ogulin.hr/stipendije-studentima-karlovacke-zupanije/"
-  },
-  {
-    "naziv": "Grad Pakrac — stipendije",
-    "url": "https://pakrac.hr/stipendije",
-    "kategorija": "Grad",
-    "podrucje": "Grad Pakrac",
-    "zupanija": "",
-    "_naslov_stranice": "STIPENDIJE STUDENATA Ugovori za novih 12 gradskih stipendista - Grad Pakrac",
-    "_provjeri": "preusmjereno na pojedinačnu objavu",
-    "_zavrsni_url": "https://pakrac.hr/stipendije-studenata-ugovori-za-novih-12-gradskih-stipendista/"
-  },
-  {
-    "naziv": "Grad Slunj — stipendije",
-    "url": "https://slunj.hr/stipendije",
-    "kategorija": "Grad",
-    "podrucje": "Grad Slunj",
-    "zupanija": "",
-    "_naslov_stranice": "Stipendije Grada Slunja – 2015 - Grad Slunj",
-    "_provjeri": "preusmjereno na datirani članak",
-    "_zavrsni_url": "https://slunj.hr/stipendije-grada-slunja-2015/"
+    "_zavrsni_url": "https://krapina.hr/stipendije-za-ucenike-i-studente/",
+    "_pregledano": "12.10.2026.",
+    "_nalaz": "stranica postoji i zove se stipendije, ali nema popisa objava"
   }
 ]
