@@ -1254,6 +1254,7 @@ def main():
     import obavijesti
     if obavijesti.stranica(MAPA, izvora_ukupno, vrijeme):
         obavijesti.hvala(MAPA, izvora_ukupno, vrijeme)
+        obavijesti.potvrda(MAPA, izvora_ukupno, vrijeme)
         print("  stranice obavijesti: prijava + hvala")
     impressum(MAPA, izvora_ukupno, vrijeme)
     privatnost(MAPA, izvora_ukupno, vrijeme)
