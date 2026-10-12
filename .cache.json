@@ -1992,68 +1992,26 @@
     }
   },
   "https://icm-osijek.info/natjecaji": {
-    "hash": "v3:08a8942451945a0a",
+    "hash": "v3:fd20831c2f39513c",
     "result": {
       "naziv": "Info centar za mlade Osijek — natječaji",
       "url": "https://icm-osijek.info/natjecaji",
       "kategorija": "Agregator",
       "naslov_natjecaja": "Stipendije učenicima i studentima",
-      "iznos": "100,00 eura mjesečno (učenici), 200,00 eura mjesečno (studenti), 300,00 eura mjesečno (medicinska sestra/tehničar)",
-      "iznosi": [
-        {
-          "eur": 100.0,
-          "razdoblje": "mjesecno",
-          "mjeseci": 10,
-          "za": "učenici",
-          "do": false
-        },
-        {
-          "eur": 200.0,
-          "razdoblje": "mjesecno",
-          "mjeseci": 10,
-          "za": "studenti",
-          "do": false
-        },
-        {
-          "eur": 300.0,
-          "razdoblje": "mjesecno",
-          "mjeseci": null,
-          "za": "učenici medicinska sestra/tehničar",
-          "do": false
-        }
-      ],
+      "iznos": "100,00 eura mjesečno učenici; 200,00 eura mjesečno studenti; 300,00 eura mjesečno medicinska sestra",
+      "iznosi": [],
       "iznos_je_fond": false,
       "rok_tekst": "do 21. listopada 2026. godine",
-      "uvjeti": "Stipendije se dodjeljuju učenicima srednjih škola i studentima u Osječko-baranjskoj županiji za školsku/akademsku godinu 2026./2027. Od 2026./2027. godine dodjeljuju se i stipendije za učenike koji se obrazuju za zanimanje medicinska sestra opće njege/medicinski tehničar opće njege.",
+      "uvjeti": "Natječaj je otvoren za učenike i studente u Osječko-baranjskoj županiji za 2026./2027. školsku, odnosno akademsku godinu. Od 2026./2027. godine dodjeljuju se i stipendije za učenike koji se obrazuju za zanimanje medicinska sestra opće njege/medicinski tehničar opće njege.",
       "upute_za_prijavu": null,
-      "napomena": "Učenici srednjih škola primaju stipendiju od 1. rujna 2026. do 30. lipnja 2027., studenti od 1. listopada 2026. do 31. srpnja 2027. Za medicinske sestre/tehničare osigurano je 30 stipendija.",
-      "poveznica_natjecaj": "https://icm-osijek.info/natjecaji/objavljen-natjecaj-za-dodjelu-stipendija-ucenicima-i-studentima-u-osjecko-baranjskoj-zupaniji",
+      "napomena": "Učenicima srednjih škola stipendije se dodjeljuju za razdoblje od 1. rujna 2026. do 30. lipnja 2027. (10 mjeseci), a studentima od 1. listopada 2026. do 31. srpnja 2027. (9 mjeseci). Za učenike medicinske struke osigurano je 30 stipendija mjesečno.",
+      "poveznica_natjecaj": "https://icm-osijek.info/natjecaji/objavljen-natjecaj-za-dodjelu-stipendija-ucenicima-i-studentima-u-osjecko-baranjskoj-zupaniji#total-count-wrapper",
       "status": "OTVORENO — rok za 9 dana (2026-10-21)",
-      "zadnje_provjereno": "2026-10-12T16:20",
+      "zadnje_provjereno": "2026-10-12T16:55",
       "_ima_otvoren": true,
       "_dopuna_pokusana": false
     },
-    "dodatni": [
-      {
-        "naziv": "Info centar za mlade Osijek — natječaji",
-        "url": "https://icm-osijek.info/natjecaji/f-stipendije",
-        "kategorija": "Agregator",
-        "naslov_natjecaja": "Humphrey stipendija u SAD-u",
-        "iznos": null,
-        "iznosi": [],
-        "iznos_je_fond": false,
-        "rok_tekst": "do 31. srpnja 2026. godine",
-        "uvjeti": "Hrvatski državljani s visokom stručnom spremom (najmanje četverogodišnji studij ili petogodišnji diplomski studij), iskustvom u vođenju i pet godina radnog iskustva u jednom od navedenih područja te izvrsnim znanjem engleskoga jezika.",
-        "upute_za_prijavu": "Posjetiti mrežnu stranicu Veleposlanstva SAD-a | Popuniti online prijavu | Dostaviti dodatnu dokumentaciju elektronički uz prijavu | Kopirati pristupnu poveznicu: Apply now: 2027-2028 Hubert H. Humphrey Fellowship Program",
-        "napomena": "Stipendije nisu namijenjene za razdoblje studija niti omogućuju stjecanje akademskoga naziva u SAD-u. Kandidati trebaju podnijeti dokaz o zaposlenju u RH. Razmatrat će se samo prijave s potpunom dokumentacijom.",
-        "poveznica_natjecaj": "https://icm-osijek.info/natjecaji/f-stipendije",
-        "status": "ROK ISTEKAO (2026-07-31) — čeka se novi ciklus",
-        "zadnje_provjereno": "2026-10-12T16:20",
-        "_ima_otvoren": true,
-        "_dopuna_pokusana": true,
-        "_izvor_url": "https://icm-osijek.info/natjecaji"
-      }
-    ]
+    "dodatni": []
   },
   "https://www.solin.hr/obavijesti/": {
     "hash": "v3:a48dd9abad27553b",
@@ -3608,22 +3566,22 @@
     }
   },
   "https://zupanja.hr/stipendije-grada-zupanja/": {
-    "hash": "v3:b9b1a4e7ec3519e3",
+    "hash": "v3:277b952b1d390c1a",
     "result": {
       "naziv": "Grad Županja — stipendije",
       "url": "https://zupanja.hr/stipendije-grada-zupanja/",
       "kategorija": "Grad",
-      "naslov_natjecaja": "Stipendije Grada Županja za školsku godinu 2025./2026",
+      "naslov_natjecaja": "Stipendije grada Županja",
       "iznos": null,
       "iznosi": [],
       "iznos_je_fond": false,
       "rok_tekst": "14. studenog 2025. godine",
       "uvjeti": null,
-      "upute_za_prijavu": "Registracija na SOM Natječaj aplikaciji | Odabir natječaja iz popisa | Popunjavanje obaveznih polja označenih crvenom zvjezdicom | Učitavanje potrebnih dokumenata | Slanje prijave klikom na 'Pošalji prijavu'",
-      "napomena": "Aplikacija SOM Natječaj je optimizirana za pejzažni (landscape) način rada na mobilnim uređajima. Iznosi stipendija razlikuju se prema godini studija i deficitarnim zanimanjima – vidi dostupne PDF dokumente (Odluka visina stipendije I godina i Odluka visina stipendije više godine studija).",
+      "upute_za_prijavu": "Kreiraj račun u SOM Natječaj aplikaciji | Pregledaj popis objavljenih natječaja | Klikni na \"Prijavi se\" | Popuni obavezna polja (označena crvenom zvjezdicom) | Učitaj tražene datoteke | Klikni na \"Pošalji prijavu\"",
+      "napomena": "Prijave se vrše isključivo putem SOM Natječaj aplikacije (https://som-natjecaj.eu). Aplikacija je prilagođena pejzažnom (landscape) načinu rada za mobilne uređaje. Za tehnička pitanja kontaktiraj: podrska@som-system.com",
       "poveznica_natjecaj": null,
       "status": "ROK ISTEKAO (2025-11-14) — čeka se novi ciklus",
-      "zadnje_provjereno": "2026-10-12T16:27",
+      "zadnje_provjereno": "2026-10-12T17:00",
       "_ima_otvoren": true,
       "_dopuna_pokusana": true
     },

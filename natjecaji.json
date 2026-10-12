@@ -735,7 +735,7 @@
     "zupanija": "Primorsko-goranska županija"
   },
   "osijek-stipendije-ucenicima-studentima-2026": {
-    "iznos": "100,00 eura mjesečno (učenici), 200,00 eura mjesečno (studenti), 300,00 eura mjesečno (medicinska sestra/tehničar)",
+    "iznos": "100,00 eura mjesečno učenici; 200,00 eura mjesečno studenti; 300,00 eura mjesečno medicinska sestra",
     "iznos_je_fond": false,
     "iznosi": [
       {
@@ -761,11 +761,11 @@
       }
     ],
     "izvor_naziv": "Info centar za mlade Osijek — natječaji",
-    "napomena": "Učenici srednjih škola primaju stipendiju od 1. rujna 2026. do 30. lipnja 2027., studenti od 1. listopada 2026. do 31. srpnja 2027. Za medicinske sestre/tehničare osigurano je 30 stipendija.",
+    "napomena": "Učenicima srednjih škola stipendije se dodjeljuju za razdoblje od 1. rujna 2026. do 30. lipnja 2027. (10 mjeseci), a studentima od 1. listopada 2026. do 31. srpnja 2027. (9 mjeseci). Za učenike medicinske struke osigurano je 30 stipendija mjesečno.",
     "naslov": "Stipendije učenicima i studentima",
     "podrucje": "Osijek",
     "potvrda": "",
-    "poveznica": "https://icm-osijek.info/natjecaji/objavljen-natjecaj-za-dodjelu-stipendija-ucenicima-i-studentima-u-osjecko-baranjskoj-zupaniji",
+    "poveznica": "https://icm-osijek.info/natjecaji/objavljen-natjecaj-za-dodjelu-stipendija-ucenicima-i-studentima-u-osjecko-baranjskoj-zupaniji#total-count-wrapper",
     "prvi_put": "2026-10-12",
     "rok_iso": "2026-10-21",
     "rok_tekst": "do 21. listopada 2026. godine",
@@ -773,7 +773,7 @@
     "slug": "osijek-stipendije-ucenicima-studentima-2026",
     "upute_za_prijavu": "",
     "url": "https://icm-osijek.info/natjecaji",
-    "uvjeti": "Stipendije se dodjeljuju učenicima srednjih škola i studentima u Osječko-baranjskoj županiji za školsku/akademsku godinu 2026./2027. Od 2026./2027. godine dodjeljuju se i stipendije za učenike koji se obrazuju za zanimanje medicinska sestra opće njege/medicinski tehničar opće njege.",
+    "uvjeti": "Natječaj je otvoren za učenike i studente u Osječko-baranjskoj županiji za 2026./2027. školsku, odnosno akademsku godinu. Od 2026./2027. godine dodjeljuju se i stipendije za učenike koji se obrazuju za zanimanje medicinska sestra opće njege/medicinski tehničar opće njege.",
     "zadnji_put": "2026-10-12",
     "zasto_rucno": "",
     "zupanija": "Osječko-baranjska županija"
