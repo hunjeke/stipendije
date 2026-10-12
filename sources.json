@@ -11,7 +11,8 @@
     "url": "https://unione-italiana.hr/borse-studio/",
     "kategorija": "Zaklada",
     "podrucje": "Cijela Hrvatska",
-    "zupanija": ""
+    "zupanija": "",
+    "usko": true
   },
   {
     "naziv": "MZO — državne stipendije (socio-ekonomski status)",
@@ -32,7 +33,8 @@
     "url": "https://www.hanfa.hr/raditi-u-hanfi/studentske-stipendije/",
     "kategorija": "Ministarstvo",
     "podrucje": "Cijela Hrvatska",
-    "zupanija": ""
+    "zupanija": "",
+    "usko": true
   },
   {
     "naziv": "Ministarstvo demografije — stipendije za učenje hrvatskog jezika",
@@ -194,7 +196,8 @@
     "url": "https://karijera.ina.hr/hr/ina-i-mladi",
     "kategorija": "Tvrtka",
     "podrucje": "Cijela Hrvatska",
-    "zupanija": ""
+    "zupanija": "",
+    "usko": true
   },
   {
     "naziv": "AMPEU — Erasmus+ i programi mobilnosti",
@@ -552,7 +555,8 @@
     "url": "https://www.rockwool.com/hr/o-nama/drustveno-odrzivo-poslovanje/stipendije/",
     "kategorija": "Tvrtka",
     "podrucje": "Cijela Hrvatska",
-    "zupanija": ""
+    "zupanija": "",
+    "usko": true
   },
   {
     "naziv": "Sveučilište u Splitu — sveučilišne stipendije",
@@ -742,7 +746,8 @@
     "url": "https://www.morh.hr/dodjela-stipendija-vojnim-stipendistima-studentima-iz-podrucja-informacijsko-komunikacijskih-tehnologija/",
     "kategorija": "Ministarstvo",
     "podrucje": "Cijela Hrvatska",
-    "zupanija": ""
+    "zupanija": "",
+    "usko": true
   },
   {
     "naziv": "Grad Požega — ostali natječaji",
@@ -763,7 +768,8 @@
     "url": "https://www.fer.unizg.hr/karijere/stipendije",
     "kategorija": "Agregator",
     "podrucje": "Cijela Hrvatska",
-    "zupanija": ""
+    "zupanija": "",
+    "usko": true
   },
   {
     "naziv": "Hrvatsko katoličko sveučilište — natječaji",
@@ -784,14 +790,16 @@
     "url": "https://secondary.oiv.hr/hr/karijera/stipendije/",
     "kategorija": "Tvrtka",
     "podrucje": "Cijela Hrvatska",
-    "zupanija": ""
+    "zupanija": "",
+    "usko": true
   },
   {
     "naziv": "Fina — prilike za studente (stipendije)",
     "url": "https://www.fina.hr/karijere/prilike-za-studente",
     "kategorija": "Tvrtka",
     "podrucje": "Cijela Hrvatska",
-    "zupanija": ""
+    "zupanija": "",
+    "usko": true
   },
   {
     "naziv": "HOPS — vijesti i natječaji za stipendije",
@@ -833,7 +841,8 @@
     "url": "https://zagreb.diplo.de/hr-hr/themen/kultur/daad/2100844",
     "kategorija": "Međunarodno",
     "podrucje": "Cijela Hrvatska",
-    "zupanija": ""
+    "zupanija": "",
+    "usko": true
   },
   {
     "naziv": "HNB — stipendiranje studenata",
