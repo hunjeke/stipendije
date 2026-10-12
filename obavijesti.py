@@ -577,3 +577,77 @@ def hvala(mapa, broj_izvora, vrijeme):
     with open(put_html, "w", encoding="utf-8") as f:
         f.write(html)
     return True
+
+
+def potvrda(mapa, broj_izvora, vrijeme):
+    """Stranica na koju Brevo vrati covjeka nakon klika na potvrdu u mailu.
+
+    Razlikuje se od hvala.html: ondje covjek jos nije upisan i salje ga se u
+    mail, ovdje je posao gotov. Da obje vode na istu stranicu, onaj tko je
+    upravo potvrdio opet bi procitao da mora provjeriti mail.
+
+    Trenutak potvrde je jedini u kojem covjek sigurno gleda nasu stranicu i
+    zna da je sve u redu, pa ovdje stoji i poziv da doda grad — to je jedini
+    podatak koji nam poslije nedostaje, a bez njega ne dobiva gradske
+    natjecaje, kojih je daleko najvise.
+    """
+    put_html = os.path.join(mapa, "upisan.html")
+    if not BREVO_FORMA:
+        if os.path.exists(put_html):
+            os.remove(put_html)
+        return False
+
+    html = glava(
+        "Upisan si — stipendije.hr",
+        "Prijava na obavijesti o stipendijama je potvrđena.",
+        dodatni_css=CSS + """
+.hv{text-align:center;padding:4rem 0 3rem;max-width:34rem;margin:0 auto}
+.hv .kvaka{width:3.2rem;height:3.2rem;margin:0 auto 1.2rem;border-radius:50%;
+  background:var(--otvoreno);display:flex;align-items:center;justify-content:center}
+.hv .kvaka svg{width:1.6rem;height:1.6rem;stroke:#fff;stroke-width:2.6;fill:none;
+  stroke-linecap:round;stroke-linejoin:round}
+.hv h1{font-size:clamp(1.5rem,4.5vw,2rem);margin-bottom:.7rem}
+.hv p{color:var(--tinta-2);line-height:1.65}
+.hv .koraci{text-align:left;border:1px solid var(--linija);background:var(--karta);
+  padding:1.1rem 1.2rem;margin:1.8rem 0}
+.hv .koraci p{margin:.45rem 0;font-size:.93rem;color:var(--tinta)}
+.hv .gumbi{display:flex;gap:.7rem;flex-wrap:wrap;justify-content:center;
+  margin-top:1.4rem}
+.hv .gumb{display:inline-block;background:var(--plava);color:#fff;
+  font-family:"Plex",sans-serif;font-weight:600;font-size:.95rem;
+  padding:.72rem 1.3rem;text-decoration:none}
+.hv .gumb:hover{filter:brightness(1.12)}
+.hv .gumb.drugi{background:var(--karta);color:var(--tinta);
+  border:1.5px solid var(--tinta)}
+.hv .gumb.drugi:hover{filter:none;background:var(--papir)}
+.hv .sitno{font-size:.84rem;margin-top:1.6rem}
+""",
+        dodatni_head='<meta name="robots" content="noindex">',
+    )
+    html += navigacija("")
+    html += f"""<main class="w">
+<div class="hv">
+  <div class="kvaka"><svg viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M4 12.5l5.5 5.5L20 7"/></svg></div>
+  <h1>Upisan si</h1>
+  <p>Od sad ti javljamo mailom čim se otvori natječaj koji se odnosi na tebe.
+     Ništa drugo ti ne šaljemo.</p>
+  <div class="koraci">
+    <p>Natječaj iz tvoje županije i onaj koji vrijedi za cijelu Hrvatsku.</p>
+    <p>Ako si odabrao svoj grad, i natječaj tvog grada ili općine.</p>
+    <p>U svakoj poruci su rok, iznos i poveznica na službenu stranicu.</p>
+  </div>
+  <div class="gumbi">
+    <a class="gumb" href="./">Pogledaj otvorene natječaje</a>
+    <a class="gumb drugi" href="{WA_KANAL}" target="_blank"
+       rel="noopener">Prati i na WhatsAppu</a>
+  </div>
+  <p class="sitno">Nisi odabrao grad? Poveznica za izmjenu stoji u svakoj
+     poruci koju ti pošaljemo. Ondje je i odjava, radi odmah i bez pitanja.</p>
+</div>
+</main>
+"""
+    html += podnozje(broj_izvora, vrijeme)
+    with open(put_html, "w", encoding="utf-8") as f:
+        f.write(html)
+    return True
