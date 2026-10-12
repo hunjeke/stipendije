@@ -313,6 +313,7 @@
   },
   {
     "naziv": "MZO — državne stipendije za studente pripadnike romske nacionalne manjine",
+    "usko": true,
     "naslov_natjecaja": "Državne stipendije za studente pripadnike romske nacionalne manjine",
     "url": "https://mzom.gov.hr/istaknute-teme/natjecaji-196/8068",
     "podrucje": "Cijela Hrvatska",
@@ -344,6 +345,7 @@
   },
   {
     "naziv": "MZO — stipendije za učenike srednjih škola pripadnike romske nacionalne manjine",
+    "usko": true,
     "naslov_natjecaja": "Stipendije Ministarstva za učenike srednjih škola pripadnike romske nacionalne manjine",
     "url": "https://mzom.gov.hr/istaknute-teme/natjecaji-196/javni-poziv-polaznicima-srednjih-skola-pripadnicima-romske-nacionalne-manjine-za-stipendiju-ministarstva-znanosti-obrazovanja-i-mladih-za-skolsku-godinu-2026-2027/8040",
     "podrucje": "Cijela Hrvatska",
@@ -453,6 +455,7 @@
   },
   {
     "naziv": "Grad Zagreb — stipendije za učenike pripadnike romske nacionalne manjine",
+    "usko": true,
     "naslov_natjecaja": "Stipendija Grada Zagreba za učenike pripadnike romske nacionalne manjine",
     "url": "https://zagreb.hr/natjecaj-za-dodjelu-stipendije-grada-zagreba-za-pr/224336",
     "podrucje": "Grad Zagreb",
@@ -477,6 +480,7 @@
   },
   {
     "naziv": "Grad Zagreb — stipendije za studente prve godine pripadnike romske nacionalne manjine",
+    "usko": true,
     "naslov_natjecaja": "Stipendija Grada Zagreba za studente prve godine pripadnike romske nacionalne manjine",
     "url": "https://zagreb.hr/natjecaj-za-dodjelu-stipendije-grada-zagreba-za-pr/224331",
     "podrucje": "Grad Zagreb",
@@ -500,6 +504,7 @@
   },
   {
     "naziv": "Ministarstvo obrane — stipendije za studente IKT-a",
+    "usko": true,
     "naslov_natjecaja": "Stipendije Ministarstva obrane za studente informacijsko-komunikacijskih tehnologija",
     "url": "https://www.morh.hr/javni-poziv-za-dodjelu-stipendija-redovitim-studentima-iz-podrucja-informacijsko-komunikacijskih-tehnologija-2026/",
     "podrucje": "Cijela Hrvatska",
