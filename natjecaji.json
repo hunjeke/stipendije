@@ -735,7 +735,7 @@
     "zupanija": "Primorsko-goranska županija"
   },
   "osijek-stipendije-ucenicima-studentima-2026": {
-    "iznos": "100,00 eura mjesečno za učenike; 200,00 eura mjesečno za studente; 300,00 eura mjesečno za učenike medicinske njege",
+    "iznos": "100,00 eura mjesečno za učenike; 200,00 eura mjesečno za studente; 300,00 eura mjesečno za učenike zdravstvenih zanimanja",
     "iznos_je_fond": false,
     "iznosi": [
       {
@@ -757,11 +757,11 @@
         "eur": 300.0,
         "mjeseci": null,
         "razdoblje": "mjesecno",
-        "za": "učenici medicinske njege"
+        "za": "učenici zdravstvenih zanimanja"
       }
     ],
     "izvor_naziv": "Info centar za mlade Osijek — natječaji",
-    "napomena": "Stipendije za medicinske sestre/tehničare су nove u 2026./2027. akademskoj godini; predviđeno je 30 stipendija. Učenici primaju stipendije od 1. rujna 2026. do 30. lipnja 2027., studenti od 1. listopada 2026. do 31. srpnja 2027.",
+    "napomena": "Za učenike zdravstvenih zanimanja osigurano je 30 stipendija. Učenici dobivaju stipendiju od 1. rujna 2026. do 30. lipnja 2027., studenti od 1. listopada 2026. do 31. srpnja 2027.",
     "naslov": "Stipendije učenicima i studentima",
     "podrucje": "Osijek",
     "potvrda": "",
@@ -773,7 +773,7 @@
     "slug": "osijek-stipendije-ucenicima-studentima-2026",
     "upute_za_prijavu": "",
     "url": "https://icm-osijek.info/natjecaji",
-    "uvjeti": "Stipendije su namijenjene učenicima srednjih škola, studentima, te učenicima koji se obrazuju za zanimanja medicinska sestra opće njege/medicinski tehničar opće njege u Osječko-baranjskoj županiji.",
+    "uvjeti": "Stipendije su namijenjene učenicima i studentima u Osječko-baranjskoj županiji, uključujući učenike koji se obrazuju za zanimanja medicinska sestra opće njege/medicinski tehničar opće njege.",
     "zadnji_put": "2026-10-12",
     "zasto_rucno": "",
     "zupanija": "Osječko-baranjska županija"
@@ -1117,6 +1117,64 @@
     "uvjeti": "Talentirani učenici i studenti iz obitelji slabijih materijalnih mogućnosti. Državljanstvo RH, školovanje u Hrvatskoj, prosjek najmanje 3,5 za učenike i prvu godinu studija odnosno 3,0 za više godine, do 25 godina. Pripadnost nacionalnoj manjini nije uvjet.",
     "zadnji_put": "2026-10-12",
     "zasto_rucno": "Izvor nije bio praćen — dodan nakon provjere stipendija za nacionalne manjine.",
+    "zupanija": ""
+  },
+  "stipendije-ministarstva-obrane-studente-informacijsko-komunikacijskih-2026": {
+    "iznos": "Mjesečno po godini studija: 1. godina 300,00 eura, 2. godina 400,00 eura, 3. godina 500,00 eura, 4. godina 600,00 eura, 5. godina 700,00 eura.",
+    "iznos_je_fond": false,
+    "iznosi": [
+      {
+        "do": false,
+        "eur": 300.0,
+        "mjeseci": null,
+        "razdoblje": "mjesecno",
+        "za": "1. godina studija"
+      },
+      {
+        "do": false,
+        "eur": 400.0,
+        "mjeseci": null,
+        "razdoblje": "mjesecno",
+        "za": "2. godina studija"
+      },
+      {
+        "do": false,
+        "eur": 500.0,
+        "mjeseci": null,
+        "razdoblje": "mjesecno",
+        "za": "3. godina studija"
+      },
+      {
+        "do": false,
+        "eur": 600.0,
+        "mjeseci": null,
+        "razdoblje": "mjesecno",
+        "za": "4. godina studija"
+      },
+      {
+        "do": false,
+        "eur": 700.0,
+        "mjeseci": null,
+        "razdoblje": "mjesecno",
+        "za": "5. godina studija"
+      }
+    ],
+    "izvor_naziv": "Ministarstvo obrane — stipendije za studente IKT-a",
+    "napomena": "Kandidati koji uđu u uži izbor idu na liječnički pregled (Zavod za zrakoplovnu medicinu u Zagrebu ili Zavod za pomorsku medicinu u Splitu) i provjeru tjelesne spremnosti, te moraju zadovoljiti sigurnosne uvjete.",
+    "naslov": "Stipendije Ministarstva obrane za studente informacijsko-komunikacijskih tehnologija",
+    "podrucje": "Cijela Hrvatska",
+    "potvrda": "https://www.morh.hr/javni-poziv-za-dodjelu-stipendija-redovitim-studentima-iz-podrucja-informacijsko-komunikacijskih-tehnologija-2026/",
+    "poveznica": "https://www.morh.hr/javni-poziv-za-dodjelu-stipendija-redovitim-studentima-iz-podrucja-informacijsko-komunikacijskih-tehnologija-2026/",
+    "prvi_put": "2026-10-12",
+    "rok_iso": "2026-10-31",
+    "rok_tekst": "31. listopada 2026.",
+    "rucni": true,
+    "slug": "stipendije-ministarstva-obrane-studente-informacijsko-komunikacijskih-2026",
+    "upute_za_prijavu": "Prijavni obrazac (Prilog 1.) uz presliku osobne iskaznice ili domovnice i rodni list, dokaz o prosjeku ocjena (završni razred srednje škole za brucose, odnosno prethodna godina studija za starije), potvrdu o upisu u 2026./2027., dokaz o prebivalištu i uvjerenje da se ne vodi kazneni postupak ne starije od šest mjeseci. Šalje se e-poštom na prijam_dvs@morh.hr ili poštom na: Središnjica za upravljanje osobljem, Ilica 256b, Zagreb.",
+    "url": "https://www.morh.hr/javni-poziv-za-dodjelu-stipendija-redovitim-studentima-iz-podrucja-informacijsko-komunikacijskih-tehnologija-2026/",
+    "uvjeti": "Ovo je vojna stipendija: stipendist se nakon završetka studija prima u službu u Oružane snage Republike Hrvatske prema propisanoj proceduri. Koliko ta obveza traje, u pozivu ne piše. Prijaviti se mogu redoviti studenti sveučilišnih ili stručnih studija informacijsko-komunikacijskih tehnologija u Hrvatskoj koji nisu ponavljali nijednu godinu i imaju opći uspjeh najmanje 3,00 u posljednjoj godini obrazovanja. Traži se državljanstvo RH i prebivalište u RH neprekidno najmanje godinu dana do objave poziva. Ne smiju primati stipendiju drugog poslodavca. Dodjeljuje se do pet stipendija po generaciji, za one koji studij završavaju 2027., 2028., 2029. i 2030. godine.",
+    "zadnji_put": "2026-10-12",
+    "zasto_rucno": "Automatsko čitanje iz rečenice o iznosima izvuklo je samo donju brojku (300 eura), pa je kartica podcjenjivala stipendiju.",
     "zupanija": ""
   },
   "stipendije-ministarstva-ucenike-srednjih-skola-pripadnike-romske-2026": {
