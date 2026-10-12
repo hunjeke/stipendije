@@ -169,6 +169,8 @@ input:focus-visible,select:focus-visible{outline:2px solid var(--plava);outline-
   font-family:"Plex",sans-serif;font-weight:600;font-size:.98rem;
   padding:.8rem 1rem;cursor:pointer}
 .obr button:hover{filter:brightness(1.12)}
+.obr .pom{font-size:.8rem;color:var(--tinta-2);margin:.35rem 0 0;line-height:1.45}
+.obr .neo{font-weight:400;color:var(--tinta-2);font-size:.78rem}
 .obr .pristanak{display:flex;gap:.6rem;align-items:flex-start;margin:0 0 1.1rem}
 .obr .pristanak input{margin-top:.2rem;flex-shrink:0}
 .obr .pristanak span{font-size:.84rem;color:var(--tinta-2);line-height:1.5}
@@ -218,6 +220,16 @@ input:focus-visible,select:focus-visible{outline:2px solid var(--plava);outline-
       <option value="Bjelovarsko-bilogorska županija">Bjelovarsko-bilogorska županija</option><option value="Brodsko-posavska županija">Brodsko-posavska županija</option><option value="Dubrovačko-neretvanska županija">Dubrovačko-neretvanska županija</option><option value="Grad Zagreb">Grad Zagreb</option><option value="Istarska županija">Istarska županija</option><option value="Karlovačka županija">Karlovačka županija</option><option value="Koprivničko-križevačka županija">Koprivničko-križevačka županija</option><option value="Krapinsko-zagorska županija">Krapinsko-zagorska županija</option><option value="Ličko-senjska županija">Ličko-senjska županija</option><option value="Međimurska županija">Međimurska županija</option><option value="Osječko-baranjska županija">Osječko-baranjska županija</option><option value="Požeško-slavonska županija">Požeško-slavonska županija</option><option value="Primorsko-goranska županija">Primorsko-goranska županija</option><option value="Sisačko-moslavačka županija">Sisačko-moslavačka županija</option><option value="Splitsko-dalmatinska županija">Splitsko-dalmatinska županija</option><option value="Šibensko-kninska županija">Šibensko-kninska županija</option><option value="Varaždinska županija">Varaždinska županija</option><option value="Virovitičko-podravska županija">Virovitičko-podravska županija</option><option value="Vukovarsko-srijemska županija">Vukovarsko-srijemska županija</option><option value="Zadarska županija">Zadarska županija</option><option value="Zagrebačka županija">Zagrebačka županija</option>
     </select>
   </div>
+  <div class="red" id="red-grad" hidden>
+    <label for="GRAD">Tvoj grad ili općina
+      <span class="neo">— nije obavezno</span></label>
+    <select id="GRAD" name="GRAD">
+      <option value="">Preskoči — samo županijski natječaji</option>
+    </select>
+    <p class="pom">Ako ga odabereš, javljamo ti i kad tvoj grad ili općina
+      raspiše stipendiju — a takvih je kroz jesen daleko najviše. Ako tvog
+      mjesta nema na popisu, preskoči; ne gubiš ništa.</p>
+  </div>
   <div class="red">
     <label for="TIP">Tko si</label>
     <select id="TIP" name="TIP" required>
@@ -242,7 +254,46 @@ input:focus-visible,select:focus-visible{outline:2px solid var(--plava);outline-
          tabindex="-1" autocomplete="off" aria-hidden="true">
   <input type="hidden" name="locale" value="en">
   <button type="submit">Prijavi me na obavijesti</button>
-</form>
+</form><script>
+(function(){
+  if(window.__gradSpojen) return;
+  window.__gradSpojen = true;
+  var MJESTA = {"Splitsko-dalmatinska županija": ["Hvar", "Kaštela", "Makarska", "Sinj", "Solin", "Split", "Stari Grad", "Trogir", "Tučepi", "Vrlika"], "Krapinsko-zagorska županija": ["Krapina", "Oroslavje", "Pregrada"], "Primorsko-goranska županija": ["Bakar", "Baška", "Cres", "Crikvenica", "Delnice", "Kastav", "Kostrena", "Kraljevica", "Krk", "Mali Lošinj", "Matulji", "Novi Vinodolski", "Opatija", "Rijeka", "Viškovo"], "Istarska županija": ["Buzet", "Gračišće", "Labin", "Medulin", "Novigrad", "Pazin", "Poreč", "Pula", "Rovinj", "Vodnjan"], "Šibensko-kninska županija": ["Šibenik"], "Zadarska županija": ["Biograd na Moru", "Zadar"], "Osječko-baranjska županija": ["Beli Manastir", "Đakovo", "Donji Miholjac", "Osijek", "Valpovo"], "Varaždinska županija": ["Ivanec", "Lepoglava", "Ludbreg", "Novi Marof", "Varaždin", "Varaždinske Toplice"], "Karlovačka županija": ["Karlovac"], "Koprivničko-križevačka županija": ["Đurđevac", "Koprivnica", "Križevci"], "Bjelovarsko-bilogorska županija": ["Bjelovar", "Daruvar"], "Dubrovačko-neretvanska županija": ["Dubrovnik", "Metković", "Ploče"], "Sisačko-moslavačka županija": ["Kutina", "Sisak"], "Brodsko-posavska županija": ["Slavonski Brod"], "Zagrebačka županija": ["Dugo Selo", "Ivanić-Grad", "Jastrebarsko", "Samobor", "Sveta Nedelja", "Sveti Ivan Zelina", "Velika Gorica", "Vrbovec", "Zaprešić"], "Virovitičko-podravska županija": ["Virovitica"], "Ličko-senjska županija": ["Gospić"], "Vukovarsko-srijemska županija": ["Vinkovci", "Vukovar", "Županja"], "Međimurska županija": ["Čakovec", "Mursko Središće"], "Požeško-slavonska županija": ["Lipik", "Pleternica", "Požega", "Velika"]};
+
+  function spoji(zup){
+    var obr = zup.form;
+    if(!obr) return;
+    var grad = obr.querySelector("select[name=GRAD]");
+    if(!grad) return;
+    var red = grad.closest(".red") || grad;
+
+    function osvjezi(){
+      var popis = MJESTA[zup.value] || [];
+      grad.innerHTML = "";
+      var prvi = document.createElement("option");
+      prvi.value = "";
+      prvi.textContent = popis.length
+        ? "Preskoči — samo županijski natječaji"
+        : "—";
+      grad.appendChild(prvi);
+      for(var i=0;i<popis.length;i++){
+        var o = document.createElement("option");
+        o.value = popis[i]; o.textContent = popis[i];
+        grad.appendChild(o);
+      }
+      if(red.hasAttribute) {
+        if(popis.length) red.removeAttribute("hidden");
+        else red.setAttribute("hidden","");
+      }
+    }
+    zup.addEventListener("change", osvjezi);
+    osvjezi();
+  }
+
+  var sve = document.querySelectorAll("select[name=ZUPANIJA]");
+  for(var i=0;i<sve.length;i++) spoji(sve[i]);
+})();
+</script>
 <script>
 (function(){
   var p = new URLSearchParams(location.search).get("z");
@@ -250,7 +301,11 @@ input:focus-visible,select:focus-visible{outline:2px solid var(--plava);outline-
   var s = document.getElementById("ZUPANIJA");
   if(!s) return;
   for(var i=0;i<s.options.length;i++){
-    if(s.options[i].value === p){ s.selectedIndex = i; break; }
+    if(s.options[i].value === p){
+      s.selectedIndex = i;
+      s.dispatchEvent(new Event("change"));
+      break;
+    }
   }
 })();
 </script>
@@ -259,7 +314,8 @@ input:focus-visible,select:focus-visible{outline:2px solid var(--plava);outline-
 <div class="sto">
   <div><p class="ozn">Stiže</p>
     <p>Natječaj otvoren u tvojoj županiji, i onaj koji vrijedi za cijelu
-       Hrvatsku. U poruci su rok, iznos i poveznica na službenu stranicu.</p></div>
+       Hrvatsku. Ako si upisao grad, i natječaj tvog grada ili općine.
+       U poruci su rok, iznos i poveznica na službenu stranicu.</p></div>
   <div><p class="ozn">Ne stiže</p>
     <p>Natječaji iz drugih županija, podsjetnici, novosti o stranici,
        reklame. Tvoj mail ne dajemo nikome i ne koristimo ga ni za što
@@ -292,7 +348,7 @@ input:focus-visible,select:focus-visible{outline:2px solid var(--plava);outline-
      Posebno nam je važno ako je netočan <strong>rok prijave</strong>.</p>
   <p>Ne procjenjujemo tvoje šanse za pojedinu stipendiju. Za to pitaj instituciju
      koja je natječaj objavila.</p>
-  <p class="sitno">Zadnja provjera 12.10.2026. &nbsp;·&nbsp; 145 izvora &nbsp;·&nbsp;
+  <p class="sitno">Zadnja provjera 12.10.2026. &nbsp;·&nbsp; 149 izvora &nbsp;·&nbsp;
      podaci prikupljeni automatski &nbsp;·&nbsp;
      <a class="tiho" href="impressum.html">Impressum</a> &nbsp;·&nbsp;
      <a class="tiho" href="privatnost.html">Privatnost</a></p>

@@ -735,7 +735,7 @@
     "zupanija": "Primorsko-goranska županija"
   },
   "osijek-stipendije-ucenicima-studentima-2026": {
-    "iznos": "100,00 eura mjesečno za učenike; 200,00 eura mjesečno za studente; 300,00 eura mjesečno za učenike zdravstvenih zanimanja",
+    "iznos": "100,00 eura mjesečno (učenici), 200,00 eura mjesečno (studenti), 300,00 eura mjesečno (medicinska sestra/tehničar)",
     "iznos_je_fond": false,
     "iznosi": [
       {
@@ -748,7 +748,7 @@
       {
         "do": false,
         "eur": 200.0,
-        "mjeseci": 9,
+        "mjeseci": 10,
         "razdoblje": "mjesecno",
         "za": "studenti"
       },
@@ -757,11 +757,11 @@
         "eur": 300.0,
         "mjeseci": null,
         "razdoblje": "mjesecno",
-        "za": "učenici zdravstvenih zanimanja"
+        "za": "učenici medicinska sestra/tehničar"
       }
     ],
     "izvor_naziv": "Info centar za mlade Osijek — natječaji",
-    "napomena": "Za učenike zdravstvenih zanimanja osigurano je 30 stipendija. Učenici dobivaju stipendiju od 1. rujna 2026. do 30. lipnja 2027., studenti od 1. listopada 2026. do 31. srpnja 2027.",
+    "napomena": "Učenici srednjih škola primaju stipendiju od 1. rujna 2026. do 30. lipnja 2027., studenti od 1. listopada 2026. do 31. srpnja 2027. Za medicinske sestre/tehničare osigurano je 30 stipendija.",
     "naslov": "Stipendije učenicima i studentima",
     "podrucje": "Osijek",
     "potvrda": "",
@@ -773,7 +773,7 @@
     "slug": "osijek-stipendije-ucenicima-studentima-2026",
     "upute_za_prijavu": "",
     "url": "https://icm-osijek.info/natjecaji",
-    "uvjeti": "Stipendije su namijenjene učenicima i studentima u Osječko-baranjskoj županiji, uključujući učenike koji se obrazuju za zanimanja medicinska sestra opće njege/medicinski tehničar opće njege.",
+    "uvjeti": "Stipendije se dodjeljuju učenicima srednjih škola i studentima u Osječko-baranjskoj županiji za školsku/akademsku godinu 2026./2027. Od 2026./2027. godine dodjeljuju se i stipendije za učenike koji se obrazuju za zanimanje medicinska sestra opće njege/medicinski tehničar opće njege.",
     "zadnji_put": "2026-10-12",
     "zasto_rucno": "",
     "zupanija": "Osječko-baranjska županija"
@@ -962,6 +962,36 @@
     "zadnji_put": "2026-10-12",
     "zasto_rucno": "Server izvora ne dopušta automatsko čitanje rubrike natječaja.",
     "zupanija": "Istarska županija"
+  },
+  "sinj-studentske-stipendije-grada-sinja-2026": {
+    "iznos": "150 eura mjesečno",
+    "iznos_je_fond": false,
+    "iznosi": [
+      {
+        "do": false,
+        "eur": 150.0,
+        "mjeseci": 10,
+        "razdoblje": "mjesecno",
+        "za": "studenti"
+      }
+    ],
+    "izvor_naziv": "Grad Sinj — novosti i natječaji",
+    "napomena": "Stipendije se dodjeljuju za deset mjeseci u akademskoj godini 2026./2027. Studenti koji su ponovno upisali prvu godinu ili su ponavljali godinu nemaju pravo.",
+    "naslov": "Studentske stipendije Grada Sinja",
+    "podrucje": "Sinj",
+    "potvrda": "",
+    "poveznica": "https://www.sinj.hr/otvoren-natjecaj-za-studentske-stipendije-od-150-eura-mjesecno/",
+    "prvi_put": "2026-10-12",
+    "rok_iso": "2026-11-06",
+    "rok_tekst": "6. studenoga 2026. godine",
+    "rucni": false,
+    "slug": "sinj-studentske-stipendije-grada-sinja-2026",
+    "upute_za_prijavu": "Preuzmi obrazac sa https://www.sinj.hr/stipendije | Dostavi potvrdu o redovitom upisu, potvrdu o prebivalištu i izjavu o nekoristenju druge stipendije | Podnesi prijavu osobno, e-poštom na info@sinj.hr ili poštom na Grad Sinj, Dragašev prolaz 24, 21230 Sinj | Za prve godine priloži presliku svjedodžbi svih razreda srednje škole",
+    "url": "https://www.sinj.hr/",
+    "uvjeti": "Redoviti studenti, državljani Republike Hrvatske, s prebivalištem na području Grada Sinja najmanje četiri godine, koji ne koriste drugu stipendiju. Studenti prve godine trebaju prosjek ocjena 4,00 iz srednje škole.",
+    "zadnji_put": "2026-10-12",
+    "zasto_rucno": "",
+    "zupanija": "Splitsko-dalmatinska županija"
   },
   "split-potpora-ucenike-srednjih-skola-2026": {
     "iznos": "",
@@ -1475,6 +1505,73 @@
     "url": "https://www.morh.hr/dodjela-stipendija-vojnim-stipendistima-studentima-iz-podrucja-informacijsko-komunikacijskih-tehnologija/",
     "uvjeti": "Redoviti studenti sveučilišnih ili stručnih studija u Hrvatskoj iz područja elektrotehnika, računarstva, informacijsko-komunikacijskih znanosti i srodnih IT studija. Moraju biti hrvatski državljani, imati opći uspjeh najmanje 3.00, neprekidno prebivalište u Hrvatskoj najmanje godinu dana, i zadovoljiti zdravstvene i tjelesne preglede.",
     "zadnji_put": "2026-10-11",
+    "zasto_rucno": "",
+    "zupanija": ""
+  },
+  "stipendije-zavrsar-d-st-2026": {
+    "iznos": "od 400 do čak 750 EUR",
+    "iznos_je_fond": false,
+    "iznosi": [
+      {
+        "do": false,
+        "eur": 400.0,
+        "mjeseci": null,
+        "razdoblje": "mjesecno",
+        "za": "studenti"
+      },
+      {
+        "do": true,
+        "eur": 750.0,
+        "mjeseci": null,
+        "razdoblje": "mjesecno",
+        "za": "studenti"
+      }
+    ],
+    "izvor_naziv": "FER Karijere — stipendije poslodavaca",
+    "napomena": "Kandidati mogu biti pozvani na selekcijski postupak (psihologijsko testiranje i razgovor). Mogućnost izrade diplomskog rada na temu povezanu s transformatorskom industrijom i zasnivanja pripravničkog radnog odnosa nakon studija.",
+    "naslov": "Stipendije Završar D&ST",
+    "podrucje": "Cijela Hrvatska",
+    "potvrda": "",
+    "poveznica": "https://www.fer.unizg.hr/karijere/stipendije?@=33rxj#news_93995",
+    "prvi_put": "2026-10-12",
+    "rok_iso": "2026-10-18",
+    "rok_tekst": "do 18.10.2026.",
+    "rucni": false,
+    "slug": "stipendije-zavrsar-d-st-2026",
+    "upute_za_prijavu": "Prikupi životopis i motivacijsko pismo (opcionalno) | Priloži potvrdu o redovnom upisu za akademsku godinu 2026./2027. | Priloži ovjereni prijepis ocjena | Priloži izjavu da nisi korisnik druge obvezujuće stipendije | Priloži dokaze o posebnim postignućima ako ih imaš | Pošalji sve do 18.10.2026.",
+    "url": "https://www.fer.unizg.hr/karijere/stipendije?@=33rxj#news_93995",
+    "uvjeti": "Redovni student upisан na 3. godinu preddiplomskog ili 1./2. godinu diplomskog studija na FER-u, studijski program Elektrotehnika i informacijska tehnologija (smjerovi Elektroenergetika ili Elektrostrojarstvo i automatizacija). Minimalni prosjek ocjena 3,0 i poznavanje engleskog jezika.",
+    "zadnji_put": "2026-10-12",
+    "zasto_rucno": "",
+    "zupanija": ""
+  },
+  "studentske-stipendije-hrvatske-lutrije-2026": {
+    "iznos": "500,00 € neto",
+    "iznos_je_fond": false,
+    "iznosi": [
+      {
+        "do": false,
+        "eur": 500.0,
+        "mjeseci": null,
+        "razdoblje": "mjesecno",
+        "za": "studenti"
+      }
+    ],
+    "izvor_naziv": "FER Karijere — stipendije poslodavaca",
+    "napomena": "Stipendija se dodjeljuje do 5 studenata. Stipendisti se obvezuju na zapošljavanje u Hrvatskoj Lutriji u trajanju jednakom vremenu primanja stipendije. Nakon diplomiranja stipendista čeka posao kod Hrvatske Lutrije.",
+    "naslov": "Studentske stipendije Hrvatske Lutrije",
+    "podrucje": "Cijela Hrvatska",
+    "potvrda": "",
+    "poveznica": "https://www.fer.unizg.hr/karijere/stipendije?@=33sbn#news_93995",
+    "prvi_put": "2026-10-12",
+    "rok_iso": "2026-11-05",
+    "rok_tekst": "05.11.2026.",
+    "rucni": false,
+    "slug": "studentske-stipendije-hrvatske-lutrije-2026",
+    "upute_za_prijavu": "Pripremite motivacijsko pismo i životopis | Pribavite potvrdu o redovitom upisu za akademsku godinu 2026./2027. | Napravite izjavu da niste primatelj niti jedne druge obvezujuće stipendije | Pošaljite dokumentaciju na stipendije@lutrija.hr do 05.11.2026.",
+    "url": "https://www.fer.unizg.hr/karijere/stipendije?@=33sbn#news_93995",
+    "uvjeti": "Studenti 3., 4. ili 5. godine sljedećih fakulteta: Fakulteta organizacije i informatike u Varaždinu, Prirodoslovno-matematičkog fakulteta u Zagrebu, Fakulteta elektrotehnike i računarstva u Zagrebu, Algebre, Fakulteta prometnih znanosti u Zagrebu, Tehničkog Veleučilišta Zagreb, Veleučilišta u Karlovcu, Veleučilišta Velika Gorica, RIT Croatia, VERN.",
+    "zadnji_put": "2026-10-12",
     "zasto_rucno": "",
     "zupanija": ""
   },
