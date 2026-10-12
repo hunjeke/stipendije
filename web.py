@@ -644,6 +644,25 @@ def _ista_adresa(a, b):
     return bool((ua and ua in _adrese(b)) or (ub and ub in _adrese(a)))
 
 
+
+def _bolji(novi, stari):
+    """Koji od dva zapisa o istom natjecaju zadrzati.
+
+    Prvo bogatstvo zapisa. Kod izjednacenja prednost ima rucni upis: on
+    postoji zato sto je netko otvorio natjecaj i prepisao ga, a procitani
+    zna promasiti — kod stipendija Ministarstva obrane model je iz recenice
+    "od 300,00 do 700,00 eura" izvukao samo donju brojku, pa je kartica
+    podcjenjivala stipendiju za 400 eura.
+
+    Ako je procitani zapis stvarno bogatiji, on pobjeduje i dalje. Grad Krk
+    je takav slucaj — procitani je donio i upute za prijavu kojih u rucnom
+    upisu nije bilo."""
+    a, b = _popunjenost(novi), _popunjenost(stari)
+    if a != b:
+        return a > b
+    return bool(novi.get("_rucni")) and not stari.get("_rucni")
+
+
 def spoji_duplikate(otvorene):
     """Isti natjecaj zna doci preko dva izvora (Chevening i s MZO-a i s
     AMPEU-a) pa se na stranici pojavi dvaput.
@@ -674,7 +693,7 @@ def spoji_duplikate(otvorene):
             # Ista adresa znaci isti natjecaj, bez obzira kako se zove.
             # Ovo ide prije svih ostalih provjera jer je jedino sigurno.
             if _ista_adresa(r, r2):
-                if _popunjenost(r) > _popunjenost(r2):
+                if _bolji(r, r2):
                     ishod[i] = par
                 break
 
