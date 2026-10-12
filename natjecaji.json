@@ -39,7 +39,7 @@
     "upute_za_prijavu": "Prijava se podnosi online putem platforme CEEPUS-a na www.ceepus.info | Slijedi upute na CEEPUS platformi | Informacije o visini stipendija dostupne su na platformi CEEPUS-a za svaku zemlju",
     "url": "https://www.ampeu.hr/natjecaji",
     "uvjeti": "Stipendije su namijenjene studentima, doktorandima i nastavnom osoblju hrvatskih visokih učilišta čija matična visoka učilišta nisu dio iste partnerske CEEPUS mreže sa stranom установom.",
-    "zadnji_put": "2026-10-11",
+    "zadnji_put": "2026-10-12",
     "zasto_rucno": "",
     "zupanija": ""
   },
@@ -69,9 +69,83 @@
     "upute_za_prijavu": "",
     "url": "https://daruvar.hr/javni-natjecaj-za-dodjelu-stipendija-studentima-s-podrucja-grada-daruvara-u-akademskoj-godini-2026-2027/",
     "uvjeti": "Redoviti studenti s područja Grada Daruvara. Dodjeljuje se pet stipendija.",
-    "zadnji_put": "2026-10-11",
+    "zadnji_put": "2026-10-12",
     "zasto_rucno": "Sustav je prepoznao natječaj, ali mu nije pročitao rok.",
     "zupanija": "Bjelovarsko-bilogorska županija"
+  },
+  "drzavne-stipendije-studente-pripadnike-romske-nacionalne-manjine-2026": {
+    "iznos": "360,00 eura mjesečno za studente koji upisuju višu godinu; 292,00 eura mjesečno uz zaostajanje ili ponavljanje godine — deset rata, listopad 2026. do srpanj 2027.",
+    "iznos_je_fond": false,
+    "iznosi": [
+      {
+        "do": false,
+        "eur": 360.0,
+        "mjeseci": 10,
+        "razdoblje": "mjesecno",
+        "za": "studenti koji upisuju višu godinu"
+      },
+      {
+        "do": false,
+        "eur": 292.0,
+        "mjeseci": 10,
+        "razdoblje": "mjesecno",
+        "za": "studenti sa zaostajanjem ili ponavljanjem"
+      }
+    ],
+    "izvor_naziv": "MZO — državne stipendije za studente pripadnike romske nacionalne manjine",
+    "napomena": "",
+    "naslov": "Državne stipendije za studente pripadnike romske nacionalne manjine",
+    "podrucje": "Cijela Hrvatska",
+    "potvrda": "https://mzom.gov.hr/istaknute-teme/natjecaji-196/8068",
+    "poveznica": "",
+    "prvi_put": "2026-10-12",
+    "rok_iso": "2026-10-31",
+    "rok_tekst": "31. listopada 2026.",
+    "rucni": true,
+    "slug": "drzavne-stipendije-studente-pripadnike-romske-nacionalne-manjine-2026",
+    "upute_za_prijavu": "Obrazac se preuzima s mzom.gov.hr, ovjerava ga visoko učilište, i šalje se poštom s dokumentacijom na: Ministarstvo znanosti, obrazovanja i mladih, Uprava za nacionalne manjine, Donje Svetice 38, 10000 Zagreb. Vrijedi datum poštanskog žiga. Prijave teku od 1. do 31. listopada 2026.",
+    "url": "https://mzom.gov.hr/istaknute-teme/natjecaji-196/8068",
+    "uvjeti": "Studenti pripadnici romske nacionalne manjine na sveučilišnim i stručnim studijima u Hrvatskoj. Potreban je dokaz o pripadnosti (rodni list ili ispis iz popisa birača), najmanje 30 ECTS bodova u prethodnoj akademskoj godini (ne vrijedi za prvu godinu) i da student ne prima drugu stipendiju financiranu iz javnih izvora.",
+    "zadnji_put": "2026-10-12",
+    "zasto_rucno": "Izvor je rubrika s više natječaja, a automatsko čitanje iz nje izvuče samo jedan.",
+    "zupanija": ""
+  },
+  "drzavne-stipendije-studente-roma-2026": {
+    "iznos": "Iznos państne stipendije za studente koji redovito upisuju višu godinu studija (bez zaostajanja/ponavljanja) je 360,00 EUR. Iznos državne stipendije za studente koji ne upisuju višu godinu, odnosno imaju zaostajanje/ponavljanje godine studija je 292,00 EUR.",
+    "iznos_je_fond": false,
+    "iznosi": [
+      {
+        "do": false,
+        "eur": 360.0,
+        "mjeseci": 10,
+        "razdoblje": "mjesecno",
+        "za": "studenti koji redovito upisuju višu godinu"
+      },
+      {
+        "do": false,
+        "eur": 292.0,
+        "mjeseci": 10,
+        "razdoblje": "mjesecno",
+        "za": "studenti s zaostajanjem/ponavljanjem"
+      }
+    ],
+    "izvor_naziv": "MZO — svi natječaji",
+    "napomena": "Stipendije se isplaćuju u 10 mjesečnih rata od listopada 2026. do srpnja 2027. Iznos ovisi je li student redovito upisao višu godinu ili ima zaostajanje/ponavljanje. Datum podnošenja prijave je datum poštanskog žiga.",
+    "naslov": "Državne stipendije za studente Roma",
+    "podrucje": "Cijela Hrvatska",
+    "potvrda": "",
+    "poveznica": "https://mzom.gov.hr/istaknute-teme/natjecaji-196/8068",
+    "prvi_put": "2026-10-12",
+    "rok_iso": "2026-10-31",
+    "rok_tekst": "od 1. listopada do 31. listopada 2026. godine",
+    "rucni": false,
+    "slug": "drzavne-stipendije-studente-roma-2026",
+    "upute_za_prijavu": "Preuzmi obrazac s https://mzom.gov.hr/ | Popuni, ispiši i potpiši obrazac | Odnesu ga visokom učilištu na potvrdu i pečat | Priloži svu obveznu dokumentaciju (domovnica, osobna iskaznica, dokaz pripadnosti Romima, e-Zapis, itd.) | Pošalji kompletan paket poštom na Ministarstvo s naznakom natječaja do 31. listopada 2026.",
+    "url": "https://mzom.gov.hr/istaknute-teme/natjecaji-196/8068",
+    "uvjeti": "Stipendiju mogu dobiti studenti pripadnici romske nacionalne manjine upisani na sveučilišne i stručne studije na visokim učilištima u Republici Hrvatskoj, koji su hrvatski državljani ili državljani EU/strani državljani s odobrenim statusom, stekli najmanje 30 ECTS bodova u prethodnoj akademskoj godini te ne primaju drugu stipendiju financiranu iz javnih izvora.",
+    "zadnji_put": "2026-10-12",
+    "zasto_rucno": "",
+    "zupanija": ""
   },
   "durdevac-studentske-stipendije-grada-durdevca-2026": {
     "iznos": "15,00 eura po ECTS bodu, najviše 900,00 eura godišnje; za Sveučilište Sjever u Đurđevcu 20,00 eura po ECTS bodu, najviše 1.200,00 eura godišnje",
@@ -106,7 +180,7 @@
     "upute_za_prijavu": "Obrazac, potvrda o upisu (za starije godine i prijepis ocjena) i kopija osobne — poštom na Stjepana Radića 1, 48350 Đurđevac, s napomenom „Prijava na natječaj za studentske stipendije“, ili e-poštom na grad@djurdjevac.hr.",
     "url": "https://djurdjevac.hr/javna-nabava-i-natjecaji/natjecaji/natjecaj-za-dodjelu-studentskih-stipendija-u-akademskoj-godini-2026-2027/",
     "uvjeti": "Redoviti studenti prijediplomskog ili diplomskog studija u Hrvatskoj s prebivalištem u Gradu Đurđevcu, te redoviti i izvanredni studenti prijediplomskog stručnog studija računarstva i informatike u Đurđevcu. Samo studenti — učenici se ne prijavljuju.",
-    "zadnji_put": "2026-10-11",
+    "zadnji_put": "2026-10-12",
     "zasto_rucno": "Praćena rubrika izvora pokazuje natječaj iz 2021., a aktualni je objavljen na drugoj adresi.",
     "zupanija": "Koprivničko-križevačka županija"
   },
@@ -136,9 +210,69 @@
     "upute_za_prijavu": "",
     "url": "https://gracisce.hr/natjecaj-za-stipendiranje-ucenika-i-studenata-u-skolskoj-studentskoj-2026-2027-godini/",
     "uvjeti": "Redoviti studenti s prebivalištem u Općini Gračišće koji se obrazuju izvan općine, do 26 godina. Dodjeljuju se dvije studentske stipendije. Učenički dio istog natječaja zatvoren je 30. rujna 2026.",
-    "zadnji_put": "2026-10-11",
+    "zadnji_put": "2026-10-12",
     "zasto_rucno": "Aktualni natječaj nije na stranici s natječajima nego među novostima, pa ga sustav ne nalazi.",
     "zupanija": "Istarska županija"
+  },
+  "grad-zagreb-stipendija-grada-zagreba-studente-prve-godine-pripadnike-2026": {
+    "iznos": "520,00 eura neto mjesečno",
+    "iznos_je_fond": false,
+    "iznosi": [
+      {
+        "do": false,
+        "eur": 520.0,
+        "mjeseci": null,
+        "razdoblje": "mjesecno",
+        "za": "studenti prve godine"
+      }
+    ],
+    "izvor_naziv": "Grad Zagreb — stipendije za studente prve godine pripadnike romske nacionalne manjine",
+    "napomena": "",
+    "naslov": "Stipendija Grada Zagreba za studente prve godine pripadnike romske nacionalne manjine",
+    "podrucje": "Grad Zagreb",
+    "potvrda": "https://zagreb.hr/natjecaj-za-dodjelu-stipendije-grada-zagreba-za-pr/224331",
+    "poveznica": "",
+    "prvi_put": "2026-10-12",
+    "rok_iso": "2026-10-30",
+    "rok_tekst": "30. listopada 2026. do 13:00",
+    "rucni": true,
+    "slug": "grad-zagreb-stipendija-grada-zagreba-studente-prve-godine-pripadnike-2026",
+    "upute_za_prijavu": "Prijava isključivo preko aplikacije eStipendije na https://e-pisarnica.zagreb.hr/ePisarnica/. Prijave od 1. listopada 13:00 do 30. listopada 2026. 13:00. Informacije: stipendije@zagreb.hr, 01/616-6056.",
+    "url": "https://zagreb.hr/natjecaj-za-dodjelu-stipendije-grada-zagreba-za-pr/224331",
+    "uvjeti": "Dodjeljuje se 5 stipendija. Studenti pripadnici romske nacionalne manjine koji su prvi put upisali prvu godinu studija u Zagrebu ili na sastavnici Sveučilišta u Zagrebu.",
+    "zadnji_put": "2026-10-12",
+    "zasto_rucno": "Izvor vraća samo jedan od pet zagrebačkih natječaja.",
+    "zupanija": ""
+  },
+  "grad-zagreb-stipendija-grada-zagreba-ucenike-pripadnike-romske-naciona-2026": {
+    "iznos": "380,00 eura neto mjesečno, najduže deset mjeseci",
+    "iznos_je_fond": false,
+    "iznosi": [
+      {
+        "do": false,
+        "eur": 380.0,
+        "mjeseci": 10,
+        "razdoblje": "mjesecno",
+        "za": "učenici srednjih škola"
+      }
+    ],
+    "izvor_naziv": "Grad Zagreb — stipendije za učenike pripadnike romske nacionalne manjine",
+    "napomena": "",
+    "naslov": "Stipendija Grada Zagreba za učenike pripadnike romske nacionalne manjine",
+    "podrucje": "Grad Zagreb",
+    "potvrda": "https://zagreb.hr/natjecaj-za-dodjelu-stipendije-grada-zagreba-za-pr/224336",
+    "poveznica": "",
+    "prvi_put": "2026-10-12",
+    "rok_iso": "2026-10-29",
+    "rok_tekst": "29. listopada 2026. do 13:00",
+    "rucni": true,
+    "slug": "grad-zagreb-stipendija-grada-zagreba-ucenike-pripadnike-romske-naciona-2026",
+    "upute_za_prijavu": "Prijava isključivo preko aplikacije eStipendije na https://e-pisarnica.zagreb.hr/ePisarnica/. Prijave od 30. rujna 13:00 do 29. listopada 2026. 13:00. Informacije: stipendije@zagreb.hr, 01/616-6056.",
+    "url": "https://zagreb.hr/natjecaj-za-dodjelu-stipendije-grada-zagreba-za-pr/224336",
+    "uvjeti": "Dodjeljuje se 100 stipendija. Redoviti učenici srednjih škola pripadnici romske nacionalne manjine, državljani RH, upisani u zagrebačku srednju školu, s prebivalištem u Zagrebu.",
+    "zadnji_put": "2026-10-12",
+    "zasto_rucno": "Izvor vraća samo jedan od pet zagrebačkih natječaja.",
+    "zupanija": ""
   },
   "grad-zagreb-stipendije-grada-zagreba-2026": {
     "iznos": "380,00 eura mjesečno za učenike, 520,00 eura mjesečno za studente, 10 mjeseci",
@@ -173,7 +307,7 @@
     "upute_za_prijavu": "",
     "url": "https://zagreb.hr/stipendije-grada-zagreba-2026-2027/224294",
     "uvjeti": "Pet vrsta stipendija: za izvrsnost, socioekonomski status, romsku nacionalnu manjinu, osobe s invaliditetom i deficitarna zanimanja. Ukupno oko 1.350 stipendija. Prijava je isključivo elektronička, kroz aplikaciju eStipendije na ePisarnici Grada Zagreba. Natječaj za studente viših godina raspisuje se do kraja listopada.",
-    "zadnji_put": "2026-10-11",
+    "zadnji_put": "2026-10-12",
     "zasto_rucno": "Izvor je pokazivao samo opća pravila bez rokova; natječaj s rokovima je na zasebnoj stranici koja se mijenja svake godine.",
     "zupanija": ""
   },
@@ -251,6 +385,43 @@
     "zasto_rucno": "",
     "zupanija": "Primorsko-goranska županija"
   },
+  "kastav-ucenicke-studentske-stipendije-grada-kastva-2026": {
+    "iznos": "110 eura za učenike, a studentske 150 eura mjesečno",
+    "iznos_je_fond": false,
+    "iznosi": [
+      {
+        "do": false,
+        "eur": 110.0,
+        "mjeseci": null,
+        "razdoblje": "mjesecno",
+        "za": "učenici"
+      },
+      {
+        "do": false,
+        "eur": 150.0,
+        "mjeseci": null,
+        "razdoblje": "mjesecno",
+        "za": "studenti"
+      }
+    ],
+    "izvor_naziv": "Grad Kastav — stipendije",
+    "napomena": "Dobitnici stipendija trebaju potpisati ugovor o stipendiranju prije isplate sredstava.",
+    "naslov": "Učeničke i studentske stipendije Grada Kastva",
+    "podrucje": "Kastav",
+    "potvrda": "",
+    "poveznica": "https://kastav.hr/natjecaj-za-dodjelu-ucenickih-i-studentskih-stipendija-grada-kastva-3/",
+    "prvi_put": "2026-10-12",
+    "rok_iso": "2026-10-30",
+    "rok_tekst": "30. listopada 2026. godine za učenike srednjih škola; 20. studenog 2026. godine za studente",
+    "rucni": false,
+    "slug": "kastav-ucenicke-studentske-stipendije-grada-kastva-2026",
+    "upute_za_prijavu": "Ispuniti digitalni obrazac na https://kastav.otvorenigrad.hr/ | Dostaviti osobno na adresu GRAD KASTAV, 51215 Kastav, Trg sv. Lucije 1 | Poslati putem elektronske pošte na info@kastav.hr | Potpisati ugovor o stipendiranju nakon odabira | Primiti isplatu od početka školske/akademske godine",
+    "url": "https://kastav.hr/",
+    "uvjeti": "Stipendije se dodjeljuju učenicima i studentima prema kriterijima za stipendiranje temeljem imovinskog statusa, izvrsnih učenika/studenata i sportaša učenika/studenata.",
+    "zadnji_put": "2026-10-12",
+    "zasto_rucno": "",
+    "zupanija": "Primorsko-goranska županija"
+  },
   "kostrena-stipendije-ucenicima-studentima-2026": {
     "iznos": "",
     "iznos_je_fond": false,
@@ -291,7 +462,7 @@
     "upute_za_prijavu": "",
     "url": "https://kostrena.hr/",
     "uvjeti": "",
-    "zadnji_put": "2026-10-11",
+    "zadnji_put": "2026-10-12",
     "zasto_rucno": "",
     "zupanija": "Primorsko-goranska županija"
   },
@@ -313,7 +484,7 @@
     "upute_za_prijavu": "",
     "url": "https://www.kraljevica.hr/javni-pozivi/",
     "uvjeti": "Natječaj je otvoren za učenike koji su postigli uspjeh u školskoj godini 2025./2026. i za učenike i studente za školsku-akademsku godinu 2026./2027.",
-    "zadnji_put": "2026-10-11",
+    "zadnji_put": "2026-10-12",
     "zasto_rucno": "",
     "zupanija": "Primorsko-goranska županija"
   },
@@ -380,7 +551,7 @@
     "upute_za_prijavu": "",
     "url": "https://krizevci.hr/objavljen-javni-natjecaj-za-dodjelu-stipendija-studentima-deficitarnih-zanimanja-u-ak-god-2026-2027/",
     "uvjeti": "Studenti s područja Grada Križevaca koji se obrazuju za deficitarna zanimanja.",
-    "zadnji_put": "2026-10-11",
+    "zadnji_put": "2026-10-12",
     "zasto_rucno": "Sustav na izvoru nije prepoznao natječaj.",
     "zupanija": "Koprivničko-križevačka županija"
   },
@@ -410,7 +581,7 @@
     "upute_za_prijavu": "",
     "url": "https://www.grad-krk.hr/jedinstveni-upravni-odjel/odsjek-za-drustvene-djelatnosti/stipendisti-grada-krka/natjecaj-za-dodjelu-stipendija-ucenicima-za-skolsku-2026/2027-godinu",
     "uvjeti": "Redoviti učenici 2., 3. ili 4. razreda srednje škole.",
-    "zadnji_put": "2026-10-11",
+    "zadnji_put": "2026-10-12",
     "zasto_rucno": "Natječaji su na drugoj stranici od one koju izvor gleda.",
     "zupanija": "Primorsko-goranska županija"
   },
@@ -440,7 +611,7 @@
     "upute_za_prijavu": "Pristupiti aplikaciji https://som.natjecaj.eu | Ispuniti prijavu i dostaviti: presliku osobne iskaznice, potvrdu o redovnom upisu, preslike svjedodžbi te podatke o IBAN-u | Svi pristupnici biti će obaviješteni u roku od 30 dana od zaključenja natječaja",
     "url": "https://www.grad-krk.hr/desnibanner/natjecaji",
     "uvjeti": "Stipendije se dodjeljuju na temelju školskog uspjeha te za deficitarna zanimanja.",
-    "zadnji_put": "2026-10-11",
+    "zadnji_put": "2026-10-12",
     "zasto_rucno": "",
     "zupanija": "Primorsko-goranska županija"
   },
@@ -522,7 +693,7 @@
     "upute_za_prijavu": "",
     "url": "https://opatija.hr/80032-2/",
     "uvjeti": "Studenti integriranog sveučilišnog studija prava. Dodjeljuje se jedna stipendija.",
-    "zadnji_put": "2026-10-11",
+    "zadnji_put": "2026-10-12",
     "zasto_rucno": "Sustav na izvoru nije prepoznao natječaj.",
     "zupanija": "Primorsko-goranska županija"
   },
@@ -559,9 +730,53 @@
     "upute_za_prijavu": "",
     "url": "https://opatija.hr/natjecaj-za-dodjelu-stipendija-ucenicima-i-studentima-za-skolsku-akademsku-godinu-2026-2027/",
     "uvjeti": "Učenici 2., 3. i 4. razreda srednje škole, a za deficitarna zanimanja i prvi razred. Studenti svih razina. Kategorije: školski uspjeh, imovinski status, deficitarna zanimanja. Za poslijediplomski doktorski studij postoji jednokratna potpora do 1.500 eura.",
-    "zadnji_put": "2026-10-11",
+    "zadnji_put": "2026-10-12",
     "zasto_rucno": "Sustav na izvoru nije prepoznao natječaj.",
     "zupanija": "Primorsko-goranska županija"
+  },
+  "osijek-stipendije-ucenicima-studentima-2026": {
+    "iznos": "100,00 eura mjesečno za učenike; 200,00 eura mjesečno za studente; 300,00 eura mjesečno za učenike medicinske njege",
+    "iznos_je_fond": false,
+    "iznosi": [
+      {
+        "do": false,
+        "eur": 100.0,
+        "mjeseci": 10,
+        "razdoblje": "mjesecno",
+        "za": "učenici"
+      },
+      {
+        "do": false,
+        "eur": 200.0,
+        "mjeseci": 9,
+        "razdoblje": "mjesecno",
+        "za": "studenti"
+      },
+      {
+        "do": false,
+        "eur": 300.0,
+        "mjeseci": null,
+        "razdoblje": "mjesecno",
+        "za": "učenici medicinske njege"
+      }
+    ],
+    "izvor_naziv": "Info centar za mlade Osijek — natječaji",
+    "napomena": "Stipendije za medicinske sestre/tehničare су nove u 2026./2027. akademskoj godini; predviđeno je 30 stipendija. Učenici primaju stipendije od 1. rujna 2026. do 30. lipnja 2027., studenti od 1. listopada 2026. do 31. srpnja 2027.",
+    "naslov": "Stipendije učenicima i studentima",
+    "podrucje": "Osijek",
+    "potvrda": "",
+    "poveznica": "https://icm-osijek.info/natjecaji/objavljen-natjecaj-za-dodjelu-stipendija-ucenicima-i-studentima-u-osjecko-baranjskoj-zupaniji",
+    "prvi_put": "2026-10-12",
+    "rok_iso": "2026-10-21",
+    "rok_tekst": "do 21. listopada 2026. godine",
+    "rucni": false,
+    "slug": "osijek-stipendije-ucenicima-studentima-2026",
+    "upute_za_prijavu": "",
+    "url": "https://icm-osijek.info/natjecaji",
+    "uvjeti": "Stipendije su namijenjene učenicima srednjih škola, studentima, te učenicima koji se obrazuju za zanimanja medicinska sestra opće njege/medicinski tehničar opće njege u Osječko-baranjskoj županiji.",
+    "zadnji_put": "2026-10-12",
+    "zasto_rucno": "",
+    "zupanija": "Osječko-baranjska županija"
   },
   "osjecko-baranjska-zupanija-stipendije-baranjske-zupanije-ucenike-stude-2026": {
     "iznos": "",
@@ -581,7 +796,7 @@
     "upute_za_prijavu": "",
     "url": "https://www.obz.hr/index.php/oglasnik/natjecaji-i-javni-pozivi/8498-natjecaj-za-dodjelu-stipendija-ucenicima-i-studentima-za-2026-2027-skolsku-odnosno-akademsku-godinu",
     "uvjeti": "Učenici srednjih škola i studenti prve, druge i treće godine s područja Osječko-baranjske županije. Kategorije: daroviti, STEM, deficitarna zanimanja, socio-ekonomski status te medicinske sestre i tehničari. Iznosi su objavljeni u tekstu natječaja.",
-    "zadnji_put": "2026-10-11",
+    "zadnji_put": "2026-10-12",
     "zasto_rucno": "Sustav je prepoznao natječaj preko sveučilišne stranice, ali mu nije pročitao rok.",
     "zupanija": "Osječko-baranjska županija"
   },
@@ -611,7 +826,7 @@
     "upute_za_prijavu": "",
     "url": "https://www.pazin.hr/objavljen-natjecaj-za-dodjelu-stipendija-od-skolske-studijske-2026-2027-godine/",
     "uvjeti": "Studenti s područja Grada Pazina. Dodjeljuje se do 17 studentskih stipendija, prema A, B i C listi. Učenički dio istog natječaja zatvoren je 30. rujna 2026.",
-    "zadnji_put": "2026-10-11",
+    "zadnji_put": "2026-10-12",
     "zasto_rucno": "Stranica Grada Pazina odbija automatsko čitanje (HTTP 403), pa se natječaj ne može dohvatiti sam.",
     "zupanija": "Istarska županija"
   },
@@ -641,7 +856,7 @@
     "upute_za_prijavu": "Popuniti propisani obrazac | Podnijeti molu osobno u pisarnici Grada Poreča-Parenzo, Obala m. Tita 4 | Obrazac i informacije dostupni na internetskim stranicama Grada",
     "url": "https://www.porec.hr/prva.aspx?stranica=234",
     "uvjeti": "Natječaj je za učenike koji se školuju za deficitarna zanimanja (medicinska sestra/medicinski tehničar), kao i učenike kojima je potrebna dodatna socijalna podrška i učenike s invaliditetom.",
-    "zadnji_put": "2026-10-11",
+    "zadnji_put": "2026-10-12",
     "zasto_rucno": "",
     "zupanija": "Istarska županija"
   },
@@ -665,7 +880,7 @@
       }
     ],
     "izvor_naziv": "ROCKWOOL — stipendije „Je li plava boja vaše latice?”",
-    "napomena": "Stipendirani učenici i studenti mogu imati plaćenu stručnu praksu do 2 mjeseca u tvrtki ROCKWOOL s mogućnošću zapošljavanja po završetku školovanja. Najveća veličina e-maila je 10 MB. Primjene nakon roka ili poštom se neće razmatrati.",
+    "napomena": "Stipendisti imaju mogućnost plaćene stručne prakse do 2 mjeseca s topkim obrokom i plaćenim prijevozom. Prednost imaju učenici i studenti završnih razreda/semestara koji su državljani RH s područja Istre.",
     "naslov": "ROCKWOOL stipendije za učenike i studente",
     "podrucje": "Cijela Hrvatska",
     "potvrda": "",
@@ -675,10 +890,10 @@
     "rok_tekst": "3. studenog 2026.",
     "rucni": false,
     "slug": "rockwool-stipendije-ucenike-studente-2026",
-    "upute_za_prijavu": "Pročitajte najčešće postavljena pitanja | Pripremite motivacijsko pismo, životopis s fotografijom, potvrdu o redovnom upisu, fotokopije isprava i formular za prijavu | Prikupite sve dokumente u elektroničkom obliku | Pošaljite sve dokumente na stipendije@rockwool.com | U subject stavite svoje IME i PREZIME, te vrstu stipendije | Rok je ponoć 3.11.2026.",
+    "upute_za_prijavu": "Popuniti zamolbu/motivacijsko pismo, životopis s fotografijom, potvrdu o redovnom upisu, fotokopiju osobne iskaznice, odgovarajući obrazac za prijavu | Prikupiti sve tražene dokumente (svjedodžbe, formular o suglasnosti na obradu podataka) | Poslati sve dokumente u elektroničkom obliku na stipendije@rockwool.com | U subject staviti IME, PREZIME i vrstu stipendije | Poslati najkasnije do ponoći 3.11.2026.",
     "url": "https://www.rockwool.com/hr/o-nama/drustveno-odrzivo-poslovanje/stipendije/",
-    "uvjeti": "Učenici redovito upisani u 2., 3. ili 4. razred strukovne srednje škole tehničkog usmjerenja s prosjekom ocjena najmanje 3.0, uzornog ponašanja. Studenti redovito upisani u 2. ili višu godinu preddiplomskog studija ili viših godina diplomskog/postdiplomskog studija s 54 ECTS ili više godišnje, prosjekom 3.5 ili više, nisu u radnom odnosu.",
-    "zadnji_put": "2026-10-11",
+    "uvjeti": "Za učenike: redovito upisani u 2., 3. ili 4. razred strukovne srednje škole tehničkog usmjerenja s najmanje 3.0 prosjekom ocjena i uzornog ponašanja. Za studente: redovito upisani u 2. ili višu godinu preddiplomskog studija određenih tehničkih i društvenih fakulteta, s 54 ECTS ili više, prosjekom ocjena 3.5 ili više, nisu u radnom odnosu.",
+    "zadnji_put": "2026-10-12",
     "zasto_rucno": "",
     "zupanija": ""
   },
@@ -700,7 +915,7 @@
     "upute_za_prijavu": "Prijava preko aplikacije e-obrasci: https://rovinj.eobrasci.hr/branches/grad-rovinj/. Natječaj je otvoren od 1. do 15. listopada 2026.",
     "url": "https://www.rovinj-rovigno.hr/natjecaji/n-a-t-j-e-c-a-j-za-dodjelu-novcanih-potpora-za-studente-koji-se-obrazuju-za-deficitarna-zanimanja-od-javnog-interesa-za-grad-rovinj-rovigno-za-akademsku-godinu-2026-2027/",
     "uvjeti": "Dodjeljuju se 2 potpore. Studiji: matematika, fizika, kemija i informatika (nastavnički smjer), rani i predškolski odgoj, medicina, učiteljski studij, pedagogija, psihologija, socijalni rad. Prebivalište u Rovinju najmanje godinu dana, barem jedan roditelj/skrbnik također; do 24 godine; ne prima drugu stipendiju.",
-    "zadnji_put": "2026-10-11",
+    "zadnji_put": "2026-10-12",
     "zasto_rucno": "Server izvora ne dopušta automatsko čitanje rubrike natječaja.",
     "zupanija": "Istarska županija"
   },
@@ -722,7 +937,7 @@
     "upute_za_prijavu": "Prijava preko aplikacije e-obrasci: https://rovinj.eobrasci.hr/branches/grad-rovinj/. Natječaj je otvoren od 1. do 15. listopada 2026.",
     "url": "https://www.rovinj-rovigno.hr/natjecaji/n-a-t-j-e-c-a-j-za-dodjelu-novcanih-potpora-studentima-slabijeg-socijalnog-statusa-za-akademsku-godinu-2026-2027/",
     "uvjeti": "Dodjeljuje se 5 potpora studentima slabijeg socijalnog statusa. Boduje se prema prihodu po članu obitelji, od 60 do 100 % osnovice.",
-    "zadnji_put": "2026-10-11",
+    "zadnji_put": "2026-10-12",
     "zasto_rucno": "Server izvora ne dopušta automatsko čitanje rubrike natječaja.",
     "zupanija": "Istarska županija"
   },
@@ -744,9 +959,31 @@
     "upute_za_prijavu": "Prijava samo elektronski, preko aplikacije e-obrasci: https://rovinj.eobrasci.hr/branches/grad-rovinj/. Natječaj je otvoren od 1. do 15. listopada 2026.",
     "url": "https://www.rovinj-rovigno.hr/natjecaji/n-a-t-j-e-c-a-j-za-dodjelu-novcanih-potpora-ucenicima-srednjih-skola-i-studentima-za-nastavnu-akademsku-godinu-2026-2027/",
     "uvjeti": "Dodjeljuje se 25 potpora studentima i 3 učenicima srednjih škola. Prebivalište u Rovinju najmanje 3 godine, barem jedan roditelj/skrbnik također; školovanje izvan mjesta prebivališta; do 26 godina; prosjek 3,50 i više u srednjoj školi, odnosno 3,00 i više na studiju u prethodne dvije godine; ne prima drugu stipendiju.",
-    "zadnji_put": "2026-10-11",
+    "zadnji_put": "2026-10-12",
     "zasto_rucno": "Server izvora ne dopušta automatsko čitanje rubrike natječaja.",
     "zupanija": "Istarska županija"
+  },
+  "split-potpora-ucenike-srednjih-skola-2026": {
+    "iznos": "",
+    "iznos_je_fond": false,
+    "iznosi": [],
+    "izvor_naziv": "Grad Split — stipendiranje učenika i studenata",
+    "napomena": "Dostupni obrasci prijave za učenike i studente. Obavezna Izjava o nekorištenju druge stipendije.",
+    "naslov": "Potpora za učenike srednjih škola",
+    "podrucje": "Split",
+    "potvrda": "",
+    "poveznica": "https://split.hr/natjecaji/detalj-natjecaja/javni-poziv-za-dodjelu-potpora-za-ucenike-srednjih-skola-i-studente-s-invaliditetom-u-skolskojakademskoj-202627",
+    "prvi_put": "2026-10-12",
+    "rok_iso": "2026-10-12",
+    "rok_tekst": "od 12.10.2026.",
+    "rucni": false,
+    "slug": "split-potpora-ucenike-srednjih-skola-2026",
+    "upute_za_prijavu": "",
+    "url": "https://split.hr/natjecaji-i-oglasi",
+    "uvjeti": "Učenici srednjih škola i studenti s invaliditetom u školskoj/akademskoj 2026./27.",
+    "zadnji_put": "2026-10-12",
+    "zasto_rucno": "",
+    "zupanija": "Splitsko-dalmatinska županija"
   },
   "stipendija-studente-elektrotehnike-2026": {
     "iznos": "Redovitu mjesečnu stipendiju sa stimulativnim iznosima koji ovise o tvom uspjehu u studiju (u rasponu od 400 do čak 750 EUR)",
@@ -781,8 +1018,142 @@
     "upute_za_prijavu": "Pošalji životopis | Pošalji potvrdu o redovnom upisu | Pošalji ovjereni prijepis ocjena | Pošalji izjavu da nisi korisnik druge obvezujuće stipendije | Pošalji dokaze o postignućima i nagradama (opcionalno)",
     "url": "https://www.fer.unizg.hr/karijere/stipendije",
     "uvjeti": "Redovni student 3. godine preddiplomskog ili 1./2. godine diplomskog studija na FER-u, smjer Elektroenergetika ili Elektrostrojarstvo i automatizacija, s prosjekom ocjena minimalno 3,0 i znanjem engleskog jezika.",
-    "zadnji_put": "2026-10-11",
+    "zadnji_put": "2026-10-12",
     "zasto_rucno": "",
+    "zupanija": ""
+  },
+  "stipendije-fonda-ivana-vujnovic-odlicne-studente-2026": {
+    "iznos": "300,00 eura mjesečno",
+    "iznos_je_fond": false,
+    "iznosi": [
+      {
+        "do": false,
+        "eur": 300.0,
+        "mjeseci": null,
+        "razdoblje": "mjesecno",
+        "za": "odlični studenti"
+      }
+    ],
+    "izvor_naziv": "SPD „Privrednik“ — Fond „Ivana Vujnović“",
+    "napomena": "",
+    "naslov": "Stipendije Fonda „Ivana Vujnović“ za odlične studente",
+    "podrucje": "Cijela Hrvatska",
+    "potvrda": "https://privrednik.hr/",
+    "poveznica": "https://privrednik.hr/",
+    "prvi_put": "2026-10-12",
+    "rok_iso": "2026-10-15",
+    "rok_tekst": "15. listopada 2026.",
+    "rucni": true,
+    "slug": "stipendije-fonda-ivana-vujnovic-odlicne-studente-2026",
+    "upute_za_prijavu": "Prijava preko online obrasca uz natječaj na privrednik.hr. Otvoreno od 23. rujna do 15. listopada 2026. Informacije: ured@privrednik.hr, 01/485-44-78.",
+    "url": "https://privrednik.hr/wp-content/uploads/2026/09/2026-27.-NATJECAJ-FIV.pdf",
+    "uvjeti": "Odlični studenti. Pripadnost nacionalnoj manjini nije uvjet.",
+    "zadnji_put": "2026-10-12",
+    "zasto_rucno": "Izvor nije bio praćen — dodan nakon provjere stipendija za nacionalne manjine.",
+    "zupanija": ""
+  },
+  "stipendije-fonda-maja-prodanovic-odlicne-studente-2026": {
+    "iznos": "300,00 eura mjesečno",
+    "iznos_je_fond": false,
+    "iznosi": [
+      {
+        "do": false,
+        "eur": 300.0,
+        "mjeseci": null,
+        "razdoblje": "mjesecno",
+        "za": "odlični studenti"
+      }
+    ],
+    "izvor_naziv": "SPD „Privrednik“ — Fond „Maja Prodanović“",
+    "napomena": "",
+    "naslov": "Stipendije Fonda „Maja Prodanović“ za odlične studente",
+    "podrucje": "Cijela Hrvatska",
+    "potvrda": "https://privrednik.hr/",
+    "poveznica": "https://privrednik.hr/",
+    "prvi_put": "2026-10-12",
+    "rok_iso": "2026-10-15",
+    "rok_tekst": "15. listopada 2026.",
+    "rucni": true,
+    "slug": "stipendije-fonda-maja-prodanovic-odlicne-studente-2026",
+    "upute_za_prijavu": "Prijava preko online obrasca uz natječaj na privrednik.hr. Otvoreno od 23. rujna do 15. listopada 2026. Informacije: ured@privrednik.hr, 01/485-44-78.",
+    "url": "https://privrednik.hr/wp-content/uploads/2026/09/2026-27.-NATJECAJ-FMP.pdf",
+    "uvjeti": "Odlični studenti. Pripadnost nacionalnoj manjini nije uvjet.",
+    "zadnji_put": "2026-10-12",
+    "zasto_rucno": "Izvor nije bio praćen — dodan nakon provjere stipendija za nacionalne manjine.",
+    "zupanija": ""
+  },
+  "stipendije-fonda-vladimir-matijevic-ucenike-studente-2026": {
+    "iznos": "220,00 eura mjesečno studentima, 100,00 eura mjesečno učenicima",
+    "iznos_je_fond": false,
+    "iznosi": [
+      {
+        "do": false,
+        "eur": 220.0,
+        "mjeseci": null,
+        "razdoblje": "mjesecno",
+        "za": "studenti"
+      },
+      {
+        "do": false,
+        "eur": 100.0,
+        "mjeseci": null,
+        "razdoblje": "mjesecno",
+        "za": "učenici srednjih škola"
+      }
+    ],
+    "izvor_naziv": "SPD „Privrednik“ — Fond „Vladimir Matijević“",
+    "napomena": "",
+    "naslov": "Stipendije Fonda „Vladimir Matijević“ za učenike i studente",
+    "podrucje": "Cijela Hrvatska",
+    "potvrda": "https://privrednik.hr/",
+    "poveznica": "https://privrednik.hr/",
+    "prvi_put": "2026-10-12",
+    "rok_iso": "2026-10-15",
+    "rok_tekst": "15. listopada 2026.",
+    "rucni": true,
+    "slug": "stipendije-fonda-vladimir-matijevic-ucenike-studente-2026",
+    "upute_za_prijavu": "Prijava preko online obrasca uz natječaj na privrednik.hr. Natječaji su otvoreni od 23. rujna do 15. listopada 2026. Informacije: ured@privrednik.hr, 01/485-44-78.",
+    "url": "https://privrednik.hr/wp-content/uploads/2026/09/2026-27.-NATJECAJ-FVM.pdf",
+    "uvjeti": "Talentirani učenici i studenti iz obitelji slabijih materijalnih mogućnosti. Državljanstvo RH, školovanje u Hrvatskoj, prosjek najmanje 3,5 za učenike i prvu godinu studija odnosno 3,0 za više godine, do 25 godina. Pripadnost nacionalnoj manjini nije uvjet.",
+    "zadnji_put": "2026-10-12",
+    "zasto_rucno": "Izvor nije bio praćen — dodan nakon provjere stipendija za nacionalne manjine.",
+    "zupanija": ""
+  },
+  "stipendije-ministarstva-ucenike-srednjih-skola-pripadnike-romske-2026": {
+    "iznos": "133,00 eura mjesečno; 40,00 eura mjesečno za učenike koji upisuju isti razred — isplata rujan 2026. do lipanj 2027.",
+    "iznos_je_fond": false,
+    "iznosi": [
+      {
+        "do": false,
+        "eur": 133.0,
+        "mjeseci": 10,
+        "razdoblje": "mjesecno",
+        "za": "učenici srednjih škola"
+      },
+      {
+        "do": false,
+        "eur": 40.0,
+        "mjeseci": 10,
+        "razdoblje": "mjesecno",
+        "za": "učenici koji upisuju isti razred"
+      }
+    ],
+    "izvor_naziv": "MZO — stipendije za učenike srednjih škola pripadnike romske nacionalne manjine",
+    "napomena": "",
+    "naslov": "Stipendije Ministarstva za učenike srednjih škola pripadnike romske nacionalne manjine",
+    "podrucje": "Cijela Hrvatska",
+    "potvrda": "https://mzom.gov.hr/istaknute-teme/natjecaji-196/javni-poziv-polaznicima-srednjih-skola-pripadnicima-romske-nacionalne-manjine-za-stipendiju-ministarstva-znanosti-obrazovanja-i-mladih-za-skolsku-godinu-2026-2027/8040",
+    "poveznica": "",
+    "prvi_put": "2026-10-12",
+    "rok_iso": "2026-10-21",
+    "rok_tekst": "21. listopada 2026. do 23:59",
+    "rucni": true,
+    "slug": "stipendije-ministarstva-ucenike-srednjih-skola-pripadnike-romske-2026",
+    "upute_za_prijavu": "Prijavu šalje škola, ne učenik sam. Obrazac zahtjeva je na mzom.gov.hr, popunjava se preko srednje škole koja ga s dokumentacijom šalje na Ministarstvo znanosti, obrazovanja i mladih, Donje Svetice 38, Zagreb. Vrijedi datum poštanskog žiga.",
+    "url": "https://mzom.gov.hr/istaknute-teme/natjecaji-196/javni-poziv-polaznicima-srednjih-skola-pripadnicima-romske-nacionalne-manjine-za-stipendiju-ministarstva-znanosti-obrazovanja-i-mladih-za-skolsku-godinu-2026-2027/8040",
+    "uvjeti": "Redoviti učenici srednjih škola, hrvatski državljani, pripadnici romske nacionalne manjine s prebivalištem u Hrvatskoj. Ne mogu se prijaviti učenici koji već primaju drugu stipendiju.",
+    "zadnji_put": "2026-10-12",
+    "zasto_rucno": "Izvor je rubrika s više natječaja, a automatsko čitanje iz nje izvuče samo jedan.",
     "zupanija": ""
   },
   "stipendije-nacionalnog-programa-slovacke-2026": {
@@ -845,17 +1216,17 @@
         "eur": 620.0,
         "mjeseci": null,
         "razdoblje": "mjesecno",
-        "za": "studenti prijediplomskog i diplomskog studija"
+        "za": "studenti prijediplomskoga i diplomskoga studija"
       },
       {
         "do": false,
         "eur": 1025.5,
         "mjeseci": null,
         "razdoblje": "mjesecno",
-        "za": "studenti poslijediplomskog doktorskog studija"
+        "za": "studenti poslijediplomskoga doktorskog studija"
       },
       {
-        "do": false,
+        "do": true,
         "eur": 1025.5,
         "mjeseci": null,
         "razdoblje": "mjesecno",
@@ -870,7 +1241,7 @@
       }
     ],
     "izvor_naziv": "MZO — svi natječaji",
-    "napomena": "Ovo je popisna stranica s više natječaja. Za detaljne informacije trebalo bi kliknuti na odabranu stavku.",
+    "napomena": "Stipendije uključuju i dodatnu potporu za putne troškove za studente prijediplomskoga, diplomskoga i doktorskoga studija, čiji iznos ovisi o udaljenosti. Natječaj je za ljetni semestar akademske godine 2026./2027.",
     "naslov": "Stipendije Nacionalnoga stipendijskog programa Slovačke",
     "podrucje": "Cijela Hrvatska",
     "potvrda": "",
@@ -880,10 +1251,91 @@
     "rok_tekst": "31. listopada 2026. godine do 16.00 sati",
     "rucni": false,
     "slug": "stipendije-nacionalnoga-stipendijskog-programa-slovacke-2026",
-    "upute_za_prijavu": "Zainteresirani kandidati se prijavljuju putem elektroničkoga sustava za prijavu | Rok prijave je 31. listopada 2026. godine do 16.00 sati | Više informacija dostupno na mrežnim stranicama Nacionalnoga stipendijskog programa Slovačke Republike",
+    "upute_za_prijavu": "Zainteresirani kandidati prijavljuju se za stipendiju putem elektroničkoga sustava za prijavu | Rok je 31. listopada 2026. godine do 16.00 sati | Više informacija dostupno na mrežnim stranicama Nacionalnoga stipendijskog programa Slovačke Republike",
     "url": "https://mzom.gov.hr/natjecaji-196/196",
-    "uvjeti": "Stipendije su namijenjene studentima, sveučilišnim profesorima, istraživačima i umjetnicima za boravak na slovačkim sveučilištima i znanstvenim institutima tijekom akademske godine 2026./2027.",
-    "zadnji_put": "2026-10-11",
+    "uvjeti": "Stipendije su namijenjene studentima, sveučilišnim profesorima, istraživačima i umjetnicima za boravak na slovačkim sveučilištima i znanstvenim institutima. Stipendije se dodjeljuju za studij, znanstveno istraživanje, stručno usavršavanje ili držanje predavanja.",
+    "zadnji_put": "2026-10-12",
+    "zasto_rucno": "",
+    "zupanija": ""
+  },
+  "stipendije-studente-ikt-tehnologija-2026": {
+    "iznos": "mjesečna stipendija od 300,00 do 700,00 eura ovisno o godini studija",
+    "iznos_je_fond": false,
+    "iznosi": [
+      {
+        "do": false,
+        "eur": 300.0,
+        "mjeseci": null,
+        "razdoblje": "mjesecno",
+        "za": "studenti"
+      }
+    ],
+    "izvor_naziv": "Ministarstvo obrane — stipendije za studente IT-a",
+    "napomena": "Nakon završetka studija, stipendisti se primaju u službu u Oružane snage Republike Hrvatske. Kandidati se upućuju na zdravstvene preglede u Zavod za zrakoplovnu medicinu Zagreb ili Zavod za pomorsku medicinu Split te provjeru tjelesne spremnosti.",
+    "naslov": "Stipendije za studente IKT tehnologija",
+    "podrucje": "Cijela Hrvatska",
+    "potvrda": "",
+    "poveznica": "https://www.morh.hr/javni-poziv-za-dodjelu-stipendija-redovitim-studentima-iz-podrucja-informacijsko-komunikacijskih-tehnologija-2026/",
+    "prvi_put": "2026-10-12",
+    "rok_iso": "2026-10-31",
+    "rok_tekst": "31. listopada 2026.",
+    "rucni": false,
+    "slug": "stipendije-studente-ikt-tehnologija-2026",
+    "upute_za_prijavu": "Ispuniti Prijavni obrazac | Priložiti identifikacijski dokument, rodni list, dokaz o prosjeku ocjena, dokument o upisu i potvrdu o prebivalištu | Dostaviti dokumente elektronički na prijam_dvs@morh.hr ili pisanim putem na Ilica 256b, Zagreb | Poziv na zdravstvene preglede i provjeru tjelesne spremnosti | Poziv na odabirni postupak | Potpisivanje ugovora o stipendiranju",
+    "url": "https://www.morh.hr/javni-poziv-za-dodjelu-stipendija-redovitim-studentima-iz-podrucja-informacijsko-komunikacijskih-tehnologija-2026/",
+    "uvjeti": "Redoviti studenti sveučilišnih ili stručnih studija iz područja informacijsko-komunikacijskih tehnologija s državljanstvom Republike Hrvatske, prijavljenim prebivalištem najmanje godinu dana, bez ponavljanja godina, s najmanje 3,00 prosječnom ocjenom.",
+    "zadnji_put": "2026-10-12",
+    "zasto_rucno": "",
+    "zupanija": ""
+  },
+  "stipendije-vojne-stipendiste-studente-it-2026": {
+    "iznos": "300,00 eura (1. godina), 400,00 eura (2. godina), 500,00 eura (3. godina), 600,00 eura (4. godina), 700,00 eura (5. godina) mjesečno",
+    "iznos_je_fond": false,
+    "iznosi": [
+      {
+        "do": false,
+        "eur": 300.0,
+        "mjeseci": null,
+        "razdoblje": "mjesecno",
+        "za": "studenti, 1. godina"
+      },
+      {
+        "do": false,
+        "eur": 400.0,
+        "mjeseci": null,
+        "razdoblje": "mjesecno",
+        "za": "studenti, 2. godina"
+      },
+      {
+        "do": false,
+        "eur": 500.0,
+        "mjeseci": null,
+        "razdoblje": "mjesecno",
+        "za": "studenti, 3. godina"
+      },
+      {
+        "do": false,
+        "eur": 600.0,
+        "mjeseci": null,
+        "razdoblje": "mjesecno",
+        "za": "studenti, 4. godina"
+      }
+    ],
+    "izvor_naziv": "Ministarstvo obrane — stipendije za studente IT-a",
+    "napomena": "Nakon završetka studija stipendist se upućuje na Temeljnu časničku izobrazbu (10 mjeseci) i mora ostati u vojnoj službi u dvostrukom trajanju primanja stipendije, inače mora vratiti stipendije s kamatom.",
+    "naslov": "Stipendije za vojne stipendiste – studente IT",
+    "podrucje": "Cijela Hrvatska",
+    "potvrda": "",
+    "poveznica": "",
+    "prvi_put": "2026-10-12",
+    "rok_iso": "2026-10-31",
+    "rok_tekst": "kraj listopada 2026.",
+    "rucni": false,
+    "slug": "stipendije-vojne-stipendiste-studente-it-2026",
+    "upute_za_prijavu": "Prijava tijekom javnog poziva | Zdravstveni pregled u zavodu za zrakoplovnu ili pomorsku medicinu | Provjera tjelesne spremnosti | Ocjena povjerenstva prema kriterijima uspješnosti | Potpisivanje Ugovora o stipendiranju",
+    "url": "https://www.morh.hr/dodjela-stipendija-vojnim-stipendistima-studentima-iz-podrucja-informacijsko-komunikacijskih-tehnologija/",
+    "uvjeti": "Redoviti studenti sveučilišnih ili stručnih studija akreditiranih u znanstvenim poljima elektrotehnika, računarstvo, informacijsko-komunikacijske znanosti i drugi srodni studiji iz područja IT. Državljani RH s prebivalištem u RH najmanje godinu dana, opći uspjeh najmanje 3.00, bez ponavljanja godina.",
+    "zadnji_put": "2026-10-12",
     "zasto_rucno": "",
     "zupanija": ""
   },
@@ -1008,7 +1460,7 @@
     "upute_za_prijavu": "Ispuniti prijavni obrazac (za učenike ili studente) | Predati natječajnu документaciju u zatvorenoj kuverti s naznakom | Poslati preporučenom pošiljkom na adresu Viškovo, Vozišće 3, 51216 Viškovo ili osobnom dostavom u Pisarnicu Općine Viškovo | Rok: 20 dana od objave, zaključno 21. listopada 2026.",
     "url": "https://opcina-viskovo.hr/",
     "uvjeti": "Natječaj je otvoren za učenike i studente koji se školuju ili studiraju u nastavnoj godini 2026./2027.",
-    "zadnji_put": "2026-10-11",
+    "zadnji_put": "2026-10-12",
     "zasto_rucno": "",
     "zupanija": "Primorsko-goranska županija"
   },
@@ -1030,7 +1482,7 @@
     "upute_za_prijavu": "Pratiti objavu Natječaja | Podnjeti prijavu na propisanom obrascu | Priložiti svu dokumentaciju navedenu u Natječaju | Isplata se vrši mjesečno putem IBAN-a",
     "url": "https://www.vodnjan-dignano.hr/hr/natjecaji/",
     "uvjeti": "Učenici i studenti koji ispunjavaju uvjete propisane Pravilnikom. Odabir se provodi na temelju kriterija: uspjeh u prethodnoj godini, godina studija, uspjeh na natjecanjima, materijalni položaj, socijalni uvjeti i posebne okolnosti.",
-    "zadnji_put": "2026-10-11",
+    "zadnji_put": "2026-10-12",
     "zasto_rucno": "",
     "zupanija": "Istarska županija"
   },
@@ -1066,8 +1518,8 @@
     "slug": "zapresic-stipendije-ucenicima-studentima-grada-zapresica-2026",
     "upute_za_prijavu": "Preuzmi prijavni obrazac | Ispuni obrazac | Dostavi zahtjev do 23. listopada",
     "url": "https://zapresic.hr/dokumenti/",
-    "uvjeti": "Stipendija se dodjeljuje učenicima srednjih škola i studentima. Ukupno će se dodijeliti 60 stipendija, od čega 28 učenicima srednjih škola, a 32 studentima.",
-    "zadnji_put": "2026-10-11",
+    "uvjeti": "Stipendija se dodjeljuje učenicima srednjih škola i studentima za školsku/akademsku godinu 2026./2027. Ukupno će se dodijeliti 60 stipendija, od čega 28 učenicima i 32 studentima.",
+    "zadnji_put": "2026-10-12",
     "zasto_rucno": "",
     "zupanija": "Zagrebačka županija"
   },
