@@ -1,11 +1,43 @@
 [
   {
+    "naziv": "Grad Delnice — stipendije",
+    "url": "https://delnice.hr/obavijesti",
+    "kategorija": "Grad",
+    "podrucje": "Grad Delnice",
+    "zupanija": "",
+    "_naslov_stranice": "Obavijesti | Grad Delnice"
+  },
+  {
+    "naziv": "Grad Orahovica — stipendije",
+    "url": "https://www.orahovica.hr/obavijesti",
+    "kategorija": "Grad",
+    "podrucje": "Grad Orahovica",
+    "zupanija": "",
+    "_naslov_stranice": "Obavijesti - Službene stranice Grada Orahovice"
+  },
+  {
+    "naziv": "Grad Rab — stipendije",
+    "url": "https://www.rab.hr/javni-pozivi",
+    "kategorija": "Grad",
+    "podrucje": "Grad Rab",
+    "zupanija": "",
+    "_naslov_stranice": "Javni pozivi|Rab - službene stranice"
+  },
+  {
     "naziv": "Grad Rovinj — stipendije",
     "url": "https://www.rovinj-rovigno.hr/stipendije",
     "kategorija": "Grad",
     "podrucje": "Grad Rovinj",
     "zupanija": "",
     "_naslov_stranice": "Stipendije - Grad Rovinj-Rovigno"
+  },
+  {
+    "naziv": "Grad Sinj — stipendije",
+    "url": "https://www.sinj.hr/stipendije",
+    "kategorija": "Grad",
+    "podrucje": "Grad Sinj",
+    "zupanija": "",
+    "_naslov_stranice": "Stipendije - Grad Sinj"
   },
   {
     "naziv": "Grad Belišće — stipendije",
@@ -48,6 +80,26 @@
     "_zavrsni_url": "https://krapina.hr/stipendije-za-ucenike-i-studente/"
   },
   {
+    "naziv": "Grad Kutjevo — stipendije",
+    "url": "https://www.kutjevo.hr/stipendije",
+    "kategorija": "Grad",
+    "podrucje": "Grad Kutjevo",
+    "zupanija": "",
+    "_naslov_stranice": "Stipendije 2018./2019. | Grad Kutjevo",
+    "_provjeri": "preusmjereno na datirani članak",
+    "_zavrsni_url": "https://www.kutjevo.hr/stipendije-2018-2019/"
+  },
+  {
+    "naziv": "Grad Novigrad — stipendije",
+    "url": "https://novigrad.hr/natjecaji",
+    "kategorija": "Grad",
+    "podrucje": "Grad Novigrad",
+    "zupanija": "",
+    "_naslov_stranice": "Natječaji, oglasi, javni pozivi – Grad Novigrad-Cittanova | La Città di Novigrad-Cittanova",
+    "_provjeri": "preusmjereno na pojedinačnu objavu",
+    "_zavrsni_url": "https://novigrad.hr/natjecaji-oglasi-javni-pozivi/"
+  },
+  {
     "naziv": "Grad Ogulin — stipendije",
     "url": "https://www.ogulin.hr/stipendije",
     "kategorija": "Grad",
@@ -68,16 +120,6 @@
     "_zavrsni_url": "https://pakrac.hr/stipendije-studenata-ugovori-za-novih-12-gradskih-stipendista/"
   },
   {
-    "naziv": "Grad Sinj — stipendije",
-    "url": "https://www.sinj.hr/stipendije",
-    "kategorija": "Grad",
-    "podrucje": "Grad Sinj",
-    "zupanija": "",
-    "_naslov_stranice": "Stipendije za sinjske studente - Grad Sinj",
-    "_provjeri": "preusmjereno na pojedinačnu objavu",
-    "_zavrsni_url": "https://www.sinj.hr/stipendije-za-sinjske-studente/"
-  },
-  {
     "naziv": "Grad Slunj — stipendije",
     "url": "https://slunj.hr/stipendije",
     "kategorija": "Grad",
@@ -86,15 +128,5 @@
     "_naslov_stranice": "Stipendije Grada Slunja – 2015 - Grad Slunj",
     "_provjeri": "preusmjereno na datirani članak",
     "_zavrsni_url": "https://slunj.hr/stipendije-grada-slunja-2015/"
-  },
-  {
-    "naziv": "Međimurska županija — stipendije",
-    "url": "https://medjimurska-zupanija.hr/stipendije",
-    "kategorija": "Županija",
-    "podrucje": "Međimurska županija",
-    "zupanija": "",
-    "_naslov_stranice": "Stipendije Ministarstva znanosti obrazovanja za srednjoškolce pripadnike romske nacionalne",
-    "_provjeri": "preusmjereno na datirani članak",
-    "_zavrsni_url": "https://medjimurska-zupanija.hr/2017/10/19/stipendije-ministarstva-znanosti-obrazovanja-za-srednjoskolce-pripadnike-romske-nacionalne-manjine/"
   }
 ]
