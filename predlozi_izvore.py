@@ -13,11 +13,20 @@ Kako radi — bez ijednog poziva modelu, dakle bez troska:
      kratici: Osjecko-baranjska -> obz.hr) i provjeri koja se stvarno otvara
   3. na zivoj domeni proba putanje: /stipendije, /natjecaji, /javni-pozivi, ...
   4. zadrzi samo one koje se otvore I u tekstu stvarno spominju stipendiju
-  5. izbaci one koje vec pratis i zapise prijedlog u prijedlozi_izvora.json
+  5. od svih takvih putanja uzme onu koja najvise lici na zivu rubriku:
+     ima datum iz zadnjih 12 mjeseci i vise objava, a nije pojedinacni clanak
+  6. izbaci one koje vec pratis i zapise prijedlog u prijedlozi_izvora.json
 
-Uz --sve dodatno skine adresar s ministarstva radi 428 opcina. Ako se ne skine,
-gradovi i zupanije svejedno prolaze — popis je u kodu upravo zato sto je prva
-inacica ovisila o toj datoteci i zavrsila s nula prijedloga.
+Zasto je korak 5 vazan: /stipendije na WordPressu ne vrati 404 nego skoci
+na najblizi stari clanak s tom rijecju. Prijedlog tada ima status 200, ima
+naslov sa stipendijom i izgleda ispravno, a vodi na objavu iz 2015. Od 14
+prijedloga iz prvog prolaza takvih je bilo devet.
+
+Uz --sve uzme sluzbeni popis svih 576 jedinica s data.gov.hr radi 428 opcina.
+Ako portal ne odgovara, proba jos stari XLSX s ministarstva, a ako ni to ne
+uspije gradovi i zupanije svejedno prolaze — ugradeni popis je u kodu upravo
+zato sto je prva inacica ovisila o vanjskoj datoteci i zavrsila s nula
+prijedloga.
 
 NIKAD ne dira sources.json. Ti pregledas prijedlog i odlucis sto ulazi.
 
@@ -33,6 +42,7 @@ import os
 import re
 import sys
 from concurrent.futures import ThreadPoolExecutor, as_completed
+from datetime import date, datetime
 from urllib.parse import urljoin, urlparse
 
 import requests
@@ -112,6 +122,10 @@ def kanonska_zupanija(sirovo):
     s = bez_kvacica(str(sirovo or "")).strip()
     if not s or s in ("nan", "none", "-"):
         return ""
+    # Sluzbeni popis zupanije broji rimskim brojem: "I ZAGREBACKA",
+    # "XXI GRAD ZAGREB". Bez skidanja tog prefiksa nijedna se ne prepozna
+    # i svaki prijedlog ostane bez zupanije.
+    s = re.sub(r"^[ivxlc]+[\s.]+", "", s).strip()
     s = re.sub(r"\s*zupanija\s*$", "", s).strip()
     if "zagreb" in s and "zagrebacka" not in s:
         return "Grad Zagreb"
@@ -131,6 +145,73 @@ ZAGLAVLJA = {
 }
 TIMEOUT = 8
 NITI = 8
+
+# Koliko stara smije biti najnovija objava da bismo rubriku smatrali zivom.
+# Gradski natjecaji izlaze sezonski, pa godina dana nije strogo.
+MJESECI_SVJEZINE = 12
+
+_MJESEC = {
+    "sij": 1, "velj": 2, "ozu": 3, "tra": 4, "svi": 5, "lip": 6,
+    "srp": 7, "kol": 8, "ruj": 9, "lis": 10, "stu": 11, "pro": 12,
+}
+
+# "5. listopada 2026.", "lis 5, 2026", "05.10.2026.", "2026-10-05"
+_D_RIJEC = re.compile(r"(\d{1,2})\.?\s+([a-z]{3})[a-z]*\s+(\d{4})")
+_D_OBRNUT = re.compile(r"\b([a-z]{3})[a-z]*\s+(\d{1,2}),?\s+(\d{4})\b")
+_D_TOCKE = re.compile(r"\b(\d{1,2})\.\s?(\d{1,2})\.\s?(\d{4})\b")
+_D_ISO = re.compile(r"\b(\d{4})-(\d{2})-(\d{2})\b")
+
+
+def _datum(g, m, d):
+    try:
+        return date(int(g), int(m), int(d))
+    except ValueError:
+        return None
+
+
+def najnoviji_datum(tekst):
+    """Najnoviji datum koji se na stranici da procitati, ili None.
+
+    Datum je jedino sto pouzdano razlikuje zivu rubriku od starog clanka.
+    Naslov ne pomaze: "Stipendije za ucenike i studente" stoji i na rubrici
+    i na objavi iz 2015."""
+    t = bez_kvacica(tekst)
+    danas = date.today()
+    nadeni = []
+    for m in _D_RIJEC.finditer(t):
+        mj = _MJESEC.get(m.group(2)[:3])
+        if mj:
+            nadeni.append(_datum(m.group(3), mj, m.group(1)))
+    for m in _D_OBRNUT.finditer(t):
+        mj = _MJESEC.get(m.group(1)[:3])
+        if mj:
+            nadeni.append(_datum(m.group(3), mj, m.group(2)))
+    for m in _D_TOCKE.finditer(t):
+        nadeni.append(_datum(m.group(3), m.group(2), m.group(1)))
+    for m in _D_ISO.finditer(t):
+        nadeni.append(_datum(m.group(1), m.group(2), m.group(3)))
+    # Datum iz buducnosti je najcesce rok prijave i jednako dobro govori da
+    # je stranica ziva, ali odbacujemo besmislice tipa 2099.
+    nadeni = [d for d in nadeni if d and d.year <= danas.year + 1]
+    return max(nadeni) if nadeni else None
+
+
+def _star(d):
+    """Koliko je mjeseci star datum. Buducnost racunamo kao 0."""
+    if not d:
+        return 9999
+    dana = (date.today() - d).days
+    return max(0, dana) / 30.4
+
+
+def broj_stavki(juha):
+    """Koliko stranica ima stavki koje izgledaju kao zasebne objave.
+
+    Rubrika ih ima vise, pojedinacni clanak jednu. Broje se poveznice jer
+    su one ono po cemu bi scraper uopce dalje isao."""
+    veze = [a for a in juha.find_all("a", href=True)
+            if len(a.get_text(strip=True)) > 24]
+    return len(veze)
 
 
 def bez_kvacica(s):
@@ -332,6 +413,47 @@ def procitaj_adresar(putanja, samo_gradovi=True):
     return jedinice
 
 
+# Sluzbeni popis svih 576 jedinica, kao JSON. Ovo je zamjena za skidanje
+# XLSX-a s ministarstva: ta se poveznica vec jednom pomaknula i prolaz
+# --sve je zavrsio s nula opcina. Ovdje podatak dolazi iz CKAN-a drzavnog
+# portala otvorenih podataka, s trajnim identifikatorom izvora.
+CKAN = ("https://data.gov.hr/ckan/api/3/action/datastore_search"
+        "?resource_id=55ac291b-63bf-42ac-8d01-7aff77c62223&limit=1000")
+
+
+def jedinice_iz_otvorenih_podataka():
+    """Svih 576 jedinica s data.gov.hr, ili prazno ako portal ne odgovara.
+
+    Stupci su "Zupanija", "Tip jedinice" i "Ime jedinice". Domena se ne
+    nalazi u tom popisu, pa se i dalje pogada iz imena — ali ime i zupanija
+    dolaze iz sluzbenog izvora, a o zupaniji ovisi kome stranica salje mail."""
+    try:
+        r = requests.get(CKAN, headers=ZAGLAVLJA, timeout=30, verify=False)
+        r.raise_for_status()
+        zapisi = r.json()["result"]["records"]
+    except Exception as e:
+        print(f"! data.gov.hr ne odgovara ({type(e).__name__}) — "
+              f"nastavljam s ugradenim popisom gradova i zupanija.")
+        return []
+
+    jedinice = []
+    for z in zapisi:
+        ime = str(z.get("Ime jedinice") or "").strip()
+        tip = str(z.get("Tip jedinice") or "").strip()
+        if not ime or tip not in ("Grad", "Općina", "Županija"):
+            continue
+        naziv = ime if tip == "Županija" else f"{tip} {ime}"
+        zup = (kanonska_zupanija(z.get("Zupanija"))
+               or (f"{ime} županija" if tip == "Županija" else ""))
+        domene = domene_iz_imena(ime, tip)
+        if domene:
+            jedinice.append({"naziv": naziv, "vrsta": tip,
+                             "zupanija": zup, "domene": domene})
+    print(f"data.gov.hr: {len(jedinice)} jedinica "
+          f"({sum(1 for j in jedinice if j['vrsta'] == 'Općina')} općina)")
+    return jedinice
+
+
 def jedinice_iz_popisa(samo_gradovi=True):
     """Gradovi i zupanije iz ugradenog popisa — temelj koji ne moze zakazati.
 
@@ -380,12 +502,18 @@ def provjeri_putanju(domena, putanja):
         if "stipendij" not in tekst:      # ucenik/student sam po sebi nije dovoljan
             continue
         naslov = (juha.title.get_text(strip=True) if juha.title else "")[:90]
-        # Vracamo putanju koju smo TRAZILI, ne onu na koju nas je preusmjerilo.
-        # Dio CMS-ova s /stipendije skoci na pojedinacni clanak — zapisali smo
-        # tako Slunj iz 2015. i Medimursku iz 2017. Takav izvor je mrtav, nikad
-        # nece pokazati novi natjecaj. Rubrika barem prati sto je aktualno.
-        return url, r.url, naslov
-    return None, None, None
+        # Zapisuje se ZAVRSNA adresa, ne ona koju smo trazili. Ranije se
+        # zapisivala trazena i to je bila greska: /stipendije na WordPressu
+        # ne vrati 404 nego skoci na najblizi stari clanak, pa je u popis
+        # usla adresa koja uvijek vodi na objavu iz 2015.
+        return {
+            "url": r.url,
+            "trazeno": url,
+            "naslov": naslov,
+            "datum": najnoviji_datum(tekst),
+            "stavki": broj_stavki(juha),
+        }
+    return None
 
 
 def ziva_domena(kandidati):
@@ -406,17 +534,41 @@ def ziva_domena(kandidati):
     return None
 
 
+def _rang(r):
+    """Koliko stranica izgleda kao ziva rubrika. Vece je bolje."""
+    return (
+        _star(r["datum"]) <= MJESECI_SVJEZINE,   # ima nesto iz zadnjih godinu
+        not _CLANAK.search(r["url"] or ""),      # nije datirani clanak
+        r["stavki"] >= 5,                        # ima vise objava, nije jedna
+        -r["mjesto"],                            # ranija putanja je bolja
+    )
+
+
 def istrazi(jedinica):
-    """Prva putanja koja se otvori i spominje stipendije pobjeduje."""
+    """Od svih putanja koje se otvore bira onu koja najvise lici na rubriku.
+
+    Ranije je pobjedivala prva koja se otvori i spomene stipendiju. Zbog
+    toga je za Sinj zapisan obrazac za prijavu umjesto popisa natjecaja, a
+    za Novigrad se nikad nije stiglo do /natjecaji jer je ranija putanja
+    vec "prosla"."""
     domena = ziva_domena(jedinica["domene"])
     if not domena:
         return None
-    for p in PUTANJE:
-        url, zavrsni, naslov = provjeri_putanju(domena, p)
-        if url:
-            return dict(jedinica, domena=domena, url=url, zavrsni=zavrsni,
-                        naslov=naslov, putanja=p)
-    return None
+    najbolji = None
+    for i, p in enumerate(PUTANJE):
+        r = provjeri_putanju(domena, p)
+        if not r:
+            continue
+        r["mjesto"] = i
+        if najbolji is None or _rang(r) > _rang(najbolji):
+            najbolji = r
+        # Ziva rubrika s vise objava — nema smisla trositi jos sedam zahtjeva.
+        if _rang(r)[0] and _rang(r)[1] and _rang(r)[2]:
+            break
+    if not najbolji:
+        return None
+    return dict(jedinica, domena=domena, putanja=PUTANJE[najbolji["mjesto"]],
+                **najbolji)
 
 
 # Putanja koja zavrsi na datiranom clanku ili dugom naslovu nije rubrika nego
@@ -424,12 +576,21 @@ def istrazi(jedinica):
 _CLANAK = re.compile(r"/(19|20)\d{2}[/-]|[/-](19|20)\d{2}/?$|\d{4}-\d{4}")
 
 
-def sumnjiv(zavrsni):
-    if _CLANAK.search(zavrsni or ""):
-        return "preusmjereno na datirani članak"
-    zadnji = (zavrsni or "").rstrip("/").rsplit("/", 1)[-1]
-    if len(zadnji) > 28:
-        return "preusmjereno na pojedinačnu objavu"
+def sumnjiv(r):
+    """Zasto prijedlog treba tvoje oko. None znaci: moze odmah u popis.
+
+    Duljina zadnjeg dijela adrese vise nije mjerilo. Po njoj je ispao
+    Novigrad, kojem je rubrika na /natjecaji-oglasi-javni-pozivi/ — a to
+    je bio najbolji prijedlog u cijelom prolazu."""
+    if _CLANAK.search(r.get("url") or ""):
+        return "adresa izgleda kao datirani članak"
+    d = r.get("datum")
+    if d is None:
+        return "na stranici nema nijednog datuma"
+    if _star(d) > MJESECI_SVJEZINE:
+        return f"najnovije na stranici je {d.strftime('%d.%m.%Y.')}"
+    if r.get("stavki", 0) < 3:
+        return "stranica ima samo jednu objavu, nije rubrika"
     return None
 
 
@@ -456,12 +617,30 @@ def main():
     # prave domene ondje gdje ih zna. Tako izostanak tablice nista ne rusi.
     jedinice = jedinice_iz_popisa()
     poznata_imena = {bez_kvacica(j["naziv"]) for j in jedinice}
-    tablica = skini_adresar(args.adresar) if args.sve or args.adresar else None
-    if tablica:
-        dodatne = procitaj_adresar(tablica, samo_gradovi=not args.sve)
+
+    dodatne = []
+    if args.adresar:
+        # Rucno predana tablica ima prednost — ako je vec imas, nema razloga
+        # da se bilo sto skida.
+        dodatne = procitaj_adresar(args.adresar, samo_gradovi=not args.sve)
+    elif args.sve:
+        dodatne = jedinice_iz_otvorenih_podataka()
+        if not dodatne:
+            tablica = skini_adresar()
+            if tablica:
+                dodatne = procitaj_adresar(tablica, samo_gradovi=False)
+
+    if dodatne:
         novih = [j for j in dodatne if bez_kvacica(j["naziv"]) not in poznata_imena]
-        print(f"Iz tablice dodatno: {len(novih)} jedinica")
+        print(f"Dodatno: {len(novih)} jedinica")
         jedinice += novih
+        # Zupanija iz sluzbenog popisa je bolja od prazne u ugradenom.
+        po_imenu = {bez_kvacica(j["naziv"]): j for j in dodatne}
+        for j in jedinice:
+            if not j.get("zupanija"):
+                izvor = po_imenu.get(bez_kvacica(j["naziv"]))
+                if izvor and izvor.get("zupanija"):
+                    j["zupanija"] = izvor["zupanija"]
     if not jedinice:
         print("! Iz tablice nista — koristim ugradeni popis gradova i zupanija.")
     print(f"\nJedinica za provjeru: {len(jedinice)}")
@@ -493,7 +672,7 @@ def main():
                 print(f"  ... {i}/{len(novi)}, nadeno {len(nadeno)}")
 
     # cisti prvi, sumnjivi na dno — da se odmah vidi sto se moze uzeti odmah
-    nadeno.sort(key=lambda r: (bool(sumnjiv(r["zavrsni"])), bez_kvacica(r["naziv"])))
+    nadeno.sort(key=lambda r: (bool(sumnjiv(r)), bez_kvacica(r["naziv"])))
     prijedlozi = []
     for r in nadeno:
         stavka = {"naziv": f"{r['naziv']} — stipendije",
@@ -501,11 +680,14 @@ def main():
                   "kategorija": r["vrsta"],
                   "podrucje": r["naziv"],
                   "zupanija": r.get("zupanija", ""),
-                  "_naslov_stranice": r["naslov"]}
-        upozorenje = sumnjiv(r["zavrsni"])
+                  "_naslov_stranice": r["naslov"],
+                  "_najnovije": r["datum"].isoformat() if r["datum"] else "",
+                  "_stavki": r["stavki"]}
+        if r["url"] != r["trazeno"]:
+            stavka["_trazena_adresa"] = r["trazeno"]
+        upozorenje = sumnjiv(r)
         if upozorenje:
             stavka["_provjeri"] = upozorenje
-            stavka["_zavrsni_url"] = r["zavrsni"]
         prijedlozi.append(stavka)
 
     with open(IZLAZ, "w", encoding="utf-8") as f:
@@ -513,7 +695,7 @@ def main():
 
     print(f"\n{'='*54}")
     print(f"Provjereno jedinica: {len(novi)}")
-    cisti = sum(1 for r in nadeno if not sumnjiv(r["zavrsni"]))
+    cisti = sum(1 for r in nadeno if not sumnjiv(r))
     print(f"Novih izvora nadeno: {len(nadeno)}")
     print(f"  spremni za unos:   {cisti}")
     print(f"  trebaju pogled:    {len(nadeno) - cisti} (oznaceni s '_provjeri')")
