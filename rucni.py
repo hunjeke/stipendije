@@ -58,7 +58,11 @@ def ucitaj(compute_status, sredi_iznose, korijen="."):
             print(f"  ! {DATOTEKA} zapis {i}: nedostaje {', '.join(fali)} — preskacem")
             continue
         r = {k: v for k, v in s.items() if k in POLJA}
-        r["iznosi"] = sredi_iznose(r.get("iznosi"))
+        # Granica od cetiri iznosa postoji zato sto model zna izmisliti peti;
+        # rucni upis je covjek prepisao iz natjecaja, pa mu ta zastita ne
+        # treba. Ministarstvo obrane ima pet iznosa, po godini studija, i
+        # peti je najveci — bas onaj koji bi se izgubio.
+        r["iznosi"] = sredi_iznose(r.get("iznosi"), maks=8)
         r["_ima_otvoren"] = True
         r["_rucni"] = True
         r["status"] = compute_status(r.get("rok_tekst"), True)
