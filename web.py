@@ -488,8 +488,24 @@ def je_drzavna(r):
     poredani po hitnosti roka — rok u Sibeniku Zagrepcaninu ne znaci nista,
     a ovaj znaci svima.
     """
-    from drzavna import MZO_SOCIO
-    return (r.get("url") or "").rstrip("/") == MZO_SOCIO.rstrip("/")
+    from drzavna import MZO_SOCIO, POVEZNICA
+    u = (r.get("url") or "").rstrip("/")
+    # Dvije adrese: rubrika ministarstva o drzavnim stipendijama i sam
+    # natjecaj te godine. Rucni upis nosi adresu natjecaja, procitani zapis
+    # adresu rubrike — po jednoj od njih zapis se uvijek prepozna.
+    return u in {a.rstrip("/") for a in (MZO_SOCIO, POVEZNICA) if a}
+
+
+def ima_iznos(r):
+    """Zna li se koliko stipendija nosi.
+
+    Natjecaj bez iznosa nije manje vrijedan, ali je na popisu slabiji: covjek
+    ga mora otvoriti da bi doznao isplati li mu se. Takvi idu ispod onih kod
+    kojih brojka stoji na kartici."""
+    for i in (r.get("iznosi") or []):
+        if i.get("eur"):
+            return True
+    return bool((r.get("iznos") or "").strip())
 
 
 def kartica(r, otvorena, podrucje, zupanija, vlastita=None):
@@ -1070,7 +1086,10 @@ def main():
     zatvorene = spoji_duplikate(zatvorene)
 
     # najhitniji prvi, ali drzavna stipendija ispred svih dok je otvorena
+    # Redoslijed: drzavna uvijek prva, pa natjecaji s poznatim iznosom, pa
+    # oni bez njega. Unutar svake skupine po hitnosti roka.
     otvorene.sort(key=lambda t: (0 if je_drzavna(t[0]) else 1,
+                                 0 if ima_iznos(t[0]) else 1,
                                  iso_rok(t[0].get("status") or "") or "9999",
                                  t[0].get("naziv") or ""))
     zatvorene.sort(key=lambda t: t[0].get("naziv") or "")
