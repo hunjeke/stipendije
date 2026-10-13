@@ -27,6 +27,15 @@ UKUPNO = "1.800 €"
 BROJ_STIPENDIJA = "12.150"
 STEM_NASTAVNICKI = "600 €"
 STEM_OSTALI = "300 €"
+# Odluka ministra od 9. rujna 2026., objavljena 23. rujna 2026. Broj je
+# poznat prije nego poziv izade, pa ga stavljamo odmah.
+STEM_BROJ = "1.500"
+STEM_IZVADAK = ("https://mzom.gov.hr/UserDocsImages//dokumenti/Obrazovanje/"
+                "DrzavneStipendije/STEM-Stipendije/Izvadak-8-9-2026//"
+                "Izvadak-studijskih-programa-u-STEM-podrucjima-znanosti.xlsx")
+STEM_ODLUKA = ("https://mzom.gov.hr/UserDocsImages//dokumenti/Obrazovanje/"
+               "DrzavneStipendije/STEM-Stipendije//"
+               "Odluka-o-broju--stem---23-9-2026.pdf")
 SUSTAV = "https://vidra.srce.hr/"
 MZO_SOCIO = ("https://mzom.gov.hr/istaknute-teme/odgoj-i-obrazovanje/"
              "visoko-obrazovanje/drzavne-stipendije/drzavne-stipendije-za-"
@@ -432,13 +441,38 @@ redom po tome koliko se često traži.</p>
 
 <h2>STEM stipendije su odvojen natječaj</h2>
 <p class="pod">Ako studiraš u STEM području, postoji drugi javni poziv, s većim
-iznosom i vlastitim rang-listama.</p>
+iznosom i vlastitim rang-listama. Prijavljuje se zasebno i izlazi kasnije od
+ovoga.</p>
 <div class="cifre">
   <div><b>{STEM_NASTAVNICKI}</b><span>mjesečno, nastavnički STEM studiji</span></div>
   <div><b>{STEM_OSTALI}</b><span>mjesečno, ostali STEM studiji</span></div>
-  <div><b>{RATA}</b><span>mjesečnih rata</span></div>
+  <div><b>{STEM_BROJ}</b><span>stipendija ove godine</span></div>
   <div><b>do 25.10.</b><span>rok da ministar raspiše poziv</span></div>
 </div>
+<p class="pod">Broj je poznat prije poziva — ministar ga je odlukom od
+23. rujna 2026. odredio na {STEM_BROJ} stipendija, za razdoblje od listopada
+2026. do lipnja 2027., u devet rata.</p>
+
+<p class="pod" style="margin-top:1.4rem"><b>Prije svega ostalog provjeri je li
+tvoj studij na popisu.</b> „STEM” ovdje nije isto što i tehnički fakultet —
+vrijedi službeni Izvadak studijskih programa koji Ministarstvo objavljuje uz
+poziv. Studiji su iz biotehničkog, tehničkog, biomedicinskog i prirodnog
+područja, uz dio informatičkih. Ako tvog programa nema na popisu, prijava ne
+prolazi bez obzira na ocjene.</p>
+
+<p class="pod"><b>Nastavnički STEM studiji se ne natječu.</b> Njima stipendija
+pripada svima koji zadovolje uvjete iz pravilnika. Tek se ostatak dijeli po
+rang-listama, i to po unaprijed određenim postocima:</p>
+<ul class="spremi">
+  <li>30 % — prva godina prijediplomskog, integriranog i stručnog kratkog studija</li>
+  <li>40 % — više godine prijediplomskog i druga godina stručnog kratkog studija</li>
+  <li>10 % — više godine integriranog prijediplomskog i diplomskog studija</li>
+  <li>10 % — prva godina diplomskog studija</li>
+  <li>10 % — druga godina diplomskog studija</li>
+</ul>
+
+<p class="pod">Prijava se predaje u Sustavu državnih stipendija, elektronički.
+Rang-liste Ministarstvo objavljuje najkasnije 60 dana od zatvaranja poziva.</p>
 
 <h2>Kako je išlo prošle godine</h2>
 <p class="pod">Datumi iz natječaja za 2025./2026. Ovogodišnji mogu biti drugi,
@@ -453,6 +487,10 @@ provjeri ih sam — vrijedi ono što piše u natječaju, ne ovdje.</p>
       stipendije za studente nižega socio-ekonomskog statusa</a></li>
   <li><a href="{MZO_STEM}" target="_blank" rel="noopener">Ministarstvo — državne
       stipendije u STEM područjima</a></li>
+  <li><a href="{STEM_ODLUKA}" target="_blank" rel="noopener">Odluka o broju
+      STEM stipendija za 2026./2027. (PDF)</a></li>
+  <li><a href="{STEM_IZVADAK}" target="_blank" rel="noopener">Izvadak studijskih
+      programa koji se priznaju kao STEM (XLSX)</a></li>
   <li><a href="{MZO_NATJECAJ}" target="_blank" rel="noopener">Natječaj za
       2025./2026. — prošlogodišnji tekst s rokovima</a></li>
   <li><a href="{SUSTAV}" target="_blank" rel="noopener">VIDRA — sustav u kojem
