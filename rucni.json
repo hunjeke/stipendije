@@ -575,5 +575,29 @@
     "upute_za_prijavu": "Obrazac je na www.sinj.hr/stipendije. Uz njega se prilažu potvrda o redovitom upisu u 2026./2027. s podacima o godini prvog upisa, potvrda o prebivalištu, izjava o nekorištenju druge stipendije, a studenti prve godine i preslike svjedodžbi svih razreda srednje škole. Prijava se predaje osobno preko pisarnice, e-poštom na info@sinj.hr ili poštom na Grad Sinj, Dragašev prolaz 24, 21230 Sinj.",
     "zasto_rucno": "Grad Sinj nije bio među praćenim izvorima — natječaj se objavljuje kao vijest na naslovnici, a stranica /stipendije je samo obrazac za prijavu. Pronađeno ručno 12.10.2026., izvor je dodan u sources.json.",
     "potvrda": "https://www.sinj.hr/wp-content/uploads/2026/10/Studentske-stipendije_natjecaj_2026-1.pdf"
+  },
+  {
+    "naziv": "MZO — državne stipendije (socio-ekonomski status)",
+    "naslov_natjecaja": "Državne stipendije za studente — 12.150 stipendija",
+    "url": "https://mzom.gov.hr/istaknute-teme/natjecaji-196/natjecaj-za-dodjelu-12-150-drzavnih-stipendija-za-akademsku-godinu-2026-2027-studentima-u-redovitom-statusu-koji-studiraju-na-visokim-ucilistima-u-republici-hrvatskoj/8096",
+    "podrucje": "Cijela Hrvatska",
+    "zupanija": "",
+    "kategorija": "Ministarstvo",
+    "iznos": "200,00 eura mjesečno, 9 rata (ukupno 1.800,00 eura)",
+    "iznosi": [
+      {
+        "eur": 200,
+        "razdoblje": "mjesecno",
+        "mjeseci": 9,
+        "za": "studenti",
+        "do": false
+      }
+    ],
+    "iznos_je_fond": false,
+    "rok_tekst": "3. studenoga 2026. do 12:00",
+    "uvjeti": "Redoviti studenti na visokim učilištima u Hrvatskoj, u tri kategorije: E za slabiji socio-ekonomski status (prihod po članu kućanstva do 706,30 eura, računaju se prihodi iz 2025.), D-1 za djecu poginulih, umrlih ili nestalih osoba iz Domovinskog rata i invalide rata (prag 264,86 eura), P za studente s invaliditetom i one pod skrbništvom na doktorskim studijima. Prijaviti se ne mogu studenti s manje od 45 ECTS bodova u prošloj godini, oni koji su ponovno upisali prvu godinu, oni u radnom odnosu i oni s mirovanjem prava i obveza.",
+    "upute_za_prijavu": "Prijava je isključivo elektronička, u Sustavu državnih stipendija na vidra.srce.hr, prijavom preko AAI@EduHR ili e-Građana. Prijave teku od 13. listopada 2026. u 12:00 do 3. studenoga 2026. u 12:00. Papirnata prijava se ne prima. Bodovanje i popis dokumenata su na stipendije.hr/drzavna-stipendija.html.",
+    "zasto_rucno": "Scraper natječaj nije uhvatio — objavljen je na rubrici ministarstva koja se čita, ali zapis nije nastao. Upisano ručno 13.10.2026. da najveći natječaj u godini ne izostane s naslovnice.",
+    "potvrda": "https://mzom.gov.hr/istaknute-teme/natjecaji-196/natjecaj-za-dodjelu-12-150-drzavnih-stipendija-za-akademsku-godinu-2026-2027-studentima-u-redovitom-statusu-koji-studiraju-na-visokim-ucilistima-u-republici-hrvatskoj/8096"
   }
 ]
