@@ -1062,7 +1062,12 @@ def main():
     zatvorene = [t_ for t_ in zatvorene
                  if domena_izvora(t_[0].get("url")) not in rucno_pokriveno]
 
+    # Spaja se i jedno i drugo. Prije se spajalo samo otvorene, pa je u
+    # popisu "trenutno bez otvorenog natjecaja" Novi Vinodolski stajao tri
+    # puta, a Sibenik dva — tri identicna retka, jer kartica sa starim rokom
+    # ionako pokazuje ime izvora umjesto naslova natjecaja.
     otvorene = spoji_duplikate(otvorene)
+    zatvorene = spoji_duplikate(zatvorene)
 
     # najhitniji prvi, ali drzavna stipendija ispred svih dok je otvorena
     otvorene.sort(key=lambda t: (0 if je_drzavna(t[0]) else 1,
@@ -1289,8 +1294,13 @@ def main():
               ("impressum.html", "0.3"), ("privatnost.html", "0.3")]
 
     for zup in sve_zup:
+        # Natjecaj koji vrijedi za cijelu Hrvatsku ide uz svaku zupaniju.
+        # Filtar na naslovnici to vec radi i tekst ispod njega to obecava
+        # ("Uz odabranu zupaniju vide se i drzavne stipendije"), a staticna
+        # zupanijska stranica ih je izostavljala — pa je ista zupanija imala
+        # dva razlicita broja otvorenih, ovisno o tome kako si do nje dosao.
         otv_z = [(r, p, z) for r, p, z in otvorene
-                 if z == zup or p == zup]
+                 if z == zup or p == zup or p == SVI]
         zat_z = [(r, p, z) for r, p, z in zatvorene
                  if z == zup or p == zup]
         dio = ""
