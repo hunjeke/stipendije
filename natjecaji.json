@@ -73,6 +73,36 @@
     "zasto_rucno": "Sustav je prepoznao natječaj, ali mu nije pročitao rok.",
     "zupanija": "Bjelovarsko-bilogorska županija"
   },
+  "drzavne-stipendije-studente-12-150-stipendija-2026": {
+    "iznos": "200,00 eura mjesečno, 9 rata (ukupno 1.800,00 eura)",
+    "iznos_je_fond": false,
+    "iznosi": [
+      {
+        "do": false,
+        "eur": 200.0,
+        "mjeseci": 9,
+        "razdoblje": "mjesecno",
+        "za": "studenti"
+      }
+    ],
+    "izvor_naziv": "MZO — državne stipendije (socio-ekonomski status)",
+    "napomena": "",
+    "naslov": "Državne stipendije za studente — 12.150 stipendija",
+    "podrucje": "Cijela Hrvatska",
+    "potvrda": "https://mzom.gov.hr/istaknute-teme/natjecaji-196/natjecaj-za-dodjelu-12-150-drzavnih-stipendija-za-akademsku-godinu-2026-2027-studentima-u-redovitom-statusu-koji-studiraju-na-visokim-ucilistima-u-republici-hrvatskoj/8096",
+    "poveznica": "",
+    "prvi_put": "2026-10-13",
+    "rok_iso": "2026-11-03",
+    "rok_tekst": "3. studenoga 2026. do 12:00",
+    "rucni": true,
+    "slug": "drzavne-stipendije-studente-12-150-stipendija-2026",
+    "upute_za_prijavu": "Prijava je isključivo elektronička, u Sustavu državnih stipendija na vidra.srce.hr, prijavom preko AAI@EduHR ili e-Građana. Prijave teku od 13. listopada 2026. u 12:00 do 3. studenoga 2026. u 12:00. Papirnata prijava se ne prima. Bodovanje i popis dokumenata su na stipendije.hr/drzavna-stipendija.html.",
+    "url": "https://mzom.gov.hr/istaknute-teme/natjecaji-196/natjecaj-za-dodjelu-12-150-drzavnih-stipendija-za-akademsku-godinu-2026-2027-studentima-u-redovitom-statusu-koji-studiraju-na-visokim-ucilistima-u-republici-hrvatskoj/8096",
+    "uvjeti": "Redoviti studenti na visokim učilištima u Hrvatskoj, u tri kategorije: E za slabiji socio-ekonomski status (prihod po članu kućanstva do 706,30 eura, računaju se prihodi iz 2025.), D-1 za djecu poginulih, umrlih ili nestalih osoba iz Domovinskog rata i invalide rata (prag 264,86 eura), P za studente s invaliditetom i one pod skrbništvom na doktorskim studijima. Prijaviti se ne mogu studenti s manje od 45 ECTS bodova u prošloj godini, oni koji su ponovno upisali prvu godinu, oni u radnom odnosu i oni s mirovanjem prava i obveza.",
+    "zadnji_put": "2026-10-13",
+    "zasto_rucno": "Scraper natječaj nije uhvatio — objavljen je na rubrici ministarstva koja se čita, ali zapis nije nastao. Upisano ručno 13.10.2026. da najveći natječaj u godini ne izostane s naslovnice.",
+    "zupanija": ""
+  },
   "drzavne-stipendije-studente-pripadnike-romske-nacionalne-manjine-2026": {
     "iznos": "360,00 eura mjesečno za studente koji upisuju višu godinu; 292,00 eura mjesečno uz zaostajanje ili ponavljanje godine — deset rata, listopad 2026. do srpanj 2027.",
     "iznos_je_fond": false,
