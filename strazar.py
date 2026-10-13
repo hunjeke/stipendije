@@ -33,16 +33,41 @@ from urllib.parse import urljoin
 
 from scraper import fetch_content, bez_kvacica, parse_hr_date
 
-# Stranice koje se gledaju. Prva je stranica same drzavne stipendije,
-# druga je opci popis natjecaja — objava zna osvanuti na bilo kojoj.
+# Stranice koje se gledaju.
+#
+# Drzavnih stipendija su DVIJE, ne jedna, i raspisuju se odvojeno:
+#   - na temelju socio-ekonomskoga statusa (kategorije D-1, E, P),
+#     natjecaj se po pravilniku raspisuje do 15. listopada
+#   - u STEM podrucjima znanosti, javni poziv ministar raspisuje
+#     do 25. listopada
+# Prva verzija strazara pratila je samo socio-ekonomsku i opci popis, pa bi
+# STEM poziv prosao neprimijeceno ako ne osvane i na popisu natjecaja.
 STRANICE = [
     ("Drzavne stipendije (socio-ekonomski status)",
      "https://mzom.gov.hr/istaknute-teme/odgoj-i-obrazovanje/visoko-obrazovanje/"
      "drzavne-stipendije/drzavne-stipendije-za-studente-nizega-socio-"
      "ekonomskoga-statusa/1563"),
+    ("Drzavne stipendije (STEM)",
+     "https://mzom.gov.hr/istaknute-teme/odgoj-i-obrazovanje/visoko-obrazovanje/"
+     "drzavne-stipendije/drzavne-stipendije-za-studente-u-stem-podrucjima-"
+     "znanosti/1562"),
     ("Svi natjecaji ministarstva",
      "https://mzom.gov.hr/natjecaji-196/196"),
 ]
+
+# Sto je o ovoj akademskoj godini vec objavljeno, s datumom izvora. Stoji u
+# izvjestaju da ne moras svaki put kopati po ministarstvu. Vezano je uz
+# godinu, pa sljedece jeseni samo nestane umjesto da zavarava.
+POZNATO = {
+    2026: [
+        "Socio-ekonomske: 200,00 EUR mjesečno, devet mjeseci. Natječaj se "
+        "po pravilniku raspisuje do 15. listopada.",
+        "STEM: 1500 stipendija, za razdoblje od listopada 2026. do lipnja "
+        "2027. (Odluka ministra od 9. rujna 2026., objavljena 23. rujna). "
+        "Javni poziv se raspisuje do 25. listopada. Iznos nije u Odluci — "
+        "piše u javnom pozivu.",
+    ],
+}
 
 PAMCENJE = "strazar.json"
 
@@ -195,6 +220,54 @@ Traje deset sekundi, obrazac je već popunjen: {{ update_profile }}
 Ovo dobivaš jer si se prijavio na obavijesti za svoju županiju."""
 
 
+# STEM ima svoje uvjete i svoj sustav prijave, pa ide svojim tekstom.
+# Zajednicki tekst bi studentu STEM-a rekao krivu stvar o tome gdje se
+# prijavljuje, a to je jedina recenica zbog koje ce otvoriti poruku.
+KANAL_STEM = """Državne STEM stipendije su izašle 🎓
+
+{BROJ} stipendija, {IZNOS} mjesečno.
+Rok za prijavu: {ROK}
+
+Samo za studente STEM studija — popis studija je u pozivu.
+Prijava ide u Sustavu državnih stipendija.
+
+Sve što trebaš znati:
+stipendije.hr/drzavna-stipendija.html
+
+Provjeri je li tvoj studij na popisu prije nego kreneš."""
+
+MAIL_PREDMET_STEM = "Državne STEM stipendije su izašle — rok {ROK}"
+
+MAIL_STEM = """Javni poziv za državne stipendije u STEM područjima je objavljen.
+
+{BROJ} stipendija · {IZNOS} mjesečno · rok {ROK}
+
+Ovo je zasebna stipendija, odvojena od one na temelju socio-ekonomskoga
+statusa. Na nju se prijavljuju studenti STEM studija — popis studija koji
+se priznaju objavljen je uz poziv i na njemu nisu svi tehnički studiji.
+
+Prijava se predaje u Sustavu državnih stipendija, elektronički.
+
+Uvjeti i popis dokumenata:
+https://stipendije.hr/drzavna-stipendija.html
+
+Dvije stvari zbog kojih ljudi propuste:
+— provjeri je li tvoj studij na popisu, prije svega ostalog
+— potvrda o upisu se ne izdaje na licu mjesta, zatraži je odmah
+
+Sve ostale otvorene stipendije: https://stipendije.hr
+
+Još nešto: ako odabereš svoj grad, javljamo ti i kad tvoj grad ili
+općina raspiše stipendiju — a takvih je kroz jesen daleko najviše.
+Traje deset sekundi, obrazac je već popunjen: {{ update_profile }}
+
+Ovo dobivaš jer si se prijavio na obavijesti za svoju županiju."""
+
+
+def _je_stem(red):
+    return "stem" in bez_kvacica(red)
+
+
 def _veza_na_natjecaj(sirovi_html, baza, naslov):
     """Poveznica iza naslova natjecaja na popisnoj stranici.
 
@@ -269,6 +342,11 @@ def main():
     redci = [f"## Moguća objava natječaja — {od}./{od+1}.", "",
              "Provjeri na izvoru prije nego išta pošalješ. Ovo je automatska "
              "dojava i zna javiti natječaj koji nije državna stipendija.", ""]
+    if POZNATO.get(od):
+        redci += ["**Što je o ovoj godini već objavljeno**", ""]
+        redci += [f"- {x}" for x in POZNATO[od]]
+        redci += ["", "Ako se pročitana brojka s ovim ne slaže, vjeruj "
+                  "natječaju — ovo je iz ranijih odluka.", ""]
 
     for ime, url, red, d in novo:
         redci += [f"### {_cisto(red)}", "", f"Izvor: {ime}", "", url, ""]
@@ -279,11 +357,15 @@ def main():
             redci.append(f"| iznos {i+1} | {iz} |")
         if not d.get("iznos_redci"):
             redci.append("| iznos | — nije pročitano |")
-        redci += ["", "**Poruka za WhatsApp kanal**", "", "```",
-                  _popuni(KANAL, d), "```", "",
+        stem = _je_stem(red)
+        k, p, m = ((KANAL_STEM, MAIL_PREDMET_STEM, MAIL_STEM) if stem
+                   else (KANAL, MAIL_PREDMET, MAIL))
+        redci += ["", f"**Poruka za WhatsApp kanal**"
+                  + (" (STEM inačica)" if stem else ""), "", "```",
+                  _popuni(k, d), "```", "",
                   "**Mail pretplatnicima**", "",
-                  f"Predmet: `{_popuni(MAIL_PREDMET, d)}`", "", "```",
-                  _popuni(MAIL, d), "```", ""]
+                  f"Predmet: `{_popuni(p, d)}`", "", "```",
+                  _popuni(m, d), "```", ""]
 
     redci += ["---", "",
               "### Redoslijed",
