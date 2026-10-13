@@ -1,0 +1,44 @@
+name: Samo stranica
+
+# Gradi stranicu iz zatecenih podataka, bez citanja izvora.
+#
+# Zasto postoji: puna provjera prolazi 149 izvora s API pozivima i zna
+# trajati pola sata. Kad treba objaviti nesto sto ne ovisi o citanju —
+# ispravak teksta, rucni upis, podaci o drzavnoj stipendiji upisani u
+# drzavna.py — nema smisla cekati scraper.
+#
+# NE pokretati dok traje "Provjera stipendija": oba posla pisu u isti
+# repozitorij i jedan bi push propao. Prvo zaustavi onaj drugi.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  stranica:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Preuzmi kod
+        uses: actions/checkout@v4
+
+      - name: Postavi Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Instaliraj pakete
+        run: pip install anthropic requests beautifulsoup4 pypdf
+
+      - name: Generiraj javnu stranicu
+        run: python web.py
+
+      - name: Spremi stranicu u repozitorij
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add -A docs natjecaji.json || true
+          git diff --staged --quiet || git commit -m "Pregradnja stranice $(date +'%d.%m.%Y %H:%M')"
+          git push
