@@ -28,13 +28,15 @@ from datetime import date
 # Namjerno se posuduje iz web.py: "isti natjecaj" mora znaciti isto na
 # stranici i u mailu. Da novosti.py ima svoju usporedbu, jedno bi se
 # popravljalo a drugo zaboravljalo.
-from web import za_koga, _adrese, _bolji, _isti_natjecaj, _rijeci
+from web import za_koga, _bolji, _isti_natjecaj, _rijeci
 
 IZVORI = "sources.json"
 RUCNI = "rucni.json"
 ARHIV = "natjecaji.json"
 IZLAZ = "output.json"
 POSLANO = "poslano.json"
+# Slugovi iz zadnjeg ispisa — `--potvrdi` oznacava tocno njih.
+PRIKAZANO = "novosti-prikazano.json"
 IZVJESTAJ = "novosti.md"
 
 SVIMA = "cijela hrvatska"   # podrucje koje ide svim pretplatnicima
@@ -63,9 +65,53 @@ def _ucitaj(put, zadano):
 
 
 def _adresa(u):
-    """Adresa bez upitnika i sidra, za usporedivanje."""
-    u = (u or "").strip().split("?")[0].split("#")[0]
-    return u.rstrip("/").lower()
+    """Adresa za usporedivanje: bez upitnika, sa sidrom.
+
+    Upitnik se brise jer FER u poveznicu stavlja promjenjiv token
+    (`?@=33rxj`), pa bi isti natjecaj svaki tjedan izgledao kao novi.
+    Sidro se NE brise: na istoj rubrici bas ono razlikuje jedan natjecaj od
+    drugog (`#news_93995`). Bez njega su tri FER-ove stipendije ista adresa
+    i dvije nestanu."""
+    u, _, sidro = (u or "").strip().partition("#")
+    u = u.split("?")[0].rstrip("/").lower()
+    return u + ("#" + sidro.lower() if sidro else "")
+
+
+def _adresa_natjecaja(z):
+    """Adresa po kojoj se zapis iz arhive prepoznaje kao odredeni natjecaj.
+
+    U arhivi `url` nije natjecaj nego stranica s koje je procitan — za
+    procitane zapise to je rubrika, a jedna rubrika nosi vise razlicitih
+    natjecaja. Sam natjecaj je u `poveznica`. Usporedba po `url` zato spaja
+    sve sto dolazi s iste rubrike: CEEPUS i slovacki program oba vise na
+    ampeu.hr/natjecaji, a to su dvije razlicite stipendije.
+
+    Kod rucnog upisa je obrnuto: `url` je sam natjecaj, a `poveznica` zna
+    biti naslovnica izvora — tri Privrednikova fonda imaju tri PDF-a kao
+    `url` i zajednicki privrednik.hr kao `poveznica`."""
+    if z.get("rucni"):
+        return _adresa(z.get("url"))
+    return _adresa(z.get("poveznica") or z.get("url"))
+
+
+def _ista_prijava(a, b):
+    """Vode li dva zapisa na isti natjecaj.
+
+    Osim izravnog poklapanja hvata se i slucaj kad rucni upis vodi ravno na
+    natjecaj, a procitani zapis na rubriku koja na njega pokazuje."""
+    ka, kb = _adresa_natjecaja(a), _adresa_natjecaja(b)
+    if ka and ka == kb:
+        return True
+    return bool(ka and ka == _adresa(b.get("url"))) or \
+           bool(kb and kb == _adresa(a.get("url")))
+
+
+def _bez_sidra(u):
+    """Adresa stranice, bez sidra. Oznake `usko` u sources.json stoje na
+    razini stranice, a zapis sa sidrom (`...stipendije#news_93995`) po punoj
+    se adresi s njom ne bi poklopio — pa bi FER-ove stipendije, koje su
+    oznacene kao uske, ipak otisle mailom svima."""
+    return _adresa(u).split("#")[0]
 
 
 def _usko_adrese():
@@ -91,8 +137,9 @@ USKO = _usko_adrese()
 
 def _usko(z):
     """Je li natjecaj usko usmjeren."""
-    if _adresa(z.get("url")) in USKO:
-        return True
+    for u in (z.get("url"), z.get("poveznica")):
+        if u and (_adresa(u) in USKO or _bez_sidra(u) in USKO):
+            return True
     n = (z.get("naslov") or "").lower()
     return any(re.search(k, n) for k in USKO_NASLOVI)
 
@@ -218,7 +265,9 @@ def _kao_zapis(z):
         "rok_tekst": z.get("rok_tekst"),
         "uvjeti": z.get("uvjeti"),
         "upute_za_prijavu": z.get("upute_za_prijavu"),
-        "rucni": z.get("rucni"),
+        # _bolji iz web.py cita "_rucni", ne "rucni" — s krivim
+        # imenom prednost rucnog upisa kod izjednacenja nikad ne proradi.
+        "_rucni": z.get("rucni"),
         "iznosi": z.get("iznosi"),
     }
 
@@ -244,16 +293,22 @@ def _spoji_iste(zapisi):
         for i, (z2, par2) in enumerate(ishod):
             if (z2.get("podrucje") or "").strip() != pod:
                 continue
-            isti = bool(_adrese(par) & _adrese(par2))
-            # Dva rucna upisa se po naslovu ne spajaju: covjek ih je upisao
-            # jedan po jedan i svaki je drugi natjecaj. Rovinj ima tri
-            # potpore s istim rokom i gotovo istim naslovom, i to su tri
-            # razlicita novca.
-            if not isti and z.get("rucni") and z2.get("rucni"):
+            # Dva rucna upisa se NIKAD ne spajaju, ni po adresi. Covjek ih
+            # je upisao jedan po jedan i svaki je drugi natjecaj; Rovinj ima
+            # tri potpore s istim rokom i gotovo istim naslovom, a dva MZO-ova
+            # romska upisa kao `url` nose istu rubriku ministarstva.
+            if z.get("rucni") and z2.get("rucni"):
                 continue
-            if not isti and rok and rok == (z2.get("rok_iso") or ""):
-                isti = _isti_natjecaj(par["naslov_natjecaja"],
-                                      par2["naslov_natjecaja"], bez=bez)
+            # Uz adresu se uvijek trazi i isti rok. Sama adresa nije dovoljna
+            # jer jedna rubrika zna nositi vise natjecaja pod istim sidrom:
+            # FER na istoj stranici ima stipendiju za elektrotehniku, Zavarsar
+            # D&ST i Hrvatsku Lutriju, sve tri s adresom koja se ne razlikuje.
+            # Razlicit rok zato znaci razlicit natjecaj. Pogrijesimo li tu,
+            # posljedica je jedan mail viska — a ne natjecaj koji nestane.
+            if rok != (z2.get("rok_iso") or ""):
+                continue
+            isti = _ista_prijava(z, z2) or _isti_natjecaj(
+                par["naslov_natjecaja"], par2["naslov_natjecaja"], bez=bez)
             if isti:
                 if _bolji(par, par2):
                     ishod[i] = (z, par)
@@ -269,6 +324,38 @@ def novi_natjecaji():
     otvoreni = {s: z for s, z in arhiv.items() if _otvoren(z)}
     novi = {s: z for s, z in otvoreni.items() if s not in poslano}
     return arhiv, poslano, otvoreni, novi
+
+
+def vec_javljeno(novi, arhiv, poslano):
+    """Novi zapisi koji su zapravo natjecaj o kojem je vec javljeno.
+
+    Arhiva je kljucana slugom koji nastaje iz naslova sto ga model procita.
+    Procita li ga sljedeci tjedan drugim rijecima, nastane novi slug i novi
+    "novi natjecaj" — a rijec je o istom natjecaju. Spajanje unutar jednog
+    pokretanja to ne hvata jer se stari zapis vise ne nalazi medu novima.
+
+    Bez ove provjere isti bi natjecaj otisao istom covjeku dvaput. Na dan
+    pisanja ovoga takvih je bilo jedanaest."""
+    stari = [arhiv[s] for s in poslano if s in arhiv]
+    pogodak = {}
+    for slug, z in novi.items():
+        par = _kao_zapis(z)
+        pod = (z.get("podrucje") or "").strip()
+        rok = z.get("rok_iso") or ""
+        bez = tuple(_rijeci(pod)) if pod else ()
+        for z2 in stari:
+            if (z2.get("podrucje") or "").strip() != pod:
+                continue
+            par2 = _kao_zapis(z2)
+            if z.get("rucni") and z2.get("rucni"):
+                continue
+            if rok != (z2.get("rok_iso") or ""):
+                continue
+            if _ista_prijava(z, z2) or _isti_natjecaj(
+                    par["naslov_natjecaja"], par2["naslov_natjecaja"], bez=bez):
+                pogodak[slug] = (z, z2)
+                break
+    return pogodak
 
 
 def razvrstaj(novi):
@@ -348,6 +435,22 @@ def _filtar(kome, skupina):
     return f'{a} I TIP jednako "{skupina}" ili "oba"'
 
 
+def _blok_vec_javljeno(ponovljeni):
+    """Sto je arhiva primila pod novim imenom, a vec je javljeno."""
+    if not ponovljeni:
+        return []
+    L = ["---", "", "## Već javljeno, ne šalje se ponovno", "",
+         f"**{len(ponovljeni)}** zapis(a) je u arhivu ušlo pod novim naslovom, "
+         "ali je o tom natječaju već javljeno. Označeni su kao poslani i "
+         "nigdje ne idu.", "",
+         "| novi zapis | već javljeno kao |", "|---|---|"]
+    for z, z2 in ponovljeni:
+        L.append(f"| {(z.get('naslov') or '')[:46].replace('|', '/')} "
+                 f"| {(z2.get('naslov') or '')[:46].replace('|', '/')} |")
+    L.append("")
+    return L
+
+
 def _blok_preskoceni(preskoceni):
     """Sto je ostalo samo na stranici i zasto."""
     if not preskoceni:
@@ -366,17 +469,21 @@ def _blok_preskoceni(preskoceni):
     return L
 
 
-def izvjestaj(grupe, otvoreni, novi, preskoceni=()):
+def izvjestaj(grupe, otvoreni, novi, preskoceni=(), ponovljeni=()):
     L = [f"# Nove obavijesti — {date.today().strftime('%d.%m.%Y.')}", ""]
     sumnjivi, greske = zapelo()
     if not novi:
         L += ["Nema novih natječaja od zadnje obavijesti.", "",
               f"Otvorenih ukupno: {len(otvoreni)}. O svima je već javljeno.", ""]
+        L += _blok_vec_javljeno(ponovljeni)
         L += _blok_preskoceni(preskoceni)
         L += _blok_zapelo(sumnjivi, greske)
         return "\n".join(L) + "\n"
 
-    L += [f"Novih natječaja: **{len(novi)}**", "",
+    ide = sum(len(v) for v in grupe.values())
+    L += [f"Ide mailom: **{ide}**" + (
+              f"  ·  ne ide: {len(preskoceni)}" if preskoceni else "")
+          + (f"  ·  već javljeno: {len(ponovljeni)}" if ponovljeni else ""), "",
           f"Skupina primatelja: **{len(grupe)}**", "",
           "Pošalji svaku skupinu zasebno, pa pokreni "
           "`python novosti.py --potvrdi` da se zabilježi.", ""]
@@ -387,6 +494,7 @@ def izvjestaj(grupe, otvoreni, novi, preskoceni=()):
               f"**Filtar u Brevu:** {_filtar(kome, sk)}", ""]
         predmet, tijelo = _poruka(zapisi, kome, sk)
         L += [f"**Predmet:** {predmet}", "", "```", tijelo, "```", ""]
+    L += _blok_vec_javljeno(ponovljeni)
     L += _blok_preskoceni(preskoceni)
     L += _blok_zapelo(sumnjivi, greske)
     return "\n".join(L) + "\n"
@@ -405,30 +513,56 @@ def main():
               f"otvori poslije ovoga.")
         return
 
-    grupe, preskoceni = razvrstaj(novi)
-    open(IZVJESTAJ, "w", encoding="utf-8").write(
-        izvjestaj(grupe, otvoreni, novi, preskoceni))
+    # Zapisi koji su samo novo ime za vec javljeni natjecaj ispadaju prije
+    # razvrstavanja. Oznace se kao poslani da se ne vracaju svaki tjedan.
+    ponovljeni = vec_javljeno(novi, arhiv, poslano)
+    za_slanje = {s: z for s, z in novi.items() if s not in ponovljeni}
 
     if potvrdi:
-        if not novi:
-            print("Nema ničega za označiti.")
+        # Oznacava se tocno ono sto je zadnji ispis prikazao, a ne ono sto je
+        # novo u ovom trenutku. Bez toga bi natjecaj koji je build dodao
+        # izmedu ispisa i potvrde bio oznacen kao poslan, a nikome poslan.
+        prikazano = set(_ucitaj(PRIKAZANO, {}).get("slugovi", []))
+        if not prikazano:
+            print("Nema zabilježenog ispisa. Pokreni prvo `python novosti.py` "
+                  "bez --potvrdi, pošalji, pa onda potvrdi.")
             return
-        json.dump({"slugovi": sorted(poslano | set(novi))},
+        json.dump({"slugovi": sorted(poslano | prikazano)},
                   open(POSLANO, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
-        print(f"Označeno kao poslano: {len(novi)} natječaja.")
+        os.remove(PRIKAZANO)
+        print(f"Označeno kao poslano: {len(prikazano - poslano)} natječaja.")
         return
+
+    grupe, preskoceni = razvrstaj(za_slanje)
+    open(IZVJESTAJ, "w", encoding="utf-8").write(
+        izvjestaj(grupe, otvoreni, za_slanje, preskoceni,
+                  list(ponovljeni.values())))
+
+    # Preskoceni (usko) se NE biljeze kao poslani: ako se oznaka pokaze
+    # krivom, maknes `"usko": true` i natjecaj se vrati u sljedeci ispis.
+    # Ponovljeni se biljeze odmah — o njima je vec javljeno.
+    posl_odmah = sorted(poslano | set(ponovljeni))
+    if posl_odmah != sorted(poslano):
+        json.dump({"slugovi": posl_odmah}, open(POSLANO, "w", encoding="utf-8"),
+                  ensure_ascii=False, indent=1)
+    json.dump({"slugovi": sorted(z["slug"] for v in grupe.values() for z in v
+                                 if z.get("slug"))},
+              open(PRIKAZANO, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
 
     sumnjivi, greske = zapelo()
     zapinje = len(sumnjivi) + len(greske)
 
-    if not novi:
+    if ponovljeni:
+        print(f"  Već javljeno pod drugim naslovom, preskočeno: {len(ponovljeni)}")
+    if not za_slanje:
         print(f"Nema novih natječaja. Otvorenih ukupno: {len(otvoreni)}.")
         if zapinje:
             print(f"ALI: {len(sumnjivi)} izvora s nepročitanim rokom i "
                   f"{len(greske)} nedohvatljivih — popis je u {IZVJESTAJ}.")
         return
 
-    print(f"\nNovih natječaja: {len(novi)}   ·   skupina primatelja: {len(grupe)}\n")
+    ide = sum(len(v) for v in grupe.values())
+    print(f"\nIde mailom: {ide}   ·   skupina primatelja: {len(grupe)}\n")
     for (kome, sk), zapisi in sorted(grupe.items()):
         print(f"  {_ime_skupine(kome):32} {sk:8} {len(zapisi)}")
     if preskoceni:
