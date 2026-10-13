@@ -30,6 +30,72 @@ STEM_OSTALI = "300 €"
 # Odluka ministra od 9. rujna 2026., objavljena 23. rujna 2026. Broj je
 # poznat prije nego poziv izade, pa ga stavljamo odmah.
 STEM_BROJ = "1.500"
+
+# Prag prihoda po clanu kucanstva. 160 % proracunske osnovice za kategorije
+# E i P, 60 % za D-1. Iznosi su iz natjecaja za 2026./2027.
+PRAG_E = "706,30 €"
+PRAG_D1 = "264,86 €"
+
+# Bodovanje kategorije E po prihodu. Prvo i najvaznije mjerilo — ostalo se
+# zbraja na njega.
+BODOVI_PRIHOD = [
+    ("do 190,00 €", "1.800"),
+    ("190,01 – 250,00 €", "1.500"),
+    ("250,01 – 320,00 €", "1.200"),
+    ("320,01 – 390,00 €", "900"),
+    ("390,01 – 460,00 €", "750"),
+    ("460,01 – 500,00 €", "600"),
+    ("500,01 – 570,00 €", "450"),
+    ("570,01 – 640,00 €", "300"),
+    ("640,01 – 706,30 €", "150"),
+]
+
+# Ostali kriteriji. Zbrajaju se kumulativno, i to je dio koji ljudi najcesce
+# ne znaju — zato stoje svi, a ne samo oni najcesci.
+BODOVI_OSTALO = [
+    ("1.100", "oba roditelja umrla, nestala ili nepoznata; skrbništvo ili "
+              "pravo na smještaj"),
+    ("1.100", "status azilanta ili supsidijarne zaštite"),
+    ("550", "jedan roditelj umro, nestao ili nepoznat"),
+    ("550", "za svako preminulo dijete, ako si roditelj"),
+    ("400", "oba roditelja branitelji iz Domovinskog rata ili pripadnici HVO-a"),
+    ("300", "za svako dijete, ako si roditelj"),
+    ("300", "studiraš izvan mjesta prebivališta i nisi u studentskom domu"),
+    ("300", "deficitarno zanimanje — medicina, farmacija, računarstvo, "
+            "elektrotehnika, strojarstvo, građevinarstvo, matematika, fizika, "
+            "logopedija, rehabilitacija"),
+    ("300", "oštećenje organizma od najmanje 60 % ili III. stupanj"),
+    ("300", "kategorizirani sportaš I., II. ili III. kategorije"),
+    ("300", "daroviti mladi umjetnik s nagradom s državnog ili međunarodnog "
+            "natjecanja u zadnje četiri godine"),
+    ("300", "oba roditelja s tjelesnim oštećenjem od 100 %"),
+    ("300", "za svakog brata ili sestru s inkluzivnim dodatkom, doplatkom za "
+            "pomoć i njegu ili osobnom invalidninom"),
+    ("200", "studiraš izvan mjesta prebivališta i smješten si u studentskom domu"),
+    ("200", "ti ili roditelji primate zajamčenu minimalnu naknadu"),
+    ("200", "ti ili roditelj primate naknadu za nezaposlene branitelje ili "
+            "civilne stradalnike"),
+    ("200", "branitelj, pripadnik HVO-a, ili dijete jednog od njih"),
+    ("200", "dijete stradale osobe I. ili II. skupine po Zakonu o "
+            "protuminskom djelovanju, za svakog roditelja"),
+    ("150", "za svakog brata ili sestru u redovitom školovanju, do 26 godina"),
+    ("150", "roditelji razvedeni ili je prestala izvanbračna zajednica"),
+    ("150", "jedan roditelj s tjelesnim oštećenjem od 100 %"),
+    ("150", "oštećenje organizma do 50 % ili II. stupanj"),
+]
+
+# Razlozi zbog kojih prijava ne prolazi ni u jednoj kategoriji. Vrijedi ih
+# izdvojiti jer covjek inace prikuplja papire pa ga sustav odbije na kraju.
+NE_MOGU = [
+    "manje od 45 ECTS bodova u prošloj akademskoj godini (ne vrijedi za prvu "
+    "godinu)",
+    "prosjek ispod 40 ECTS po upisanoj godini na tom studiju",
+    "drugi put upisana prva godina na istoj razini studija",
+    "tri puta upisan studij na istoj razini",
+    "već stečena kvalifikacija na razini na koju si upisan",
+    "radni odnos, obrt ili slobodno zanimanje",
+    "mirovanje prava i obveza studenta u 2026./2027.",
+]
 STEM_IZVADAK = ("https://mzom.gov.hr/UserDocsImages//dokumenti/Obrazovanje/"
                 "DrzavneStipendije/STEM-Stipendije/Izvadak-8-9-2026//"
                 "Izvadak-studijskih-programa-u-STEM-podrucjima-znanosti.xlsx")
@@ -50,10 +116,16 @@ MZO_STEM = "https://mzom.gov.hr/drzavne-stipendije-za-studente-u-stem-podrucjima
 #   OTVOREN = None   -> odlucuju podaci iz output.json (zadano)
 #   OTVOREN = False  -> stranica pise da nije objavljen, bez obzira na podatke
 #
-OTVOREN = None
-ROK = ""          # npr. "4. studenoga 2026. do 12:00" — gazi procitani rok
-POVEZNICA = ""    # adresa natjecaja na mzom.gov.hr — gazi procitanu
-BROJ = ""         # npr. "12.150" — ovo se NE cita automatski, upisuje se rukom
+# Natjecaj za 2026./2027. objavljen je 7. listopada 2026., prijave teku od
+# 13. listopada u 12:00. Podaci su prepisani sa stranice natjecaja, ne
+# procitani — zato su upisani rukom umjesto da se ceka scraper.
+OTVOREN = True
+ROK = "3. studenoga 2026. do 12:00"
+POVEZNICA = ("https://mzom.gov.hr/istaknute-teme/natjecaji-196/natjecaj-za-"
+             "dodjelu-12-150-drzavnih-stipendija-za-akademsku-godinu-2026-"
+             "2027-studentima-u-redovitom-statusu-koji-studiraju-na-visokim-"
+             "ucilistima-u-republici-hrvatskoj/8096")
+BROJ = "12.150"
                   # jer scraper iznose i brojeve vraca kao jednu pomijesanu
                   # recenicu, pa je bolje da brojke nema nego da bude kriva
 PODACI = "output.json"
@@ -132,6 +204,22 @@ CSS = """
 
 /* gdje se koji papir vadi */
 .papiri{display:grid;grid-template-columns:repeat(2,1fr);gap:.8rem;margin-top:1rem}
+
+/* bodovanje */
+.bod{width:100%;border-collapse:collapse;margin-top:1rem;
+  border:1px solid var(--linija);background:var(--karta)}
+.bod th,.bod td{text-align:left;padding:.6rem .8rem;font-size:.92rem;
+  border-bottom:1px solid var(--linija)}
+.bod th{font-family:"PlexMono",monospace;font-size:.68rem;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--tinta-2);background:var(--papir)}
+.bod tr:last-child td{border-bottom:0}
+.bod td.b{font-family:"PlexMono",monospace;font-weight:500;white-space:nowrap;
+  width:7.5rem}
+.ne-moze{list-style:none;margin:1rem 0 0;padding:0}
+.ne-moze li{position:relative;padding:.4rem 0 .4rem 1.4rem;font-size:.93rem;
+  border-bottom:1px solid var(--linija)}
+.ne-moze li:before{content:"×";position:absolute;left:.25rem;
+  color:var(--hitno);font-weight:700}
 .papir{border:1px solid var(--linija);background:var(--karta);padding:.95rem 1rem}
 .papir h3{font-size:.98rem;margin:0 0 .35rem;line-height:1.35}
 .papir .gdje{margin:0 0 .45rem;font-family:"PlexMono",monospace;font-size:.72rem;
@@ -378,6 +466,12 @@ def stranica(mapa, broj_izvora, vrijeme):
 
     crta = "".join(f'<div><b>{d}</b><span>{o}</span></div>' for d, o in VREMENSKA)
 
+    bod_prihod = "".join(f'<tr><td>{r}</td><td class="b">{b}</td></tr>'
+                         for r, b in BODOVI_PRIHOD)
+    bod_ostalo = "".join(f'<tr><td class="b">{b}</td><td>{o}</td></tr>'
+                         for b, o in BODOVI_OSTALO)
+    ne_moze = "".join(f"<li>{x}</li>" for x in NE_MOGU)
+
     html = glava(
         "Državna stipendija 2026./2027. — kad kreću prijave, uvjeti i iznos",
         "Kako se prijaviti na državnu stipendiju: korak po korak, što pripremiti, "
@@ -387,9 +481,9 @@ def stranica(mapa, broj_izvora, vrijeme):
     html += navigacija("drzavna")
     html += f"""<main class="w"><section class="ds">
 <h1>Državna stipendija</h1>
-<p class="lead">Najveći natječaj za stipendije u Hrvatskoj. Prošle akademske
-godine dodijeljeno je {BROJ_STIPENDIJA} stipendija po {IZNOS} mjesečno. Ovdje je
-kako se prijaviti, korak po korak.</p>
+<p class="lead">Najveći natječaj za stipendije u Hrvatskoj. Ove akademske
+godine dodjeljuje se {BROJ_STIPENDIJA} stipendija po {IZNOS} mjesečno, kroz
+devet rata. Ovdje je kako se prijaviti, korak po korak.</p>
 
 {blok_stanja}
 
@@ -397,7 +491,7 @@ kako se prijaviti, korak po korak.</p>
   <div><b>{IZNOS}</b><span>mjesečno</span></div>
   <div><b>{RATA}</b><span>mjesečnih rata</span></div>
   <div><b>{UKUPNO}</b><span>ukupno po godini</span></div>
-  <div><b>{BROJ_STIPENDIJA}</b><span>stipendija lani</span></div>
+  <div><b>{BROJ_STIPENDIJA}</b><span>stipendija ove godine</span></div>
 </div>
 
 <h2>Tko se može prijaviti</h2>
@@ -438,6 +532,28 @@ prijaviš, sustav sam povuče podatke iz državnih registara.</p>
 registrima ne piše. Za većinu studenata to je malo ili ništa — popis ispod je
 redom po tome koliko se često traži.</p>
 <div class="papiri">{papiri}</div>
+
+<h2>Kako se boduje</h2>
+<p class="pod">Bodovi odlučuju tko dobiva stipendiju u kategoriji E. Prvo se
+boduje prihod po članu kućanstva, a onda se na to <b>zbraja</b> sve ostalo što
+se na tebe odnosi. Kod istog broja bodova prednost ima niži prihod.</p>
+
+<table class="bod">
+  <tr><th>Prihod po članu kućanstva</th><th>Bodovi</th></tr>
+  {bod_prihod}
+</table>
+
+<p class="pod" style="margin-top:1.6rem">Na to se dodaje:</p>
+<table class="bod">
+  {bod_ostalo}
+</table>
+
+<p class="pod" style="margin-top:1.6rem"><b>Tko se ne može prijaviti</b>, ni u
+jednoj kategoriji:</p>
+<ul class="ne-moze">{ne_moze}</ul>
+
+<p class="pod">Za kategoriju D-1 prag prihoda je stroži — {PRAG_D1} po članu
+kućanstva umjesto {PRAG_E}.</p>
 
 <h2>STEM stipendije su odvojen natječaj</h2>
 <p class="pod">Ako studiraš u STEM području, postoji drugi javni poziv, s većim
