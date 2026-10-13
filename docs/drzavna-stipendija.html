@@ -216,6 +216,22 @@ input:focus-visible,select:focus-visible{outline:2px solid var(--plava);outline-
 
 /* gdje se koji papir vadi */
 .papiri{display:grid;grid-template-columns:repeat(2,1fr);gap:.8rem;margin-top:1rem}
+
+/* bodovanje */
+.bod{width:100%;border-collapse:collapse;margin-top:1rem;
+  border:1px solid var(--linija);background:var(--karta)}
+.bod th,.bod td{text-align:left;padding:.6rem .8rem;font-size:.92rem;
+  border-bottom:1px solid var(--linija)}
+.bod th{font-family:"PlexMono",monospace;font-size:.68rem;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--tinta-2);background:var(--papir)}
+.bod tr:last-child td{border-bottom:0}
+.bod td.b{font-family:"PlexMono",monospace;font-weight:500;white-space:nowrap;
+  width:7.5rem}
+.ne-moze{list-style:none;margin:1rem 0 0;padding:0}
+.ne-moze li{position:relative;padding:.4rem 0 .4rem 1.4rem;font-size:.93rem;
+  border-bottom:1px solid var(--linija)}
+.ne-moze li:before{content:"×";position:absolute;left:.25rem;
+  color:var(--hitno);font-weight:700}
 .papir{border:1px solid var(--linija);background:var(--karta);padding:.95rem 1rem}
 .papir h3{font-size:.98rem;margin:0 0 .35rem;line-height:1.35}
 .papir .gdje{margin:0 0 .45rem;font-family:"PlexMono",monospace;font-size:.72rem;
@@ -273,25 +289,23 @@ input:focus-visible,select:focus-visible{outline:2px solid var(--plava);outline-
   </nav>
 </div></header><main class="w"><section class="ds">
 <h1>Državna stipendija</h1>
-<p class="lead">Najveći natječaj za stipendije u Hrvatskoj. Prošle akademske
-godine dodijeljeno je 12.150 stipendija po 200 € mjesečno. Ovdje je
-kako se prijaviti, korak po korak.</p>
+<p class="lead">Najveći natječaj za stipendije u Hrvatskoj. Ove akademske
+godine dodjeljuje se 12.150 stipendija po 200 € mjesečno, kroz
+devet rata. Ovdje je kako se prijaviti, korak po korak.</p>
 
 <div class="stanje">
   <div class="txt">
-    <b>Natječaj za 2026./2027. još nije objavljen</b>
-    <span>Ministar ga po pravilu raspisuje do 15. listopada. Prošle je godine
-      izašao 14. listopada. Javimo ti na WhatsAppu istoga dana.</span>
+    <b>Natječaj je objavljen — prijave su otvorene</b>
+    <span>Prijavljuje se elektronički, kroz sustav VIDRA. Rok prijave je <strong>3. studenoga 2026. do 12:00</strong>. Dodjeljuje se 12.150 stipendija.</span>
   </div>
-  <a href="https://whatsapp.com/channel/0029Vb8yRo75Ui2aMzBAjv1a"
-     target="_blank" rel="noopener">Obavijesti me &rarr;</a>
+  <a href="https://mzom.gov.hr/istaknute-teme/natjecaji-196/natjecaj-za-dodjelu-12-150-drzavnih-stipendija-za-akademsku-godinu-2026-2027-studentima-u-redovitom-statusu-koji-studiraju-na-visokim-ucilistima-u-republici-hrvatskoj/8096" target="_blank" rel="noopener">Otvori natječaj &rarr;</a>
 </div>
 
 <div class="cifre">
   <div><b>200 €</b><span>mjesečno</span></div>
   <div><b>9</b><span>mjesečnih rata</span></div>
   <div><b>1.800 €</b><span>ukupno po godini</span></div>
-  <div><b>12.150</b><span>stipendija lani</span></div>
+  <div><b>12.150</b><span>stipendija ove godine</span></div>
 </div>
 
 <h2>Tko se može prijaviti</h2>
@@ -332,6 +346,28 @@ prijaviš, sustav sam povuče podatke iz državnih registara.</p>
 registrima ne piše. Za većinu studenata to je malo ili ništa — popis ispod je
 redom po tome koliko se često traži.</p>
 <div class="papiri"><div class="papir"><h3>Korisničko ime i lozinka za AAI@EduHr</h3><p class="gdje">Tvoj fakultet, administrator informacijskog sustava</p><p>Ne izdaje se centralno nego na matičnom učilištu — referada zna uputiti kome. Preuzima se osobno, uz OIB i indeks, a i zaboravljena lozinka se mijenja osobno. Zato ovo rješavaj tjednima prije, ne na dan prijave.</p></div><div class="papir"><h3>Ili prijava preko e-Građana</h3><p class="gdje">gov.hr/e-gradjani</p><p>Ako se već prijavljuješ mobilnim bankarstvom ili osobnom iskaznicom s čipom, pristup imaš. To je brži put od AAI-ja ako ti on ne radi.</p></div><div class="papir"><h3>Rodni list brata ili sestre</h3><p class="gdje">e-Građani, usluga e-Matične knjige</p><p>Zatražiš elektronički zapis i stigne ti u korisnički pretinac. Dovoljna je i najjednostavnija razina prijave. Treba samo ako prijavljuješ braću ili sestre u školovanju, jer oni nose bodove.</p></div><div class="papir"><h3>Potvrda o školovanju brata ili sestre</h3><p class="gdje">Škola ili fakultet koji pohađaju</p><p>Vadi je osoba na koju glasi, u svojoj referadi ili tajništvu škole. Traje nekoliko minuta, ali netko mora otići.</p></div><div class="papir"><h3>Smrtni list roditelja</h3><p class="gdje">Matični ured</p><p>Preko e-Građana dostupni su rodni i vjenčani list; smrtni se i dalje vadi u matičnom uredu, u bilo kojem, ne nužno mjestu rođenja.</p></div><div class="papir"><h3>Sudska odluka o razvodu roditelja</h3><p class="gdje">Presuda koju roditelji već imaju</p><p>Ako je primjerak izgubljen, preslika se traži na sudu koji je donio presudu. Razvod nosi bodove u socio-ekonomskoj kategoriji.</p></div><div class="papir"><h3>Potvrda o skrbništvu ili smještaju</h3><p class="gdje">Hrvatski zavod za socijalni rad, područni ured prema prebivalištu</p><p>To je ustanova koja je naslijedila centre za socijalnu skrb. Popis područnih ureda je na socskrb.hr.</p></div><div class="papir"><h3>Rješenje o priznatom statusu iz Domovinskog rata</h3><p class="gdje">Upravno tijelo koje je status priznalo</p><p>Za kategoriju D-1. Traži se ondje gdje je rješenje izvorno izdano — najčešće u županijskom upravnom odjelu nadležnom za branitelje.</p></div><div class="papir"><h3>Potvrda o kategorizaciji sportaša</h3><p class="gdje">Hrvatski olimpijski odbor</p><p>HOO vodi Registar kategoriziranih sportaša. Ako si u njemu, potvrda nosi dodatne bodove.</p></div><div class="papir"><h3>Potvrda o upisu na doktorski studij</h3><p class="gdje">Referada matičnog učilišta</p><p>Samo za kategoriju P. Za preddiplomski i diplomski studij upis se dohvaća automatski, pa potvrdu ne trebaš.</p></div><div class="papir"><h3>Potvrda o prihodima ostvarenima u inozemstvu</h3><p class="gdje">Porezna uprava te države</p><p>Hrvatski registri vide samo prihode u Hrvatskoj. Ako je netko iz kućanstva radio u inozemstvu, taj se dio dokazuje sam.</p></div></div>
+
+<h2>Kako se boduje</h2>
+<p class="pod">Bodovi odlučuju tko dobiva stipendiju u kategoriji E. Prvo se
+boduje prihod po članu kućanstva, a onda se na to <b>zbraja</b> sve ostalo što
+se na tebe odnosi. Kod istog broja bodova prednost ima niži prihod.</p>
+
+<table class="bod">
+  <tr><th>Prihod po članu kućanstva</th><th>Bodovi</th></tr>
+  <tr><td>do 190,00 €</td><td class="b">1.800</td></tr><tr><td>190,01 – 250,00 €</td><td class="b">1.500</td></tr><tr><td>250,01 – 320,00 €</td><td class="b">1.200</td></tr><tr><td>320,01 – 390,00 €</td><td class="b">900</td></tr><tr><td>390,01 – 460,00 €</td><td class="b">750</td></tr><tr><td>460,01 – 500,00 €</td><td class="b">600</td></tr><tr><td>500,01 – 570,00 €</td><td class="b">450</td></tr><tr><td>570,01 – 640,00 €</td><td class="b">300</td></tr><tr><td>640,01 – 706,30 €</td><td class="b">150</td></tr>
+</table>
+
+<p class="pod" style="margin-top:1.6rem">Na to se dodaje:</p>
+<table class="bod">
+  <tr><td class="b">1.100</td><td>oba roditelja umrla, nestala ili nepoznata; skrbništvo ili pravo na smještaj</td></tr><tr><td class="b">1.100</td><td>status azilanta ili supsidijarne zaštite</td></tr><tr><td class="b">550</td><td>jedan roditelj umro, nestao ili nepoznat</td></tr><tr><td class="b">550</td><td>za svako preminulo dijete, ako si roditelj</td></tr><tr><td class="b">400</td><td>oba roditelja branitelji iz Domovinskog rata ili pripadnici HVO-a</td></tr><tr><td class="b">300</td><td>za svako dijete, ako si roditelj</td></tr><tr><td class="b">300</td><td>studiraš izvan mjesta prebivališta i nisi u studentskom domu</td></tr><tr><td class="b">300</td><td>deficitarno zanimanje — medicina, farmacija, računarstvo, elektrotehnika, strojarstvo, građevinarstvo, matematika, fizika, logopedija, rehabilitacija</td></tr><tr><td class="b">300</td><td>oštećenje organizma od najmanje 60 % ili III. stupanj</td></tr><tr><td class="b">300</td><td>kategorizirani sportaš I., II. ili III. kategorije</td></tr><tr><td class="b">300</td><td>daroviti mladi umjetnik s nagradom s državnog ili međunarodnog natjecanja u zadnje četiri godine</td></tr><tr><td class="b">300</td><td>oba roditelja s tjelesnim oštećenjem od 100 %</td></tr><tr><td class="b">300</td><td>za svakog brata ili sestru s inkluzivnim dodatkom, doplatkom za pomoć i njegu ili osobnom invalidninom</td></tr><tr><td class="b">200</td><td>studiraš izvan mjesta prebivališta i smješten si u studentskom domu</td></tr><tr><td class="b">200</td><td>ti ili roditelji primate zajamčenu minimalnu naknadu</td></tr><tr><td class="b">200</td><td>ti ili roditelj primate naknadu za nezaposlene branitelje ili civilne stradalnike</td></tr><tr><td class="b">200</td><td>branitelj, pripadnik HVO-a, ili dijete jednog od njih</td></tr><tr><td class="b">200</td><td>dijete stradale osobe I. ili II. skupine po Zakonu o protuminskom djelovanju, za svakog roditelja</td></tr><tr><td class="b">150</td><td>za svakog brata ili sestru u redovitom školovanju, do 26 godina</td></tr><tr><td class="b">150</td><td>roditelji razvedeni ili je prestala izvanbračna zajednica</td></tr><tr><td class="b">150</td><td>jedan roditelj s tjelesnim oštećenjem od 100 %</td></tr><tr><td class="b">150</td><td>oštećenje organizma do 50 % ili II. stupanj</td></tr>
+</table>
+
+<p class="pod" style="margin-top:1.6rem"><b>Tko se ne može prijaviti</b>, ni u
+jednoj kategoriji:</p>
+<ul class="ne-moze"><li>manje od 45 ECTS bodova u prošloj akademskoj godini (ne vrijedi za prvu godinu)</li><li>prosjek ispod 40 ECTS po upisanoj godini na tom studiju</li><li>drugi put upisana prva godina na istoj razini studija</li><li>tri puta upisan studij na istoj razini</li><li>već stečena kvalifikacija na razini na koju si upisan</li><li>radni odnos, obrt ili slobodno zanimanje</li><li>mirovanje prava i obveza studenta u 2026./2027.</li></ul>
+
+<p class="pod">Za kategoriju D-1 prag prihoda je stroži — 264,86 € po članu
+kućanstva umjesto 706,30 €.</p>
 
 <h2>STEM stipendije su odvojen natječaj</h2>
 <p class="pod">Ako studiraš u STEM području, postoji drugi javni poziv, s većim
