@@ -48,6 +48,18 @@ SVIMA = "cijela hrvatska"   # podrucje koje ide svim pretplatnicima
 # tada nacionalni natjecaji ne idu nikome automatski, nego rukom.
 SIROKI_SVIMA = True
 
+# Idu li gradski natjecaji samo onima koji su upisali grad.
+#
+# Polje GRAD postoji na obrascu tek od 12.10.2026., pa ga vecina
+# pretplatnika nema. Dok je tako, dijeljenje po gradu znaci da gradski
+# natjecaji ne stignu gotovo nikome: skupina "s upisanim gradom" ima nula
+# ljudi, a natjecaj tise propadne nego da je poslan svima u zupaniji.
+#
+# Dok je False: jedan mail po zupaniji, s gradskim natjecajima unutra,
+# svima u toj zupaniji. Kad dovoljno ljudi upise grad, vrati na True i
+# podjela se vraca bez ikakve druge izmjene.
+DIJELI_PO_GRADU = False
+
 # Naslovi koji sami po sebi znace usko usmjeren natjecaj. Sluze kao zastita
 # za natjecaje koji dodu preko zajednicke popisne stranice, pa ih oznaka
 # "usko" iz sources.json ne pokriva — izvor je sirok, natjecaj nije.
@@ -221,6 +233,8 @@ def _ime_skupine(k):
     """Naslov odsjecka u izvjestaju."""
     if k[0] == "drzavna":
         return "Svi pretplatnici — državna stipendija"
+    if k[2] is None:
+        return k[1]
     return k[1] + (" — s upisanim gradom" if k[2] else " — bez upisanog grada")
 
 
@@ -422,6 +436,9 @@ def razvrstaj(novi):
 
     for zup in set(zupanijski) | set(gradski):
         samo_zup = zupanijski.get(zup, [])
+        if not DIJELI_PO_GRADU:
+            grupe[("zup", zup, None)] = samo_zup + gradski.get(zup, [])
+            continue
         if samo_zup:
             grupe[("zup", zup, False)] = list(samo_zup)
         grupe[("zup", zup, True)] = samo_zup + gradski.get(zup, [])
@@ -469,8 +486,11 @@ def _poruka(zapisi, kljuc):
                          f"\n\n{zasto}")
 
     _, zup, s_gradom = kljuc
-    koliko = ("Jedan novi natječaj" if len(zapisi) == 1
-              else f"{len(zapisi)} novih natječaja")
+    # 2-4 "nova natječaja", 5+ "novih natječaja" — "3 novih" bode u oko
+    n = len(zapisi)
+    koliko = ("Jedan novi natječaj" if n == 1
+              else f"{n} nova natječaja" if n <= 4
+              else f"{n} novih natječaja")
     predmet = f"{koliko} — {zup}"
 
     zup_zapisi = [z for z in zapisi if (_kome(z) or ("",))[0] == "zupanija"]
@@ -490,11 +510,21 @@ def _poruka(zapisi, kljuc):
         dijelovi.append("**Gradovi i općine u tvojoj županiji**\n\n"
                         + "\n\n".join(redci))
 
-    zasto = ("Ovo dobivaš jer si se prijavio na obavijesti za svoju županiju."
-             if not s_gradom else
-             "Ovo dobivaš jer si se prijavio na obavijesti i upisao svoje "
-             "mjesto. Natječaj koji nije iz tvog mjesta preskoči — uvjet je "
-             "najčešće prebivalište.")
+    zasto = "Ovo dobivaš jer si se prijavio na obavijesti za svoju županiju."
+
+    # Kad gradski natjecaji idu cijeloj zupaniji, vecini primatelja nijedan
+    # nije iz njihovog mjesta. Umjesto da to ispadne promaseni mail, ista
+    # poruka pita za mjesto — tako se polje GRAD puni samo od sebe i
+    # podjela po gradu jednom postane moguca.
+    if grad_zapisi and not DIJELI_PO_GRADU:
+        dijelovi.append(
+            "Gornji natječaji su iz cijele županije, pa možda nijedan nije iz "
+            "tvog mjesta — uvjet je gotovo uvijek prebivalište. Upiši svoje "
+            "mjesto u postavkama i ubuduće ti šaljemo samo natječaje koji "
+            "vrijede za tebe: {{ update_profile }}")
+    elif grad_zapisi:
+        zasto = ("Ovo dobivaš jer si se prijavio na obavijesti i upisao svoje "
+                 "mjesto.")
 
     return predmet, ("\n\n".join(dijelovi)
                      + "\n\nSve otvorene stipendije: https://stipendije.hr"
@@ -506,6 +536,8 @@ def _filtar(kljuc):
     if kljuc[0] == "drzavna":
         return "svi u listi (državna stipendija vrijedi za cijelu Hrvatsku)"
     _, zup, s_gradom = kljuc
+    if s_gradom is None:
+        return f'ZUPANIJA jednako "{zup}"  — i ništa drugo'
     return (f'ZUPANIJA jednako "{zup}" I GRAD '
             + ("nije prazan" if s_gradom else "je prazan"))
 
