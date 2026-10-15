@@ -30,7 +30,7 @@ import time
 import hashlib
 import argparse
 import calendar
-from datetime import datetime, date
+from datetime import datetime, date, timedelta
 from io import BytesIO
 from urllib.parse import urljoin, urlparse
 
@@ -617,6 +617,80 @@ def parse_hr_date(text):
     return None
 
 
+# "15 dana od dana objave natjecaja", "20 dana od objave", "8 dana nakon
+# objave". Golo "12 dana" se namjerno NE hvata: bez toga od cega se broji,
+# svaki izracun bi bio nagadanje.
+RELATIVAN_ROK = re.compile(
+    r"\b(\d{1,2})\s*(?:\([^)]{1,20}\))?\s*dan[aei]?\b[^.;]{0,40}?"
+    r"(?:od\s+(?:dana\s+)?objav|nakon\s+objav|od\s+objav)", re.I)
+
+_OBJAVA_UZORCI = (
+    re.compile(r"(?:objavljeno|datum\s+objave|objava)\s*[:\-–]?\s*"
+               r"(\d{1,2}\s*\.\s*\d{1,2}\s*\.\s*\d{4})", re.I),
+    re.compile(r"(?:objavljeno|datum\s+objave|objava)\s*[:\-–]?\s*"
+               r"(\d{1,2}\.?\s+[a-zčćšđž]+\s+\d{4})", re.I),
+)
+
+
+def datum_objave(tekst, html=""):
+    """Kad je natjecaj objavljen. None kad se ne da pouzdano procitati.
+
+    Redom se gleda ono sto je najmanje podlozno zabuni: strojni podatak u
+    HTML-u, pa izricita oznaka u tekstu. Bilo koji datum sa stranice NE
+    dolazi u obzir — na gradskim rubrikama ih ima desetak i svaki bi dao
+    drugi rok."""
+    for uzorak in (r'<time[^>]+datetime="(\d{4}-\d{2}-\d{2})',
+                   r'property="article:published_time"[^>]+content="'
+                   r'(\d{4}-\d{2}-\d{2})',
+                   r'name="date"[^>]+content="(\d{4}-\d{2}-\d{2})'):
+        m = re.search(uzorak, html or "", re.I)
+        if m:
+            d = parse_hr_date(m.group(1))
+            if d:
+                return d
+    for uzorak in _OBJAVA_UZORCI:
+        m = uzorak.search(tekst or "")
+        if m:
+            d = parse_hr_date(m.group(1))
+            if d:
+                return d
+    return None
+
+
+def rok_iz_objave(rok_tekst, tekst, html=""):
+    """Rok naveden kao "N dana od objave" pretvoren u datum.
+
+    Dok se to nije racunalo, takav natjecaj nije imao rok pa se nigdje nije
+    prikazivao — Jastrebarsko, Brodsko-posavska i Sisacko-moslavacka tako
+    nisu bili vidljivi nikome, iako su otvoreni.
+
+    Vraca (novi_rok_tekst, odakle) ili (None, None). Na kartici stoji samo
+    datum, bez napomene da je izracunat: racun je "N dana od objave" i
+    pogrijesi samo ako je datum objave kriv, a to je rijetko. Natuknica da
+    datum mozda nije tocan citala bi se kao da se stranici ne moze vjerovati,
+    a ne kao preciznost. Porijeklo se pamti u polju "_rok_izracunat" — ne
+    prikazuje se, ali po njemu provjera moze javiti takve rokove."""
+    m = RELATIVAN_ROK.search(rok_tekst or "")
+    if not m:
+        return None, None
+    dani = int(m.group(1))
+    if not 1 <= dani <= 90:
+        return None, None
+    obj = datum_objave(tekst, html)
+    if not obj:
+        return None, None
+    rok = obj + timedelta(days=dani)
+    return (f"{rok.day}. {MJESEC_U_RIJECI[rok.month]} {rok.year}.",
+            f"{dani} dana od objave {obj.day}.{obj.month}.{obj.year}.")
+
+
+MJESEC_U_RIJECI = {
+    1: "siječnja", 2: "veljače", 3: "ožujka", 4: "travnja", 5: "svibnja",
+    6: "lipnja", 7: "srpnja", 8: "kolovoza", 9: "rujna", 10: "listopada",
+    11: "studenoga", 12: "prosinca",
+}
+
+
 def _izravni(kandidat, baza):
     """Prihvati poveznicu samo ako je na istoj domeni i razlicita od popisa."""
     if not kandidat:
@@ -901,6 +975,10 @@ def sastavi_zapis(ime, adresa, kategorija, extracted, tekst_izvora, now,
         # dosao. Bez ovoga stranica ne bi znala kojoj zupaniji pripada, jer
         # tu adresu u sources.json ne bi nasla.
         r["_izvor_url"] = izvor_url
+    # Porijeklo izracunatog roka ide uz zapis, ali se ne prikazuje — po njemu
+    # provjera javlja rokove koje nitko nije procitao, nego su izvedeni.
+    if extracted.get("_rok_izracunat"):
+        r["_rok_izracunat"] = extracted["_rok_izracunat"]
     return r, odbaceno
 
 
@@ -1116,7 +1194,8 @@ def main():
     pdf_procitano = 0
     drugih_poziva = 0        # koliko je dodatnih poziva modelu otislo na podstranice
     nadeno_drugim = 0        # koliko je natjecaja naden tek na drugoj razini
-    dopunjenih_iznosa = 0   # iznos naknadno dohvacen iz samog natjecaja
+    dopunjenih_iznosa = 0
+    izracunatih_rokova = 0   # iznos naknadno dohvacen iz samog natjecaja
     odbacenih_iznosa = 0     # brojke koje se nisu poklopile s tekstom izvora
     pao_dokaz_iznos = 0      # iznos ugasen jer navedene recenice nema na stranici
     pao_dokaz_rok = 0        # rok bez potvrde u tekstu — samo se prijavljuje
@@ -1398,6 +1477,18 @@ def main():
                 and not extracted.get("iznos")):
             dopuna_pokusana = True
 
+        # Rok naveden kao "N dana od objave" ovdje postaje datum. Radi se
+        # tek na kraju, kad je poznato iz kojeg je teksta podatak dosao.
+        if (ima_otvoren and extracted.get("rok_tekst")
+                and not parse_hr_date(extracted.get("rok_tekst"))):
+            nov, odakle = rok_iz_objave(
+                extracted["rok_tekst"], tekst_izvora, sirovi or "")
+            if nov:
+                print(f"  + rok izracunat iz datuma objave: {nov} ({odakle})")
+                extracted["_rok_izracunat"] = odakle
+                extracted["rok_tekst"] = nov
+                izracunatih_rokova += 1
+
         status = compute_status(extracted.get("rok_tekst"), ima_otvoren)
 
         iznosi, odbaceno_ovdje = provjeri_iznose(
@@ -1451,6 +1542,10 @@ def main():
             # a s time se pokusaj dogodi tocno jednom po sadrzaju stranice.
             "_dopuna_pokusana": dopuna_pokusana,
         }
+        # Porijeklo izracunatog roka. Ne prikazuje se nigdje; sluzi provjeri
+        # da javi rokove koje nitko nije procitao nego su izvedeni.
+        if extracted.get("_rok_izracunat"):
+            r["_rok_izracunat"] = extracted["_rok_izracunat"]
         # Natjecaj koji je jucer bio otvoren, a danas ga citanje ne vidi, ne
         # smije nestati dok mu rok ne prode — vidi zadrzi_ako_je_nestao.
         r, zadrzan = zadrzi_ako_je_nestao(r, prethodno.get(url))
@@ -1530,6 +1625,7 @@ def main():
     print(f"Poziva skupom modelu: {SKUPIH_POZIVA} ({MODEL_NATJECAJ})")
     print(f"Nadeno tek 2. razinom:{nadeno_drugim}")
     print(f"Iznos iz natjecaja:   {dopunjenih_iznosa} (rok bio na rubrici, iznos u natjecaju)")
+    print(f"Rok iz datuma objave: {izracunatih_rokova} (\"N dana od objave\")")
     print(f"Odbacenih iznosa:     {odbacenih_iznosa} "
           f"(brojka se nije nasla u tekstu izvora)")
     print(f"Zadrzano unatoc promasaju: {zadrzanih} "
