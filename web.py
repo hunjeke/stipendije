@@ -13,7 +13,7 @@ import re
 from datetime import datetime
 
 from zajednicko import (CSS_KARTICE, glava, navigacija, podnozje, oblik,
-                        EMAIL, DOMENA, BAZA, WA_KANAL)
+                        sredi_naslov, EMAIL, DOMENA, BAZA, WA_KANAL)
 
 ULAZ = "output.json"
 IZVORI = "sources.json"
@@ -445,7 +445,7 @@ def naslov_kartice(r):
     ("Studentske stipendije Grada Durdevca 2021./2022.") u redu zatvorenih
     izgleda kao da smo procitali nesto aktualno. Kad je rok iz prosle godine
     ili starije, ide ime izvora."""
-    naslov = r.get("naslov_natjecaja")
+    naslov = sredi_naslov(r.get("naslov_natjecaja"))
     if naslov:
         rok = iso_rok(r.get("status") or "")
         if rok and rok[:4] < str(datetime.now().year):
