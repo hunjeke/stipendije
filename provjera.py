@@ -154,6 +154,19 @@ def rok_bez_godine(zapisi, _):
                f"rok bez godine, pogođena je: {t[:40]!r} — {_naslov(r)[:46]}")
 
 
+def izracunat_rok(zapisi, _):
+    """Rok izveden iz datuma objave, a ne prepisan s natjecaja.
+
+    Racun je samo onoliko dobar koliko je dobar datum objave. Nije greska,
+    ali je jedina vrsta roka koju nitko nije procitao svojim ocima."""
+    for r in zapisi:
+        odakle = r.get("_rok_izracunat")
+        if odakle:
+            yield "pazi", (f"rok nije pročitan nego izračunat ({odakle}): "
+                           f"{(r.get('rok_tekst') or '')[:28]} — "
+                           f"{_naslov(r)[:34]}")
+
+
 def izmisljen_mjesec(zapisi, _):
     """Rok s imenom mjeseca koje ne postoji.
 
@@ -256,6 +269,7 @@ def previse_gresaka(zapisi, staro):
 
 
 PRAVILA = [rok_u_proslosti, rok_predaleko, rok_bez_godine, izmisljen_mjesec,
+           izracunat_rok,
            iznos_izvan_raspona, bez_roka_i_iznosa, ista_adresa_razlicit_rok,
            svima_a_nije_drzavna, nagla_promjena, previse_gresaka]
 
