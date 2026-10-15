@@ -154,11 +154,13 @@ CSS_INDEX = CSS_KARTICE + """
 /* kad je odabrana zupanija, lokalne stipendije idu prve */
 .grupa{display:flex;flex-direction:column}
 .grupa .k{order:0}
-/* drzavna stipendija ostaje prva i kad se odabere zupanija */
+/* drzavna stipendija je prva dok se gleda cijela Hrvatska; cim se
+   odabere zupanija, skripta joj doda razred "drzavna" i ona padne
+   ispod zupanijskih i gradskih natjecaja (pravilo .k.drzavna nize) */
 .grupa .k.prvo{order:-1}
 .k.prvo{border-left:3px solid var(--plava)}
-.grupa .k.drzavna{order:1}
-.grupa .nema-rez{order:2}
+.grupa .k.drzavna{order:2}
+.grupa .nema-rez{order:3}
 .medja{order:1;display:none;margin:.5rem 0 .9rem;
   font-family:"PlexMono",monospace;font-size:.7rem;letter-spacing:.09em;
   text-transform:uppercase;color:var(--tinta-2);
@@ -166,7 +168,7 @@ CSS_INDEX = CSS_KARTICE + """
 .medja.vidljiva{display:block}
 /* sklapanje drzavnih izvora kad je odabrana zupanija */
 .k.drzavna.sklopljena{display:none}
-.prekidac{order:1;display:none;background:var(--karta);
+.prekidac{order:2;display:none;background:var(--karta);
   border:1px dashed var(--linija);width:100%;padding:.75rem 1rem;
   font-family:"Plex",sans-serif;font-size:.88rem;color:var(--tinta-2);
   cursor:pointer;text-align:left;margin-bottom:.9rem}
@@ -769,7 +771,10 @@ def izbornik(podrucja):
     # kratko, jer uz njega na mobitelu stoje i tipke "Učenik / Student"
     opcije = '<option value="">Cijela Hrvatska</option>'
     for p in sorted(podrucja, key=hr_kljuc):
-        naziv = p if "županija" in p else f"Grad {p}"
+        # "Grad Zagreb" u sources.json vec nosi rijec Grad; bez ove
+        # provjere u izborniku je pisalo "Grad Grad Zagreb".
+        naziv = p if ("županija" in p or p.startswith("Grad ")) \
+            else f"Grad {p}"
         opcije += f'<option value="{esc(p)}">{esc(naziv)}</option>'
     return opcije
 
@@ -928,6 +933,10 @@ JS = """
         ok = dz==="oba" || dz===zaOdabir;
       }
       k.classList.toggle("skriveno",!ok);
+      // Odabrana je zupanija: natjecaji za cijelu Hrvatsku padaju ispod
+      // lokalnih. Tko trazi stipendiju u svom gradu prvo hoce vidjeti
+      // nju, a drzavnu vec zna. Bez odabira je obrnuto i razred se mice.
+      k.classList.toggle("drzavna", !!z && p===SVI);
     });
     document.querySelectorAll(".grupa").forEach(function(g){
       var ima=g.querySelectorAll(".k:not(.skriveno):not(.isteklo)").length>0;
@@ -936,6 +945,21 @@ JS = """
     });
     if(window.__osvjeziBrojke) window.__osvjeziBrojke();
     sklopiDrzavne(!!z);
+    medje(!!z);
+  }
+
+  // Crta "Otvoreno svima u Hrvatskoj" dijeli lokalne natjecaje od drzavnih.
+  // Ima smisla samo ako je s obje strane nesto vidljivo — inace bi stajao
+  // naslov iznad praznine ili iznad cijelog popisa.
+  function medje(aktivno){
+    var vid=":not(.skriveno):not(.isteklo):not(.sklopljena)";
+    document.querySelectorAll(".grupa:not(.zatvoreni-omot) .medja")
+      .forEach(function(m){
+        var g=m.parentNode;
+        m.classList.toggle("vidljiva", aktivno
+          && g.querySelectorAll(".k.drzavna"+vid).length>0
+          && g.querySelectorAll(".k"+vid+":not(.drzavna)").length>0);
+      });
   }
 
   // Kad je odabrana zupanija, ZATVORENE drzavne se skupe iza gumba.
@@ -969,6 +993,7 @@ JS = """
     prekidac.addEventListener("click", function(){
       razmotano=!razmotano;
       sklopiDrzavne(true);
+      medje(true);
     });
   }
   izbor.addEventListener("change",osvjezi);
@@ -1320,6 +1345,10 @@ def main():
         # dva razlicita broja otvorenih, ovisno o tome kako si do nje dosao.
         otv_z = [(r, p, z) for r, p, z in otvorene
                  if z == zup or p == zup or p == SVI]
+        # Na zupanijskoj stranici prvo idu zupanijski i gradski natjecaji,
+        # pa tek onda oni koji vrijede za cijelu Hrvatsku (i drzavna).
+        # Naslovnica ima obrnut redoslijed jer ondje nema uzeg izbora.
+        otv_z.sort(key=lambda t: 1 if t[1] == SVI else 0)
         zat_z = [(r, p, z) for r, p, z in zatvorene
                  if z == zup or p == zup]
         dio = ""
