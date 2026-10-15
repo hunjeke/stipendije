@@ -28,7 +28,8 @@ from datetime import date
 # Namjerno se posuduje iz web.py: "isti natjecaj" mora znaciti isto na
 # stranici i u mailu. Da novosti.py ima svoju usporedbu, jedno bi se
 # popravljalo a drugo zaboravljalo.
-from web import za_koga, _bolji, _isti_natjecaj, _rijeci
+from web import (za_koga, _bolji, _isti_natjecaj, _rijeci,
+                 opisna_stranica)
 
 IZVORI = "sources.json"
 RUCNI = "rucni.json"
@@ -321,7 +322,10 @@ def _spoji_iste(zapisi):
 def novi_natjecaji():
     arhiv = _ucitaj(ARHIV, {})
     poslano = set(_ucitaj(POSLANO, {}).get("slugovi", []))
-    otvoreni = {s: z for s, z in arhiv.items() if _otvoren(z)}
+    # Opisne stranice ministarstva nisu natjecaji — bez ovoga bi STEM
+    # stipendija s nepostojecim rokom otisla na mail svim studentima.
+    otvoreni = {s: z for s, z in arhiv.items()
+                if _otvoren(z) and not opisna_stranica(z)}
     novi = {s: z for s, z in otvoreni.items() if s not in poslano}
     return arhiv, poslano, otvoreni, novi
 
