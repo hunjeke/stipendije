@@ -382,7 +382,13 @@ def _o_stipendiji(spoj):
     "Potpora" se prima samo uz ucenika, studenta ili skolovanje — inace bi
     ulazile i potpore poljoprivrednicima i novorodencadi, kojih je po
     gradskim rubrikama vise nego stipendija."""
-    if "stipendij" in spoj or "skolarin" in spoj:
+    # Trazi se "stipend", ne "stipendij": Varazdinov natjecaj zove se
+    # "Natjecaj stipendiranje ucenika i studenata", a "stipendiranje" ne
+    # sadrzi "stipendij" — poslije "stipend" ide "r". Zbog toga je grad s
+    # otvorenim natjecajem mjesecima bio zaveden kao grad bez natjecaja.
+    # Isto propadaju "stipendisti" i "stipendiste". Druge rijeci s nizom
+    # "stipend" u hrvatskom nema, pa sira provjera ne pusta nista krivo.
+    if "stipend" in spoj or "skolarin" in spoj:
         return True
     if "potpor" in spoj or "pomoc" in spoj:
         return any(k in spoj for k in ("ucenic", "student", "skolovanj", "ucenik"))
@@ -434,7 +440,7 @@ def pdf_poveznice(html, baza, maks=2):
             continue
         cist = bez_kvacica(re.sub(r"<[^>]+>", " ", tekst))
         spoj = cist + " " + bez_kvacica(href)
-        if not any(k in spoj for k in ("natjeca", "javni poziv", "stipendij", "poziv")):
+        if not any(k in spoj for k in ("natjeca", "javni poziv", "stipend", "poziv")):
             continue
         if any(k in spoj for k in NIJE_NATJECAJ):
             continue
