@@ -482,6 +482,30 @@ def za_koga(r):
     return "oba"
 
 
+# Stranice koje opisuju POSTUPAK, a ne natjecaj. Na stranici o STEM
+# stipendijama stoji recenica "Javni poziv raspisuje ministar do 25.
+# listopada za tekucu akademsku godinu" — to je pravilo iz pravilnika, a ne
+# rok prijave. Model ju je 15.10.2026. procitao kao otvoren natjecaj, pa je
+# na stranici osvanula STEM stipendija s rokom koji ne postoji: javni poziv
+# za 2026./2027. tada jos nije bio raspisan.
+#
+# Blokira se samo tocna adresa opisne stranice. Kad javni poziv izade, dobit
+# ce vlastitu adresu pod /istaknute-teme/natjecaji-196/ i proci normalno;
+# njegov izlazak prati strazar.py.
+OPISNE_STRANICE = {
+    "https://mzom.gov.hr/istaknute-teme/odgoj-i-obrazovanje/visoko-obrazovanje"
+    "/drzavne-stipendije/162",
+}
+
+
+def opisna_stranica(r):
+    """Je li zapis nastao citanjem stranice koja samo opisuje postupak."""
+    for k in ("poveznica_natjecaj", "poveznica", "url"):
+        if (r.get(k) or "").strip().rstrip("/").lower() in OPISNE_STRANICE:
+            return True
+    return False
+
+
 def je_drzavna(r):
     """Je li ovo natjecaj za drzavnu stipendiju (MZO, socio-ekonomski status).
 
@@ -490,12 +514,25 @@ def je_drzavna(r):
     poredani po hitnosti roka — rok u Sibeniku Zagrepcaninu ne znaci nista,
     a ovaj znaci svima.
     """
-    from drzavna import MZO_SOCIO, POVEZNICA
+    from drzavna import MZO_SOCIO, POVEZNICA, ROK
+    from scraper import parse_hr_date, bez_kvacica
     u = (r.get("url") or "").rstrip("/")
     # Dvije adrese: rubrika ministarstva o drzavnim stipendijama i sam
     # natjecaj te godine. Rucni upis nosi adresu natjecaja, procitani zapis
     # adresu rubrike — po jednoj od njih zapis se uvijek prepozna.
-    return u in {a.rstrip("/") for a in (MZO_SOCIO, POVEZNICA) if a}
+    if u in {a.rstrip("/") for a in (MZO_SOCIO, POVEZNICA) if a}:
+        return True
+    # Isti natjecaj stize i s opisne stranice ministarstva i s fakultetskih
+    # stranica koje ga prenose (TVZ). Naslovi su im razliciti, a sve rijeci
+    # koje dijele su opce ("drzavne", "stipendije", "studente"), pa ih
+    # usporedba naslova namjerno ne spaja — inace bi se spojila bilo koja
+    # dva natjecaja tako nazvana. Ovdje ih spaja rok: 3. studenoga u 12:00
+    # ima tocno jedan natjecaj u godini.
+    rok = parse_hr_date(ROK)
+    naslov = bez_kvacica(r.get("naslov_natjecaja") or "")
+    return bool(rok and iso_rok(r.get("status") or "") == rok.isoformat()
+                and "drzavne stipendije" in naslov
+                and "rome" not in naslov)
 
 
 def ima_iznos(r):
@@ -710,7 +747,7 @@ def spoji_duplikate(otvorene):
                         and (isti_rok or not rok or not rok2))
             # Ista adresa znaci isti natjecaj, bez obzira kako se zove.
             # Ovo ide prije svih ostalih provjera jer je jedino sigurno.
-            if _ista_adresa(r, r2):
+            if _ista_adresa(r, r2) or (je_drzavna(r) and je_drzavna(r2)):
                 if _bolji(r, r2):
                     ishod[i] = par
                 break
@@ -1087,7 +1124,10 @@ def main():
         if k not in pod_map and r.get("_izvor_url"):
             k = r["_izvor_url"].rstrip("/")
         par = (r, pod_map.get(k, SVI), zup_map.get(k, ""))
-        if s.startswith("OTVORENO"):
+        # opisna stranica nije natjecaj; izvor ostaje na popisu pracenih
+        if opisna_stranica(r):
+            zatvorene.append(par)
+        elif s.startswith("OTVORENO"):
             otvorene.append(par)
         elif s.startswith("ROK ISTEKAO") or s.startswith("NEMA AKTIVNOG"):
             zatvorene.append(par)
