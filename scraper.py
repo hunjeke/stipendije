@@ -96,7 +96,17 @@ HR_MONTHS = {
     "listopada": 10, "listopad": 10,
     "studenoga": 11, "studenog": 11, "studeni": 11,
     "prosinca": 12, "prosinac": 12,
+    # Istarski gradovi su dvojezicni i rok znaju objaviti samo na talijanskom:
+    # Unione Italiana je pisala "27 settembre 2026" i rok se nije procitao, pa
+    # natjecaj nije bio vidljiv nikome.
+    "gennaio": 1, "febbraio": 2, "marzo": 3, "aprile": 4, "maggio": 5,
+    "giugno": 6, "luglio": 7, "agosto": 8, "settembre": 9, "ottobre": 10,
+    "novembre": 11, "dicembre": 12,
 }
+
+# Mjeseci koje poznajemo, za provjeru je li model izmislio ime mjeseca.
+# Vidjeno uzivo: "do 6. christie do 13:00 sati".
+IMENA_MJESECI = tuple(HR_MONTHS)
 
 EXTRACTION_PROMPT = """Analiziraj tekst stranice o stipendijama i vrati TOCNO ovaj JSON, bez ikakvog dodatnog teksta:
 
@@ -551,7 +561,7 @@ def parse_hr_date(text):
         return None
     t = str(text).lower()
     nadeni = []
-    for m in re.finditer(r"(\d{1,2})\.\s*([a-zčćšđž]+)\s*(\d{4})", t):
+    for m in re.finditer(r"(\d{1,2})\.?\s+([a-zčćšđž]+)\s+(\d{4})", t):
         day, mon, yr = m.groups()
         month = HR_MONTHS.get(mon)
         if month:
