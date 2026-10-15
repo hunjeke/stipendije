@@ -1,0 +1,74 @@
+name: Pošalji obavijesti
+
+# Slanje mailova pretplatnicima kroz Brevo API.
+#
+# Zadano je proba: ispiše kome bi što otišlo i ne pošalje ništa.
+# Tek "salji" stvarno šalje. Pokreće se rukom, nikad po rasporedu —
+# mail koji ode ne može se povući.
+
+on:
+  workflow_dispatch:
+    inputs:
+      nacin:
+        description: "proba (ništa se ne šalje) · nacrt (kampanje u Brevu) · salji"
+        required: true
+        default: proba
+        type: choice
+        options: [proba, nacrt, salji]
+
+jobs:
+  posalji:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Instaliraj knjižnice
+        run: pip install requests beautifulsoup4 anthropic
+
+      # Mailovi se ne salju ako provjera nesto zaustavlja. Proba i nacrt
+      # prolaze uvijek — oni nista ne salju, a korisni su upravo tada.
+      - name: Provjeri podatke
+        if: inputs.nacin == 'salji'
+        run: |
+          python provjera.py || {
+            echo "::error::Provjera zaustavlja slanje. Pogledaj provjera.md."
+            cat provjera.md
+            exit 1
+          }
+
+      - name: Pokreni
+        env:
+          BREVO_API_KEY: ${{ secrets.BREVO_API_KEY }}
+          BREVO_UPDATE_FORM_ID: ${{ secrets.BREVO_UPDATE_FORM_ID }}
+          BREVO_FROM: ${{ secrets.BREVO_FROM }}
+          BREVO_LISTA: ${{ secrets.BREVO_LISTA }}
+        run: |
+          case "${{ inputs.nacin }}" in
+            proba) python posalji.py ;;
+            nacrt) python posalji.py --nacrt ;;
+            salji) python posalji.py --salji ;;
+          esac
+
+      - name: Spremi predpreglede
+        if: inputs.nacin == 'proba'
+        uses: actions/upload-artifact@v4
+        with:
+          name: pregled-maila
+          path: pregled-maila/
+          if-no-files-found: ignore
+
+      # Poslije slanja poslano.json nosi nove slugove — bez ovoga bi isti
+      # natječaji otišli i idući tjedan.
+      - name: Zabilježi poslano
+        if: inputs.nacin == 'salji'
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add poslano.json
+          git diff --cached --quiet || git commit -m "poslano: obavijesti $(date +%F)"
+          git push
