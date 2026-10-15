@@ -751,7 +751,13 @@ def cist_naslov(s, maks=70):
     if len(s) > maks:
         rez = s[:maks].rsplit(" ", 1)[0]
         s = (rez or s[:maks]) + "…"
-    return s[0].upper() + s[1:]
+    s = s[0].upper() + s[1:]
+    # Gornji strip skida i tocku iza godine, a ona je dio rednog broja:
+    # "...2026./2027." je postajalo "...2026./2027". Vrati je.
+    if re.search(r"\b(?:19|20)\d\d\.?/(?:(?:19|20)?\d\d)$", s) \
+            or re.search(r"\b(?:19|20)\d\d$", s):
+        s += "."
+    return s
 
 
 # Rijeci oko kojih se u dugom dokumentu nalazi ono sto nas zanima.
