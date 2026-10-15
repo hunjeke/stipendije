@@ -489,32 +489,42 @@ def procitaj_natjecaj(client, page_text):
 
 
 def parse_hr_date(text):
-    """Prepoznaje: '4. studenoga 2025.' | '15.10.2025.' | '2025-10-15' | '15/10/2025'"""
+    """Prepoznaje: '4. studenoga 2025.' | '15.10.2025.' | '2025-10-15' | '15/10/2025'
+
+    Kad u tekstu stoji vise datuma, uzima se POSLJEDNJI. Rok se cesto pise kao
+    raspon ("prijave od 14. listopada do 28. listopada") ili kao dva roka u
+    jednoj recenici ("30. listopada za ucenike; 20. studenog za studente"). Dok
+    se uzimao prvi datum, racunao se pocetak prijava kao rok, pa su natjecaji
+    nestajali sa stranice dok su jos trajali: Koprivnicko-krizevacka (stvarni
+    rok 18.10.) i Velika Gorica (20.10.) tako se nisu vidjele uopce, a Istarska
+    zupanija (28.10.) nestala bi pri sljedecem prolazu.
+
+    Gleda se samo polje 'rok_tekst', koje sadrzi rok i nista drugo, pa posljednji
+    datum u njemu nije neki nepovezan datum iz teksta natjecaja."""
     if not text:
         return None
     t = str(text).lower()
-    m = re.search(r"(\d{1,2})\.\s*([a-zčćšđž]+)\s*(\d{4})", t)
-    if m:
+    nadeni = []
+    for m in re.finditer(r"(\d{1,2})\.\s*([a-zčćšđž]+)\s*(\d{4})", t):
         day, mon, yr = m.groups()
         month = HR_MONTHS.get(mon)
         if month:
-            try: return date(int(yr), month, int(day))
+            try: nadeni.append(date(int(yr), month, int(day)))
             except ValueError: pass
-    m = re.search(r"(\d{1,2})\.\s*(\d{1,2})\.\s*(\d{4})", t)
-    if m:
+    for m in re.finditer(r"(\d{1,2})\.\s*(\d{1,2})\.\s*(\d{4})", t):
         day, mon, yr = m.groups()
-        try: return date(int(yr), int(mon), int(day))
+        try: nadeni.append(date(int(yr), int(mon), int(day)))
         except ValueError: pass
-    m = re.search(r"(\d{4})-(\d{1,2})-(\d{1,2})", t)
-    if m:
+    for m in re.finditer(r"(\d{4})-(\d{1,2})-(\d{1,2})", t):
         yr, mon, day = m.groups()
-        try: return date(int(yr), int(mon), int(day))
+        try: nadeni.append(date(int(yr), int(mon), int(day)))
         except ValueError: pass
-    m = re.search(r"(\d{1,2})/(\d{1,2})/(\d{4})", t)
-    if m:
+    for m in re.finditer(r"(\d{1,2})/(\d{1,2})/(\d{4})", t):
         day, mon, yr = m.groups()
-        try: return date(int(yr), int(mon), int(day))
+        try: nadeni.append(date(int(yr), int(mon), int(day)))
         except ValueError: pass
+    if nadeni:
+        return max(nadeni)
 
     # "do kraja listopada 2026." — zadnji dan tog mjeseca
     m = re.search(r"kraja?\s+([a-zčćšđž]+)\s*(\d{4})", t)
