@@ -29,6 +29,7 @@ hoce li pokrenuti slanje.
 """
 import io
 import json
+import re
 import os
 import sys
 from collections import Counter
@@ -153,6 +154,29 @@ def rok_bez_godine(zapisi, _):
                f"rok bez godine, pogođena je: {t[:40]!r} — {_naslov(r)[:46]}")
 
 
+def izmisljen_mjesec(zapisi, _):
+    """Rok s imenom mjeseca koje ne postoji.
+
+    Model je kod jednog izvora vratio "do 6. christie do 13:00 sati". Takav
+    se rok ne procita, natjecaj nestane s popisa i nitko ne zna zasto. Kad
+    u roku stoji rijec koja izgleda kao mjesec a nije, bolje je to reci."""
+    from scraper import HR_MONTHS
+    for r in zapisi:
+        t = (r.get("rok_tekst") or "").lower()
+        if not t:
+            continue
+        for m in re.finditer(r"\b\d{1,2}\.?\s+([a-zčćšđž]{4,})\b", t):
+            rijec = m.group(1)
+            if rijec in HR_MONTHS or rijec in (
+                    "dana", "dan", "sati", "sat", "sata", "mjeseci",
+                    "mjesec", "tjedna", "tjedan", "godine", "godina",
+                    "ujutro", "navecer", "ponoci", "podne"):
+                continue
+            yield "pazi", (f"u roku stoji {rijec!r}, a to nije mjesec: "
+                           f"{_naslov(r)[:44]}")
+            break
+
+
 def iznos_izvan_raspona(zapisi, _):
     for r in zapisi:
         if not _otvoren(r) or r.get("iznos_je_fond"):
@@ -231,7 +255,7 @@ def previse_gresaka(zapisi, staro):
         yield "pazi", f"{greske} nedohvatljivih izvora, prošli put {prije}"
 
 
-PRAVILA = [rok_u_proslosti, rok_predaleko, rok_bez_godine,
+PRAVILA = [rok_u_proslosti, rok_predaleko, rok_bez_godine, izmisljen_mjesec,
            iznos_izvan_raspona, bez_roka_i_iznosa, ista_adresa_razlicit_rok,
            svima_a_nije_drzavna, nagla_promjena, previse_gresaka]
 
