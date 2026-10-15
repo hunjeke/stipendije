@@ -8,7 +8,13 @@ from zajednicko import CSS_KARTICE, glava, navigacija, podnozje, oblik, EMAIL, D
 
 
 def lokativ(ime):
-    """'Varaždinska županija' -> 'Varaždinskoj županiji'; 'Zagreb' -> 'Zagrebu'."""
+    """'Varaždinska županija' -> 'Varaždinskoj županiji'; 'Zagreb' -> 'Zagrebu'.
+
+    Grad Zagreb nije zupanija nego grad s njezinim ovlastima, pa mu se
+    mijenja i rijec "Grad": bez ovoga je u naslovu pisalo "Stipendije u
+    Grad Zagrebu"."""
+    if ime.startswith("Grad "):
+        return "Gradu " + ime[len("Grad "):] + "u"
     if ime.endswith("županija"):
         pridjev = ime[:-len("županija")].strip()
         if pridjev.endswith("a"):
