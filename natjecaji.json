@@ -116,6 +116,50 @@
     "zasto_rucno": "",
     "zupanija": ""
   },
+  "crikvenica-stipendije-ucenicima-studentima-2026": {
+    "iznos": "Mjesečni iznos stipendije za učenike iznosi 100,00 EUR. Mjesečni iznos stipendije za studente iznosi 150,00 EUR. Mjesečni iznos sportske stipendije, neovisno o tome je li korisnik učenik ili student, iznosi 100,00 EUR.",
+    "iznos_je_fond": false,
+    "iznosi": [
+      {
+        "do": false,
+        "eur": 100.0,
+        "mjeseci": 10,
+        "razdoblje": "mjesecno",
+        "za": "učenici"
+      },
+      {
+        "do": false,
+        "eur": 150.0,
+        "mjeseci": 10,
+        "razdoblje": "mjesecno",
+        "za": "studenti"
+      },
+      {
+        "do": false,
+        "eur": 100.0,
+        "mjeseci": 10,
+        "razdoblje": "mjesecno",
+        "za": "sportske stipendije"
+      }
+    ],
+    "izvor_naziv": "Grad Crikvenica — djeca i mladi",
+    "napomena": "Stipendija se odobrava za jednu školsku/akademsku godinu i isplaćuje se tijekom deset mjeseci. Kandidat može podnijeti prijavu za više kategorija stipendija, ali pravo na stipendiju može ostvariti samo po jednoj kategoriji. Ukupno se dodjeljuje 94 stipendije raspoređene po kategorijama.",
+    "naslov": "Stipendije učenicima i studentima 2026./2027",
+    "podrucje": "Crikvenica",
+    "potvrda": "",
+    "poveznica": "https://www.crikvenica.hr/natjecaj-za-stipendije-2026-2027/",
+    "prvi_put": "2026-10-15",
+    "rok_iso": "2026-10-30",
+    "rok_tekst": "od 15.10.2026. godine do 30.10.2026. godine",
+    "rucni": false,
+    "slug": "crikvenica-stipendije-ucenicima-studentima-2026",
+    "upute_za_prijavu": "Prijaviti se elektroničkim putem na www.crikvenica.hr | Upotrijebiti digitalni obrazac na https://som-natjecaj.eu/authentication/login (postojeći korisnici) ili https://som-natjecaj.eu/authentication/register (novi korisnici) | Priložiti svu potrebnu dokumentaciju prema kategoriji | Podnijeti prijavu do 30.10.2026. godine",
+    "url": "https://www.crikvenica.hr/natjecaj-za-stipendije-2026-2027/",
+    "uvjeti": "Kandidati moraju imati prebivalište na području Grada Crikvenice, biti redovni učenici 2., 3., 4. ili 5. razreda srednje škole ili redovni studenti, prvi put upisati nastavnu/akademsku godinu te podnijeti potpunu i pravodobnu prijavu.",
+    "zadnji_put": "2026-10-15",
+    "zasto_rucno": "",
+    "zupanija": "Primorsko-goranska županija"
+  },
   "daruvar-stipendije-grada-daruvara-studente-2026": {
     "iznos": "200,00 eura mjesečno",
     "iznos_je_fond": false,
@@ -1098,7 +1142,7 @@
     "zupanija": "Primorsko-goranska županija"
   },
   "osijek-stipendije-ucenicima-studentima-2026": {
-    "iznos": "100,00 eura mjesečno za učenike; 200,00 eura mjesečno za studente; 300,00 eura mjesečno za učenike zdravstvenih zanimanja",
+    "iznos": "100,00 eura mjesečno za učenike; 200,00 eura mjesečno za studente; 300,00 eura mjesečno za medicinske sestre",
     "iznos_je_fond": false,
     "iznosi": [
       {
@@ -1120,15 +1164,15 @@
         "eur": 300.0,
         "mjeseci": null,
         "razdoblje": "mjesecno",
-        "za": "učenici zdravstvenih zanimanja"
+        "za": "učenici medicinska sestra/medicinski tehničar"
       }
     ],
     "izvor_naziv": "Info centar za mlade Osijek — natječaji",
-    "napomena": "Za učenike zdravstvenih zanimanja osigurano je 30 stipendija s ciljem zadržavanja zdravstvenog kadra. Natječaj je objavljen na mrežnoj stranici Osječko-baranjske županije, u Glasu Slavonije i na mrežnoj stranici Sveučilišta Josipa Jurja Strossmayera u Osijeku.",
+    "napomena": "Za medicinske sestre/medicinske tehničare osigurano je 30 stipendija. Učenici primaju stipendije od 1. rujna 2026. do 30. lipnja 2027., studenti od 1. listopada 2026. do 31. srpnja 2027.",
     "naslov": "Stipendije učenicima i studentima",
     "podrucje": "Osijek",
     "potvrda": "",
-    "poveznica": "https://icm-osijek.info/natjecaji/objavljen-natjecaj-za-dodjelu-stipendija-ucenicima-i-studentima-u-osjecko-baranjskoj-zupaniji",
+    "poveznica": "https://icm-osijek.info/natjecaji/objavljen-natjecaj-za-dodjelu-stipendija-ucenicima-i-studentima-u-osjecko-baranjskoj-zupaniji#total-count-wrapper",
     "prvi_put": "2026-10-12",
     "rok_iso": "2026-10-21",
     "rok_tekst": "do 21. listopada 2026. godine",
@@ -1136,7 +1180,7 @@
     "slug": "osijek-stipendije-ucenicima-studentima-2026",
     "upute_za_prijavu": "",
     "url": "https://icm-osijek.info/natjecaji",
-    "uvjeti": "Natječaj je namijenjen učenicima srednjih škola i studentima u Osječko-baranjskoj županiji za 2026./2027. školsku, odnosno akademsku godinu. Uključeni su i učenici koji se obrazuju za zanimanja medicinska sestra opće njege/medicinski tehničar opće njege.",
+    "uvjeti": "Stipendije se dodjeljuju učenicima srednjih škola i studentima u Osječko-baranjskoj županiji za 2026./2027. školsku, odnosno akademsku godinu. Uvedene su i stipendije za učenike koji se obrazuju za zanimanje medicinska sestra opće njege/medicinski tehničar opće njege.",
     "zadnji_put": "2026-10-15",
     "zasto_rucno": "",
     "zupanija": "Osječko-baranjska županija"
@@ -2047,7 +2091,7 @@
     "iznos_je_fond": false,
     "iznosi": [],
     "izvor_naziv": "Varaždinska županija — stipendije",
-    "napomena": "Detaljni iznosi stipendija nalaze se u prilogu 'Odluka o vrsti, broju i mjesečnom iznosu stipendija 2026.27.pdf', koji nije dostupan u tekstu.",
+    "napomena": "Detaljni iznosi stipendija nalaze se u priloženim dokumentima (Odluka o vrsti, broju i mjesečnom iznosu stipendija), koji nisu dostupni u tekstu natječaja.",
     "naslov": "Stipendije Varaždinske županije",
     "podrucje": "Varaždinska županija",
     "potvrda": "",
@@ -2057,7 +2101,7 @@
     "rok_tekst": "29.10.2026.",
     "rucni": false,
     "slug": "varazdinska-zupanija-stipendije-varazdinske-zupanije-2026",
-    "upute_za_prijavu": "Preuzmite natječaj i prijavnicu s priloga na stranici | Ispunite prijavnicu | Priložite traženu dokumentaciju prema pravilniku | Predajte prijavu do navedenog roka",
+    "upute_za_prijavu": "Preuzmite natječaj i prijavnicu s web stranice | Popunite prijavnicu | Priložite potrebnu dokumentaciju prema pravilniku | Predajte prijavu do navedenog roka",
     "url": "https://www.varazdinska-zupanija.hr/potpore-i-pomoci1/stipendije.html",
     "uvjeti": "",
     "zadnji_put": "2026-10-15",

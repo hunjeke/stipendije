@@ -543,7 +543,7 @@
     "dodatni": []
   },
   "https://www.varazdinska-zupanija.hr/potpore-i-pomoci1/stipendije.html": {
-    "hash": "v3:16c079a056ef6913",
+    "hash": "v3:5f0bd9cf37da8bc9",
     "result": {
       "naziv": "Varaždinska županija — stipendije",
       "url": "https://www.varazdinska-zupanija.hr/potpore-i-pomoci1/stipendije.html",
@@ -554,11 +554,11 @@
       "iznos_je_fond": false,
       "rok_tekst": "29.10.2026.",
       "uvjeti": null,
-      "upute_za_prijavu": "Preuzmite natječaj i prijavnicu s priloga na stranici | Ispunite prijavnicu | Priložite traženu dokumentaciju prema pravilniku | Predajte prijavu do navedenog roka",
-      "napomena": "Detaljni iznosi stipendija nalaze se u prilogu 'Odluka o vrsti, broju i mjesečnom iznosu stipendija 2026.27.pdf', koji nije dostupan u tekstu.",
+      "upute_za_prijavu": "Preuzmite natječaj i prijavnicu s web stranice | Popunite prijavnicu | Priložite potrebnu dokumentaciju prema pravilniku | Predajte prijavu do navedenog roka",
+      "napomena": "Detaljni iznosi stipendija nalaze se u priloženim dokumentima (Odluka o vrsti, broju i mjesečnom iznosu stipendija), koji nisu dostupni u tekstu natječaja.",
       "poveznica_natjecaj": "https://www.varazdinska-zupanija.hr/natjecaji/natjecaj-za-dodjelu-stipendija-varazdinske-zupanjie-za-skolsku-akadamensku-godinu-2026-2027.html",
       "status": "OTVORENO — rok za 14 dana (2026-10-29)",
-      "zadnje_provjereno": "2026-10-15T10:34",
+      "zadnje_provjereno": "2026-10-15T11:29",
       "_ima_otvoren": true,
       "_dopuna_pokusana": true
     },
@@ -1512,7 +1512,7 @@
     }
   },
   "https://www.baska.hr/": {
-    "hash": "v3:839551deba1d2365",
+    "hash": "v3:b6c8f47e243aaa8b",
     "result": {
       "naziv": "Općina Baška — službene stranice",
       "url": "https://www.baska.hr/",
@@ -1556,9 +1556,11 @@
       "napomena": "Broj stipendija ovisi o broju kvalificiranih prijava i raspoloživim proračunskim sredstvima. Prijave se primaju isključivo elektronski. Stipendije se dodjeljuju za deficitarna zanimanja ili redovni studij, s različitim iznosima ovisno o prosječnoj ocjeni. Stipendisti trebaju zaključiti Ugovor s Općinom Baška.",
       "poveznica_natjecaj": null,
       "status": "OTVORENO — rok za 14 dana (2026-10-29)",
-      "zadnje_provjereno": "2026-10-15T10:46",
+      "zadnje_provjereno": "2026-10-15T11:32",
       "_ima_otvoren": true,
-      "_dopuna_pokusana": false
+      "_dopuna_pokusana": false,
+      "_zadrzan": true,
+      "_zadnja_potvrda": "2026-10-15T10:46"
     },
     "dodatni": []
   },
@@ -1941,7 +1943,7 @@
     }
   },
   "https://kastela.hr/kategorija/stipendije/": {
-    "hash": "v3:b2bf8359282d210a",
+    "hash": "v3:4ed24d20fd2df8ca",
     "result": {
       "naziv": "Grad Kaštela — stipendije",
       "url": "https://kastela.hr/kategorija/stipendije/",
@@ -1966,19 +1968,19 @@
       ],
       "iznos_je_fond": false,
       "rok_tekst": "10. do 30. listopada 2025. godine",
-      "uvjeti": "Učenici i studenti državljani Republike Hrvatske s prijavljenim prebivalištem ili boravištem na području Grada Kaštela. Studenti redoviti studenti prijediplomskih, diplomskih ili specijalističkih studija, nisu stariji od 26 godina. Učenici srednjih škola nisu stariji od 20 godina.",
-      "upute_za_prijavu": "Preuzmi prijavnicu i popis potrebnih dokaza iz priloženih dokumenata | Prikupi sve potrebne dokaze prema kategoriji (izvrsnost, socio-ekonomski status ili sportska stipendija) | Vlastoručno potpiši prijavnicu s izjavom o suglasnosti za obradu podataka | Dostavi prijavu putem redovne pošte ili lično do 30. listopada 2025.",
-      "napomena": "Stipendija se dodjeljuje za 10 mjeseci počevši od 1. rujna 2025. godine. Ukupno 180 stipendija: 80 prema izvrsnosti (30 učenika + 50 studenata), 80 prema socio-ekonomskom statusu (30 učenika + 50 studenata), 20 sportskih (10 učenika + 10 studenata). Cjelokupan tekst natječaja s pravilnikom i obrascem dostupan je na oglasnoj ploči Gradske uprave.",
+      "uvjeti": "Učenici i studenti koji su državljani Hrvatske s prebivalištem na području Grada Kaštela neprekidno najmanje tri godine, redoviti učenici srednjih škola ili studenti, nisu stariji od 20 odnosno 26 godina, i ne primaju stipendiju iz drugih javnih izvora. Detaljni uvjeti se razlikuju prema kategorijama (izvrsnost, socio-ekonomski status, sportske stipendije).",
+      "upute_za_prijavu": "Preuzmi obrazac za prijavu | Priloži tražene dokumente (svjedodžbe, uvjerenja, dokaze) | Podnesu prijavu do 30. listopada 2025. | Dostupni su cjeloviti tekst natječaja i pravilnik među priloženim dokumentima",
+      "napomena": "Raspisane tri kategorije stipendija: izvrsnost (80 kom), socio-ekonomski status (80 kom), sportske stipendije (20 kom). Ukupno 180 stipendija. Stipendija se dodjeljuje za 10 mjeseci od 1. rujna 2025. godine.",
       "poveznica_natjecaj": "https://kastela.hr/2025/10/10/natjecaj-za-dodjelu-stipendija-ucenicima-i-studentima-grada-kastela-za-skolsku-akademsku-godinu-2025-2026/",
       "status": "ROK ISTEKAO (2025-10-30) — čeka se novi ciklus",
-      "zadnje_provjereno": "2026-10-15T10:51",
+      "zadnje_provjereno": "2026-10-15T11:35",
       "_ima_otvoren": true,
       "_dopuna_pokusana": false
     },
     "dodatni": []
   },
   "https://www.crikvenica.hr/djeca-i-mladi/": {
-    "hash": "v3:59864c97e9807f35",
+    "hash": "v3:1ea278551f307235",
     "result": {
       "naziv": "Grad Crikvenica — djeca i mladi",
       "url": "https://www.crikvenica.hr/djeca-i-mladi/",
@@ -2003,14 +2005,58 @@
       ],
       "iznos_je_fond": false,
       "rok_tekst": "05. studenog 2025.",
-      "uvjeti": "Redovni učenici i redovni studenti hrvatskih državljani s prebivalištem na području Grada Crikvenice. Učenici srednjih škola (3. i 4. razred) trebaju prosjek ocjena od 4,500 i više, a studenti sveučilišta prosjek od 4,000 i više.",
-      "upute_za_prijavu": "Prijavite se na web stranici www.crikvenica.hr putem digitalnog obrasca | Prijavite se na https://som-natjecaj.eu/authentication/login (postojeći korisnici) ili https://som-natjecaj.eu/authentication/register (novi korisnici) | Priložite zahtijevane dokumente (svjedodžbu o uspjehu, uvjerenje o upisu, dokaznica o svjetskim natjecanjima) | Pošaljite prijavu do 05. studenog 2025.",
-      "napomena": "Stipendija se dodjeljuje za razdoblje od 01. rujna 2025. do 30. lipnja 2026. godine (10 mjeseci). Postoje tri odvojena natječaja na stranici: za izvrsnost, prema socijalnim kriterijima i za deficitarna zanimanja.",
+      "uvjeti": "Redovni učenici srednjih škola trećeg i četvrtog razreda s prosjekom ocjena od 4,500 i više, redovni studenti sveučilišta, fakulteta, visokih škola i veleučilišta s prosjekom ocjena 4,000-4,200 i više, hrvatski državljani s prebivalištem na području Grada Crikvenice.",
+      "upute_za_prijavu": "Prijava putem digitalnog obrasca na https://som-natjecaj.eu/authentication/login ili https://som-natjecaj.eu/authentication/register | Priložiti osobnu iskaznicu/potvrdu o prebivalištu i svjedodžbu o uspjehu | Priložiti uvjerenje o upisu u školsku/akademsku godinu 2025./2026. | Priložiti priznanja, potvrde, diplome s natjecanja/volontiranja | Predaja isključivo putem online obrasca na www.crikvenica.hr",
+      "napomena": "Stipendija se dodjeljuje za razdoblje od 01. rujna 2025. do 30. lipnja 2026. godine (10 mjeseci). Kontakt: aleksandar.tomas@crikvenica.hr, 051-455-413. Rezultati će biti objavljeni u roku od 30 dana nakon isteka roka za prijavu.",
       "poveznica_natjecaj": null,
       "status": "ROK ISTEKAO (2025-11-05) — čeka se novi ciklus",
-      "zadnje_provjereno": "2026-09-17T13:32",
-      "_ima_otvoren": true
-    }
+      "zadnje_provjereno": "2026-10-15T11:36",
+      "_ima_otvoren": true,
+      "_dopuna_pokusana": false
+    },
+    "dodatni": [
+      {
+        "naziv": "Grad Crikvenica — djeca i mladi",
+        "url": "https://www.crikvenica.hr/natjecaj-za-stipendije-2026-2027/",
+        "kategorija": "Grad",
+        "naslov_natjecaja": "Stipendije učenicima i studentima 2026./2027",
+        "iznos": "Mjesečni iznos stipendije za učenike iznosi 100,00 EUR. Mjesečni iznos stipendije za studente iznosi 150,00 EUR. Mjesečni iznos sportske stipendije, neovisno o tome je li korisnik učenik ili student, iznosi 100,00 EUR.",
+        "iznosi": [
+          {
+            "eur": 100.0,
+            "razdoblje": "mjesecno",
+            "mjeseci": 10,
+            "za": "učenici",
+            "do": false
+          },
+          {
+            "eur": 150.0,
+            "razdoblje": "mjesecno",
+            "mjeseci": 10,
+            "za": "studenti",
+            "do": false
+          },
+          {
+            "eur": 100.0,
+            "razdoblje": "mjesecno",
+            "mjeseci": 10,
+            "za": "sportske stipendije",
+            "do": false
+          }
+        ],
+        "iznos_je_fond": false,
+        "rok_tekst": "od 15.10.2026. godine do 30.10.2026. godine",
+        "uvjeti": "Kandidati moraju imati prebivalište na području Grada Crikvenice, biti redovni učenici 2., 3., 4. ili 5. razreda srednje škole ili redovni studenti, prvi put upisati nastavnu/akademsku godinu te podnijeti potpunu i pravodobnu prijavu.",
+        "upute_za_prijavu": "Prijaviti se elektroničkim putem na www.crikvenica.hr | Upotrijebiti digitalni obrazac na https://som-natjecaj.eu/authentication/login (postojeći korisnici) ili https://som-natjecaj.eu/authentication/register (novi korisnici) | Priložiti svu potrebnu dokumentaciju prema kategoriji | Podnijeti prijavu do 30.10.2026. godine",
+        "napomena": "Stipendija se odobrava za jednu školsku/akademsku godinu i isplaćuje se tijekom deset mjeseci. Kandidat može podnijeti prijavu za više kategorija stipendija, ali pravo na stipendiju može ostvariti samo po jednoj kategoriji. Ukupno se dodjeljuje 94 stipendije raspoređene po kategorijama.",
+        "poveznica_natjecaj": "https://www.crikvenica.hr/natjecaj-za-stipendije-2026-2027/",
+        "status": "OTVORENO (rok 2026-10-30)",
+        "zadnje_provjereno": "2026-10-15T11:36",
+        "_ima_otvoren": true,
+        "_dopuna_pokusana": true,
+        "_izvor_url": "https://www.crikvenica.hr/djeca-i-mladi/"
+      }
+    ]
   },
   "https://kastav.hr/": {
     "hash": "v3:b85cdcaa9fdbdbdc",
@@ -2244,13 +2290,13 @@
     "dodatni": []
   },
   "https://icm-osijek.info/natjecaji": {
-    "hash": "v3:d9c34a545b2079af",
+    "hash": "v3:bfc452667183c603",
     "result": {
       "naziv": "Info centar za mlade Osijek — natječaji",
       "url": "https://icm-osijek.info/natjecaji",
       "kategorija": "Agregator",
       "naslov_natjecaja": "Stipendije učenicima i studentima",
-      "iznos": "100,00 eura mjesečno za učenike; 200,00 eura mjesečno za studente; 300,00 eura mjesečno za učenike zdravstvenih zanimanja",
+      "iznos": "100,00 eura mjesečno za učenike; 200,00 eura mjesečno za studente; 300,00 eura mjesečno za medicinske sestre",
       "iznosi": [
         {
           "eur": 100.0,
@@ -2270,37 +2316,59 @@
           "eur": 300.0,
           "razdoblje": "mjesecno",
           "mjeseci": null,
-          "za": "učenici zdravstvenih zanimanja",
+          "za": "učenici medicinska sestra/medicinski tehničar",
           "do": false
         }
       ],
       "iznos_je_fond": false,
       "rok_tekst": "do 21. listopada 2026. godine",
-      "uvjeti": "Natječaj je namijenjen učenicima srednjih škola i studentima u Osječko-baranjskoj županiji za 2026./2027. školsku, odnosno akademsku godinu. Uključeni su i učenici koji se obrazuju za zanimanja medicinska sestra opće njege/medicinski tehničar opće njege.",
+      "uvjeti": "Stipendije se dodjeljuju učenicima srednjih škola i studentima u Osječko-baranjskoj županiji za 2026./2027. školsku, odnosno akademsku godinu. Uvedene su i stipendije za učenike koji se obrazuju za zanimanje medicinska sestra opće njege/medicinski tehničar opće njege.",
       "upute_za_prijavu": null,
-      "napomena": "Za učenike zdravstvenih zanimanja osigurano je 30 stipendija s ciljem zadržavanja zdravstvenog kadra. Natječaj je objavljen na mrežnoj stranici Osječko-baranjske županije, u Glasu Slavonije i na mrežnoj stranici Sveučilišta Josipa Jurja Strossmayera u Osijeku.",
-      "poveznica_natjecaj": "https://icm-osijek.info/natjecaji/objavljen-natjecaj-za-dodjelu-stipendija-ucenicima-i-studentima-u-osjecko-baranjskoj-zupaniji",
+      "napomena": "Za medicinske sestre/medicinske tehničare osigurano je 30 stipendija. Učenici primaju stipendije od 1. rujna 2026. do 30. lipnja 2027., studenti od 1. listopada 2026. do 31. srpnja 2027.",
+      "poveznica_natjecaj": "https://icm-osijek.info/natjecaji/objavljen-natjecaj-za-dodjelu-stipendija-ucenicima-i-studentima-u-osjecko-baranjskoj-zupaniji#total-count-wrapper",
       "status": "OTVORENO — rok za 6 dana (2026-10-21)",
-      "zadnje_provjereno": "2026-10-15T10:58",
+      "zadnje_provjereno": "2026-10-15T11:39",
       "_ima_otvoren": true,
       "_dopuna_pokusana": false
     },
     "dodatni": [
       {
         "naziv": "Info centar za mlade Osijek — natječaji",
-        "url": "https://icm-osijek.info/natjecaji/f-stipendije",
+        "url": "https://icm-osijek.info/natjecaji/objavljen-natjecaj-za-dodjelu-stipendija-ucenicima-i-studentima-u-osjecko-baranjskoj-zupaniji#total-reviews-count-wrapper",
         "kategorija": "Agregator",
-        "naslov_natjecaja": "Humphrey stipendija u SAD-u",
-        "iznos": null,
-        "iznosi": [],
+        "naslov_natjecaja": "Stipendije učenicima i studentima",
+        "iznos": "100,00 eura mjesečno za učenike; 200,00 eura mjesečno za studente; 300,00 eura mjesečno za učenike medicinskih smjerova",
+        "iznosi": [
+          {
+            "eur": 100.0,
+            "razdoblje": "mjesecno",
+            "mjeseci": 10,
+            "za": "učenici srednjih škola",
+            "do": false
+          },
+          {
+            "eur": 200.0,
+            "razdoblje": "mjesecno",
+            "mjeseci": 10,
+            "za": "studenti",
+            "do": false
+          },
+          {
+            "eur": 300.0,
+            "razdoblje": "mjesecno",
+            "mjeseci": null,
+            "za": "učenici medicinska sestra/medicinski tehničar",
+            "do": false
+          }
+        ],
         "iznos_je_fond": false,
-        "rok_tekst": "do 31. srpnja 2026. godine",
-        "uvjeti": "Hrvatski državljani s visokom stručnom spremom (završen najmanje četverogodišnji studij ili petogodišnji diplomski studij), iskustvom u vođenju i pet godina radnog iskustva u jednom od navedenih područja te izvrsnim znanjem engleskoga jezika.",
-        "upute_za_prijavu": "Pristupiti mrežnoj stranici Veleposlanstva SAD-a | Ispuniti online prijavu | Dostaviti dodatnu dokumentaciju elektronički | Dokumentacija se učitava uz prijavu do 31. srpnja 2026.",
-        "napomena": "Stipendije nisu namijenjene za razdoblje studija niti omogućuju stjecanje akademskoga naziva u SAD-u. Kandidati trebaju podnijeti dokaz o zaposlenju u RH. Raspoloživa su 11 odabranih sveučilišta u SAD-u.",
-        "poveznica_natjecaj": "https://icm-osijek.info/natjecaji/f-stipendije",
-        "status": "ROK ISTEKAO (2026-07-31) — čeka se novi ciklus",
-        "zadnje_provjereno": "2026-10-15T10:58",
+        "rok_tekst": "21. listopada 2026. godine",
+        "uvjeti": "Učenici i studenti u Osječko-baranjskoj županiji. Od školske godine 2026./2027. uključeni su i učenici koji se obrazuju za zanimanje medicinska sestra opće njege/medicinski tehničar opće njege.",
+        "upute_za_prijavu": null,
+        "napomena": "Za učenike medicinskih smjerova osigurano je 30 stipendija u iznosu od 300,00 eura mjesečno. Natječaj objavljen na mrežnoj stranici Osječko-baranjske županije, u Glasu Slavonije i na mrežnoj stranici Sveučilišta Josipa Jurja Strossmayera u Osijeku.",
+        "poveznica_natjecaj": "https://icm-osijek.info/natjecaji/objavljen-natjecaj-za-dodjelu-stipendija-ucenicima-i-studentima-u-osjecko-baranjskoj-zupaniji#total-reviews-count-wrapper",
+        "status": "OTVORENO — rok za 6 dana (2026-10-21)",
+        "zadnje_provjereno": "2026-10-15T11:39",
         "_ima_otvoren": true,
         "_dopuna_pokusana": true,
         "_izvor_url": "https://icm-osijek.info/natjecaji"
@@ -3212,7 +3280,7 @@
     }
   },
   "https://www.unicath.hr/o-sveucilistu/natjecaji": {
-    "hash": "v3:ed78a2973ad6b227",
+    "hash": "v3:63fb153cddb6bcb8",
     "result": {
       "naziv": "Hrvatsko katoličko sveučilište — natječaji",
       "url": "https://www.unicath.hr/o-sveucilistu/natjecaji",
@@ -3227,7 +3295,7 @@
       "napomena": null,
       "poveznica_natjecaj": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-10-15T11:08",
+      "zadnje_provjereno": "2026-10-15T11:42",
       "_ima_otvoren": false,
       "_dopuna_pokusana": false
     },
@@ -4015,22 +4083,22 @@
     "dodatni": []
   },
   "https://zupanja.hr/stipendije-grada-zupanja/": {
-    "hash": "v3:ab0066e6debb1d31",
+    "hash": "v3:afe1c1e18ddc51f4",
     "result": {
       "naziv": "Grad Županja — stipendije",
       "url": "https://zupanja.hr/stipendije-grada-zupanja/",
       "kategorija": "Grad",
-      "naslov_natjecaja": "Stipendije grada Županja",
+      "naslov_natjecaja": "Stipendije Grada Županja za školsku godinu 2025./2026",
       "iznos": null,
       "iznosi": [],
       "iznos_je_fond": false,
-      "rok_tekst": "14. studenog 2025.",
+      "rok_tekst": "14. studenog 2025. godine",
       "uvjeti": null,
-      "upute_za_prijavu": "Registracija na SOM Natječaj aplikaciji | Odabir natječaja iz popisa objavljenih natječaja | Popunjavanje obaveznih polja označenih crvenom zvjezdicom | Učitavanje potrebnih dokumenata | Slanje prijave klikom na 'Pošalji prijavu'",
-      "napomena": "Iznos stipendije nije naveden u javnom pozivu; trebalo bi pregledati PDF dokumente \"Odluka visina stipendije I godina\" i \"Odluka visina stipendije više godine studija\" za iznose. Prijave se vrše isključivo putem SOM Natječaj aplikacije.",
+      "upute_za_prijavu": "Registracija na SOM Natječaj aplikaciji | Odabir između 'Nova registracija' ili 'Registracija putem postojećeg SOM računa' | Upis potrebnih podataka | Pristup natječajima kroz opciju 'Natječaji' | Popunjavanje obaveznih polja označenih crvenom zvjezdicom | Slanje prijave klikom na 'Pošalji prijavu'",
+      "napomena": "Iznosi stipendija dostupni su u prilozenim PDF dokumentima ('Odluka visina stipendije I godina' i 'Odluka visina stipendije više godine studija'). Aplikacija SOM NATJEČAJI optimizirana je za pejzažni (landscape) način rada na mobilnim uređajima.",
       "poveznica_natjecaj": null,
       "status": "ROK ISTEKAO (2025-11-14) — čeka se novi ciklus",
-      "zadnje_provjereno": "2026-10-15T11:13",
+      "zadnje_provjereno": "2026-10-15T11:43",
       "_ima_otvoren": true,
       "_dopuna_pokusana": true
     },
