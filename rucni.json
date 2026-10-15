@@ -128,12 +128,35 @@
     "podrucje": "Osječko-baranjska županija",
     "zupanija": "Osječko-baranjska županija",
     "kategorija": "Županija",
-    "iznosi": [],
+    "iznosi": [
+      {
+        "eur": 100,
+        "razdoblje": "mjesecno",
+        "mjeseci": null,
+        "za": "učenici",
+        "do": false
+      },
+      {
+        "eur": 300,
+        "razdoblje": "mjesecno",
+        "mjeseci": null,
+        "za": "učenici — medicinska sestra/tehničar",
+        "do": false
+      },
+      {
+        "eur": 200,
+        "razdoblje": "mjesecno",
+        "mjeseci": null,
+        "za": "studenti",
+        "do": false
+      }
+    ],
     "iznos_je_fond": false,
     "rok_tekst": "21. listopada 2026.",
     "uvjeti": "Učenici srednjih škola i studenti prve, druge i treće godine s područja Osječko-baranjske županije. Kategorije: daroviti, STEM, deficitarna zanimanja, socio-ekonomski status te medicinske sestre i tehničari. Iznosi su objavljeni u tekstu natječaja.",
-    "zasto_rucno": "Sustav je prepoznao natječaj preko sveučilišne stranice, ali mu nije pročitao rok.",
-    "potvrda": "https://www.unios.hr/natjecaj-za-dodjelu-stipendija-ucenicima-i-studentima-za-2026-2027-skolsku-odnosno-akademsku-godinu/"
+    "zasto_rucno": "Sustav je prepoznao natječaj preko sveučilišne stranice, ali mu nije pročitao rok. Iznosi i broj stipendija prepisani s natječaja 15.10.2026.",
+    "potvrda": "https://www.unios.hr/natjecaj-za-dodjelu-stipendija-ucenicima-i-studentima-za-2026-2027-skolsku-odnosno-akademsku-godinu/",
+    "iznos": "100,00 eura mjesečno za učenike, 300,00 eura mjesečno za učenike koji se obrazuju za medicinsku sestru/tehničara opće njege, 200,00 eura mjesečno za studente"
   },
   {
     "naziv": "Grad Križevci — stipendije",
@@ -615,5 +638,36 @@
     "upute_za_prijavu": "Prijava je elektronička, kroz sustav na stranici Grada Varaždina. Prije ispunjavanja prijave treba pročitati tekst javnog natječaja; uz natječaj su objavljene i upute za prijavitelje te obrazac Izjave o članovima zajedničkog kućanstva. Dodatne informacije: 042/658-036 ili 042/658-015.",
     "zasto_rucno": "Scraper na varazdin.hr/natjecaji/ javlja da nema aktivnog natječaja iako je objavljen 6.10.2026. Pronađeno ručno 14.10.2026. Iznos i broj stipendija nisu upisani jer su tekst natječaja i upute skenirani PDF-ovi bez tekstualnog sloja.",
     "potvrda": "https://varazdin.hr/natjecaji/natjecaj-stipendiranje-ucenika-i-studenata-2026-2027-godinu-13228/"
+  },
+  {
+    "naziv": "Varaždinska županija — stipendije",
+    "naslov_natjecaja": "Stipendije Varaždinske županije 2026./2027.",
+    "url": "https://www.varazdinska-zupanija.hr/natjecaji/natjecaj-za-dodjelu-stipendija-varazdinske-zupanjie-za-skolsku-akadamensku-godinu-2026-2027.html",
+    "podrucje": "Varaždinska županija",
+    "zupanija": "Varaždinska županija",
+    "kategorija": "Županija",
+    "iznos": "65,00 eura mjesečno za učenike, 130,00 eura mjesečno za studente",
+    "iznosi": [
+      {
+        "eur": 65,
+        "razdoblje": "mjesecno",
+        "mjeseci": null,
+        "za": "učenici",
+        "do": false
+      },
+      {
+        "eur": 130,
+        "razdoblje": "mjesecno",
+        "mjeseci": null,
+        "za": "studenti",
+        "do": false
+      }
+    ],
+    "iznos_je_fond": false,
+    "rok_tekst": "do 29.10.2026.",
+    "uvjeti": "Učenici srednjih škola i studenti s područja Varaždinske županije.",
+    "upute_za_prijavu": "Prijava se predaje na obrascu Prijavnice uz natječaj. Uz natječaj su objavljeni Odluka o stipendiranju, Odluka o iznosima stipendija i Pravilnik o kriterijima — pročitaj ih prije prijave.",
+    "zasto_rucno": "Iznosi stoje u prilogu 'Odluka o iznosima stipendija' koji scraper nije uspio pročitati — prilozi nisu u PDF-u. Iznose je 15.10.2026. provjerio Erik na stranici natječaja.",
+    "potvrda": "https://www.varazdinska-zupanija.hr/natjecaji/natjecaj-za-dodjelu-stipendija-varazdinske-zupanjie-za-skolsku-akadamensku-godinu-2026-2027.html"
   }
 ]
