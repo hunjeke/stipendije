@@ -599,5 +599,21 @@
     "upute_za_prijavu": "Prijava je isključivo elektronička, u Sustavu državnih stipendija na vidra.srce.hr, prijavom preko AAI@EduHR ili e-Građana. Prijave teku od 13. listopada 2026. u 12:00 do 3. studenoga 2026. u 12:00. Papirnata prijava se ne prima. Bodovanje i popis dokumenata su na stipendije.hr/drzavna-stipendija.html.",
     "zasto_rucno": "Scraper natječaj nije uhvatio — objavljen je na rubrici ministarstva koja se čita, ali zapis nije nastao. Upisano ručno 13.10.2026. da najveći natječaj u godini ne izostane s naslovnice.",
     "potvrda": "https://mzom.gov.hr/istaknute-teme/natjecaji-196/natjecaj-za-dodjelu-12-150-drzavnih-stipendija-za-akademsku-godinu-2026-2027-studentima-u-redovitom-statusu-koji-studiraju-na-visokim-ucilistima-u-republici-hrvatskoj/8096"
+  },
+  {
+    "naziv": "Grad Varaždin — stipendije za učenike i studente",
+    "naslov_natjecaja": "Stipendije Grada Varaždina za učenike i studente",
+    "url": "https://varazdin.hr/natjecaji/natjecaj-stipendiranje-ucenika-i-studenata-2026-2027-godinu-13228/",
+    "podrucje": "Varaždin",
+    "zupanija": "Varaždinska županija",
+    "kategorija": "Grad",
+    "iznos": "",
+    "iznosi": [],
+    "iznos_je_fond": false,
+    "rok_tekst": "27. listopada 2026. do 13:00",
+    "uvjeti": "Učenici srednjih škola i studenti. Uvjeti su u tekstu natječaja, koji je objavljen kao skenirani dokument pa se ovdje ne prepisuje — otvori ga prije prijave.",
+    "upute_za_prijavu": "Prijava je elektronička, kroz sustav na stranici Grada Varaždina. Prije ispunjavanja prijave treba pročitati tekst javnog natječaja; uz natječaj su objavljene i upute za prijavitelje te obrazac Izjave o članovima zajedničkog kućanstva. Dodatne informacije: 042/658-036 ili 042/658-015.",
+    "zasto_rucno": "Scraper na varazdin.hr/natjecaji/ javlja da nema aktivnog natječaja iako je objavljen 6.10.2026. Pronađeno ručno 14.10.2026. Iznos i broj stipendija nisu upisani jer su tekst natječaja i upute skenirani PDF-ovi bez tekstualnog sloja.",
+    "potvrda": "https://varazdin.hr/natjecaji/natjecaj-stipendiranje-ucenika-i-studenata-2026-2027-godinu-13228/"
   }
 ]
