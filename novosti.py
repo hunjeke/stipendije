@@ -238,6 +238,32 @@ def _ime_skupine(k):
     return k[1] + (" — s upisanim gradom" if k[2] else " — bez upisanog grada")
 
 
+def _rok(z):
+    """Rok u mailu, isti oblik kao na stranici: 18.10.2026. do 23:59.
+
+    Izvori rok pisu recenicom — "od 1. listopada 2026. godine od 7,00 sati do
+    zakljucno 18. listopada 2026. godine do 23:59". Stranica to vec ispisuje
+    iz isparsiranog datuma, a mail je dosad prepisivao recenicu doslovno, pa
+    je isti natjecaj na dva mjesta izgledao kao dva razlicita podatka.
+
+    Sat se zadrzava kad ga izvor navodi: kod roka u 12:00 to je razlika
+    izmedu predane i propustene prijave. Kad datum nije isparsiran, ostaje
+    izvorni tekst — bolje nesto nego nista."""
+    iso = z.get("rok_iso") or ""
+    izvorni = (z.get("rok_tekst") or "").strip()
+    if len(iso) != 10:
+        return izvorni
+    g, m, d = iso.split("-")
+    out = f"{d}.{m}.{g}."
+    # sat se uzima samo ako stoji uz zadnji datum u recenici, da se ne pokupi
+    # vrijeme pocetka prijava ("od 7,00 sati do ...")
+    rep = izvorni[izvorni.rfind(d) if d in izvorni else 0:]
+    sat = re.search(r"\b(\d{1,2}):(\d{2})\b", rep)
+    if sat:
+        out += f" do {int(sat.group(1))}:{sat.group(2)}"
+    return out
+
+
 def _iznos(z):
     """Kratki iznos za poruku. Radije nista nego pogresno."""
     mj = [i for i in (z.get("iznosi") or [])
@@ -462,8 +488,9 @@ def _redak(z):
     iz = _iznos(z)
     if iz:
         dio.append(iz)
-    if z.get("rok_tekst"):
-        dio.append(f"rok {z['rok_tekst']}")
+    rok = _rok(z)
+    if rok:
+        dio.append(f"rok {rok}")
     veza = z.get("poveznica") or z.get("url") or ""
     return (" · ".join(dio) + _ZA_KOGA.get(_skupina(z), "")
             + (f"\n{veza}" if veza else ""))
