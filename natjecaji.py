@@ -187,7 +187,8 @@ def stranica(mapa, z, eur, iznos_polja_f, datumi_u_brojke, esc,
              poziv_kanal=None):
     """Napise docs/natjecaj/<slug>.html za jedan zapis iz arhiva."""
     otvoren = bool(z.get("rok_iso")) and z["rok_iso"] >= date.today().isoformat()
-    naslov = z.get("naslov") or "Natječaj za stipendiju"
+    from zajednicko import sredi_naslov
+    naslov = sredi_naslov(z.get("naslov")) or "Natječaj za stipendiju"
     pod = z.get("podrucje") or ""
     zup = z.get("zupanija") or ""
 
