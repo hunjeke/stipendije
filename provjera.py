@@ -154,6 +154,20 @@ def rok_bez_godine(zapisi, _):
                f"rok bez godine, pogođena je: {t[:40]!r} — {_naslov(r)[:46]}")
 
 
+def tudje_pismo(zapisi, _):
+    """Naslov u kojem se pomijesala cirilica s latinicom.
+
+    Model je vratio "Državne stipendije za академsku godinu" — oko ne vidi
+    razliku, ali to je druga abeceda, pa se naslov krivo sortira, krivo
+    trazi i ruzno izgleda kad ga netko prepise."""
+    for r in zapisi:
+        t = _naslov(r)
+        tude = [c for c in t if "\u0400" <= c <= "\u04FF"]
+        if tude:
+            yield "pazi", (f"naslov miješa ćirilicu i latinicu "
+                           f"({''.join(sorted(set(tude)))}): {t[:46]}")
+
+
 def izracunat_rok(zapisi, _):
     """Rok izveden iz datuma objave, a ne prepisan s natjecaja.
 
@@ -269,7 +283,7 @@ def previse_gresaka(zapisi, staro):
 
 
 PRAVILA = [rok_u_proslosti, rok_predaleko, rok_bez_godine, izmisljen_mjesec,
-           izracunat_rok,
+           izracunat_rok, tudje_pismo,
            iznos_izvan_raspona, bez_roka_i_iznosa, ista_adresa_razlicit_rok,
            svima_a_nije_drzavna, nagla_promjena, previse_gresaka]
 
