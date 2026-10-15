@@ -36,7 +36,7 @@ from datetime import date
 import requests
 
 from novosti import (novi_natjecaji, vec_javljeno, _spoji_iste, _kome,
-                     _skupina, _iznos, _drzavna, POSLANO)
+                     _skupina, _iznos, _rok, _drzavna, POSLANO)
 
 API = "https://api.brevo.com/v3"
 LISTA = os.environ.get("BREVO_LISTA", "Obavijesti #3")
@@ -195,8 +195,9 @@ def _red_html(z):
     iz = _iznos(z)
     if iz:
         dio.append(iz)
-    if z.get("rok_tekst"):
-        dio.append("rok " + z["rok_tekst"])
+    rok = _rok(z)
+    if rok:
+        dio.append("rok " + rok)
     veza = z.get("poveznica") or z.get("url") or ""
     redak = " · ".join(dio) + ZA_KOGA.get(_skupina(z), "")
     if veza:
