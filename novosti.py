@@ -30,6 +30,7 @@ from datetime import date
 # popravljalo a drugo zaboravljalo.
 from web import (za_koga, _bolji, _isti_natjecaj, _rijeci,
                  opisna_stranica)
+from scraper import bez_kvacica
 
 IZVORI = "sources.json"
 RUCNI = "rucni.json"
@@ -162,6 +163,32 @@ def _skupina(z):
     })
 
 
+def _drzavna(z):
+    """Je li ovo drzavna stipendija — socio-ekonomska ili STEM.
+
+    Samo te dvije idu mailom svim pretplatnicima. Ostalo sto vrijedi za
+    cijelu Hrvatsku (zaklade, Bavarska, Slovacka, CEEPUS, kadrovske
+    stipendije tvrtki) stoji na stranici, ali se ne salje: tice se malog
+    dijela ljudi, a svaki takav mail trosi paznju koju treba sacuvati za
+    natjecaj na koji se prijavljuje pola zemlje.
+    """
+    from drzavna import MZO_SOCIO, POVEZNICA
+    adrese = {a.rstrip("/").lower() for a in (MZO_SOCIO, POVEZNICA) if a}
+    spoj = ""
+    for k in ("url", "poveznica"):
+        v = (z.get(k) or "").strip().rstrip("/").lower()
+        if v in adrese:
+            return True
+        spoj += v
+    if "mzom.gov.hr" not in spoj:
+        return False
+    n = bez_kvacica(z.get("naslov") or "")
+    if "rome" in n or "romsk" in n:      # romska drzavna je uza skupina
+        return False
+    return ("drzavne stipendije" in n or "drzavnih stipendija" in n
+            or "stem" in n)
+
+
 def _kome(z):
     """Kome natjecaj ide. None znaci: nikome na mail, samo na stranicu.
 
@@ -177,7 +204,7 @@ def _kome(z):
     zup = (z.get("zupanija") or "").strip()
 
     if pod.lower() == SVIMA:
-        return ("svi",) if SIROKI_SVIMA else None
+        return ("svi",) if (SIROKI_SVIMA and _drzavna(z)) else None
 
     # Grad Zagreb nema nadredenu zupaniju; podrucje mu je ujedno i odabir
     # u obrascu, pa ide kao zupanija.
@@ -192,11 +219,9 @@ def _kome(z):
 
 def _ime_skupine(k):
     """Naslov odsjecka u izvjestaju."""
-    if k[0] == "svi":
-        return "Svi pretplatnici"
-    if k[0] == "zupanija":
-        return k[1]
-    return f"{k[1]} ({k[2]})"
+    if k[0] == "drzavna":
+        return "Svi pretplatnici — državna stipendija"
+    return k[1] + (" — s upisanim gradom" if k[2] else " — bez upisanog grada")
 
 
 def _iznos(z):
@@ -363,80 +388,126 @@ def vec_javljeno(novi, arhiv, poslano):
 
 
 def razvrstaj(novi):
-    """({(kome, skupina): [zapisi]}, [preskoceni]).
+    """({kljuc: [zapisi]}, [preskoceni]) — jedan mail po osobi, ne po natjecaju.
+
+    Prije je svaki natjecaj isao svojom porukom, pa je covjek iz Rovinja u
+    jednom tjednu mogao dobiti cetiri maila. Sada se slaze tjedni pregled:
+    svaki pretplatnik dobije najvise jednu poruku sa svime sto ga se tice.
+
+    Kljucevi:
+      ("drzavna",)            drzavna stipendija — svima, zasebnom porukom
+      ("zup", zupanija, False)  ZUPANIJA = X, bez upisanog grada
+      ("zup", zupanija, True)   ZUPANIJA = X, s upisanim gradom
+
+    Dvije skupine po zupaniji postoje zato sto gradski natjecaji idu samo
+    onima koji su upisali grad. Tko nije, dobiva isti mail bez gradskog
+    dijela. TIP (ucenik/student) se vise ne dijeli u zasebne poruke — kad bi
+    se dijelio, covjek s oznakom "oba" dobio bi dvije — nego svaki natjecaj
+    u popisu nosi oznaku za koga je.
 
     Preskoceni su natjecaji koji ne idu nikome na mail. Ne nestaju tiho —
-    ispisuju se u izvjestaju da se vidi sto je ostalo samo na stranici i
-    da se oznaka moze ispraviti ako je kriva."""
+    ispisuju se u izvjestaju da se vidi sto je ostalo samo na stranici."""
     grupe, preskoceni = {}, []
+    zupanijski, gradski = {}, {}
     for z in _spoji_iste(list(novi.values())):
         k = _kome(z)
         if k is None:
             preskoceni.append(z)
-            continue
-        grupe.setdefault((k, _skupina(z)), []).append(z)
+        elif k[0] == "svi":
+            grupe.setdefault(("drzavna",), []).append(z)
+        elif k[0] == "zupanija":
+            zupanijski.setdefault(k[1], []).append(z)
+        else:
+            gradski.setdefault(k[2], []).append(z)
+
+    for zup in set(zupanijski) | set(gradski):
+        samo_zup = zupanijski.get(zup, [])
+        if samo_zup:
+            grupe[("zup", zup, False)] = list(samo_zup)
+        grupe[("zup", zup, True)] = samo_zup + gradski.get(zup, [])
+
     for v in grupe.values():
-        v.sort(key=lambda z: z.get("rok_iso") or "9999")
+        v.sort(key=lambda z: (z.get("rok_iso") or "9999", z.get("naslov") or ""))
     preskoceni.sort(key=lambda z: (z.get("podrucje") or "", z.get("naslov") or ""))
     return grupe, preskoceni
 
 
-def _poruka(zapisi, kome, skupina):
+_ZA_KOGA = {"ucenik": " — samo za učenike",
+            "student": " — samo za studente",
+            "oba": ""}
+
+
+def _redak(z):
+    """Jedan natjecaj u popisu."""
+    dio = [f"**{z['naslov']}**"]
+    if z.get("podrucje"):
+        dio.append(z["podrucje"])
+    iz = _iznos(z)
+    if iz:
+        dio.append(iz)
+    if z.get("rok_tekst"):
+        dio.append(f"rok {z['rok_tekst']}")
+    veza = z.get("poveznica") or z.get("url") or ""
+    return (" · ".join(dio) + _ZA_KOGA.get(_skupina(z), "")
+            + (f"\n{veza}" if veza else ""))
+
+
+def _poruka(zapisi, kljuc):
     """Tekst maila za jednu skupinu primatelja."""
-    jedan = len(zapisi) == 1
-    if jedan:
-        z = zapisi[0]
-        predmet = f"Otvoren natječaj: {z['naslov']}"
-    else:
-        gdje = "cijela Hrvatska" if kome[0] == "svi" else kome[1]
-        koliko = ("2 nova natječaja" if len(zapisi) == 2
-                  else f"{len(zapisi)} novih natječaja" if len(zapisi) > 4
-                  else f"{len(zapisi)} nova natječaja")
-        predmet = f"{koliko} — {gdje}"
+    if kljuc[0] == "drzavna":
+        jedan = len(zapisi) == 1
+        predmet = (f"Otvoren natječaj: {zapisi[0]['naslov']}" if jedan
+                   else f"{len(zapisi)} nova natječaja za državnu stipendiju")
+        uvod = ("Otvorio se natječaj za državnu stipendiju:" if jedan
+                else "Otvorili su se natječaji za državne stipendije:")
+        zasto = ("Ovo dobivaš jer si se prijavio na obavijesti. Državna "
+                 "stipendija vrijedi za cijelu Hrvatsku, pa je dobivaju svi.")
+        return predmet, (f"{uvod}\n\n"
+                         + "\n\n".join(_redak(z) for z in zapisi)
+                         + "\n\nCijeli postupak prijave i bodovanje: "
+                           "https://stipendije.hr/drzavna-stipendija.html"
+                         f"\n\n{zasto}")
 
-    redci = []
-    for z in zapisi:
-        dio = [f"**{z['naslov']}**"]
-        if z.get("podrucje"):
-            dio.append(z["podrucje"])
-        iz = _iznos(z)
-        if iz:
-            dio.append(iz)
-        if z.get("rok_tekst"):
-            dio.append(f"rok {z['rok_tekst']}")
-        veza = z.get("poveznica") or z.get("url") or ""
-        redci.append(" · ".join(dio) + (f"\n{veza}" if veza else ""))
+    _, zup, s_gradom = kljuc
+    koliko = ("Jedan novi natječaj" if len(zapisi) == 1
+              else f"{len(zapisi)} novih natječaja")
+    predmet = f"{koliko} — {zup}"
 
-    uvod = ("Otvorio se natječaj koji te se tiče:" if jedan
-            else "Otvorili su se novi natječaji koji te se tiču:")
+    zup_zapisi = [z for z in zapisi if (_kome(z) or ("",))[0] == "zupanija"]
+    grad_zapisi = [z for z in zapisi if (_kome(z) or ("",))[0] == "grad"]
 
-    if kome[0] == "grad":
-        zasto = ("Ovo dobivaš jer si u postavkama upisao "
-                 f"{kome[1]} kao svoje mjesto.")
-    elif kome[0] == "zupanija":
-        zasto = "Ovo dobivaš jer si se prijavio na obavijesti za svoju županiju."
-    else:
-        zasto = ("Ovo dobivaš jer si se prijavio na obavijesti. Ovaj natječaj "
-                 "vrijedi za cijelu Hrvatsku.")
+    dijelovi = ["Ovo se otvorilo otkad smo se zadnji put javili."]
+    if zup_zapisi:
+        dijelovi.append(f"**{zup}**\n\n"
+                        + "\n\n".join(_redak(z) for z in zup_zapisi))
+    if grad_zapisi:
+        po_gradu = {}
+        for z in grad_zapisi:
+            po_gradu.setdefault(z.get("podrucje") or "", []).append(z)
+        redci = []
+        for grad in sorted(po_gradu):
+            redci.append("\n\n".join(_redak(z) for z in po_gradu[grad]))
+        dijelovi.append("**Gradovi i općine u tvojoj županiji**\n\n"
+                        + "\n\n".join(redci))
 
-    return predmet, (
-        f"{uvod}\n\n" + "\n\n".join(redci) +
-        "\n\nSve otvorene stipendije: https://stipendije.hr"
-        f"\n\n{zasto}"
-    )
+    zasto = ("Ovo dobivaš jer si se prijavio na obavijesti za svoju županiju."
+             if not s_gradom else
+             "Ovo dobivaš jer si se prijavio na obavijesti i upisao svoje "
+             "mjesto. Natječaj koji nije iz tvog mjesta preskoči — uvjet je "
+             "najčešće prebivalište.")
+
+    return predmet, ("\n\n".join(dijelovi)
+                     + "\n\nSve otvorene stipendije: https://stipendije.hr"
+                     f"\n\n{zasto}")
 
 
-def _filtar(kome, skupina):
+def _filtar(kljuc):
     """Kako to podesiti u Brevu, recenicom koja se moze prepisati."""
-    if kome[0] == "svi":
-        a = "svi u listi (natječaj vrijedi za cijelu Hrvatsku)"
-    elif kome[0] == "zupanija":
-        a = f'ZUPANIJA jednako "{kome[1]}"'
-    else:
-        a = f'GRAD jednako "{kome[1]}" I ZUPANIJA jednako "{kome[2]}"'
-    if skupina == "oba":
-        return a
-    return f'{a} I TIP jednako "{skupina}" ili "oba"'
+    if kljuc[0] == "drzavna":
+        return "svi u listi (državna stipendija vrijedi za cijelu Hrvatsku)"
+    _, zup, s_gradom = kljuc
+    return (f'ZUPANIJA jednako "{zup}" I GRAD '
+            + ("nije prazan" if s_gradom else "je prazan"))
 
 
 def _blok_vec_javljeno(ponovljeni):
@@ -489,14 +560,15 @@ def izvjestaj(grupe, otvoreni, novi, preskoceni=(), ponovljeni=()):
               f"  ·  ne ide: {len(preskoceni)}" if preskoceni else "")
           + (f"  ·  već javljeno: {len(ponovljeni)}" if ponovljeni else ""), "",
           f"Skupina primatelja: **{len(grupe)}**", "",
-          "Pošalji svaku skupinu zasebno, pa pokreni "
+          "Svaki pretplatnik je u najviše jednoj skupini, pa dobiva jedan "
+          "mail. Pošalji svaku skupinu zasebno, pa pokreni "
           "`python novosti.py --potvrdi` da se zabilježi.", ""]
 
-    for (kome, sk), zapisi in sorted(grupe.items()):
+    for kljuc, zapisi in sorted(grupe.items()):
         L += ["---", "",
-              f"## {_ime_skupine(kome)} — {sk}", "",
-              f"**Filtar u Brevu:** {_filtar(kome, sk)}", ""]
-        predmet, tijelo = _poruka(zapisi, kome, sk)
+              f"## {_ime_skupine(kljuc)}", "",
+              f"**Filtar u Brevu:** {_filtar(kljuc)}", ""]
+        predmet, tijelo = _poruka(zapisi, kljuc)
         L += [f"**Predmet:** {predmet}", "", "```", tijelo, "```", ""]
     L += _blok_vec_javljeno(ponovljeni)
     L += _blok_preskoceni(preskoceni)
@@ -567,8 +639,8 @@ def main():
 
     ide = sum(len(v) for v in grupe.values())
     print(f"\nIde mailom: {ide}   ·   skupina primatelja: {len(grupe)}\n")
-    for (kome, sk), zapisi in sorted(grupe.items()):
-        print(f"  {_ime_skupine(kome):32} {sk:8} {len(zapisi)}")
+    for kljuc, zapisi in sorted(grupe.items()):
+        print(f"  {_ime_skupine(kljuc):46} {len(zapisi)}")
     if preskoceni:
         print(f"\n  Ne ide na mail (usko usmjereno): {len(preskoceni)}")
         for z in preskoceni:
