@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import re
 """Zajednicki dijelovi svih stranica: tokeni, CSS, navigacija, podnozje."""
 
 EMAIL = "erik.hunjek@gmail.com"
@@ -228,6 +229,35 @@ CSS_KARTICE = """
 
 
 SLIKA_V = 3
+
+
+def sredi_naslov(t):
+    """Akademska godina uvijek u istom obliku: 2026./2027.
+
+    Izvori je pisu na tri nacina, pa su na popisu stajala tri oblika iste
+    godine jedan ispod drugoga:
+
+        Stipendije ucenicima i studentima 2026./2027     (bez zavrsne tocke)
+        Studentske stipendije za akademsku godinu 2026/2027   (bez obje)
+        Stipendije Grada Krka 2026./2027.                (ispravno)
+
+    Zavrsna tocka nije sitnica nego dio broja: 2026. je redni broj godine.
+    Nestajala je jer scraper s kraja naslova skida interpunkciju, da naslov
+    ne zavrsi dvotockom ili crticom.
+
+    Ne dira se nista osim godina na kraju naslova.
+    """
+    if not t:
+        return t
+    t = str(t).rstrip()
+    # "2026/2027" i "2026 / 2027" -> "2026./2027"
+    t = re.sub(r"\b(19|20)(\d\d)\s*/\s*((?:19|20)?\d\d)\b",
+               r"\1\2./\3", t)
+    # naslov koji zavrsava godinom dobiva tocku: "... 2026./2027" -> "...2027."
+    if re.search(r"\b(?:19|20)\d\d\.?/(?:(?:19|20)?\d\d)$", t) \
+            or re.search(r"\b(?:19|20)\d\d$", t):
+        t += "."
+    return t
 
 
 def oblik(n, jd, gjd, gmn):
