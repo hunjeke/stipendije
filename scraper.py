@@ -77,6 +77,18 @@ MAX_CHARS = 15000
 # vrijede — podigni ovaj broj i cijeli cache se jednom ponovno procita.
 VERZIJA_EKSTRAKCIJE = 3
 
+# Verzija dopunjavanja: povecava se kad popravak omoguci da se iz ISTE
+# stranice izvuce nesto sto se prije nije moglo — citanje priloga, novi oblik
+# roka, novo ime mjeseca.
+#
+# Zasto postoji. Kes pamti rezultat po sadrzaju stranice, a uz zapis stoji i
+# oznaka da je dopuna iznosa vec pokusana. Stranica se nije promijenila, pa
+# se rezultat uzima iz kesa i popravak nikad ne dode na red — 15.10.2026.
+# citanje Odluka i racunanje roka iz datuma objave nisu promijenili nista
+# upravo zato. Kad se ovaj broj poveca, iznova se citaju samo zapisi kojima
+# nesto nedostaje; ostali ostaju u kesu, pa se ne placa cijeli krug.
+VERZIJA_DOPUNE = 2
+
 # Gornja granica dodatnih poziva modelu u drugom prolazu, po jednom radu.
 # Osigurac protiv skupog iznenadenja: ako bi neocekivano puno izvora trazilo
 # drugu razinu, radije preskoci ostatak nego da run posalje tisuce poziva.
@@ -1010,6 +1022,21 @@ def zadrzi_ako_je_nestao(novi, stari):
     return zadrzan, True
 
 
+def _nepotpun(zapis):
+    """Fali li zapisu nesto sto bi novi popravak mogao naci.
+
+    Potpunom zapisu se ne vraca: njemu novo citanje ne moze dati vise, a
+    platilo bi se kao da moze."""
+    st = zapis.get("status") or ""
+    if st.startswith("PROVJERITI"):
+        return True
+    if not zapis.get("_ima_otvoren"):
+        return False
+    ima_iznos = bool(zapis.get("iznosi") or (zapis.get("iznos") or "").strip())
+    ima_rok = bool(parse_hr_date(zapis.get("rok_tekst") or ""))
+    return not (ima_iznos and ima_rok)
+
+
 def load_cache():
     if os.path.exists(CACHE_FILE):
         try:
@@ -1254,6 +1281,9 @@ def main():
                     and not _c.get("iznos")
                     and not _c.get("_dopuna_pokusana")):
                 print("  . iz kesa, ali bez iznosa — trazim ga u natjecaju")
+                cached = None
+            elif cached.get("dopuna", 0) < VERZIJA_DOPUNE and _nepotpun(_c):
+                print("  . popravljen nacin citanja — citam iznova")
                 cached = None
         if cached and cached.get("hash") == kljuc:
             r = dict(cached["result"])
@@ -1572,7 +1602,8 @@ def main():
             if "PROVJERITI" in dr["status"] or "GREŠKA" in dr["status"]:
                 needs_review.append(dr)
 
-        cache[url] = {"hash": kljuc, "result": r, "dodatni": dodatni_zapisi}
+        cache[url] = {"hash": kljuc, "dopuna": VERZIJA_DOPUNE,
+                      "result": r, "dodatni": dodatni_zapisi}
 
         if "PROVJERITI" in status or "GREŠKA" in status or ok_rok is False or zadrzan:
             needs_review.append(r)
