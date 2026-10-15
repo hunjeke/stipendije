@@ -63,15 +63,113 @@ def slug_natjecaja(naslov, podrucje, godina):
     return f"{osnova}-{godina}" if osnova else f"natjecaj-{godina}"
 
 
+def adresa_natjecaja(z):
+    """Adresa po kojoj se natjecaj prepoznaje, ili "" kad je nema.
+
+    Uzima se poveznica na sam natjecaj; tek ako je nema, adresa izvora.
+    Sidro se zadrzava: FER na jednoj stranici drzi vise stipendija koje se
+    razlikuju samo po #news_12345, pa bi bez sidra ispale kao jedna.
+
+    Gola domena ("https://privrednik.hr/") nije adresa natjecaja nego
+    rubrike. Tri Privrednikova fonda imaju istu takvu adresu i isti rok, pa
+    bi se po njoj stopila u jedan — zato se takva adresa ne prihvaca."""
+    from urllib.parse import urlsplit
+    for k in ("poveznica", "poveznica_natjecaj", "url"):
+        v = (z.get(k) or "").strip()
+        if not v:
+            continue
+        d = urlsplit(v)
+        put = d.path.rstrip("/")
+        if not put:
+            continue
+        return (d.netloc + put
+                + ("#" + d.fragment if d.fragment else "")).lower()
+    return ""
+
+
+def kljuc_zapisa(z, pricuva=""):
+    """Pod cime natjecaj stoji u arhivi.
+
+    Dosad je to bio slug izveden iz naslova koji model procita. Procita li
+    ga sljedeci put drugim rijecima — a to se dogada stalno — nastane drugi
+    kljuc i isti natjecaj dobije drugi zapis. Odatle su dolazili duplikati
+    na stranici, duple poruke u mailu i tri zasebna mjesta u kodu koja ih
+    poslije spajaju.
+
+    Adresa i rok se ne mijenjaju kako model raspolozi, pa su pouzdan kljuc.
+    Kad adrese nema, ostaje stari nacin — bolje zaseban zapis nego krivo
+    spojen."""
+    ad = adresa_natjecaja(z)
+    if not ad:
+        return pricuva or (z.get("slug") or "")
+    return f"{ad}|{z.get('rok_iso') or ''}"
+
+
+def _bogatstvo(z):
+    return sum(1 for k in ("iznos", "iznosi", "uvjeti", "upute_za_prijavu",
+                           "rok_tekst", "napomena", "poveznica")
+               if z.get(k))
+
+
+def prekljucaj(arhiv, poslani_slugovi=()):
+    """Stara arhiva (kljuc = slug) -> nova (kljuc = adresa + rok).
+
+    Vraca (nova_arhiva, popis_spajanja). Zapis koji je vec javljen mailom
+    zadrzava svoj slug, da ga poslano.json i dalje prepoznaje; inace bi
+    natjecaj o kojem je javljeno izgledao kao nov i otisao drugi put."""
+    nova, spojeno = {}, []
+    for s, zap in sorted(arhiv.items()):
+        zap = dict(zap)
+        zap.setdefault("slug", s)
+        k = kljuc_zapisa(zap, pricuva=s)
+        if k not in nova:
+            nova[k] = zap
+            continue
+        stari = nova[k]
+        spojeno.append((k, stari.get("slug"), zap.get("slug")))
+        bolji = zap if _bogatstvo(zap) > _bogatstvo(stari) else stari
+        slabiji = stari if bolji is zap else zap
+        spoj = dict(slabiji)
+        spoj.update({kk: vv for kk, vv in bolji.items() if vv})
+        # slug koji je vec poslan ima prednost, inace onaj od bogatijeg zapisa
+        for kandidat in (stari.get("slug"), zap.get("slug")):
+            if kandidat in poslani_slugovi:
+                spoj["slug"] = kandidat
+                break
+        else:
+            spoj["slug"] = bolji.get("slug") or slabiji.get("slug")
+        prvi = [x for x in (stari.get("prvi_put"), zap.get("prvi_put")) if x]
+        if prvi:
+            spoj["prvi_put"] = min(prvi)
+        nova[k] = spoj
+    return nova, spojeno
+
+
 def ucitaj_arhiv(mapa_korijen="."):
     put = os.path.join(mapa_korijen, ARHIV)
     if not os.path.exists(put):
         return {}
     try:
         with open(put, encoding="utf-8") as f:
-            return json.load(f)
+            arhiv = json.load(f)
     except (json.JSONDecodeError, OSError):
         return {}
+    # Stara arhiva je kljucana slugom; prepoznaje se po tome sto u kljucu
+    # nema uspravne crte. Prekljucava se jednom, pri prvom citanju.
+    if arhiv and not any("|" in k for k in arhiv):
+        poslani = set()
+        try:
+            with open(os.path.join(mapa_korijen, "poslano.json"),
+                      encoding="utf-8") as f:
+                poslani = set(json.load(f).get("slugovi", []))
+        except (json.JSONDecodeError, OSError):
+            pass
+        arhiv, spojeno = prekljucaj(arhiv, poslani)
+        if spojeno:
+            print(f"  arhiva prekljucana: spojeno {len(spojeno)} dvojnika")
+            for k, a, b in spojeno:
+                print(f"    {a}  +  {b}")
+    return arhiv
 
 
 def spremi_arhiv(arhiv, mapa_korijen="."):
@@ -97,10 +195,17 @@ def azuriraj(arhiv, otvorene):
         rok = _rok_iso(r.get("status") or "")
         godina = (rok[:4] if rok else str(date.today().year))
         naslov = r.get("naslov_natjecaja") or r.get("naziv") or ""
-        s = slug_natjecaja(naslov, podrucje, godina)
-        stari = arhiv.get(s, {})
+        zapis_za_kljuc = {"poveznica": r.get("poveznica_natjecaj") or "",
+                          "url": r.get("url") or "", "rok_iso": rok}
+        kljuc = kljuc_zapisa(zapis_za_kljuc,
+                             pricuva=slug_natjecaja(naslov, podrucje, godina))
+        stari = arhiv.get(kljuc, {})
         if not stari:
             novih += 1
+        # Slug je adresa stranice natjecaja i oznaka u poslano.json — kad
+        # zapis vec postoji, zadrzava se onaj od prvi put, i ako je model u
+        # meduvremenu naslov procitao drugim rijecima.
+        s = stari.get("slug") or slug_natjecaja(naslov, podrucje, godina)
         novi = {
             "slug": s,
             "naslov": naslov,
@@ -127,7 +232,7 @@ def azuriraj(arhiv, otvorene):
         for k, v in stari.items():
             if k not in ("zadnji_put",) and v and not novi.get(k):
                 novi[k] = v
-        arhiv[s] = novi
+        arhiv[kljuc] = novi
     return novih
 
 
