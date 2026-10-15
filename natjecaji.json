@@ -1478,9 +1478,31 @@
     "zupanija": ""
   },
   "www.obz.hr/index.php/oglasnik/natjecaji-i-javni-pozivi/8498-natjecaj-za-dodjelu-stipendija-ucenicima-i-studentima-za-2026-2027-skolsku-odnosno-akademsku-godinu|2026-10-21": {
-    "iznos": "",
+    "iznos": "100,00 eura mjesečno za učenike, 300,00 eura mjesečno za učenike koji se obrazuju za medicinsku sestru/tehničara opće njege, 200,00 eura mjesečno za studente",
     "iznos_je_fond": false,
-    "iznosi": [],
+    "iznosi": [
+      {
+        "do": false,
+        "eur": 100.0,
+        "mjeseci": null,
+        "razdoblje": "mjesecno",
+        "za": "učenici"
+      },
+      {
+        "do": false,
+        "eur": 300.0,
+        "mjeseci": null,
+        "razdoblje": "mjesecno",
+        "za": "učenici — medicinska sestra/tehničar"
+      },
+      {
+        "do": false,
+        "eur": 200.0,
+        "mjeseci": null,
+        "razdoblje": "mjesecno",
+        "za": "studenti"
+      }
+    ],
     "izvor_naziv": "Osječko-baranjska županija — stipendije",
     "napomena": "",
     "naslov": "Stipendije Osječko-baranjske županije za učenike i studente",
@@ -1496,7 +1518,7 @@
     "url": "https://www.obz.hr/index.php/oglasnik/natjecaji-i-javni-pozivi/8498-natjecaj-za-dodjelu-stipendija-ucenicima-i-studentima-za-2026-2027-skolsku-odnosno-akademsku-godinu",
     "uvjeti": "Učenici srednjih škola i studenti prve, druge i treće godine s područja Osječko-baranjske županije. Kategorije: daroviti, STEM, deficitarna zanimanja, socio-ekonomski status te medicinske sestre i tehničari. Iznosi su objavljeni u tekstu natječaja.",
     "zadnji_put": "2026-10-15",
-    "zasto_rucno": "Sustav je prepoznao natječaj preko sveučilišne stranice, ali mu nije pročitao rok.",
+    "zasto_rucno": "Sustav je prepoznao natječaj preko sveučilišne stranice, ali mu nije pročitao rok. Iznosi i broj stipendija prepisani s natječaja 15.10.2026.",
     "zupanija": "Osječko-baranjska županija"
   },
   "www.pazin.hr/objavljen-natjecaj-za-dodjelu-stipendija-od-skolske-studijske-2026-2027-godine|2026-10-31": {
@@ -1715,25 +1737,40 @@
     "zupanija": ""
   },
   "www.varazdinska-zupanija.hr/natjecaji/natjecaj-za-dodjelu-stipendija-varazdinske-zupanjie-za-skolsku-akadamensku-godinu-2026-2027.html|2026-10-29": {
-    "iznos": "",
+    "iznos": "65,00 eura mjesečno za učenike, 130,00 eura mjesečno za studente",
     "iznos_je_fond": false,
-    "iznosi": [],
+    "iznosi": [
+      {
+        "do": false,
+        "eur": 65.0,
+        "mjeseci": null,
+        "razdoblje": "mjesecno",
+        "za": "učenici"
+      },
+      {
+        "do": false,
+        "eur": 130.0,
+        "mjeseci": null,
+        "razdoblje": "mjesecno",
+        "za": "studenti"
+      }
+    ],
     "izvor_naziv": "Varaždinska županija — stipendije",
     "napomena": "Natječaj je objavljen 14.10.2026. Dostupni su prilozi: Natječaj za dodjelu stipendija, Prijavnica, Odluka o stipendiranju, Odluka o iznosima stipendija i Pravilnik o kriterijima. Detaljni uvjeti i iznosi vjerojatno se nalaze u priloženim dokumentima.",
     "naslov": "Stipendije Varaždinske županije 2026./2027.",
     "podrucje": "Varaždinska županija",
-    "potvrda": "",
+    "potvrda": "https://www.varazdinska-zupanija.hr/natjecaji/natjecaj-za-dodjelu-stipendija-varazdinske-zupanjie-za-skolsku-akadamensku-godinu-2026-2027.html",
     "poveznica": "https://www.varazdinska-zupanija.hr/natjecaji/natjecaj-za-dodjelu-stipendija-varazdinske-zupanjie-za-skolsku-akadamensku-godinu-2026-2027.html",
     "prvi_put": "2026-10-15",
     "rok_iso": "2026-10-29",
     "rok_tekst": "do 29.10.2026.",
-    "rucni": false,
+    "rucni": true,
     "slug": "varazdinska-zupanija-stipendije-varazdinske-zupanije-2026",
-    "upute_za_prijavu": "Preuzmite natječaj i prijavnicu s web stranice | Popunite prijavnicu | Priložite potrebnu dokumentaciju prema pravilniku | Predajte prijavu do navedenog roka",
-    "url": "https://www.varazdinska-zupanija.hr/potpore-i-pomoci1/stipendije.html",
-    "uvjeti": "",
+    "upute_za_prijavu": "Prijava se predaje na obrascu Prijavnice uz natječaj. Uz natječaj su objavljeni Odluka o stipendiranju, Odluka o iznosima stipendija i Pravilnik o kriterijima — pročitaj ih prije prijave.",
+    "url": "https://www.varazdinska-zupanija.hr/natjecaji/natjecaj-za-dodjelu-stipendija-varazdinske-zupanjie-za-skolsku-akadamensku-godinu-2026-2027.html",
+    "uvjeti": "Učenici srednjih škola i studenti s područja Varaždinske županije.",
     "zadnji_put": "2026-10-15",
-    "zasto_rucno": "",
+    "zasto_rucno": "Iznosi stoje u prilogu 'Odluka o iznosima stipendija' koji scraper nije uspio pročitati — prilozi nisu u PDF-u. Iznose je 15.10.2026. provjerio Erik na stranici natječaja.",
     "zupanija": "Varaždinska županija"
   },
   "www.vodnjan-dignano.hr/hr/djeca-i-mladi/stipendije-grada|2026-10-31": {
