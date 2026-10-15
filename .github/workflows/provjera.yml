@@ -34,6 +34,14 @@ jobs:
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: python scraper.py
+      # Provjera podataka. Ne prekida posao: stranica se objavljuje i kad
+      # nesto zapne, jer je stranica s jednom sumnjivom karticom bolja od
+      # nikakve. Zaustavlja se slanje mailova i otvara issue.
+      - name: Provjeri podatke
+        id: kontrola
+        continue-on-error: true
+        run: python provjera.py
+
       - name: Generiraj javnu stranicu
         run: python web.py
 
@@ -47,7 +55,7 @@ jobs:
           git config user.email "actions@github.com"
           # Zasebno, iz istog razloga: jedna datoteka koja jos ne postoji
           # inace odnese cijeli git add i run zavrsi "uspjesno" bez icega.
-          for f in output.html output.json output.csv .cache.json natjecaji.json docs; do
+          for f in output.html output.json output.csv .cache.json natjecaji.json .provjera-stanje.json docs; do
             git add -A "$f" || true
           done
           git diff --staged --quiet || git commit -m "Rezultati provjere $(date +'%d.%m.%Y')"
@@ -60,6 +68,27 @@ jobs:
           path: |
             output.html
             output.json
+
+      - name: Obavijest ako provjera nesto zaustavlja
+        if: steps.kontrola.outcome == 'failure'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh issue create \
+            --title "Provjera zaustavlja slanje ($(date +'%d.%m.%Y'))" \
+            --body-file provjera.md \
+            --label "provjera" || \
+          gh issue create \
+            --title "Provjera zaustavlja slanje ($(date +'%d.%m.%Y'))" \
+            --body-file provjera.md
+
+      - name: Sacuvaj izvjestaj provjere
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: provjera
+          path: provjera.md
+          if-no-files-found: ignore
 
       - name: Provjeri sute li izvori
         id: tisina
