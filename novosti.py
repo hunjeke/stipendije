@@ -385,7 +385,10 @@ def _spoji_iste(zapisi):
 
 
 def novi_natjecaji():
-    arhiv = _ucitaj(ARHIV, {})
+    # Arhiva je od sada kljucana adresom i rokom, a poslano.json pamti
+    # slugove. Ovdje se gleda po slugu, pa oznake poslanog i dalje vrijede.
+    sirovo = _ucitaj(ARHIV, {})
+    arhiv = {(z.get("slug") or k): z for k, z in sirovo.items()}
     poslano = set(_ucitaj(POSLANO, {}).get("slugovi", []))
     # Opisne stranice ministarstva nisu natjecaji — bez ovoga bi STEM
     # stipendija s nepostojecim rokom otisla na mail svim studentima.
