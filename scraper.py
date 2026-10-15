@@ -425,7 +425,21 @@ def natjecaj_poveznice(html, baza, maks=2):
     return kandidati
 
 
-def pdf_poveznice(html, baza, maks=2):
+# Kad se trazi IZNOS, "odluka" vise nije razlog za preskakanje. Iznosi
+# gradskih i zupanijskih stipendija redovito stoje u zasebnom dokumentu
+# imena "Odluka o vrsti, broju i mjesecnom iznosu stipendija" — a njega je
+# filtar NIJE_NATJECAJ izbacivao jer sadrzi rijec "odluka". Zato su kartice
+# Varazdinske zupanije, Bakra i Vodnjana ostajale bez iznosa iako je podatak
+# bio u prilogu uz natjecaj koji je scraper vec otvorio.
+#
+# Ishodi (rezultati, rang-liste, zapisnici) i dalje se preskacu: iz njih bi
+# se mogao procitati lanjski iznos kao ovogodisnji.
+NIJE_IZNOS = ("rezultat", "rang", "zapisnik", "lista kandidata",
+              "obavijest o rezultat", "ugovor", "privol", "izjav",
+              "arhiva", "ponisten")
+
+
+def pdf_poveznice(html, baza, maks=2, za_iznos=False):
     """Nadi poveznice na PDF koje djeluju kao natjecaj, s iste domene.
 
     Namjerno preskace rezultate, rang-liste i zapisnike — to nisu natjecaji,
@@ -440,10 +454,21 @@ def pdf_poveznice(html, baza, maks=2):
             continue
         cist = bez_kvacica(re.sub(r"<[^>]+>", " ", tekst))
         spoj = cist + " " + bez_kvacica(href)
-        if not any(k in spoj for k in ("natjeca", "javni poziv", "stipend", "poziv")):
-            continue
-        if any(k in spoj for k in NIJE_NATJECAJ):
-            continue
+        if za_iznos:
+            # dokument o iznosu: ili je sam natjecaj, ili odluka/pravilnik
+            # koji propisuje visinu
+            zanimljiv = (any(k in spoj for k in ("natjeca", "javni poziv",
+                                                 "stipend", "poziv"))
+                         or (("odluk" in spoj or "visin" in spoj
+                              or "iznos" in spoj) and "stipend" in spoj))
+            if not zanimljiv or any(k in spoj for k in NIJE_IZNOS):
+                continue
+        else:
+            if not any(k in spoj for k in ("natjeca", "javni poziv",
+                                           "stipend", "poziv")):
+                continue
+            if any(k in spoj for k in NIJE_NATJECAJ):
+                continue
         if pun not in kandidati:
             kandidati.append(pun)
         if len(kandidati) >= maks:
@@ -708,7 +733,7 @@ def cist_naslov(s, maks=70):
     return s[0].upper() + s[1:]
 
 
-def tekst_natjecaja_s_prilozima(url, tiho=True):
+def tekst_natjecaja_s_prilozima(url, tiho=True, za_iznos=False, maks_pdf=2):
     """Tekst stranice natjecaja spojen s tekstom njezinih PDF priloga.
 
     Gradovi rok i naslov stave na stranicu, a iznos ostave u prilozenom
@@ -719,7 +744,8 @@ def tekst_natjecaja_s_prilozima(url, tiho=True):
         return None, 0
     procitano = 0
     if html and PDF_SUPPORT:
-        for pdf_url in pdf_poveznice(html, url):
+        for pdf_url in pdf_poveznice(html, url, maks=maks_pdf,
+                                     za_iznos=za_iznos):
             pdf_t, _, _ = fetch_content(pdf_url, retries=0, tiho=True)
             if pdf_t:
                 print(f"  + procitan PDF uz natjecaj: "
@@ -1234,7 +1260,8 @@ def main():
             for veza_natjecaja, od_modela in veze_za_iznos:
                 if drugih_poziva >= MAKS_DRUGI_PROLAZ:
                     break
-                pod_text, koliko = tekst_natjecaja_s_prilozima(veza_natjecaja)
+                pod_text, koliko = tekst_natjecaja_s_prilozima(
+                    veza_natjecaja, za_iznos=True, maks_pdf=3)
                 pdf_procitano += koliko
                 if not pod_text:
                     continue
@@ -1266,6 +1293,32 @@ def main():
                 tekst_za_iznos = pod_text
                 dopunjenih_iznosa += 1
                 break
+
+        # Natjecaj je procitan u drugom prolazu, ali iznosa u njemu nema.
+        # Dosad se tu stalo. Iznos je medutim cesto u dokumentu koji uz
+        # natjecaj stoji kao prilog ("Odluka o ... mjesecnom iznosu
+        # stipendija"), a taj se prilog pri prvom citanju preskakao. Otvori
+        # istu stranicu jos jednom, ovaj put i s takvim prilozima.
+        if (ima_otvoren and extracted.get("rok_tekst")
+                and not extracted.get("iznos") and izvor_natjecaja
+                and drugih_poziva < MAKS_DRUGI_PROLAZ):
+            pod_text, koliko = tekst_natjecaja_s_prilozima(
+                izvor_natjecaja, za_iznos=True, maks_pdf=3)
+            pdf_procitano += koliko
+            if pod_text and koliko:
+                dop = procitaj_natjecaj(client, pod_text)
+                drugih_poziva += 1
+                time.sleep(DELAY_SEC)
+                if "greska" not in dop and dop.get("iznos"):
+                    # rok se ne provjerava: tekst je s iste adrese s koje je
+                    # natjecaj vec procitan, pa ne moze biti tudi natjecaj
+                    print(f"  + iznos iz priloga uz natjecaj: "
+                          f"{str(dop.get('iznos'))[:50]}")
+                    for polje in ("iznos", "iznosi", "iznos_je_fond",
+                                  "dokaz_iznos"):
+                        extracted[polje] = dop.get(polje)
+                    tekst_za_iznos = pod_text
+                    dopunjenih_iznosa += 1
 
         # Zabiljezi da je za ovaj sadrzaj stranice ucinjeno sve sto se moze.
         # Vrijedi i kad nije bilo kamo kliknuti, i kad je natjecaj vec procitan
