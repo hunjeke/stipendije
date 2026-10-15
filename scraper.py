@@ -500,17 +500,38 @@ def extract_with_claude(client, page_text):
     return _pitaj_model(client, EXTRACTION_PROMPT.format(page_text=page_text), MODEL)
 
 
-def procitaj_natjecaj(client, page_text):
-    """Druga razina: stranica pojedinog natjecaja, citana boljim modelom.
+# Koliko je puta skupi model pozvan u ovom prolazu — ispisuje se na kraju,
+# da se po racunu ne mora pogadati odakle je dosao.
+SKUPIH_POZIVA = 0
 
-    Ako zeljeni model nije dostupan (promijenjen naziv, ogranicenje racuna),
-    pitanje se ponavlja jeftinim modelom umjesto da izvor ostane bez podataka."""
+
+def procitaj_natjecaj(client, page_text, samo_jeftino=False):
+    """Druga razina: stranica pojedinog natjecaja.
+
+    Prvo pita jeftin model. Vecina natjecaja je obican tekst s iznosom i
+    rokom i jeftini ih procita jednako dobro; skupi se zove samo kad jeftini
+    ne vrati ni iznos ni rok, dakle kad je stranica stvarno teska. Prije je
+    svaka podstranica isla na skupi model, a njih je u jednom prolazu
+    sedamdesetak — to je bila najveca stavka na racunu.
+
+    "samo_jeftino" je za trazenje iznosa u prilogu: ondje se trazi jedna
+    brojka iz dokumenta koji ju ili ima ili nema, pa se skupi model ne isplati.
+    """
+    global SKUPIH_POZIVA
     prompt = NATJECAJ_PROMPT.format(page_text=page_text)
-    odgovor = _pitaj_model(client, prompt, MODEL_NATJECAJ)
-    if "greska" in odgovor and "JSON" not in str(odgovor.get("greska")):
-        print(f"  ! {MODEL_NATJECAJ} nije odgovorio — ponavljam s {MODEL}")
-        odgovor = _pitaj_model(client, prompt, MODEL)
-    return odgovor
+    odgovor = _pitaj_model(client, prompt, MODEL)
+    if samo_jeftino:
+        return odgovor
+    if "greska" not in odgovor and (odgovor.get("iznos")
+                                    or odgovor.get("rok_tekst")):
+        return odgovor
+    print(f"  . {MODEL} nije nasao ni iznos ni rok — pitam {MODEL_NATJECAJ}")
+    bolji = _pitaj_model(client, prompt, MODEL_NATJECAJ)
+    SKUPIH_POZIVA += 1
+    if "greska" in bolji and "JSON" not in str(bolji.get("greska")):
+        print(f"  ! {MODEL_NATJECAJ} nije odgovorio — ostaje odgovor {MODEL}")
+        return odgovor
+    return bolji
 
 
 def parse_hr_date(text):
@@ -733,6 +754,38 @@ def cist_naslov(s, maks=70):
     return s[0].upper() + s[1:]
 
 
+# Rijeci oko kojih se u dugom dokumentu nalazi ono sto nas zanima.
+KLJUCNE = ("iznos", "eura", "eur", "kuna", "mjesecn", "mjesečn", "visin",
+           "rok", "prijav", "stipendij", "€")
+
+
+def suzi(tekst, maks):
+    """Skrati dugi dokument na dijelove u kojima moze biti iznos ili rok.
+
+    Prilozeni pravilnik zna imati trideset tisuca znakova, a iznos je u dvije
+    recenice. Slanje cijelog dokumenta modelu placa se po znaku, pa se salje
+    pocetak (ondje je gotovo uvijek naslov i glavnina uvjeta) i prozori oko
+    kljucnih rijeci. Kad je dokument ionako kratak, vraca se cijeli."""
+    if len(tekst) <= maks:
+        return tekst
+    glava = maks // 3
+    dijelovi = [(0, glava)]
+    nisko = bez_kvacica(tekst)
+    trazi_od, prozor = glava, 1200
+    while sum(b - a for a, b in dijelovi) < maks and trazi_od < len(tekst):
+        nadeno = min((p for p in (nisko.find(k, trazi_od) for k in KLJUCNE)
+                      if p >= 0), default=-1)
+        if nadeno < 0:
+            break
+        a, b = max(0, nadeno - prozor // 3), nadeno + prozor
+        if dijelovi and a <= dijelovi[-1][1]:
+            dijelovi[-1] = (dijelovi[-1][0], max(dijelovi[-1][1], b))
+        else:
+            dijelovi.append((a, b))
+        trazi_od = b
+    return "\n…\n".join(tekst[a:b] for a, b in dijelovi)[:maks]
+
+
 def tekst_natjecaja_s_prilozima(url, tiho=True, za_iznos=False, maks_pdf=2):
     """Tekst stranice natjecaja spojen s tekstom njezinih PDF priloga.
 
@@ -751,10 +804,10 @@ def tekst_natjecaja_s_prilozima(url, tiho=True, za_iznos=False, maks_pdf=2):
                 print(f"  + procitan PDF uz natjecaj: "
                       f"{pdf_url.rsplit('/', 1)[-1][:45]}")
                 t = (t + "\n\n--- TEKST IZ PRILOZENOG PDF-a ---\n"
-                     + pdf_t)[:MAX_CHARS * 2]
+                     + suzi(pdf_t, MAX_CHARS // 2))
                 procitano += 1
             time.sleep(1)
-    return t, procitano
+    return suzi(t, MAX_CHARS), procitano
 
 
 
@@ -1306,7 +1359,7 @@ def main():
                 izvor_natjecaja, za_iznos=True, maks_pdf=3)
             pdf_procitano += koliko
             if pod_text and koliko:
-                dop = procitaj_natjecaj(client, pod_text)
+                dop = procitaj_natjecaj(client, pod_text, samo_jeftino=True)
                 drugih_poziva += 1
                 time.sleep(DELAY_SEC)
                 if "greska" not in dop and dop.get("iznos"):
@@ -1456,6 +1509,9 @@ def main():
     print(f"Preskoceno (cache):   {skipped}")
     print(f"Procitanih PDF-ova:   {pdf_procitano}")
     print(f"Dodatnih poziva:      {drugih_poziva} (drugi prolaz po podstranicama)")
+    # Skupi model je glavna stavka na racunu; ako ovaj broj skoci,
+    # skocit ce i racun, pa neka se vidi u zapisniku svakog prolaza.
+    print(f"Poziva skupom modelu: {SKUPIH_POZIVA} ({MODEL_NATJECAJ})")
     print(f"Nadeno tek 2. razinom:{nadeno_drugim}")
     print(f"Iznos iz natjecaja:   {dopunjenih_iznosa} (rok bio na rubrici, iznos u natjecaju)")
     print(f"Odbacenih iznosa:     {odbacenih_iznosa} "
