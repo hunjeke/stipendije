@@ -548,6 +548,34 @@ def ima_iznos(r):
     return bool((r.get("iznos") or "").strip())
 
 
+# Natjecaj zna u istom popisu imati iznose za ljude koji nisu ucenici ni
+# studenti. Slovacki nacionalni program daje 620 EUR studentu, 1.025,50 EUR
+# doktorandu i do 1.470,00 EUR poslijedoktorandu — a 1.470 je zavrsilo u
+# traci na vrhu kao "najveci iznos". Srednjoskolac koji to procita misli da
+# negdje postoji stipendija od 1.470 eura za njega.
+_NIJE_UCENIK = ("poslijedoktor", "postdoc", "profesor", "istraziv",
+                "znanstven", "umjetnik", "umjetnic", "predava")
+
+
+def za_ucenika_ili_studenta(oznaka):
+    """Odnosi li se iznos na ucenika ili studenta.
+
+    Oznaka koja spominje studenta ili ucenika prolazi i kad uz nju stoji
+    jos nesto ("studenti poslijediplomskoga doktorskog studija") — doktorand
+    jest student. Odbija se samo ono sto je ocito netko drugi."""
+    o = bez_kvacica_lokalno(oznaka or "")
+    if not o.strip():
+        return True
+    if "student" in o or "ucenik" in o or "ucenic" in o:
+        return True
+    return not any(k in o for k in _NIJE_UCENIK)
+
+
+def bez_kvacica_lokalno(s):
+    z = {"č": "c", "ć": "c", "ž": "z", "š": "s", "đ": "d"}
+    return "".join(z.get(x, x) for x in str(s).lower())
+
+
 def kartica(r, otvorena, podrucje, zupanija, vlastita=None):
     naziv = esc(naslov_kartice(r))
     # ako je scraper nasao izravnu poveznicu na natjecaj, koristi nju
@@ -599,7 +627,8 @@ def kartica(r, otvorena, podrucje, zupanija, vlastita=None):
 
     # najveci mjesecni iznos na kartici — traka na vrhu iz njih racuna "do X €"
     mjesecni = [i.get("eur") for i in (r.get("iznosi") or [])
-                if i.get("razdoblje") == "mjesecno" and i.get("eur")]
+                if i.get("razdoblje") == "mjesecno" and i.get("eur")
+                and za_ucenika_ili_studenta(i.get("za"))]
     naj = f' data-eur="{int(max(mjesecni))}"' if mjesecni else ""
 
     return (f'<article class="{klasa}" data-podrucje="{esc(podrucje)}" '
