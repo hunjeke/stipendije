@@ -531,8 +531,9 @@ def je_drzavna(r):
     rok = parse_hr_date(ROK)
     naslov = bez_kvacica(r.get("naslov_natjecaja") or "")
     return bool(rok and iso_rok(r.get("status") or "") == rok.isoformat()
-                and "drzavne stipendije" in naslov
-                and "rome" not in naslov)
+                and ("drzavne stipendije" in naslov
+                     or "drzavnih stipendija" in naslov)
+                and "rome" not in naslov and "romsk" not in naslov)
 
 
 def ima_iznos(r):
@@ -1322,7 +1323,7 @@ def main():
       na koje imaju pravo svi.</p>
   </div>
 </div></section>
-<div class="w">{sek_otv}{__obavijesti_poziv()}{poziv_kanal()}{sek_zat}{sek_zup}</div>
+<div class="w">{__obavijesti_poziv()}{sek_otv}{poziv_kanal()}{sek_zat}{sek_zup}</div>
 </main>
 <script>{js}</script>{__obavijesti_skocni()}"""
     html += podnozje(izvora_ukupno, vrijeme)
@@ -1391,7 +1392,9 @@ def main():
         otv_z.sort(key=lambda t: 1 if t[1] == SVI else 0)
         zat_z = [(r, p, z) for r, p, z in zatvorene
                  if z == zup or p == zup]
-        dio = ""
+        # Na zupanijskoj stranici je dosad stajao samo WhatsApp. Covjek koji
+        # dode s trazilice ravno na svoju zupaniju nije imao gdje ostaviti mail.
+        dio = __obavijesti_poziv("../")
         if otv_z:
             dio += ('<div class="sek-vrh" id="sek-otv"><h2>Otvoreno za prijave</h2>'
                     f'<span class="broj" data-broj-otv-n>{len(otv_z)}</span></div>'
