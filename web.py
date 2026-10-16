@@ -152,6 +152,16 @@ CSS_INDEX = CSS_KARTICE + """
   border:1px solid var(--linija);background:var(--karta);padding:.42rem .75rem}
 .popis-zup a:hover{border-color:var(--plava);color:var(--plava)}
 /* kad je odabrana zupanija, lokalne stipendije idu prve */
+.zat-sklop>summary{display:flex;align-items:baseline;gap:.9rem;cursor:pointer;
+  list-style:none;border-bottom:1.5px solid var(--tinta);padding-bottom:.5rem;
+  margin:2.4rem 0 1.1rem}
+.zat-sklop>summary::-webkit-details-marker{display:none}
+.zat-sklop>summary::after{content:"Prikaži";margin-left:auto;font-family:"Plex",sans-serif;
+  font-size:.86rem;color:var(--plava);white-space:nowrap}
+.zat-sklop[open]>summary::after{content:"Sakrij"}
+.zat-naslov{font-family:"Bricolage",sans-serif;font-weight:700;font-size:1.35rem;
+  letter-spacing:-.02em;color:var(--tinta)}
+.zat-sklop>summary:hover .zat-naslov{color:var(--plava)}
 .grupa{display:flex;flex-direction:column}
 .grupa .k{order:0}
 /* drzavna stipendija je prva dok se gleda cijela Hrvatska; cim se
@@ -1287,11 +1297,17 @@ def main():
         # Naslov mora govoriti sto popis JEST. "Izvori koje pratimo" je tvrdio
         # da pratimo samo njih, pa je broj ispadao manji od stvarnog — a otvoreni
         # natjecaji gore i izvori bez uspjesnog citanja takoder se prate.
-        sek_zat = (f'<section class="sek"><div class="sek-vrh">'
-                   f'<h2>Trenutno bez otvorenog natječaja</h2>'
+        # Popis izvora bez otvorenog natjecaja je sklopljen. Na mobitelu je
+        # zauzimao 26 000 od 43 000 piksela stranice — tko dode po natjecaj
+        # prodje kroz tri ekrana onoga sto ga zanima, pa kroz sedamdeset
+        # ekrana onoga sto ga ne zanima. Sadrzaj ostaje u HTML-u, pa ga
+        # trazilice i dalje vide; samo se ne razmota dok se ne klikne.
+        sek_zat = (f'<section class="sek"><details class="zat-sklop">'
+                   f'<summary><span class="zat-naslov">'
+                   f'Trenutno bez otvorenog natječaja</span>'
                    f'<span class="broj" data-broj-zat>{len(zatvorene)} '
                    f'{oblik(len(zatvorene), "izvor", "izvora", "izvora")}'
-                   f'</span></div>'
+                   f'</span></summary>'
                    f'<p class="uvod">Ove izvore provjeravamo automatski svaki '
                    f'ponedjeljak i četvrtak. Čim se natječaj otvori, pojavi se gore.</p>'
                    f'<div class="grupa zatvoreni-omot">'
@@ -1299,7 +1315,7 @@ def main():
                    + '<button type="button" class="prekidac" id="prekidac"></button>' 
                    + '<div class="medja">Otvoreno svima u Hrvatskoj</div>'
                    + '<p class="nema-rez">Za odabrano područje nemamo izvora. '
-                     'Ako znaš neki, javi nam.</p></div></section>')
+                     'Ako znaš neki, javi nam.</p></div></details></section>')
 
     # veze na stranice po zupanijama (i za korisnike i za trazilice)
     from stranice import slug as _slug
