@@ -479,6 +479,15 @@ def stranica(mapa, broj_izvora, vrijeme):
         "Ministarstva znanosti, obrazovanja i mladih.",
         CSS)
     html += navigacija("drzavna")
+    # Poziv na obavijesti ide i ovdje. Ovo je adresa koja ide u medije i u
+    # WhatsApp kanal, pa je cesto prva stranica koju covjek vidi — a dosad
+    # na njoj nije bilo nacina da ostavi mail.
+    try:
+        from obavijesti import poziv as _poziv_obavijesti
+        prijava = _poziv_obavijesti()
+    except Exception:
+        prijava = ""
+
     html += f"""<main class="w"><section class="ds">
 <h1>Državna stipendija</h1>
 <p class="lead">Najveći natječaj za stipendije u Hrvatskoj. Ove akademske
@@ -493,6 +502,8 @@ devet rata. Ovdje je kako se prijaviti, korak po korak.</p>
   <div><b>{UKUPNO}</b><span>ukupno po godini</span></div>
   <div><b>{BROJ_STIPENDIJA}</b><span>stipendija ove godine</span></div>
 </div>
+
+{prijava}
 
 <h2>Tko se može prijaviti</h2>
 <p class="pod">Redoviti studenti na visokim učilištima u Hrvatskoj. Natječaj ima
@@ -617,7 +628,9 @@ provjeri ih sam — vrijedi ono što piše u natječaju, ne ovdje.</p>
 stranicama ministarstva. Dok novi natječaj ne izađe, sve brojke odnose se na
 akademsku godinu 2025./2026. i mogu se promijeniti. Ako uočiš da je nešto
 zastarjelo, javi nam i ispravit ćemo.</p>
-</section></main>"""
+</section>
+{prijava}
+</main>"""
     html += podnozje(broj_izvora, vrijeme)
     put = os.path.join(mapa, "drzavna-stipendija.html")
     open(put, "w", encoding="utf-8").write(html)
