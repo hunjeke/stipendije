@@ -172,10 +172,10 @@ CSS_KARTICE = """
 .k .izvor{font-family:"PlexMono",monospace;font-size:.68rem;
   letter-spacing:.06em;text-transform:uppercase;color:var(--tinta-2);
   margin-bottom:.55rem}
-.polja{display:grid;grid-template-columns:8.5rem 1fr;gap:.28rem .9rem;
-  font-size:.9rem;margin:.5rem 0 0}
+.polja{display:grid;grid-template-columns:8.5rem minmax(0,1fr);
+  gap:.28rem .9rem;font-size:.9rem;margin:.5rem 0 0}
 .polja dt{color:var(--tinta-2)}
-.polja dd{margin:0}
+.polja dd{margin:0;min-width:0;overflow-wrap:anywhere}
 .polja dd.iznos{font-family:"PlexMono",monospace;font-weight:500}
 /* podatak kojeg na izvoru nema — vidljiv, ali tisi od stvarnog iznosa */
 .polja .nema{color:var(--tinta-2);font-style:italic}
@@ -218,7 +218,7 @@ CSS_KARTICE = """
   .status{font-size:.62rem;padding:.18rem .45rem}
   /* oznaka i podatak dijele redak i na mobitelu: kartica je upola niza,
      a stupac oznaka drzi pogled na istoj crti kroz sve natjecaje */
-  .polja{grid-template-columns:6.6rem 1fr;gap:.3rem .6rem}
+  .polja{grid-template-columns:6.6rem minmax(0,1fr);gap:.3rem .6rem}
   .polja dt{font-size:.74rem;line-height:1.35;color:#8A909E}
   .polja dd{font-size:.92rem}
   /* veca povrsina za prst */
