@@ -137,6 +137,20 @@ MZO_NATJECAJ = ("https://mzom.gov.hr/istaknute-teme/natjecaji-196/natjecaj-za-"
                 "ucilistima-u-republici-hrvatskoj/7289")
 
 CSS = """
+/* Dvije drzavne stipendije. Izbornik ih namjerno ne razdvaja — STEM JEST
+   drzavna stipendija, pa dvije stavke u izborniku za istu stvar zbunjuju,
+   a cetvrta stavka na 390px izbornik gura preko ruba ekrana. Umjesto toga
+   je "Drzavna" roditelj, a razdvajanje se vidi na samoj stranici, odmah
+   ispod naslova — i onima koji dodu s Googlea ravno ovamo. */
+.izbor{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin:1.4rem 0}
+.izbor a,.izbor span{display:block;padding:.85rem .95rem;border-radius:10px;
+  border:1px solid var(--linija);text-decoration:none;background:var(--papir)}
+.izbor .tu{border-color:var(--plava);background:#EFF4FF}
+.izbor b{display:block;font-size:.95rem;color:var(--tinta);line-height:1.3}
+.izbor small{display:block;margin-top:.2rem;font-size:.78rem;
+  color:var(--tinta-2);line-height:1.35}
+.izbor a:hover{border-color:var(--plava)}
+@media(max-width:480px){.izbor{grid-template-columns:1fr}}
 .ds{padding:2.6rem 0 0}
 .ds h1{font-size:clamp(1.7rem,5vw,2.4rem);margin-bottom:.6rem}
 .ds .lead{font-size:1.04rem;color:var(--tinta-2);max-width:54ch;margin:0 0 1.6rem}
@@ -414,6 +428,24 @@ def _iz_podataka():
     return False, "", ""
 
 
+def izbor(tu):
+    """Traka s dvije drzavne stipendije. `tu` je "socio" ili "stem"."""
+    socio = (f'<b>Niži socio-ekonomski status</b>'
+             f'<small>{IZNOS} mjesečno · {BROJ_STIPENDIJA} stipendija · '
+             f'prema prihodu kućanstva i uspjehu</small>')
+    stem = (f'<b>STEM područja</b>'
+            f'<small>{STEM_OSTALI} ili {STEM_NASTAVNICKI} mjesečno · '
+            f'{STEM_BROJ} stipendija · prema studijskom programu i uspjehu</small>')
+    a = (f'<span class="tu">{socio}</span>' if tu == "socio"
+         else f'<a href="drzavna-stipendija.html">{socio}</a>')
+    b = (f'<span class="tu">{stem}</span>' if tu == "stem"
+         else f'<a href="stem-stipendije.html">{stem}</a>')
+    return (f'<p class="pod" style="margin-bottom:.2rem"><b>Državne '
+            f'stipendije su dva odvojena natječaja.</b> Prijavljuju se '
+            f'zasebno i izlaze u različito vrijeme.</p>'
+            f'<div class="izbor">{a}{b}</div>')
+
+
 def _blok_stanja():
     """Plavi okvir na vrhu — sam se prebaci kad scraper uhvati natjecaj."""
     citan_otvoren, citan_rok, citana_veza = _iz_podataka()
@@ -494,6 +526,8 @@ def stranica(mapa, broj_izvora, vrijeme):
 godine dodjeljuje se {BROJ_STIPENDIJA} stipendija po {IZNOS} mjesečno, kroz
 devet rata. Ovdje je kako se prijaviti, korak po korak.</p>
 
+{izbor("socio")}
+
 {blok_stanja}
 
 <div class="cifre">
@@ -569,7 +603,7 @@ kućanstva umjesto {PRAG_E}.</p>
 <h2>STEM stipendije su odvojen natječaj</h2>
 <p class="pod">Ako studiraš u STEM području, postoji drugi javni poziv, s većim
 iznosom i vlastitim rang-listama. Prijavljuje se zasebno i izlazi kasnije od
-ovoga. <a href="stem-stipendije.html">Sve o STEM stipendijama &rarr;</a></p>
+ovoga. <a href="stem-stipendije.html"><b>Sve o STEM stipendijama &rarr;</b></a></p>
 <div class="cifre">
   <div><b>{STEM_NASTAVNICKI}</b><span>mjesečno, nastavnički STEM studiji</span></div>
   <div><b>{STEM_OSTALI}</b><span>mjesečno, ostali STEM studiji</span></div>
