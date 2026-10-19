@@ -231,6 +231,86 @@ CSS_KARTICE = """
 SLIKA_V = 3
 
 
+_MJESEC_IME = {
+    "siječnja": 1, "sijecnja": 1, "veljače": 2, "veljace": 2, "ožujka": 3,
+    "ozujka": 3, "travnja": 4, "svibnja": 5, "lipnja": 6, "srpnja": 7,
+    "kolovoza": 8, "rujna": 9, "listopada": 10, "studenoga": 11,
+    "studenog": 11, "prosinca": 12,
+}
+
+_DATUM_U_TEKSTU = re.compile(
+    r"(\d{1,2})\.?\s+(" + "|".join(_MJESEC_IME) + r")\s+(\d{4})"
+    r"|(\d{1,2})\.\s*(\d{1,2})\.\s*(\d{4})", re.I)
+
+# "za učenike srednjih škola", "za studente" — oznaka skupine iza datuma.
+_ZA_SKUPINU = re.compile(r"^[\s,;:.–—-]*za\s+([a-zčćšđžA-ZČĆŠĐŽ][^;,.\n]{2,34})")
+
+
+def rokovi_po_skupinama(rok_tekst):
+    """[(iso, oznaka), ...] kad jedan natjecaj ima rok po skupini.
+
+    Grad Kastav objavljuje: "30. listopada 2026. godine, za učenike srednjih
+    škola; 20. studenog 2026. godine, za studente". To je jedan natjecaj s
+    dva roka, ali program iz te recenice izvuce jedan datum — i to onaj
+    kasniji, jer se parsiranje namjerno drzi zadnjeg datuma zbog raspona
+    ("od 1. do 18. listopada"). Posljedica: ucenik iz Kastva na kartici
+    procita 20. studenoga, a njegov rok je 30. listopada. To je najgora
+    greska koju ova stranica moze napraviti.
+
+    Zato se, kad uz svaki datum stoji oznaka skupine, prikazuju svi rokovi
+    s oznakama umjesto jednog datuma. Vraca [] kad uzorka nema — tada sve
+    ostaje kako je bilo.
+
+    Trazi se najmanje dva datuma i oznaka iza svakog. Raspon "od 1. do 18.
+    listopada 2026." nema "za ..." iza datuma, pa ovdje ne upada."""
+    if not rok_tekst:
+        return []
+    t = str(rok_tekst)
+    nadeni = []
+    for m in _DATUM_U_TEKSTU.finditer(t):
+        if m.group(1):
+            d, mj, g = int(m.group(1)), _MJESEC_IME[m.group(2).lower()], m.group(3)
+        else:
+            d, mj, g = int(m.group(4)), int(m.group(5)), m.group(6)
+        if not (1 <= mj <= 12 and 1 <= d <= 31):
+            continue
+        nadeni.append((f"{g}-{mj:02d}-{d:02d}", m.end()))
+    if len(nadeni) < 2:
+        return []
+
+    out = []
+    for i, (iso, kraj) in enumerate(nadeni):
+        rep = t[kraj:nadeni[i + 1][1] if i + 1 < len(nadeni) else len(t)]
+        # "godine" i sat stoje izmedu datuma i oznake, pa se preskacu
+        rep = re.sub(r"^[\s,;:.]*(godine|god\.)", "", rep, flags=re.I)
+        sat = re.match(r"^[\s,;:.]*(?:do\s*)?(\d{1,2})[:,](\d{2})(?:\s*sati)?",
+                       rep, re.I)
+        vrijeme = f"{int(sat.group(1))}:{sat.group(2)}" if sat else ""
+        if sat:
+            rep = rep[sat.end():]
+        m = _ZA_SKUPINU.match(rep)
+        if not m:
+            return []
+        out.append((iso, vrijeme, "za " + m.group(1).strip().rstrip(".")))
+
+    # Dva roka za istu skupinu nisu rokovi po skupinama nego raspon.
+    if len({o for _, _, o in out}) < len(out):
+        return []
+    return out
+
+
+def rok_po_skupinama_tekst(rok_tekst):
+    """Rokovi po skupinama u jednom retku, ili "" kad ih nema.
+
+    "30.10.2026. za učenike srednjih škola · 20.11.2026. za studente"."""
+    dio = []
+    for iso, vrijeme, oznaka in rokovi_po_skupinama(rok_tekst):
+        g, m, d = iso.split("-")
+        dio.append(f"{d}.{m}.{g}." + (f" do {vrijeme}" if vrijeme else "")
+                   + f" {oznaka}")
+    return " · ".join(dio)
+
+
 def sredi_naslov(t):
     """Akademska godina uvijek u istom obliku: 2026./2027.
 
