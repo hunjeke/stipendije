@@ -298,10 +298,11 @@ def stranica(mapa, z, eur, iznos_polja_f, datumi_u_brojke, esc,
     zup = z.get("zupanija") or ""
 
     polja = ""
-    for oznaka, sadrzaj, mono in iznos_polja_f(
+    for _redak in iznos_polja_f(
             {"iznosi": z.get("iznosi"), "iznos": z.get("iznos"),
              "iznos_je_fond": z.get("iznos_je_fond")},
-            otvoren, bool(z.get("poveznica"))):
+            otvoren, bool(z.get("poveznica")), skrati=False):
+        oznaka, sadrzaj, mono = _redak[0], _redak[1], _redak[2]
         polja += (f'<dt>{oznaka}</dt>'
                   f'<dd class="{"iznos" if mono else ""}">{sadrzaj}</dd>')
     rok_hr = _hr_datum(z.get("rok_iso"))
