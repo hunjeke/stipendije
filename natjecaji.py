@@ -22,6 +22,8 @@ from datetime import date, datetime
 ARHIV = "natjecaji.json"
 MAPA_NATJECAJA = "natjecaj"
 
+from zajednicko import BAZA   # https://stipendije.hr
+
 
 def _bez_kvacica(t):
     z = {"č": "c", "ć": "c", "ž": "z", "š": "s", "đ": "d",
@@ -287,6 +289,56 @@ def _hr_datum(iso):
         return ""
 
 
+def _strukturirano(z, naslov, pod, zup, slug_zup, opis, adresa):
+    """JSON-LD za stranicu natjecaja.
+
+    Dvije stvari, i vrijede razlicito:
+
+    BreadcrumbList Google prikazuje u rezultatu — umjesto gole adrese stoji
+    put "stipendije.hr > Istarska županija > Stipendije Grada Pazina". To je
+    jedino sto se ovdje stvarno vidi u tražilici.
+
+    EducationalOccupationalProgram se ne vidi nigdje: Google nema poseban
+    prikaz za stipendije. Sluzi strojevima koji citaju stranicu da odgovore
+    na pitanje — ChatGPT, Perplexity, Googleovi AI sazeci. Njima rok i
+    izdavac u strukturiranom obliku znace razliku izmedu tocnog odgovora i
+    nagadanja iz teksta.
+
+    Pise se samo ono sto u zapisu stvarno postoji. Prazno polje se izostavlja
+    — izmisljen podatak u strukturiranim podacima je gori od nikakvog, jer ga
+    stroj uzima zdravo za gotovo."""
+    import json as _json
+
+    put = [{"@type": "ListItem", "position": 1, "name": "Sve stipendije",
+            "item": f"{BAZA}/"}]
+    if zup and slug_zup:
+        put.append({"@type": "ListItem", "position": 2, "name": zup,
+                    "item": f"{BAZA}/zupanija/{slug_zup}.html"})
+    put.append({"@type": "ListItem", "position": len(put) + 1,
+                "name": naslov, "item": adresa})
+
+    program = {"@context": "https://schema.org",
+               "@type": "EducationalOccupationalProgram",
+               "name": naslov, "url": adresa, "description": opis,
+               "inLanguage": "hr"}
+    if z.get("rok_iso"):
+        program["applicationDeadline"] = z["rok_iso"]
+    izdavac = z.get("izvor_naziv") or pod
+    if izdavac:
+        program["provider"] = {"@type": "Organization", "name": izdavac}
+    if z.get("uvjeti"):
+        program["programPrerequisites"] = z["uvjeti"][:500]
+    if pod:
+        program["areaServed"] = {"@type": "AdministrativeArea", "name": pod}
+
+    staze = {"@context": "https://schema.org", "@type": "BreadcrumbList",
+             "itemListElement": put}
+    return ("".join(
+        f'<script type="application/ld+json">'
+        f'{_json.dumps(d, ensure_ascii=False, separators=(",", ":"))}</script>'
+        for d in (program, staze)))
+
+
 def stranica(mapa, z, eur, iznos_polja_f, datumi_u_brojke, esc,
              glava, navigacija, podnozje, broj_izvora, vrijeme, slug_zup,
              poziv_kanal=None):
@@ -362,7 +414,10 @@ def stranica(mapa, z, eur, iznos_polja_f, datumi_u_brojke, esc,
             + (f"Iznos: {z.get('iznos')[:90]}. " if z.get("iznos") else "")
             + (f"Rok prijave {rok_hr} " if rok_hr else "")
             + "Uvjeti i upute za prijavu.")
-    html = glava(f"{naslov} — {pod} | stipendije.hr", opis[:300], CSS, "", "../")
+    adresa = f"{BAZA}/{MAPA_NATJECAJA}/{z['slug']}.html"
+    html = glava(f"{naslov} — {pod} | stipendije.hr", opis[:300], CSS,
+                 _strukturirano(z, naslov, pod, zup, slug_zup,
+                                opis[:300], adresa), "../")
     html += navigacija("natjecaji", "../")
     html += f"""<main class="w"><section class="nat">
 <p class="put"><a href="../">Sve stipendije</a>{put_gore}</p>
