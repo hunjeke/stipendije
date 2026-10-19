@@ -1446,6 +1446,11 @@ def main():
     # spremna tjednima prije nego natjecaj izade (vidi drzavna.py)
     from drzavna import stranica as drzavna_stranica
     drzavna_stranica(MAPA, izvora_ukupno, vrijeme)
+    # STEM je odvojen natjecaj i trazi se odvojeno: Search Console pokazuje
+    # 3.332 pojavljivanja na "stem stipendije" uz poziciju 6,7-9,2, jer je
+    # STEM dosad bio samo odlomak na stranici o socio-ekonomskoj stipendiji.
+    from stem import stranica as stem_stranica
+    stem_stranica(MAPA, izvora_ukupno, vrijeme)
 
     # Prijava na obavijesti mailom. Gradi se tek kad je servis spojen —
     # dok nije, stranice nema i nigdje ne stoji poveznica na nju.
@@ -1482,6 +1487,7 @@ def main():
                          vrijeme, _slug_zup, adrese, poziv_kanal)
 
     putevi = [("", "1.0"), ("drzavna-stipendija.html", "0.9"),
+              ("stem-stipendije.html", "0.9"),
               ("ucenicke-stipendije.html", "0.9"),
               ("studentske-stipendije.html", "0.9"), ("vodic.html", "0.7"),
               ("impressum.html", "0.3"), ("privatnost.html", "0.3")]
