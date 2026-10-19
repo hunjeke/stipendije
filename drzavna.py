@@ -569,7 +569,7 @@ kućanstva umjesto {PRAG_E}.</p>
 <h2>STEM stipendije su odvojen natječaj</h2>
 <p class="pod">Ako studiraš u STEM području, postoji drugi javni poziv, s većim
 iznosom i vlastitim rang-listama. Prijavljuje se zasebno i izlazi kasnije od
-ovoga.</p>
+ovoga. <a href="stem-stipendije.html">Sve o STEM stipendijama &rarr;</a></p>
 <div class="cifre">
   <div><b>{STEM_NASTAVNICKI}</b><span>mjesečno, nastavnički STEM studiji</span></div>
   <div><b>{STEM_OSTALI}</b><span>mjesečno, ostali STEM studiji</span></div>
