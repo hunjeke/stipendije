@@ -305,7 +305,12 @@ def stranica(mapa, z, eur, iznos_polja_f, datumi_u_brojke, esc,
         oznaka, sadrzaj, mono = _redak[0], _redak[1], _redak[2]
         polja += (f'<dt>{oznaka}</dt>'
                   f'<dd class="{"iznos" if mono else ""}">{sadrzaj}</dd>')
-    rok_hr = _hr_datum(z.get("rok_iso"))
+    # Natjecaj s rokom po skupini (Kastav: 30.10. ucenici, 20.11. studenti)
+    # mora i ovdje pokazati oba roka, inace stranica natjecaja proturjeci
+    # kartici s koje se na nju dolazi.
+    from zajednicko import rok_po_skupinama_tekst
+    rok_hr = (rok_po_skupinama_tekst(z.get("rok_tekst"))
+              or _hr_datum(z.get("rok_iso")))
     if rok_hr:
         polja += f'<dt>Rok prijave</dt><dd>{rok_hr}</dd>'
     if z.get("uvjeti"):
