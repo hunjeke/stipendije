@@ -29,8 +29,9 @@ from datetime import date
 # stranici i u mailu. Da novosti.py ima svoju usporedbu, jedno bi se
 # popravljalo a drugo zaboravljalo.
 from web import (za_koga, _bolji, _isti_natjecaj, _rijeci,
-                 opisna_stranica)
+                 opisna_stranica, je_prenositelj)
 from scraper import bez_kvacica
+from zajednicko import rokovi_po_skupinama, rok_po_skupinama_tekst
 
 IZVORI = "sources.json"
 RUCNI = "rucni.json"
@@ -42,6 +43,14 @@ PRIKAZANO = "novosti-prikazano.json"
 IZVJESTAJ = "novosti.md"
 
 SVIMA = "cijela hrvatska"   # podrucje koje ide svim pretplatnicima
+
+# Mail vodi na nasu stranicu natjecaja, ne na izvor. Nasa stranica ima vise
+# podataka nego sto stane u mail (iznos po skupinama, trajanje isplate, tko
+# se prijavljuje, upute), sluzbenu poveznicu ima kao gumb, i ne mijenja se
+# kad izvor premjesti svoju objavu — kod Zagreba se URL natjecaja mijenja
+# svake godine. Kad zapis nema slug, ide izvorna poveznica.
+BAZA = "https://stipendije.hr"
+MAPA_NATJECAJA = "natjecaj"
 
 # Natjecaj koji vrijedi za cijelu Hrvatsku i nema uvjet struke ide svima.
 # Ako se jednom pokaze da je toga previse, dosta je prebaciti na False —
@@ -165,6 +174,45 @@ def _otvoren(z):
     return (not r) or r >= date.today().isoformat()
 
 
+_KVACICE = {
+    "ucenici": "učenici", "ucenik": "učenik", "ucenicki": "učenički",
+    "ucenice": "učenice", "skola": "škola", "skole": "škole",
+    "skolama": "školama", "srednjoskolci": "srednjoškolci",
+    "tehnicar": "tehničar", "ucilista": "učilišta",
+    "sveuciliste": "Sveučilište", "sveucilista": "Sveučilišta",
+    "durdevcu": "Đurđevcu", "odlicni": "odlični", "sjever": "Sjever",
+    "poslijediplomskoga": "poslijediplomskoga",
+}
+
+
+def _oznaka(s):
+    """Oznaka skupine iz izvora, s vracenim kvacicama."""
+    def _r(w):
+        z = _KVACICE.get(w.lower())
+        if not z:
+            return w
+        return z[0].upper() + z[1:] if w[:1].isupper() else z
+    return " ".join(_r(w) for w in s.split())
+
+
+def _mnozina(n, jedan, dva, pet):
+    """Hrvatska mnozina: 1 natjecaj, 2-4 natjecaja, 5+ natjecaja."""
+    d = n % 100
+    if d % 10 == 1 and d != 11:
+        return jedan
+    if 2 <= d % 10 <= 4 and not 12 <= d <= 14:
+        return dva
+    return pet
+
+
+def _veza(z):
+    """Poveznica za mail — nasa stranica natjecaja kad postoji."""
+    slug = (z.get("slug") or "").strip()
+    if slug:
+        return f"{BAZA}/{MAPA_NATJECAJA}/{slug}.html"
+    return z.get("poveznica") or z.get("url") or ""
+
+
 def _skupina(z):
     """'ucenik' | 'student' | 'oba' — ista logika kao na stranici."""
     return za_koga({
@@ -249,8 +297,12 @@ def _rok(z):
     Sat se zadrzava kad ga izvor navodi: kod roka u 12:00 to je razlika
     izmedu predane i propustene prijave. Kad datum nije isparsiran, ostaje
     izvorni tekst — bolje nesto nego nista."""
-    iso = z.get("rok_iso") or ""
     izvorni = (z.get("rok_tekst") or "").strip()
+    # Jedan natjecaj, rok po skupini — tada jedan datum laze polovici ljudi.
+    po_skupinama = rok_po_skupinama_tekst(izvorni)
+    if po_skupinama:
+        return po_skupinama
+    iso = z.get("rok_iso") or ""
     if len(iso) != 10:
         return izvorni
     g, m, d = iso.split("-")
@@ -265,13 +317,52 @@ def _rok(z):
 
 
 def _iznos(z):
-    """Kratki iznos za poruku. Radije nista nego pogresno."""
+    """Iznos za poruku, po skupinama kad ih izvor razlikuje.
+
+    Dosad se ispisivao samo najveci iznos uz "(najvisi iznos)", pa je mail
+    za Zagreb tvrdio 520 € i ucenicima kojima pripada 380 €. Kad izvor
+    razlikuje skupine, ispisuju se sve.
+
+    Oznake skupina se ne dekliniraju — pisu se kako su u izvoru, bez "za",
+    jer dolaze u bilo kojem obliku ("studenti za deficitarna zanimanja,
+    prosjek < 3,80") i svako sklanjanje ih razbije."""
     mj = [i for i in (z.get("iznosi") or [])
           if i.get("razdoblje") == "mjesecno" and i.get("eur")]
     if not mj:
         return ""
-    naj = max(int(i["eur"]) for i in mj)
-    return f"{naj} € mjesečno" + (" (najviši iznos)" if len(mj) > 1 else "")
+    # Rastuce po iznosu: izvori ih pisu u slucajnom redu, a popis u kojem
+    # je 300 € izmedu 100 i 200 se cita dvaput.
+    mj = sorted(mj, key=lambda i: i["eur"])
+
+    def _e(i):
+        return ("do " if i.get("do") else "") + f"{int(i['eur'])} €"
+
+    oznake = [_oznaka(str(i.get("za") or "").strip()) for i in mj]
+
+    trajanje = ""
+    trajanja = {i.get("mjeseci") for i in mj}
+    if len(trajanja) == 1:
+        m = trajanja.pop()
+        if m and int(m) > 1:
+            trajanje = (f", kroz {int(m)} "
+                        + _mnozina(int(m), "", "mjeseca", "mjeseci"))
+
+    if len(mj) == 1:
+        return f"{_e(mj[0])} mjesečno{trajanje}"
+
+    popis = ", ".join(f"{o} {_e(i)}" for o, i in zip(oznake, mj))
+    if (len(mj) <= 3 and all(oznake)
+            and len(set(oznake)) == len(oznake) and len(popis) <= 120):
+        return f"{popis} (mjesečno{trajanje})"
+
+    naj_i = max(mj, key=lambda i: i["eur"])
+    naj = naj_i["eur"]
+    mini = min(i["eur"] for i in mj)
+    if mini == naj:
+        return f"{_e(naj_i)} mjesečno{trajanje}"
+    # Bez "do" ispred raspona — raspon sam kaze gornju granicu, a
+    # "do od 150 do 300" nije recenica.
+    return f"od {int(mini)} do {int(naj)} € mjesečno{trajanje}"
 
 
 def zapelo():
@@ -338,6 +429,35 @@ def _kao_zapis(z):
     }
 
 
+def _isti_izvor(a, b):
+    """Dolaze li dva zapisa s iste domene."""
+    from urllib.parse import urlsplit
+    dom = lambda z: urlsplit(
+        (z.get("url") or z.get("poveznica") or "")).netloc.lower()
+    da, db = dom(a), dom(b)
+    return bool(da) and da == db
+
+
+def _isti_rok_po_skupinama(a, b):
+    """Je li to jedan natjecaj s rokom po skupini, procitan dvaput.
+
+    Grad Kastav u jednoj recenici objavljuje dva roka — 30. listopada za
+    ucenike, 20. studenoga za studente. Model je tu recenicu procitao
+    dvaput i svaki put uzeo drugi datum, pa su u arhivi dva zapisa s
+    razlicitim rok_iso. Posljedica: ucenik dobije mail koji mu kaze da ima
+    vremena do 20. studenoga.
+
+    Uvjeti su namjerno uski: isti izvor, doslovno ista recenica o roku, i u
+    njoj najmanje dva roka s oznakom skupine. Bez zadnjeg uvjeta bi se
+    spojila tri Privrednikova fonda — ista domena, isti rok, tri razlicite
+    stipendije."""
+    ta = (a.get("rok_tekst") or "").strip()
+    tb = (b.get("rok_tekst") or "").strip()
+    if not ta or ta != tb or not _isti_izvor(a, b):
+        return False
+    return len(rokovi_po_skupinama(ta)) >= 2
+
+
 def _spoji_iste(zapisi):
     """Isti natjecaj pod vise naslova spoji u jedan.
 
@@ -371,17 +491,54 @@ def _spoji_iste(zapisi):
             # D&ST i Hrvatsku Lutriju, sve tri s adresom koja se ne razlikuje.
             # Razlicit rok zato znaci razlicit natjecaj. Pogrijesimo li tu,
             # posljedica je jedan mail viska — a ne natjecaj koji nestane.
-            if rok != (z2.get("rok_iso") or ""):
+            if rok != (z2.get("rok_iso") or "") \
+                    and not _isti_rok_po_skupinama(z, z2):
                 continue
             isti = _ista_prijava(z, z2) or _isti_natjecaj(
                 par["naslov_natjecaja"], par2["naslov_natjecaja"], bez=bez)
             if isti:
+                # Kasniji rok pobjeduje: dok god se bar jedna skupina moze
+                # prijaviti, natjecaj je otvoren. Prikaz svejedno navodi
+                # oba roka, pa nitko ne dobije samo kasniji datum.
+                kasniji = max(rok, z2.get("rok_iso") or "")
                 if _bolji(par, par2):
-                    ishod[i] = (z, par)
+                    ishod[i] = (dict(z, rok_iso=kasniji), par)
+                elif kasniji != (z2.get("rok_iso") or ""):
+                    ishod[i] = (dict(z2, rok_iso=kasniji), par2)
                 break
         else:
             ishod.append((z, par))
     return [z for z, _ in ishod]
+
+
+# Prenesene objave koje su izbacene iz ovog pokretanja. Ispisuju se u
+# izvjestaju: izbacivanje koje se ne vidi jednog dana izbaci nesto krivo,
+# a nitko ne primijeti.
+PRENESENO = []
+
+
+def _bez_prenositelja(otvoreni):
+    """Makni objave portala kad isti natjecaj ima i sluzbeni izvor.
+
+    Info centar za mlade Osijek prenio je natjecaj Osjecko-baranjske
+    zupanije pod podrucjem "Osijek". U mailu su tako stajale dvije
+    stipendije, a bila je jedna — i druga je izgledala kao gradska, sto
+    nije. Izbacuje se samo kad za isti rok u istoj zupaniji vec postoji
+    zapis s drugog izvora."""
+    PRENESENO.clear()
+    sluzbeni = {((z.get("rok_iso") or ""),
+                 (z.get("zupanija") or z.get("podrucje") or "").strip())
+                for z in otvoreni.values()
+                if not je_prenositelj(z.get("url"))}
+    out = {}
+    for s, z in otvoreni.items():
+        kljuc = ((z.get("rok_iso") or ""),
+                 (z.get("zupanija") or z.get("podrucje") or "").strip())
+        if je_prenositelj(z.get("url")) and kljuc[0] and kljuc in sluzbeni:
+            PRENESENO.append(z)
+        else:
+            out[s] = z
+    return out
 
 
 def novi_natjecaji():
@@ -394,6 +551,7 @@ def novi_natjecaji():
     # stipendija s nepostojecim rokom otisla na mail svim studentima.
     otvoreni = {s: z for s, z in arhiv.items()
                 if _otvoren(z) and not opisna_stranica(z)}
+    otvoreni = _bez_prenositelja(otvoreni)
     novi = {s: z for s, z in otvoreni.items() if s not in poslano}
     return arhiv, poslano, otvoreni, novi
 
@@ -421,7 +579,11 @@ def vec_javljeno(novi, arhiv, poslano):
             par2 = _kao_zapis(z2)
             if z.get("rucni") and z2.get("rucni"):
                 continue
-            if rok != (z2.get("rok_iso") or ""):
+            # Isti natjecaj s rokom po skupini zna u arhivu uci dvaput, pod
+            # dva roka. Bez ove iznimke drugi zapis izgleda kao nov i o
+            # istom se natjecaju javlja drugi put.
+            if rok != (z2.get("rok_iso") or "") \
+                    and not _isti_rok_po_skupinama(z, z2):
                 continue
             if _ista_prijava(z, z2) or _isti_natjecaj(
                     par["naslov_natjecaja"], par2["naslov_natjecaja"], bez=bez):
@@ -484,81 +646,179 @@ _ZA_KOGA = {"ucenik": " — samo za učenike",
 
 
 def _redak(z):
-    """Jedan natjecaj u popisu."""
-    dio = [f"**{z['naslov']}**"]
-    if z.get("podrucje"):
-        dio.append(z["podrucje"])
+    """Jedan natjecaj u popisu — tri reda, ne lanac tockica.
+
+    Prije je sve islo u jedan red odvojeno s " · ": naslov, podrucje,
+    iznos, rok. U mailu to izgleda kao izvod iz baze, a na mobitelu se
+    prelomi na tri reda ionako — samo na pogresnim mjestima. Sada naslov
+    ima svoj red, podaci svoj, poveznica svoj."""
+    naslov = f"**{z['naslov']}**" + _ZA_KOGA.get(_skupina(z), "")
+    pod = (z.get("podrucje") or "").strip()
+    if pod and pod.lower() != SVIMA:
+        naslov += f" ({pod})"
+
+    redci = [naslov]
     iz = _iznos(z)
     if iz:
-        dio.append(iz)
+        redci.append(f"Iznos: {iz}")
     rok = _rok(z)
     if rok:
-        dio.append(f"rok {rok}")
-    veza = z.get("poveznica") or z.get("url") or ""
-    return (" · ".join(dio) + _ZA_KOGA.get(_skupina(z), "")
-            + (f"\n{veza}" if veza else ""))
+        redci.append(f"Rok: {rok}")
+    veza = _veza(z)
+    if veza:
+        redci.append(veza)
+    return "\n".join(redci)
+
+
+def _hitnost(zapisi):
+    """Jedna ljudska recenica o najblizem roku, ili nista.
+
+    Ovo je jedini dio poruke koji nije prepisani podatak. Bez njega je
+    mail popis, s njim je savjet — a rokovi su stvarno toliko kratki da
+    je savjet tocan: potvrdu o redovnom studiju ili prijepis ocjena ne
+    dobijes isti dan kad ju zatrazis."""
+    rokovi = sorted(z["rok_iso"] for z in zapisi if (z.get("rok_iso") or ""))
+    if not rokovi:
+        return ""
+    try:
+        d = (date.fromisoformat(rokovi[0]) - date.today()).days
+    except ValueError:
+        return ""
+    sto = "Rok" if len(zapisi) == 1 else "Najbliži rok"
+    if d < 0:
+        return ""
+    if d == 0:
+        return f"{sto} je **danas** — ako se prijavljuješ, nemoj ostaviti za večer."
+    if d == 1:
+        return f"{sto} je **sutra**."
+    if d <= 7:
+        return (f"{sto} je za {d} dana. Dokumentaciju ne skupiš u jedan dan, "
+                "pa ako te zanima, počni danas.")
+    if d <= 21:
+        return ("Rokovi su kratki, a potvrde s fakulteta i iz škole ne dobiješ "
+                "isti dan kad ih zatražiš — bolje počni odmah.")
+    return ""
+
+
+def _predmet(zapisi, zup=None, drzavna=False):
+    """Predmet maila. Kad je jedan natjecaj, imenuje ga i stavi rok.
+
+    "Jedan novi natjecaj — Grad Zagreb" ne govori nista: primatelj ne zna
+    je li za njega niti koliko ima vremena. "Stipendije Grada Zagreba —
+    rok 30.10." govori oboje, a to je sve sto predmet moze."""
+    n = len(zapisi)
+    rokovi = sorted(z["rok_iso"] for z in zapisi if (z.get("rok_iso") or ""))
+    rok = ""
+    if rokovi:
+        g, m, d = rokovi[0].split("-")
+        rok = f"{int(d)}.{int(m)}."
+
+    if n == 1:
+        naslov = (zapisi[0].get("naslov") or "").strip()
+        if naslov and len(naslov) <= 46:
+            return naslov + (f" — rok {rok}" if rok else "")
+        osnova = ("Otvorene su državne stipendije" if drzavna else
+                  f"Nova stipendija — {zup}" if zup else "Nova stipendija")
+        return osnova + (f", rok {rok}" if rok else "")
+
+    if drzavna:
+        rijec = _mnozina(n, "natječaj", "nova natječaja", "novih natječaja")
+        osnova = f"{n} {rijec} za državnu stipendiju"
+    else:
+        rijec = _mnozina(n, "nova stipendija", "nove stipendije",
+                         "novih stipendija")
+        osnova = f"{n} {rijec}" + (f" — {zup}" if zup else "")
+    return osnova + (f", prvi rok {rok}" if rok else "")
 
 
 def _poruka(zapisi, kljuc):
-    """Tekst maila za jednu skupinu primatelja."""
+    """Tekst maila za jednu skupinu primatelja.
+
+    Poruka je pisana da ne izgleda kao automatska obavijest: prva recenica
+    kaze sto je otvoreno (a ne da je nesto otvoreno), podaci su u redovima
+    a ne u lancu tockica, jedna recenica je savjet a ne podatak, i stoji
+    potpis — ljudi odgovaraju ljudima. Objasnjenje "ovo dobivas jer..."
+    je izbaceno: Brevo svakoj poruci sam dodaje podnozje s odjavom, pa je
+    to bilo dupliranje koje je zvucalo defenzivno.
+    """
     if kljuc[0] == "drzavna":
         jedan = len(zapisi) == 1
-        predmet = (f"Otvoren natječaj: {zapisi[0]['naslov']}" if jedan
-                   else f"{len(zapisi)} nova natječaja za državnu stipendiju")
+        predmet = _predmet(zapisi, drzavna=True)
         uvod = ("Otvorio se natječaj za državnu stipendiju:" if jedan
                 else "Otvorili su se natječaji za državne stipendije:")
-        zasto = ("Ovo dobivaš jer si se prijavio na obavijesti. Državna "
-                 "stipendija vrijedi za cijelu Hrvatsku, pa je dobivaju svi.")
-        return predmet, (f"{uvod}\n\n"
-                         + "\n\n".join(_redak(z) for z in zapisi)
-                         + "\n\nCijeli postupak prijave i bodovanje: "
-                           "https://stipendije.hr/drzavna-stipendija.html"
-                         f"\n\n{zasto}")
+        dijelovi = [uvod, "\n\n".join(_redak(z) for z in zapisi)]
+        hit = _hitnost(zapisi)
+        if hit:
+            dijelovi.append(hit)
+        dijelovi.append("Cijeli postupak prijave, uvjeti i bodovanje: "
+                        "https://stipendije.hr/drzavna-stipendija.html")
+        dijelovi.append("Erik")
+        return predmet, "\n\n".join(dijelovi)
 
     _, zup, s_gradom = kljuc
-    # 2-4 "nova natječaja", 5+ "novih natječaja" — "3 novih" bode u oko
     n = len(zapisi)
-    koliko = ("Jedan novi natječaj" if n == 1
-              else f"{n} nova natječaja" if n <= 4
-              else f"{n} novih natječaja")
-    predmet = f"{koliko} — {zup}"
+    predmet = _predmet(zapisi, zup)
+
+    uvod = ("Otvorio se jedan novi natječaj za stipendiju:" if n == 1
+            else f"Otvorila su se {n} nova natječaja za stipendiju:" if n <= 4
+            else f"Otvorilo se {n} novih natječaja za stipendiju:")
 
     zup_zapisi = [z for z in zapisi if (_kome(z) or ("",))[0] == "zupanija"]
     grad_zapisi = [z for z in zapisi if (_kome(z) or ("",))[0] == "grad"]
 
-    dijelovi = ["Ovo se otvorilo otkad smo se zadnji put javili."]
+    if not zup_zapisi and not grad_zapisi:   # ne smije se dogoditi
+        zup_zapisi = list(zapisi)
+
+    dijelovi = [uvod]
+    # Kad je natjecaj samo jedan, naslov skupine ("**Zagrebačka županija**")
+    # nema sto grupirati — samo stoji iznad jednog unosa kao prazna ladica.
+    naslovi = bool(zup_zapisi) and bool(grad_zapisi)
     if zup_zapisi:
-        dijelovi.append(f"**{zup}**\n\n"
+        dijelovi.append((f"**{zup}**\n\n" if naslovi else "")
                         + "\n\n".join(_redak(z) for z in zup_zapisi))
     if grad_zapisi:
         po_gradu = {}
         for z in grad_zapisi:
             po_gradu.setdefault(z.get("podrucje") or "", []).append(z)
+        # Po najblizem roku, ne po abecedi. Poruka iznad popisa kaze
+        # "najblizi rok je sutra" — taj natjecaj mora biti prvi, inace
+        # ga covjek trazi po popisu.
         redci = []
-        for grad in sorted(po_gradu):
+        najblizi = lambda g: (min((z.get("rok_iso") or "9999")
+                                  for z in po_gradu[g]), g)
+        for grad in sorted(po_gradu, key=najblizi):
             redci.append("\n\n".join(_redak(z) for z in po_gradu[grad]))
-        dijelovi.append("**Gradovi i općine u tvojoj županiji**\n\n"
-                        + "\n\n".join(redci))
+        dijelovi.append(("**Gradovi i općine u tvojoj županiji**\n\n"
+                         if naslovi else "") + "\n\n".join(redci))
 
-    zasto = "Ovo dobivaš jer si se prijavio na obavijesti za svoju županiju."
+    hit = _hitnost(zapisi)
+    if hit:
+        dijelovi.append(hit)
 
     # Kad gradski natjecaji idu cijeloj zupaniji, vecini primatelja nijedan
     # nije iz njihovog mjesta. Umjesto da to ispadne promaseni mail, ista
     # poruka pita za mjesto — tako se polje GRAD puni samo od sebe i
     # podjela po gradu jednom postane moguca.
-    if grad_zapisi and not DIJELI_PO_GRADU:
+    # Tko je mjesto upisao, nema ga zasto upisivati — njemu zamolba ne ide.
+    if grad_zapisi and not DIJELI_PO_GRADU and not s_gradom:
+        mjesta = sorted({(z.get("podrucje") or "").strip()
+                         for z in grad_zapisi if z.get("podrucje")})
+        if not zup_zapisi and len(mjesta) == 1:
+            uvjet = (f"Ovaj natječaj vrijedi za {mjesta[0]}, a uvjet je "
+                     "gotovo uvijek prebivalište.")
+        elif not zup_zapisi:
+            uvjet = ("Natječaji su iz pojedinih mjesta u tvojoj županiji, a "
+                     "uvjet je gotovo uvijek prebivalište.")
+        else:
+            uvjet = ("Dio natječaja je iz pojedinih mjesta u tvojoj županiji, "
+                     "a uvjet je gotovo uvijek prebivalište.")
         dijelovi.append(
-            "Gornji natječaji su iz cijele županije, pa možda nijedan nije iz "
-            "tvog mjesta — uvjet je gotovo uvijek prebivalište. Upiši svoje "
-            "mjesto u postavkama i ubuduće ti šaljemo samo natječaje koji "
-            "vrijede za tebe: {{ update_profile }}")
-    elif grad_zapisi:
-        zasto = ("Ovo dobivaš jer si se prijavio na obavijesti i upisao svoje "
-                 "mjesto.")
+            uvjet + " Ako nije za tvoje mjesto, upiši ga i ubuduće ti šaljemo "
+            "samo ono što vrijedi za tebe: {{ update_profile }}")
 
-    return predmet, ("\n\n".join(dijelovi)
-                     + "\n\nSve otvorene stipendije: https://stipendije.hr"
-                     f"\n\n{zasto}")
+    dijelovi.append("Sve otvorene stipendije u Hrvatskoj: https://stipendije.hr")
+    dijelovi.append("Erik")
+    return predmet, "\n\n".join(dijelovi)
 
 
 def _filtar(kljuc):
@@ -606,6 +866,23 @@ def _blok_preskoceni(preskoceni):
     return L
 
 
+def _blok_preneseno():
+    """Sto je izbaceno kao prenesena objava tudeg natjecaja."""
+    if not PRENESENO:
+        return []
+    L = ["---", "", "## Izbačeno kao prenesena objava", "",
+         "Ovi zapisi dolaze s portala koji prenose tuđe natječaje, a isti "
+         "natječaj već ima zapis sa službenog izvora za isti rok u istoj "
+         "županiji. Ako je neki od njih ipak zaseban natječaj, treba ga "
+         "upisati u `rucni.json` ili maknuti izvor s popisa prenositelja.",
+         "", "| Natječaj | Područje | Izvor |", "|---|---|---|"]
+    for z in PRENESENO:
+        L.append(f"| {(z.get('naslov') or '')[:46]} | {z.get('podrucje') or ''} "
+                 f"| {z.get('url') or ''} |")
+    L.append("")
+    return L
+
+
 def izvjestaj(grupe, otvoreni, novi, preskoceni=(), ponovljeni=()):
     L = [f"# Nove obavijesti — {date.today().strftime('%d.%m.%Y.')}", ""]
     sumnjivi, greske = zapelo()
@@ -614,6 +891,7 @@ def izvjestaj(grupe, otvoreni, novi, preskoceni=(), ponovljeni=()):
               f"Otvorenih ukupno: {len(otvoreni)}. O svima je već javljeno.", ""]
         L += _blok_vec_javljeno(ponovljeni)
         L += _blok_preskoceni(preskoceni)
+        L += _blok_preneseno()
         L += _blok_zapelo(sumnjivi, greske)
         return "\n".join(L) + "\n"
 
@@ -634,6 +912,7 @@ def izvjestaj(grupe, otvoreni, novi, preskoceni=(), ponovljeni=()):
         L += [f"**Predmet:** {predmet}", "", "```", tijelo, "```", ""]
     L += _blok_vec_javljeno(ponovljeni)
     L += _blok_preskoceni(preskoceni)
+    L += _blok_preneseno()
     L += _blok_zapelo(sumnjivi, greske)
     return "\n".join(L) + "\n"
 
