@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>STEM stipendije 2026./2027. — iznos, uvjeti i kad izlazi poziv</title>
+<meta name="description" content="Državne STEM stipendije: 600 € mjesečno za nastavničke i 300 € za ostale STEM studije, 1.500 stipendija. Javni poziv se raspisuje do 25. listopada. Provjereno na stranicama Ministarstva znanosti, obrazovanja i mladih.">
+<meta property="og:title" content="STEM stipendije 2026./2027. — iznos, uvjeti i kad izlazi poziv">
+<meta property="og:description" content="Državne STEM stipendije: 600 € mjesečno za nastavničke i 300 € za ostale STEM studije, 1.500 stipendija. Javni poziv se raspisuje do 25. listopada. Provjereno na stranicama Ministarstva znanosti, obrazovanja i mladih.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://stipendije.hr/pregled.png?v=3">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="hr_HR">
+<meta property="og:site_name" content="Stipendije.hr">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://stipendije.hr/pregled.png?v=3">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="48x48" href="favicon-48.png">
+<link rel="icon" type="image/png" sizes="96x96" href="favicon-96.png">
+<link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#1D4ED8">
+<link rel="preload" href="f/plex-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="f/bricolage-800.woff2" as="font" type="font/woff2" crossorigin>
+
+<style>
+@font-face{font-family:"Bricolage";src:url("f/bricolage-700.woff2") format("woff2");
+  font-weight:700;font-style:normal;font-display:swap}
+@font-face{font-family:"Bricolage";src:url("f/bricolage-800.woff2") format("woff2");
+  font-weight:800;font-style:normal;font-display:swap}
+@font-face{font-family:"Plex";src:url("f/plex-400.woff2") format("woff2");
+  font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"Plex";src:url("f/plex-500.woff2") format("woff2");
+  font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:"Plex";src:url("f/plex-600.woff2") format("woff2");
+  font-weight:600;font-style:normal;font-display:swap}
+@font-face{font-family:"PlexMono";src:url("f/plexmono-500.woff2") format("woff2");
+  font-weight:400 500;font-style:normal;font-display:swap}
+
+.kol{position:fixed;left:0;right:0;bottom:0;z-index:80;background:var(--tinta);
+  color:#F2F4F8;padding:1rem 1.15rem;display:none}
+.kol.vidljiva{display:block}
+.kol-w{max-width:780px;margin:0 auto;display:flex;gap:1rem;
+  align-items:center;justify-content:space-between;flex-wrap:wrap}
+.kol p{margin:0;font-size:.86rem;line-height:1.5;max-width:52ch;color:#D6D9D2}
+.kol a{color:#F2F4F8;text-decoration:underline}
+.kol-gumbi{display:flex;gap:.6rem;flex-shrink:0}
+.kol button{font-family:"Plex",sans-serif;font-size:.87rem;
+  padding:.55rem 1rem;border:1.5px solid #F2F4F8;background:none;
+  color:#F2F4F8;cursor:pointer}
+.kol button.da{background:#F2F4F8;color:var(--tinta);font-weight:600}
+.kol button:hover{border-color:#fff}
+@media(max-width:600px){
+  /* traka je na mobitelu zauzimala 138 px prvog ekrana i prekrivala prvu
+     karticu; sada stane u jedan redak s tipkama uz tekst */
+  .kol{padding:.6rem .8rem}
+  .kol-w{gap:.6rem;flex-wrap:nowrap}
+  .kol p{font-size:.78rem;line-height:1.35}
+  .kol button{padding:.45rem .7rem;font-size:.82rem;white-space:nowrap}
+}
+
+:root{
+  --papir:#F2F4F8;      /* papir s plavim tonom */
+  --karta:#FFFFFF;
+  --tinta:#141B2D;      /* mornarska tinta */
+  --tinta-2:#565F76;    /* prigusena */
+  --linija:#DBE0EA;
+  --plava:#1D4ED8;      /* glavna boja: veze, naglasci, znak */
+  --plava-t:#1739A0;    /* tamnija, za hover */
+  --otvoreno:#15803D;   /* zelena znaci samo: natjecaj je otvoren */
+  --hitno:#B91C1C;      /* rok istjece */
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--papir);color:var(--tinta);
+  font-family:"Plex",system-ui,sans-serif;font-size:16px;line-height:1.6;
+  -webkit-font-smoothing:antialiased}
+.w{max-width:780px;margin:0 auto;padding:0 1.15rem}
+
+/* --- navigacija --- */
+.vrh{border-bottom:1px solid var(--linija);background:var(--papir);
+  position:sticky;top:0;z-index:30}
+.vrh .w{display:flex;align-items:center;justify-content:space-between;
+  gap:.8rem;padding-top:.7rem;padding-bottom:.7rem}
+.logo{display:flex;align-items:center;gap:.6rem;text-decoration:none;
+  color:var(--tinta)}
+.znak{width:40px;height:40px;flex-shrink:0;display:block}
+.ime{font-family:"Bricolage",sans-serif;font-weight:800;
+  font-size:1.32rem;letter-spacing:-.022em}
+.ime span{color:var(--plava)}
+.nav{display:flex;gap:.2rem}
+.nav a{font-size:.86rem;color:var(--tinta-2);text-decoration:none;
+  padding:.55rem .5rem;border-bottom:1.5px solid transparent;
+  line-height:1.2}
+.nav a:hover{color:var(--plava)}
+.nav a.tu{color:var(--plava);border-bottom-color:var(--plava)}
+
+/* --- mobitel --- */
+@media(max-width:600px){
+  body{font-size:15.5px}
+  .w{padding:0 .95rem}
+  .znak{width:34px;height:34px}
+  .ime{font-size:1.12rem}
+  .nav{gap:0}
+  .nav a{font-size:.8rem;padding:.55rem .38rem}
+  footer{font-size:.84rem}
+}
+@media(max-width:380px){
+  .ime span{display:none}          /* ".hr" ide van kad je stvarno tijesno */
+  .nav a{font-size:.76rem;padding:.55rem .3rem}
+}
+
+/* --- tipografija --- */
+h1{font-family:"Bricolage",sans-serif;font-weight:800;
+  font-size:clamp(1.9rem,5.5vw,2.7rem);line-height:1.08;letter-spacing:-.028em;
+  margin:0 0 .5rem}
+h2{font-family:"Bricolage",sans-serif;font-weight:700;
+  font-size:1.18rem;letter-spacing:-.015em;margin:0}
+h3{font-family:"Bricolage",sans-serif;font-weight:700;
+  font-size:1.04rem;letter-spacing:-.012em;margin:0 0 .15rem;line-height:1.28}
+.meta{font-family:"PlexMono",monospace;font-size:.7rem;
+  letter-spacing:.09em;text-transform:uppercase;color:var(--tinta-2)}
+
+/* --- sekcije --- */
+.sek{padding:2.6rem 0 0}
+.sek-vrh{display:flex;align-items:baseline;gap:.7rem;
+  padding-bottom:.7rem;border-bottom:1.5px solid var(--tinta);margin-bottom:1.1rem}
+.sek-vrh .broj{font-family:"PlexMono",monospace;font-size:.95rem;
+  font-weight:500;color:var(--tinta);margin-left:auto}
+.uvod{color:var(--tinta-2);font-size:.92rem;margin:-.5rem 0 1.2rem}
+
+/* --- podnozje --- */
+footer{margin-top:3.5rem;border-top:1px solid var(--linija);
+  padding:1.8rem 0 3rem;font-size:.87rem;color:var(--tinta-2)}
+footer p{margin:.55rem 0}
+footer .upoz-p{border-left:3px solid var(--plava);padding-left:.9rem;
+  margin:0 0 1rem;color:var(--tinta-2)}
+footer .upoz-p strong{color:var(--tinta)}
+footer a{color:var(--plava)}
+footer .sitno{font-family:"PlexMono",monospace;font-size:.7rem;
+  letter-spacing:.05em;margin-top:1.4rem;color:#8A909E}
+
+/* --- upozorenje --- */
+
+a:focus-visible,button:focus-visible,summary:focus-visible,
+input:focus-visible,select:focus-visible{outline:2px solid var(--plava);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+}
+
+/* Dvije drzavne stipendije. Izbornik ih namjerno ne razdvaja — STEM JEST
+   drzavna stipendija, pa dvije stavke u izborniku za istu stvar zbunjuju,
+   a cetvrta stavka na 390px izbornik gura preko ruba ekrana. Umjesto toga
+   je "Drzavna" roditelj, a razdvajanje se vidi na samoj stranici, odmah
+   ispod naslova — i onima koji dodu s Googlea ravno ovamo. */
+.izbor{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin:1.4rem 0}
+.izbor a,.izbor span{display:block;padding:.85rem .95rem;border-radius:10px;
+  border:1px solid var(--linija);text-decoration:none;background:var(--papir)}
+.izbor .tu{border-color:var(--plava);background:#EFF4FF}
+.izbor b{display:block;font-size:.95rem;color:var(--tinta);line-height:1.3}
+.izbor small{display:block;margin-top:.2rem;font-size:.78rem;
+  color:var(--tinta-2);line-height:1.35}
+.izbor a:hover{border-color:var(--plava)}
+@media(max-width:480px){.izbor{grid-template-columns:1fr}}
+.ds{padding:2.6rem 0 0}
+.ds h1{font-size:clamp(1.7rem,5vw,2.4rem);margin-bottom:.6rem}
+.ds .lead{font-size:1.04rem;color:var(--tinta-2);max-width:54ch;margin:0 0 1.6rem}
+.ds h2{font-size:1.24rem;margin:2.8rem 0 .3rem}
+.ds .pod{color:var(--tinta-2);font-size:.92rem;margin:0 0 1.1rem;max-width:56ch}
+.ds p{font-size:.96rem;line-height:1.65}
+
+/* stanje natjecaja — jedino sto se mijenja kad natjecaj izade */
+.stanje{border:2px solid var(--plava);background:var(--karta);
+  padding:1.15rem 1.2rem;display:flex;gap:1rem;align-items:center;
+  flex-wrap:wrap;margin-bottom:2rem}
+.stanje .txt{flex:1;min-width:16rem}
+.stanje b{display:block;font-family:"Bricolage",sans-serif;font-weight:700;
+  font-size:1.1rem;letter-spacing:-.012em;margin-bottom:.2rem}
+.stanje span{font-size:.9rem;color:var(--tinta-2)}
+.stanje a{display:inline-block;background:var(--plava);color:#fff;
+  text-decoration:none;font-weight:600;font-size:.92rem;padding:.72rem 1.1rem;
+  white-space:nowrap}
+.stanje a:hover{filter:brightness(1.12)}
+
+/* brojke */
+.cifre{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;
+  background:var(--linija);border:1px solid var(--linija);margin:0 0 .6rem}
+.cifre div{background:var(--papir);padding:.95rem .9rem}
+.cifre b{display:block;font-family:"PlexMono",monospace;font-size:1.32rem;
+  font-weight:500;line-height:1.15;color:var(--tinta)}
+.cifre span{font-size:.76rem;color:var(--tinta-2)}
+
+/* tko ima pravo */
+.tko{display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem}
+.tko div{border:1px solid var(--linija);background:var(--karta);padding:1rem}
+.tko .ozn{font-family:"PlexMono",monospace;font-size:.68rem;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--plava);margin-bottom:.35rem}
+.tko b{display:block;font-size:.98rem;margin-bottom:.3rem}
+.tko p{margin:0;font-size:.88rem;color:var(--tinta-2);line-height:1.55}
+
+/* koraci — okomita traka s brojevima */
+.koraci{list-style:none;margin:0;padding:0;position:relative}
+.koraci::before{content:"";position:absolute;left:19px;top:22px;bottom:22px;
+  width:2px;background:var(--linija)}
+.koraci li{position:relative;padding:0 0 1.5rem 3.4rem;min-height:2.6rem}
+.koraci li:last-child{padding-bottom:0}
+.kbroj{position:absolute;left:0;top:0;width:40px;height:40px;border-radius:50%;
+  background:var(--plava);color:#fff;display:flex;align-items:center;
+  justify-content:center;font-family:"PlexMono",monospace;font-size:1rem;
+  font-weight:500;z-index:1}
+.koraci h3{font-size:1.02rem;margin:.35rem 0 .3rem}
+.koraci p{margin:0;font-size:.93rem;color:var(--tinta-2);line-height:1.6;
+  max-width:56ch}
+.koraci p + p{margin-top:.45rem}
+.koraci em{font-style:normal;font-weight:500;color:var(--tinta)}
+.koraci a{color:var(--tinta);text-decoration:none;
+  border-bottom:1.5px solid var(--plava)}
+.koraci a:hover{color:var(--plava)}
+.upoz{display:inline-block;margin-top:.5rem;background:#FEF3C7;color:#92400E;
+  font-size:.85rem;padding:.45rem .7rem;line-height:1.5;max-width:56ch}
+
+/* popis za pripremu */
+.spremi{list-style:none;margin:0;padding:0}
+.spremi li{display:flex;gap:.7rem;align-items:flex-start;
+  border-top:1px solid var(--linija);padding:.8rem 0;font-size:.95rem}
+.spremi li:last-child{border-bottom:1px solid var(--linija)}
+.spremi svg{flex-shrink:0;margin-top:.15rem}
+.spremi small{display:block;color:var(--tinta-2);font-size:.86rem;margin-top:.15rem}
+
+/* gdje se koji papir vadi */
+.papiri{display:grid;grid-template-columns:repeat(2,1fr);gap:.8rem;margin-top:1rem}
+
+/* bodovanje */
+.bod{width:100%;border-collapse:collapse;margin-top:1rem;
+  border:1px solid var(--linija);background:var(--karta)}
+.bod th,.bod td{text-align:left;padding:.6rem .8rem;font-size:.92rem;
+  border-bottom:1px solid var(--linija)}
+.bod th{font-family:"PlexMono",monospace;font-size:.68rem;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--tinta-2);background:var(--papir)}
+.bod tr:last-child td{border-bottom:0}
+.bod td.b{font-family:"PlexMono",monospace;font-weight:500;white-space:nowrap;
+  width:7.5rem}
+.ne-moze{list-style:none;margin:1rem 0 0;padding:0}
+.ne-moze li{position:relative;padding:.4rem 0 .4rem 1.4rem;font-size:.93rem;
+  border-bottom:1px solid var(--linija)}
+.ne-moze li:before{content:"×";position:absolute;left:.25rem;
+  color:var(--hitno);font-weight:700}
+.papir{border:1px solid var(--linija);background:var(--karta);padding:.95rem 1rem}
+.papir h3{font-size:.98rem;margin:0 0 .35rem;line-height:1.35}
+.papir .gdje{margin:0 0 .45rem;font-family:"PlexMono",monospace;font-size:.72rem;
+  letter-spacing:.03em;color:var(--plava);line-height:1.5}
+.papir p{margin:0;font-size:.88rem;color:var(--tinta-2);line-height:1.6}
+
+/* vremenska crta proslogodisnjeg natjecaja */
+.crta{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;
+  background:var(--linija);border:1px solid var(--linija)}
+.crta div{background:var(--papir);padding:.9rem}
+.crta b{display:block;font-family:"PlexMono",monospace;font-size:.95rem;
+  color:var(--tinta)}
+.crta span{font-size:.8rem;color:var(--tinta-2)}
+
+/* izvori */
+.izvori{list-style:none;margin:.4rem 0 0;padding:0;font-size:.92rem}
+.izvori li{padding:.5rem 0;border-bottom:1px solid var(--linija)}
+.izvori a{color:var(--tinta);text-decoration:none;
+  border-bottom:1.5px solid var(--plava)}
+.izvori a:hover{color:var(--plava)}
+.napomena{margin-top:2.4rem;border:1px dashed var(--linija);padding:1rem 1.1rem;
+  font-size:.9rem;color:var(--tinta-2);line-height:1.6}
+
+@media(max-width:700px){
+  .cifre{grid-template-columns:repeat(2,1fr)}
+  .tko{grid-template-columns:1fr}
+  .crta{grid-template-columns:1fr}
+  .papiri{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+  .ds{padding:1.9rem 0 0}
+  .ds h2{font-size:1.1rem;margin-top:2.2rem}
+  .stanje{padding:1rem .9rem}
+  .stanje a{width:100%;text-align:center}
+  .koraci li{padding-left:3rem}
+  .koraci::before{left:17px}
+  .kbroj{width:36px;height:36px;font-size:.92rem}
+}
+</style>
+</head>
+<body><header class="vrh"><div class="w">
+  <a class="logo" href="./" aria-label="stipendije.hr, početna">
+    <svg class="znak" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+      <rect x="0" y="0" width="100" height="100" rx="22" fill="#1D4ED8"/>
+      <text x="50" y="53" text-anchor="middle" dominant-baseline="central"
+            font-family="'Plex',sans-serif" font-weight="700"
+            font-size="62" fill="#FFFFFF">S</text>
+    </svg>
+    <span class="ime">Stipendije<span>.hr</span></span>
+  </a>
+  <nav class="nav">
+    <a href="./">Natječaji</a>
+    <a href="drzavna-stipendija.html" class="tu">Državna</a>
+    <a href="vodic.html">Vodič</a>
+  </nav>
+</div></header><main class="w"><section class="ds">
+<h1>STEM stipendije</h1>
+<p class="lead">Državna stipendija za studente u STEM područjima znanosti.
+Odvojen je natječaj od one za niži socio-ekonomski status, s većim iznosom i
+vlastitim rang-listama. Ove godine dodjeljuje se 1.500 stipendija.</p>
+
+<p class="pod" style="margin-bottom:.2rem"><b>Državne stipendije su dva odvojena natječaja.</b> Prijavljuju se zasebno i izlaze u različito vrijeme.</p><div class="izbor"><a href="drzavna-stipendija.html"><b>Niži socio-ekonomski status</b><small>200 € mjesečno · 12.150 stipendija · prema prihodu kućanstva i uspjehu</small></a><span class="tu"><b>STEM područja</b><small>300 € ili 600 € mjesečno · 1.500 stipendija · prema studijskom programu i uspjehu</small></span></div>
+
+<div class="stanje">
+  <div class="txt">
+    <b>Javni poziv za 2026./2027. još nije raspisan</b>
+    <span>Ministarstvo navodi da ga ministar raspisuje do 25. listopada za
+      tekuću akademsku godinu. Provjereno 19. listopada 2026. Javimo ti na
+      WhatsAppu istoga dana kad izađe.</span>
+  </div>
+  <a href="https://whatsapp.com/channel/0029Vb8yRo75Ui2aMzBAjv1a"
+     target="_blank" rel="noopener">Obavijesti me &rarr;</a>
+</div>
+
+<div class="cifre">
+  <div><b>600 €</b><span>mjesečno, nastavnički STEM studiji</span></div>
+  <div><b>300 €</b><span>mjesečno, ostali STEM studiji</span></div>
+  <div><b>1.500</b><span>stipendija za 2026./2027.</span></div>
+  <div><b>9</b><span>rata, listopad 2026. – lipanj 2027.</span></div>
+</div>
+
+<h2>Što „do 25. listopada” zapravo znači</h2>
+<p class="pod">Na stranicama ministarstva stoji da javni poziv raspisuje
+ministar do 25. listopada za tekuću akademsku godinu. To je rok
+<strong>ministarstvu da poziv objavi</strong> — nije rok tebi da se
+prijaviš. Rok za prijavu piše u samom pozivu i počinje teći tek kad poziv
+izađe. Ako negdje pročitaš da se STEM stipendije prijavljuju „do
+25. listopada”, to je ta dva roka pomiješana.</p>
+
+<h2>Nastavnički studiji se ne natječu</h2>
+<p class="pod">Studentima nastavničkih STEM studija stipendija pripada ako
+zadovolje uvjete iz pravilnika — ne ovisi o rang-listi. Tek se ostatak
+stipendija dijeli po rang-listama, po unaprijed određenim postocima:</p>
+<ul class="spremi"><li><b>30 %</b> — prva godina prijediplomskog, integriranog i stručnog kratkog studija</li><li><b>40 %</b> — više godine prijediplomskog i druga godina stručnog kratkog studija</li><li><b>10 %</b> — više godine integriranog prijediplomskog i diplomskog studija</li><li><b>10 %</b> — prva godina diplomskog studija</li><li><b>10 %</b> — druga godina diplomskog studija</li></ul>
+
+<h2>Što možeš napraviti dok poziv ne izađe</h2>
+<p class="pod">Rokovi za prijavu su kratki, a ovo troje ne ovisi o tekstu
+poziva i rješava se unaprijed.</p>
+<ul class="sam"><li><svg width="17" height="17" viewBox="0 0 17 17" aria-hidden="true"><circle cx="8.5" cy="8.5" r="8.5" fill="#DCFCE7"/><path d="M4.6 8.8l2.5 2.5 5-5.2" stroke="#15803D" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Provjeri je li tvoj studij na popisu</strong><small>Odluci sve. „STEM” ovdje nije isto što i tehnički fakultet — vrijedi službeni Izvadak studijskih programa koji ministarstvo objavljuje uz poziv. Ako tvog programa nema na popisu, prijava ne prolazi bez obzira na ocjene.</small></div></li><li><svg width="17" height="17" viewBox="0 0 17 17" aria-hidden="true"><circle cx="8.5" cy="8.5" r="8.5" fill="#DCFCE7"/><path d="M4.6 8.8l2.5 2.5 5-5.2" stroke="#15803D" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Provjeri radi li ti AAI@EduHr</strong><small>Prijava se predaje kroz Sustav državnih stipendija, a u njega se ulazi AAI@EduHr korisničkim računom. Ako ti lozinka ne radi, to se rješava na matičnom fakultetu i zna potrajati — bolje sada nego na dan roka.</small></div></li><li><svg width="17" height="17" viewBox="0 0 17 17" aria-hidden="true"><circle cx="8.5" cy="8.5" r="8.5" fill="#DCFCE7"/><path d="M4.6 8.8l2.5 2.5 5-5.2" stroke="#15803D" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Pripremi prijepis ocjena</strong><small>Rang-liste se slažu po uspjehu, pa je prijepis ocjena ono što ti u svakom slučaju treba. Studentska referada ga ne izdaje isti dan.</small></div></li></ul>
+
+<h2>Prijava ide kroz Sustav državnih stipendija</h2>
+<p class="pod">Prijave se ne šalju mailom ni poštom nego se predaju
+elektronički, u Sustavu državnih stipendija na
+<a href="https://vidra.srce.hr/" target="_blank" rel="noopener">vidra.srce.hr</a>.
+Prijavljuješ se AAI@EduHr računom, istim kojim ulaziš u studomat. Isti sustav
+koristi se i za državnu stipendiju za niži socio-ekonomski status, ali su to
+dvije odvojene prijave na dva odvojena poziva.</p>
+
+<h2>Službeni izvori</h2>
+<ul class="izvori">
+  <li><a href="https://mzom.gov.hr/drzavne-stipendije-za-studente-u-stem-podrucjima-znanosti/1562" target="_blank" rel="noopener">Ministarstvo —
+      državne stipendije za studente u STEM područjima znanosti</a></li>
+  <li><a href="https://mzom.gov.hr/UserDocsImages//dokumenti/Obrazovanje/DrzavneStipendije/STEM-Stipendije//Odluka-o-broju--stem---23-9-2026.pdf" target="_blank" rel="noopener">Odluka o broju
+      STEM stipendija za 2026./2027. (PDF)</a></li>
+  <li><a href="https://mzom.gov.hr/UserDocsImages//dokumenti/Obrazovanje/DrzavneStipendije/STEM-Stipendije/Izvadak-8-9-2026//Izvadak-studijskih-programa-u-STEM-podrucjima-znanosti.xlsx" target="_blank" rel="noopener">Izvadak
+      studijskih programa koji se priznaju kao STEM (XLSX)</a></li>
+  <li><a href="https://vidra.srce.hr/" target="_blank" rel="noopener">VIDRA — sustav u kojem
+      se predaje prijava</a></li>
+</ul>
+
+<p class="napomena">Ovu stranicu održavamo ručno, a podatke provjeravamo na
+stranicama ministarstva; zadnji put 19. listopada 2026. Dok javni poziv ne izađe,
+rok za prijavu nije poznat. Ako uočiš da je nešto zastarjelo, javi nam i
+ispravit ćemo.</p>
+</section>
+<style>
+.obp{margin:1.6rem 0 .4rem;border:1.5px solid var(--tinta);background:var(--karta);
+  padding:1.1rem 1.15rem}
+.obp b{display:block;font-family:"Bricolage",sans-serif;font-weight:700;
+  font-size:1.08rem;letter-spacing:-.012em;margin-bottom:.2rem}
+.obp span{display:block;font-size:.88rem;color:var(--tinta-2);margin-bottom:.9rem}
+.obp form{display:flex;gap:.6rem;flex-wrap:wrap}
+.obp select{flex:1;min-width:13rem;font-family:"Plex",sans-serif;font-size:.92rem;
+  padding:.6rem .7rem;border:1px solid var(--linija);background:var(--papir);
+  color:var(--tinta)}
+.obp button{background:var(--plava);color:#fff;border:0;font-family:"Plex",sans-serif;
+  font-weight:600;font-size:.92rem;padding:.6rem 1.1rem;cursor:pointer;
+  white-space:nowrap}
+.obp button:hover{filter:brightness(1.12)}
+@media(max-width:600px){.obp button{width:100%}}
+</style>
+<aside class="obp">
+  <b>Javi mi kad izađe natječaj za mene</b>
+  <span>Odaberi županiju i dobivaš mail samo kad se otvori natječaj koji te
+    se tiče. Ne šaljemo ništa drugo.</span>
+  <form action="prijava-obavijesti.html" method="GET">
+    <select name="z" aria-label="Županija">
+      <option value="">Odaberi županiju</option>
+      <option value="Bjelovarsko-bilogorska županija">Bjelovarsko-bilogorska županija</option><option value="Brodsko-posavska županija">Brodsko-posavska županija</option><option value="Dubrovačko-neretvanska županija">Dubrovačko-neretvanska županija</option><option value="Grad Zagreb">Grad Zagreb</option><option value="Istarska županija">Istarska županija</option><option value="Karlovačka županija">Karlovačka županija</option><option value="Koprivničko-križevačka županija">Koprivničko-križevačka županija</option><option value="Krapinsko-zagorska županija">Krapinsko-zagorska županija</option><option value="Ličko-senjska županija">Ličko-senjska županija</option><option value="Međimurska županija">Međimurska županija</option><option value="Osječko-baranjska županija">Osječko-baranjska županija</option><option value="Požeško-slavonska županija">Požeško-slavonska županija</option><option value="Primorsko-goranska županija">Primorsko-goranska županija</option><option value="Sisačko-moslavačka županija">Sisačko-moslavačka županija</option><option value="Splitsko-dalmatinska županija">Splitsko-dalmatinska županija</option><option value="Šibensko-kninska županija">Šibensko-kninska županija</option><option value="Varaždinska županija">Varaždinska županija</option><option value="Virovitičko-podravska županija">Virovitičko-podravska županija</option><option value="Vukovarsko-srijemska županija">Vukovarsko-srijemska županija</option><option value="Zadarska županija">Zadarska županija</option><option value="Zagrebačka županija">Zagrebačka županija</option>
+    </select>
+    <button type="submit">Dalje</button>
+  </form>
+</aside>
+</main><footer><div class="w">
+  <p class="upoz-p"><strong>Provjeri prije prijave.</strong> Podatke prikupljamo
+     automatski, pa su greške moguće. Vrijede rok i uvjeti sa službene stranice
+     natječaja, na koju vodi poveznica uz svaki unos.</p>
+  <p><strong>Kontakt:</strong> <a href="mailto:erik.hunjek@gmail.com">erik.hunjek@gmail.com</a></p>
+  <p>Nedostaje neka stipendija ili je podatak netočan? Javi nam — ispravljamo brzo.
+     Posebno nam je važno ako je netočan <strong>rok prijave</strong>.</p>
+  <p>Ne procjenjujemo tvoje šanse za pojedinu stipendiju. Za to pitaj instituciju
+     koja je natječaj objavila.</p>
+  <p class="sitno">Zadnja provjera 19.10.2026. &nbsp;·&nbsp; 149 izvora &nbsp;·&nbsp;
+     podaci prikupljeni automatski &nbsp;·&nbsp;
+     <a class="tiho" href="impressum.html">Impressum</a> &nbsp;·&nbsp;
+     <a class="tiho" href="privatnost.html">Privatnost</a></p>
+</div></footer>
+<div class="kol" id="kol">
+  <div class="kol-w">
+    <p>Google Analytics, samo uz tvoj pristanak.
+       <a href="privatnost.html">Više o tome</a>.</p>
+    <div class="kol-gumbi">
+      <button type="button" id="kol-ne">Odbij</button>
+      <button type="button" class="da" id="kol-da">Prihvaćam</button>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  var ID="G-2BPS973W81", K="kolacici-pristanak";
+  function ucitajGA(){
+    if(window.__ga_ucitan) return;
+    window.__ga_ucitan=true;
+    var s=document.createElement("script");
+    s.async=true;
+    s.src="https://www.googletagmanager.com/gtag/js?id="+ID;
+    document.head.appendChild(s);
+    window.dataLayer=window.dataLayer||[];
+    window.gtag=function(){dataLayer.push(arguments)};
+    gtag("js",new Date());
+    gtag("config",ID,{anonymize_ip:true});
+  }
+  var traka=document.getElementById("kol");
+  var izbor=null;
+  try{ izbor=localStorage.getItem(K); }catch(e){}
+  if(izbor==="da"){ ucitajGA(); }
+  else if(izbor!=="ne"){ traka.classList.add("vidljiva"); }
+  document.getElementById("kol-da").addEventListener("click",function(){
+    try{ localStorage.setItem(K,"da"); }catch(e){}
+    traka.classList.remove("vidljiva"); ucitajGA();
+  });
+  document.getElementById("kol-ne").addEventListener("click",function(){
+    try{ localStorage.setItem(K,"ne"); }catch(e){}
+    traka.classList.remove("vidljiva");
+  });
+})();
+</script>
+</body>
+</html>

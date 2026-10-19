@@ -149,6 +149,20 @@ input:focus-visible,select:focus-visible{outline:2px solid var(--plava);outline-
   *{animation:none!important;transition:none!important}
 }
 
+/* Dvije drzavne stipendije. Izbornik ih namjerno ne razdvaja — STEM JEST
+   drzavna stipendija, pa dvije stavke u izborniku za istu stvar zbunjuju,
+   a cetvrta stavka na 390px izbornik gura preko ruba ekrana. Umjesto toga
+   je "Drzavna" roditelj, a razdvajanje se vidi na samoj stranici, odmah
+   ispod naslova — i onima koji dodu s Googlea ravno ovamo. */
+.izbor{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin:1.4rem 0}
+.izbor a,.izbor span{display:block;padding:.85rem .95rem;border-radius:10px;
+  border:1px solid var(--linija);text-decoration:none;background:var(--papir)}
+.izbor .tu{border-color:var(--plava);background:#EFF4FF}
+.izbor b{display:block;font-size:.95rem;color:var(--tinta);line-height:1.3}
+.izbor small{display:block;margin-top:.2rem;font-size:.78rem;
+  color:var(--tinta-2);line-height:1.35}
+.izbor a:hover{border-color:var(--plava)}
+@media(max-width:480px){.izbor{grid-template-columns:1fr}}
 .ds{padding:2.6rem 0 0}
 .ds h1{font-size:clamp(1.7rem,5vw,2.4rem);margin-bottom:.6rem}
 .ds .lead{font-size:1.04rem;color:var(--tinta-2);max-width:54ch;margin:0 0 1.6rem}
@@ -293,6 +307,8 @@ input:focus-visible,select:focus-visible{outline:2px solid var(--plava);outline-
 godine dodjeljuje se 12.150 stipendija po 200 € mjesečno, kroz
 devet rata. Ovdje je kako se prijaviti, korak po korak.</p>
 
+<p class="pod" style="margin-bottom:.2rem"><b>Državne stipendije su dva odvojena natječaja.</b> Prijavljuju se zasebno i izlaze u različito vrijeme.</p><div class="izbor"><span class="tu"><b>Niži socio-ekonomski status</b><small>200 € mjesečno · 12.150 stipendija · prema prihodu kućanstva i uspjehu</small></span><a href="stem-stipendije.html"><b>STEM područja</b><small>300 € ili 600 € mjesečno · 1.500 stipendija · prema studijskom programu i uspjehu</small></a></div>
+
 <div class="stanje">
   <div class="txt">
     <b>Natječaj je objavljen — prijave su otvorene</b>
@@ -401,7 +417,7 @@ kućanstva umjesto 706,30 €.</p>
 <h2>STEM stipendije su odvojen natječaj</h2>
 <p class="pod">Ako studiraš u STEM području, postoji drugi javni poziv, s većim
 iznosom i vlastitim rang-listama. Prijavljuje se zasebno i izlazi kasnije od
-ovoga.</p>
+ovoga. <a href="stem-stipendije.html"><b>Sve o STEM stipendijama &rarr;</b></a></p>
 <div class="cifre">
   <div><b>600 €</b><span>mjesečno, nastavnički STEM studiji</span></div>
   <div><b>300 €</b><span>mjesečno, ostali STEM studiji</span></div>
