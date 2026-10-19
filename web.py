@@ -377,7 +377,7 @@ def spoji_raspone(stavke):
     return ishod
 
 
-def iznos_polja(r, otvorena=False, ima_vezu=False):
+def iznos_polja(r, otvorena=False, ima_vezu=False, skrati=True):
     """Iznos razlozen u retke tablice: [(oznaka, sadrzaj, monospace), ...].
 
     Skoro pola izvora ima vise razreda — ucenici jedno, studenti drugo, pa jos
@@ -397,6 +397,16 @@ def iznos_polja(r, otvorena=False, ima_vezu=False):
         # obicnim pismom jer je to recenica, a ne brojka
         t = datumi_u_brojke(r.get("iznos"))
         if t:
+            # Kad scraper iznos nije uspio rastaviti na brojke, ostaje
+            # doslovna recenica s izvora. Viskovo je tako na kartici imalo
+            # cetiri recenice i 340 znakova — kartica je narasla na pola
+            # ekrana, a brojka koju covjek trazi bila je zakopana u njima.
+            # Duga recenica se skracuje i otvara klikom, isto kao uvjeti.
+            if skrati and len(t) > GRANICA_IZNOSA:
+                return [("Iznos",
+                         f'<span class="tekst">{esc(t)}</span>'
+                         '<button type="button" class="vise" data-vise>više'
+                         '</button>', False, "skrati")]
             return [("Iznos", esc(t), False)]
         if not otvorena:
             return []
@@ -466,6 +476,10 @@ def naslov_kartice(r):
 # Iznad ovoliko znakova recenica o uvjetima prelazi dva retka i kartica
 # naraste; tada se skracuje i dobiva "vise".
 GRANICA_SKRACIVANJA = 110
+
+# Isto, ali za iznos. Nize je jer iznos je brojka: cim se raspise u recenicu,
+# oko ga vise ne nalazi.
+GRANICA_IZNOSA = 90
 
 # Kome je natjecaj namijenjen. Sluzi filtru "ucenik / student": student ne
 # treba prelaziti preko sest natjecaja za srednjoskolce da bi nasao svoja tri.
@@ -601,9 +615,14 @@ def kartica(r, otvorena, podrucje, zupanija, vlastita=None):
     polja = ""
     # monospace ide na brojke, da se iznosi medusobno poravnaju; doslovne
     # recenice s izvora ostaju u obicnom pismu jer se u mono citaju tesko
-    for oznaka, sadrzaj, mono in polja_iznosa:
+    # Redak moze nositi i dodatni razred (npr. "skrati" za dugu recenicu),
+    # pa se prima i trojka i cetvorka.
+    for redak in polja_iznosa:
+        oznaka, sadrzaj, mono = redak[0], redak[1], redak[2]
+        dodatni = redak[3] if len(redak) > 3 else ""
+        razredi = " ".join(x for x in ("iznos" if mono else "", dodatni) if x)
         polja += (f'<dt>{oznaka}</dt>'
-                  f'<dd class="{"iznos" if mono else ""}">{sadrzaj}</dd>')
+                  f'<dd class="{razredi}">{sadrzaj}</dd>')
     if rok and otvorena:
         polja += f'<dt>Rok prijave</dt><dd>{rok}</dd>'
     if uvjeti:
