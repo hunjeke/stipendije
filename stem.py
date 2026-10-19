@@ -29,7 +29,8 @@ import os
 
 from zajednicko import glava, navigacija, podnozje
 from drzavna import (CSS, STEM_NASTAVNICKI, STEM_OSTALI, STEM_BROJ,
-                     STEM_IZVADAK, STEM_ODLUKA, SUSTAV, MZO_STEM, _kvacica)
+                     STEM_IZVADAK, STEM_ODLUKA, SUSTAV, MZO_STEM, _kvacica,
+                     izbor)
 
 # --- stanje natjecaja ------------------------------------------------------
 # OTVOREN = False -> poziv jos nije raspisan (provjereno 19.10.2026.)
@@ -123,6 +124,8 @@ def stranica(mapa, broj_izvora, vrijeme):
 Odvojen je natječaj od one za niži socio-ekonomski status, s većim iznosom i
 vlastitim rang-listama. Ove godine dodjeljuje se {STEM_BROJ} stipendija.</p>
 
+{izbor("stem")}
+
 {_blok_stanja()}
 
 <div class="cifre">
@@ -158,15 +161,6 @@ elektronički, u Sustavu državnih stipendija na
 Prijavljuješ se AAI@EduHr računom, istim kojim ulaziš u studomat. Isti sustav
 koristi se i za državnu stipendiju za niži socio-ekonomski status, ali su to
 dvije odvojene prijave na dva odvojena poziva.</p>
-
-<h2>Razlika prema socio-ekonomskoj državnoj stipendiji</h2>
-<p class="pod">To su dva različita natječaja. Socio-ekonomska se dodjeljuje
-prema prihodu kućanstva i uspjehu, iznosi 200 € mjesečno i ove godine se
-dodjeljuje 12.150 stipendija. STEM se dodjeljuje prema studijskom programu i
-uspjehu, iznosi {STEM_OSTALI} ili {STEM_NASTAVNICKI} mjesečno i ima
-{STEM_BROJ} stipendija. Izlaze u različito vrijeme i prijavljuju se zasebno.
-<a href="drzavna-stipendija.html">Sve o socio-ekonomskoj državnoj
-stipendiji</a>.</p>
 
 <h2>Službeni izvori</h2>
 <ul class="izvori">
