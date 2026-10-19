@@ -271,8 +271,15 @@ def rok_brojkama(r):
     Sat se zadrzava kad ga izvor navodi — kod roka u 12:00 to je razlika izmedu
     predane i propustene prijave. Ako datum nije isparsiran, ostaje izvorni
     tekst: bolje nesto nego prazno polje."""
-    iso = iso_rok(r.get("status") or "")
     izvorni = r.get("rok_tekst") or ""
+    # Jedan natjecaj zna imati rok po skupini — Kastav 30.10. za ucenike i
+    # 20.11. za studente. Jedan datum tada laze polovici ljudi, pa se
+    # ispisuju oba, svaki sa svojom oznakom.
+    from zajednicko import rok_po_skupinama_tekst
+    po_skupinama = rok_po_skupinama_tekst(izvorni)
+    if po_skupinama:
+        return esc(po_skupinama)
+    iso = iso_rok(r.get("status") or "")
     if not iso:
         return esc(izvorni)
     g, m, d = iso.split("-")
@@ -777,6 +784,38 @@ def _bolji(novi, stari):
     return bool(novi.get("_rucni")) and not stari.get("_rucni")
 
 
+# Portali koji prenose tude natjecaje. Nisu losi izvori — cesto prvi jave
+# da je natjecaj otvoren — ali objavu pisu svojim rijecima i pod svojim
+# mjestom, pa isti natjecaj zavrsi na stranici dvaput: jednom kao
+# zupanijski sa sluzbenog izvora, jednom kao gradski s portala.
+# Info centar za mlade Osijek tako je napravio drugu karticu za natjecaj
+# Osjecko-baranjske zupanije, s podrucjem "Osijek".
+#
+# Zapis s ovog popisa se izbacuje SAMO kad za isti rok u istoj zupaniji
+# postoji zapis s drugog izvora. Vlastiti natjecaj portala time ostaje.
+PRENOSITELJI = {"icm-osijek.info", "icm-vukovar.info", "tvz.hr"}
+
+
+def je_prenositelj(url):
+    return domena_izvora(url) in PRENOSITELJI
+
+
+def izbaci_prenositelje(parovi):
+    """(preostali, izbaceni) — makni prenesene objave tudih natjecaja."""
+    sluzbeni = {(iso_rok(r.get("status") or ""), (zup or pod))
+                for r, pod, zup in parovi
+                if not je_prenositelj(r.get("url"))}
+    ostaje, van = [], []
+    for par in parovi:
+        r, pod, zup = par
+        kljuc = (iso_rok(r.get("status") or ""), (zup or pod))
+        if je_prenositelj(r.get("url")) and kljuc[0] and kljuc in sluzbeni:
+            van.append(par)
+        else:
+            ostaje.append(par)
+    return ostaje, van
+
+
 def spoji_duplikate(otvorene):
     """Isti natjecaj zna doci preko dva izvora (Chevening i s MZO-a i s
     AMPEU-a) pa se na stranici pojavi dvaput.
@@ -1206,6 +1245,11 @@ def main():
     # popisu "trenutno bez otvorenog natjecaja" Novi Vinodolski stajao tri
     # puta, a Sibenik dva — tri identicna retka, jer kartica sa starim rokom
     # ionako pokazuje ime izvora umjesto naslova natjecaja.
+    otvorene, preneseni = izbaci_prenositelje(otvorene)
+    for r, pod, _ in preneseni:
+        print(f"  Prenesena objava tudeg natjecaja, izbaceno: "
+              f"{(r.get('naslov_natjecaja') or r.get('naziv') or '')[:50]} ({pod})")
+
     otvorene = spoji_duplikate(otvorene)
     zatvorene = spoji_duplikate(zatvorene)
 
