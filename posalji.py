@@ -29,6 +29,7 @@ Treba BREVO_API_KEY u okolini (u Actionsima: Settings -> Secrets).
 """
 import json
 import os
+import re
 import sys
 import time
 from datetime import date
@@ -36,7 +37,7 @@ from datetime import date
 import requests
 
 from novosti import (novi_natjecaji, vec_javljeno, _spoji_iste, _kome,
-                     _skupina, _iznos, _rok, _drzavna, POSLANO)
+                     _skupina, _iznos, _rok, _drzavna, _poruka, POSLANO)
 
 API = "https://api.brevo.com/v3"
 LISTA = os.environ.get("BREVO_LISTA", "Obavijesti #3")
@@ -188,63 +189,53 @@ def ime_skupine(k):
 
 
 # -------------------------------------------------------------- poruka ----
-def _red_html(z):
-    dio = [f"<strong>{z['naslov']}</strong>"]
-    if z.get("podrucje"):
-        dio.append(z["podrucje"])
-    iz = _iznos(z)
-    if iz:
-        dio.append(iz)
-    rok = _rok(z)
-    if rok:
-        dio.append("rok " + rok)
-    veza = z.get("poveznica") or z.get("url") or ""
-    redak = " · ".join(dio) + ZA_KOGA.get(_skupina(z), "")
-    if veza:
-        redak += (f'<br><a href="{veza}" style="color:#1d4ed8">'
-                  f'Otvori natječaj &rarr;</a>')
-    return f'<p style="margin:0 0 18px">{redak}</p>'
+_URL = re.compile(r"https?://[^\s<>]+")
+
+
+def _link(u, sam_u_redu):
+    """Poveznica u mailu. Goli URL se ne pise — na mobitelu se prelomi."""
+    if "/natjecaj/" in u and sam_u_redu:
+        tekst = "Detalji i prijava &rarr;"
+    else:
+        tekst = u.split("//", 1)[-1].rstrip("/")
+    return f'<a href="{u}" style="color:#1d4ed8">{tekst}</a>'
+
+
+def _odlomak(p):
+    """Jedan odlomak obicnog teksta u HTML."""
+    p = p.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+    p = re.sub(r"\*\*(.+?)\*\*", r"<strong>\1</strong>", p)
+    p = p.replace("{{ update_profile }}",
+                  '<a href="{{ update_profile }}" style="color:#1d4ed8">'
+                  'otvori postavke &rarr;</a>')
+    redci = []
+    for r in p.split("\n"):
+        sam = bool(_URL.fullmatch(r.strip()))
+        redci.append(_URL.sub(lambda m: _link(m.group(0), sam), r))
+    return '<p style="margin:0 0 18px">' + "<br>".join(redci) + "</p>"
 
 
 def predmet_i_html(kljuc, zapisi):
-    n = len(zapisi)
-    koliko = ("Jedan novi natječaj" if n == 1
-              else f"{n} nova natječaja" if n <= 4
-              else f"{n} novih natječaja")
+    """Rijeci dolaze iz novosti.py, ovdje se samo oblikuju.
 
+    Prije je ova datoteka imala svoju kopiju poruke — svoj predmet, svoj
+    uvod, svoj redak natjecaja. Mail koji se salje rukom i mail koji
+    salje skripta razlikovali su se u svemu osim u podacima, a svaka
+    izmjena teksta morala se napraviti dvaput ili se zaboravila. Sada je
+    jedno mjesto za rijeci i jedno za oblik.
+
+    Kljucevi se razlikuju jer razvrstaj_po_ljudima dijeli po stvarnim
+    pretplatnicima, a novosti.py po skupinama na koje se postavlja
+    filtar u Brevu. Prevodi se ovdje."""
     if kljuc[0] == "drzavna":
-        predmet = (f"Otvoren natječaj: {zapisi[0]['naslov']}" if n == 1
-                   else f"{koliko} za državnu stipendiju")
-        uvod = ("Otvorio se natječaj za državnu stipendiju:" if n == 1
-                else "Otvorili su se natječaji za državne stipendije:")
-        dodatak = (f'<p style="margin:0 0 18px"><a href="{DRZAVNA_STRANICA}" '
-                   f'style="color:#1d4ed8">Cijeli postupak prijave i '
-                   f'bodovanje</a></p>')
-        zasto = ("Ovo dobivaš jer si se prijavio na obavijesti. Državna "
-                 "stipendija vrijedi za cijelu Hrvatsku, pa je dobivaju svi.")
+        nk = ("drzavna",)
     elif kljuc[0] == "mjesto":
-        predmet = f"{koliko} — {kljuc[2]}"
-        uvod = "Ovo se otvorilo otkad smo se zadnji put javili:"
-        dodatak = ""
-        zasto = (f"Ovo dobivaš jer si u postavkama upisao {kljuc[2]} kao "
-                 f"svoje mjesto, pa šaljemo samo natječaje koji vrijede ondje "
-                 f"i u cijeloj županiji.")
+        nk = ("zup", kljuc[1], True)     # ima upisano mjesto
     else:
-        predmet = f"{koliko} — {kljuc[1]}"
-        uvod = "Ovo se otvorilo otkad smo se zadnji put javili:"
-        # Ovi ljudi nemaju upisano mjesto, pa dobivaju cijelu zupaniju.
-        # Zamolba stoji ovdje i nigdje drugdje: tko mjesto ima, nema je
-        # zasto citati.
-        dodatak = (
-            '<p style="margin:0 0 18px;padding:14px 16px;background:#f4f6fb;'
-            'border-radius:8px">Dio gornjih natječaja vjerojatno nije iz '
-            'tvog mjesta — uvjet je gotovo uvijek prebivalište. '
-            '<a href="{{ update_profile }}" style="color:#1d4ed8">Upiši svoje '
-            'mjesto u postavkama</a> i ubuduće ti šaljemo samo ono što '
-            'vrijedi za tebe.</p>')
-        zasto = "Ovo dobivaš jer si se prijavio na obavijesti za svoju županiju."
+        nk = ("zup", kljuc[1], None)     # nema, dobiva cijelu zupaniju
+    predmet, tekst = _poruka(zapisi, nk)
 
-    tijelo = "".join(_red_html(z) for z in zapisi)
+    tijelo = "".join(_odlomak(p) for p in tekst.split("\n\n") if p.strip())
     html = f"""<!doctype html>
 <html lang="hr"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1"></head>
@@ -252,13 +243,11 @@ def predmet_i_html(kljuc, zapisi):
  BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;color:#141b2d">
 <div style="max-width:560px;margin:0 auto;padding:28px 20px">
   <p style="margin:0 0 24px;font-size:15px;font-weight:700">Stipendije.hr</p>
-  <p style="margin:0 0 20px;font-size:15px">{uvod}</p>
   <div style="font-size:15px;line-height:1.55">{tijelo}</div>
-  {dodatak}
-  <p style="margin:24px 0 0;font-size:15px">
-    <a href="{STRANICA}" style="color:#1d4ed8">Sve otvorene stipendije</a></p>
   <hr style="border:none;border-top:1px solid #e2e5ec;margin:28px 0 14px">
-  <p style="margin:0;font-size:12px;color:#6b7280">{zasto}<br>
+  <p style="margin:0;font-size:12px;color:#6b7280">
+    Podatke prikupljamo automatski — rok i uvjete provjeri na službenoj
+    stranici natječaja.<br>
     <a href="{{{{ update_profile }}}}" style="color:#6b7280">Promijeni postavke</a>
     &nbsp;·&nbsp;
     <a href="{{{{ unsubscribe }}}}" style="color:#6b7280">Odjavi se</a></p>
