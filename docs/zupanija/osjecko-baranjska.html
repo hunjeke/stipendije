@@ -89,6 +89,11 @@ body{margin:0;background:var(--papir);color:var(--tinta);
 .ime{font-family:"Bricolage",sans-serif;font-weight:800;
   font-size:1.32rem;letter-spacing:-.022em}
 .ime span{color:var(--plava)}
+footer .teme-p{margin:0 0 1rem;padding-bottom:.9rem;font-size:.9rem;
+  border-bottom:1px solid var(--linija);line-height:2}
+footer .teme-p a{color:var(--tinta);text-decoration:none;
+  border-bottom:1px solid var(--linija)}
+footer .teme-p a:hover{color:var(--plava);border-bottom-color:var(--plava)}
 .nav{display:flex;gap:.2rem}
 .nav a{font-size:.86rem;color:var(--tinta-2);text-decoration:none;
   padding:.55rem .5rem;border-bottom:1.5px solid transparent;
@@ -221,16 +226,6 @@ input:focus-visible,select:focus-visible{outline:2px solid var(--plava);outline-
   .veza{padding:.4rem 0 .3rem}
 }
 
-/* vidi teme_poveznice() u web.py — stranice bez unutarnjih poveznica
-   Google ne indeksira, pa ovaj red stoji i ovdje */
-.teme{margin:.9rem 0 .2rem;font-size:.9rem;color:var(--tinta-2);
-  display:flex;flex-wrap:wrap;gap:.1rem .55rem;align-items:baseline}
-.teme b{font-weight:600;color:var(--tinta);margin-right:.15rem}
-.teme a{color:var(--plava);text-decoration:none;
-  border-bottom:1px solid transparent;padding:.15rem 0}
-.teme a:hover{border-bottom-color:var(--plava)}
-.teme span{color:var(--linija)}
-@media(max-width:600px){.teme{font-size:.86rem;gap:.1rem .45rem}}
 .zag-zup{padding:2.4rem 0 0}
 .natrag{display:inline-block;font-size:.85rem;color:var(--tinta-2);
   text-decoration:none;margin-bottom:1rem}
@@ -274,7 +269,6 @@ input:focus-visible,select:focus-visible{outline:2px solid var(--plava);outline-
     <div class="brojka"><b data-broj-otv-n>9</b><span>otvoreno sada</span></div>
     <div class="brojka"><b>14</b><span>izvora koje pratimo</span></div>
   </div>
-  <p class="teme"><b>Posebno:</b><a href="../ucenicke-stipendije.html">Učenici</a><span>·</span><a href="../studentske-stipendije.html">Studenti</a><span>·</span><a href="../drzavna-stipendija.html">Državna stipendija</a><span>·</span><a href="../stem-stipendije.html">STEM</a></p>
   <style>
 .obp{margin:1.6rem 0 .4rem;border:1.5px solid var(--tinta);background:var(--karta);
   padding:1.1rem 1.15rem}
@@ -442,6 +436,7 @@ input:focus-visible,select:focus-visible{outline:2px solid var(--plava);outline-
     <div class="popis-zup"><a href="bjelovarsko-bilogorska.html">Bjelovarsko-bilogorska</a><a href="brodsko-posavska.html">Brodsko-posavska</a><a href="dubrovacko-neretvanska.html">Dubrovačko-neretvanska</a><a href="grad-zagreb.html">Grad Zagreb</a><a href="istarska.html">Istarska</a><a href="karlovacka.html">Karlovačka</a><a href="koprivnicko-krizevacka.html">Koprivničko-križevačka</a><a href="krapinsko-zagorska.html">Krapinsko-zagorska</a><a href="licko-senjska.html">Ličko-senjska</a><a href="medimurska.html">Međimurska</a><a href="pozesko-slavonska.html">Požeško-slavonska</a><a href="primorsko-goranska.html">Primorsko-goranska</a><a href="sisacko-moslavacka.html">Sisačko-moslavačka</a><a href="splitsko-dalmatinska.html">Splitsko-dalmatinska</a><a href="varazdinska.html">Varaždinska</a><a href="viroviticko-podravska.html">Virovitičko-podravska</a><a href="vukovarsko-srijemska.html">Vukovarsko-srijemska</a><a href="zadarska.html">Zadarska</a><a href="zagrebacka.html">Zagrebačka</a><a href="sibensko-kninska.html">Šibensko-kninska</a></div>
   </div>
 </section></main><footer><div class="w">
+  <p class="teme-p"><a href="../ucenicke-stipendije.html">Učeničke stipendije</a> &nbsp;·&nbsp; <a href="../studentske-stipendije.html">Studentske stipendije</a> &nbsp;·&nbsp; <a href="../drzavna-stipendija.html">Državna stipendija</a> &nbsp;·&nbsp; <a href="../stem-stipendije.html">STEM stipendije</a> &nbsp;·&nbsp; <a href="../vodic.html">Vodič</a></p>
   <p class="upoz-p"><strong>Provjeri prije prijave.</strong> Podatke prikupljamo
      automatski, pa su greške moguće. Vrijede rok i uvjeti sa službene stranice
      natječaja, na koju vodi poveznica uz svaki unos.</p>
