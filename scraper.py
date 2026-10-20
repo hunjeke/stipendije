@@ -24,6 +24,7 @@ Pokretanje:
 import json
 import csv
 import os
+import html as html_lib
 import re
 import sys
 import time
@@ -347,7 +348,20 @@ def fetch_content(url, retries=2, tiho=False):
         except Exception:
             pass
 
-    if "pdf" in content_type or url.lower().endswith(".pdf"):
+    nisko = url.lower().split("?")[0]
+    if nisko.endswith(".docx") or "wordprocessingml" in content_type:
+        text = tekst_iz_worda(resp.content)
+        if not text:
+            if not tiho:
+                print("  ! Ne mogu procitati Word dokument")
+            return None, None, None
+        sirovi = None
+    elif nisko.endswith(".doc") or content_type.startswith("application/msword"):
+        # stari binarni .doc — ne pokusavamo, vidi tekst_iz_worda
+        if not tiho:
+            print("  ! Stari .doc format se ne cita, preskacem")
+        return None, None, None
+    elif "pdf" in content_type or nisko.endswith(".pdf"):
         if not PDF_SUPPORT:
             print("  ! PDF stranica, ali 'pypdf' nije instaliran (pip install pypdf)")
             return None, None, None
@@ -431,7 +445,8 @@ def natjecaj_poveznice(html, baza, maks=2):
         if href.lower().startswith(("#", "mailto:", "tel:", "javascript:")):
             continue
         pun = _izravni(href, baza)        # ista domena i nije sama popisna stranica
-        if not pun or pun.lower().endswith(".pdf"):   # PDF-ove hvata pdf_poveznice
+        # priloge (.pdf, .docx) hvata pdf_poveznice, ne ovaj prolaz
+        if not pun or pun.lower().split("?")[0].endswith((".pdf", ".docx")):
             continue
         cist = bez_kvacica(re.sub(r"<[^>]+>", " ", tekst))
         spoj = cist + " " + bez_kvacica(href)
@@ -461,6 +476,35 @@ NIJE_IZNOS = ("rezultat", "rang", "zapisnik", "lista kandidata",
               "arhiva", "ponisten")
 
 
+def tekst_iz_worda(podaci):
+    """Tekst iz .docx. Vraca "" kad ne ide.
+
+    Gradovi natjecaj objave kao stranicu, a iznos ostave u prilogu — i taj
+    prilog nije uvijek PDF. Bakar uz natjecaj drzi "Odluku o stipendijama",
+    Varazdinska zupanija isto tako. Dok se citao samo PDF, te su kartice
+    ostajale bez iznosa iako je podatak bio jedan klik dalje.
+
+    .docx je zip u kojem tekst stoji u word/document.xml. Cita se bez nove
+    ovisnosti: raspakiraj, izbaci oznake, ostavi tekst. Prijelomi odlomaka
+    (</w:p>) postaju novi redovi da se recenice ne slijepe u jednu.
+
+    Stari binarni .doc se ovako ne da procitati i namjerno se ne pokusava —
+    bolje prazno nego smece koje model procita kao iznos."""
+    import zipfile
+    from io import BytesIO
+    try:
+        with zipfile.ZipFile(BytesIO(podaci)) as z:
+            xml = z.read("word/document.xml").decode("utf-8", "ignore")
+    except Exception:
+        return ""
+    xml = re.sub(r"</w:p>", "\n", xml)
+    xml = re.sub(r"<w:tab[^>]*/>", " ", xml)
+    tekst = re.sub(r"<[^>]+>", "", xml)
+    tekst = html_lib.unescape(tekst)
+    redovi = [r.strip() for r in tekst.splitlines() if r.strip()]
+    return "\n".join(redovi)
+
+
 def pdf_poveznice(html, baza, maks=2, za_iznos=False):
     """Nadi poveznice na PDF koje djeluju kao natjecaj, s iste domene.
 
@@ -468,8 +512,9 @@ def pdf_poveznice(html, baza, maks=2, za_iznos=False):
     a citanje starih rezultata kao aktualnog natjecaja bila bi gadna greska.
     Ograniceno na 2 datoteke da se ne prokopa cijela arhiva."""
     kandidati = []
-    for m in re.finditer(r'<a[^>]+href=["\']([^"\']+\.pdf[^"\']*)["\']([^>]*)>(.*?)</a>',
-                         html, re.I | re.S):
+    for m in re.finditer(
+            r'<a[^>]+href=["\']([^"\']+\.(?:pdf|docx)[^"\']*)["\']([^>]*)>(.*?)</a>',
+            html, re.I | re.S):
         href, tekst = m.group(1), m.group(3)
         pun = urljoin(baza, href)
         if urlparse(pun).netloc != urlparse(baza).netloc:
@@ -903,7 +948,7 @@ def tekst_natjecaja_s_prilozima(url, tiho=True, za_iznos=False, maks_pdf=2):
                                      za_iznos=za_iznos):
             pdf_t, _, _ = fetch_content(pdf_url, retries=0, tiho=True)
             if pdf_t:
-                print(f"  + procitan PDF uz natjecaj: "
+                print(f"  + procitan prilog uz natjecaj: "
                       f"{pdf_url.rsplit('/', 1)[-1][:45]}")
                 t = (t + "\n\n--- TEKST IZ PRILOZENOG PDF-a ---\n"
                      + suzi(pdf_t, MAX_CHARS // 2))
@@ -1361,7 +1406,7 @@ def main():
                     for pdf_url in pdf_poveznice(pod_html, pod_url):
                         pdf_text, _, _ = fetch_content(pdf_url, retries=0, tiho=True)
                         if pdf_text:
-                            print(f"  + procitan PDF uz natjecaj: "
+                            print(f"  + procitan prilog uz natjecaj: "
                                   f"{pdf_url.rsplit('/', 1)[-1][:45]}")
                             pod_text = (pod_text
                                         + "\n\n--- TEKST IZ PRILOZENOG PDF-a ---\n"
