@@ -221,6 +221,16 @@ input:focus-visible,select:focus-visible{outline:2px solid var(--plava);outline-
   .veza{padding:.4rem 0 .3rem}
 }
 
+/* vidi teme_poveznice() u web.py — stranice bez unutarnjih poveznica
+   Google ne indeksira, pa ovaj red stoji i ovdje */
+.teme{margin:.9rem 0 .2rem;font-size:.9rem;color:var(--tinta-2);
+  display:flex;flex-wrap:wrap;gap:.1rem .55rem;align-items:baseline}
+.teme b{font-weight:600;color:var(--tinta);margin-right:.15rem}
+.teme a{color:var(--plava);text-decoration:none;
+  border-bottom:1px solid transparent;padding:.15rem 0}
+.teme a:hover{border-bottom-color:var(--plava)}
+.teme span{color:var(--linija)}
+@media(max-width:600px){.teme{font-size:.86rem;gap:.1rem .45rem}}
 .zag-zup{padding:2.4rem 0 0}
 .natrag{display:inline-block;font-size:.85rem;color:var(--tinta-2);
   text-decoration:none;margin-bottom:1rem}
@@ -264,6 +274,7 @@ input:focus-visible,select:focus-visible{outline:2px solid var(--plava);outline-
     <div class="brojka"><b data-broj-otv-n>8</b><span>otvoreno sada</span></div>
     <div class="brojka"><b>10</b><span>izvora koje pratimo</span></div>
   </div>
+  <p class="teme"><b>Posebno:</b><a href="../ucenicke-stipendije.html">Učenici</a><span>·</span><a href="../studentske-stipendije.html">Studenti</a><span>·</span><a href="../drzavna-stipendija.html">Državna stipendija</a><span>·</span><a href="../stem-stipendije.html">STEM</a></p>
   <style>
 .obp{margin:1.6rem 0 .4rem;border:1.5px solid var(--tinta);background:var(--karta);
   padding:1.1rem 1.15rem}

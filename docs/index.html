@@ -326,6 +326,20 @@ input:focus-visible,select:focus-visible{outline:2px solid var(--plava);outline-
 .medja.vidljiva{display:block}
 /* sklapanje drzavnih izvora kad je odabrana zupanija */
 .k.drzavna.sklopljena{display:none}
+/* Red poveznica na tematske stranice. Postoji zbog mjerljivog razloga:
+   studentske-stipendije.html i ucenicke-stipendije.html imale su 7.000
+   rijeci sadrzaja i NULA pojavljivanja u Googleu, jer na njih nije vodila
+   nijedna poveznica osim iz sitemapa — linkale su samo jedna drugu.
+   Stranica bez unutarnjih poveznica Googleu izgleda kao da je ni sami ne
+   smatramo vaznom. Ovaj red to rjesava, a usput je i korisnicima precica. */
+.teme{margin:.9rem 0 .2rem;font-size:.9rem;color:var(--tinta-2);
+  display:flex;flex-wrap:wrap;gap:.1rem .55rem;align-items:baseline}
+.teme b{font-weight:600;color:var(--tinta);margin-right:.15rem}
+.teme a{color:var(--plava);text-decoration:none;
+  border-bottom:1px solid transparent;padding:.15rem 0}
+.teme a:hover{border-bottom-color:var(--plava)}
+.teme span{color:var(--linija)}
+@media(max-width:600px){.teme{font-size:.86rem;gap:.1rem .45rem}}
 .prekidac{order:2;display:none;background:var(--karta);
   border:1px dashed var(--linija);width:100%;padding:.75rem 1rem;
   font-family:"Plex",sans-serif;font-size:.88rem;color:var(--tinta-2);
@@ -406,6 +420,7 @@ input:focus-visible,select:focus-visible{outline:2px solid var(--plava);outline-
     <p class="pojasnjenje">Uz odabranu županiju vide se i državne stipendije,
       na koje imaju pravo svi.</p>
   </div>
+  <p class="teme"><b>Posebno:</b><a href="ucenicke-stipendije.html">Učenici</a><span>·</span><a href="studentske-stipendije.html">Studenti</a><span>·</span><a href="drzavna-stipendija.html">Državna stipendija</a><span>·</span><a href="stem-stipendije.html">STEM</a></p>
 </div></section>
 <div class="w"><style>
 .obp{margin:1.6rem 0 .4rem;border:1.5px solid var(--tinta);background:var(--karta);
