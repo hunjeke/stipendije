@@ -172,16 +172,6 @@ prikazuje sažetke i poveznice na izvore.</p></div>
 
 
 CSS_ZUP = CSS_KARTICE + """
-/* vidi teme_poveznice() u web.py — stranice bez unutarnjih poveznica
-   Google ne indeksira, pa ovaj red stoji i ovdje */
-.teme{margin:.9rem 0 .2rem;font-size:.9rem;color:var(--tinta-2);
-  display:flex;flex-wrap:wrap;gap:.1rem .55rem;align-items:baseline}
-.teme b{font-weight:600;color:var(--tinta);margin-right:.15rem}
-.teme a{color:var(--plava);text-decoration:none;
-  border-bottom:1px solid transparent;padding:.15rem 0}
-.teme a:hover{border-bottom-color:var(--plava)}
-.teme span{color:var(--linija)}
-@media(max-width:600px){.teme{font-size:.86rem;gap:.1rem .45rem}}
 .zag-zup{padding:2.4rem 0 0}
 .natrag{display:inline-block;font-size:.85rem;color:var(--tinta-2);
   text-decoration:none;margin-bottom:1rem}
@@ -254,9 +244,6 @@ def stranica_zupanije(mapa, ime, kartice_html, br_otv, br_uk,
     glava_extra = ('<script type="application/ld+json">'
                    + _json.dumps(ld, ensure_ascii=False) + '</script>')
 
-    from web import teme_poveznice
-    _teme = teme_poveznice("../")
-
     html = glava(naslov, opis, CSS_ZUP, glava_extra, put="../")
     html += navigacija("natjecaji", put="../")
     html += f"""<main class="w"><section class="zag-zup">
@@ -267,7 +254,6 @@ def stranica_zupanije(mapa, ime, kartice_html, br_otv, br_uk,
     <div class="brojka"><b data-broj-otv-n>{br_otv}</b><span>otvoreno sada</span></div>
     <div class="brojka"><b>{br_uk}</b><span>{oblik(br_uk,'izvor','izvora','izvora')} koje pratimo</span></div>
   </div>
-  {_teme}
   {kartice_html}
   <div class="druge">
     <h2>Ostale županije</h2>
