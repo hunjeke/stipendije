@@ -13,10 +13,13 @@ Sto Brevo mora imati prije nego se ovo ukljuci:
   4. atribut GRAD (Contacts -> Settings -> Contact attributes, tip Text)
 Iz Brevovog ugradbenog koda treba samo adresa iz action="...", nista drugo.
 
-GRAD je namjerno neobavezan. Pratimo oko 80 mjesta, ne sva, pa bi obavezno
-polje natjeralo covjeka iz nepracenog mjesta da izmisli odgovor ili odustane.
-Tko ga preskoci dobiva drzavne i zupanijske natjecaje, tko ga ispuni dobiva
-jos i svoj grad — a gradskih natjecaja je daleko najvise.
+GRAD nudi sve 556 jedinica lokalne samouprave, ne samo ona mjesta koja
+pratimo (vidi mjesta.py). Polje ostaje neobavezno: tko ga preskoci dobiva
+drzavne i zupanijske natjecaje, tko ga ispuni dobiva jos i svoj grad — a
+gradskih natjecaja je daleko najvise.
+
+Odabir mjesta koje jos ne pratimo nije promasen podatak nego upravo onaj
+koji nam treba: pokazuje odakle su ljudi i koji izvor dodati sljedeci.
 """
 import json
 import os
@@ -31,27 +34,55 @@ IZVORI = "sources.json"
 
 
 def mjesta_po_zupaniji(put=IZVORI):
-    """{zupanija: [mjesto, ...]} za mjesta koja stvarno pratimo.
+    """{zupanija: [mjesto, ...]} — sve jedinice lokalne samouprave.
 
-    Ponuda gradova mora biti popis izvora, ne popis svih hrvatskih gradova.
-    Grad koji ne pratimo ne bismo mogli javiti, pa bi odabir bio obecanje
-    koje ne mozemo odrzati. Zato se popis gradi iz sources.json i raste sam
-    kad se doda novi izvor.
+    Prije je ponuda bila samo popis mjesta koja pratimo, uz obrazlozenje da
+    bi odabir nepracenog grada bio obecanje koje ne mozemo odrzati. To je
+    bilo krivo s dvije strane. Covjek iz Čepina nije mogao reci da je iz
+    Čepina, pa je polje preskocio — i mi nismo saznali da nam Čepin treba.
+    A upravo je to podatak zbog kojeg polje postoji: sto ljudi biraju, to je
+    popis izvora koje vrijedi dodati sljedece.
 
-    Grad Zagreb nema svoja mjesta (zupanija i grad su isto), pa mu polje
-    grada ostaje skriveno."""
-    m = {}
-    if not os.path.exists(put):
-        return m
-    for s in json.load(open(put, encoding="utf-8")):
-        p = (s.get("podrucje") or "").strip()
-        z = (s.get("zupanija") or "").strip()
-        if not p or not z or p == z:
-            continue
-        if p == "Cijela Hrvatska" or p.endswith("županija"):
-            continue
-        m.setdefault(z, set()).add(p)
-    return {z: sorted(v, key=_abc) for z, v in m.items()}
+    Zato se nudi sluzbeni popis svih 556 jedinica, a praceno mjesto koje na
+    njemu nije (drukcije zapisano ime) se dodaje da se ne izgubi.
+
+    USKLADIVANJE IMENA je ovdje bitno i tiho lomljivo. Vrijednost koju covjek
+    odabere mora doslovno odgovarati polju `podrucje` u sources.json, inace
+    natjecaj za Pulu nikad ne stigne onome tko je odabrao Pulu. Sluzbeni
+    popis istarska mjesta vodi dvojezicno ("Pula-Pola"), a sources.json
+    hrvatski ("Pula"). Gdje sluzbeno ime pocinje pracenim imenom i crticom,
+    zadrzava se oblik iz sources.json — tako se poklapaju i ne treba dirati
+    sources.json. Sve sto se ni tako ne poklopi ispise se kao upozorenje
+    pri gradnji, da se ne otkrije tek kad nekome ne stigne mail."""
+    from mjesta import MJESTA
+    sve = {z: list(v) for z, v in MJESTA.items()}
+
+    praceno = {}
+    if os.path.exists(put):
+        for s in json.load(open(put, encoding="utf-8")):
+            p = (s.get("podrucje") or "").strip()
+            z = (s.get("zupanija") or "").strip()
+            if not p or not z or p == z:
+                continue
+            if p == "Cijela Hrvatska" or p.endswith("županija"):
+                continue
+            praceno.setdefault(z, set()).add(p)
+
+    for z, mjesta in praceno.items():
+        popis = sve.setdefault(z, [])
+        for m in sorted(mjesta):
+            if m in popis:
+                continue
+            # "Pula" naspram sluzbenog "Pula-Pola": zadrzi nas oblik
+            dvojezicno = [x for x in popis if x.startswith(m + "-")]
+            if dvojezicno:
+                popis[popis.index(dvojezicno[0])] = m
+                continue
+            print(f"  UPOZORENJE: praćeno mjesto '{m}' ({z}) nije na "
+                  f"službenom popisu — dodano, provjeri zapis imena")
+            popis.append(m)
+
+    return {z: sorted(v, key=_abc) for z, v in sve.items()}
 
 
 def _abc(t):
@@ -97,10 +128,10 @@ CSS = """
 .obr label{display:block;font-size:.84rem;font-weight:600;color:var(--tinta);
   margin:0 0 .3rem}
 .obr .red{margin-bottom:1rem}
-.obr input[type=email],.obr select{width:100%;font-family:"Plex",sans-serif;
+.obr input[type=email],.obr input[name=GRAD],.obr select{width:100%;font-family:"Plex",sans-serif;
   font-size:.95rem;padding:.65rem .7rem;border:1px solid var(--linija);
   background:var(--papir);color:var(--tinta)}
-.obr input[type=email]:focus,.obr select:focus{outline:2px solid var(--plava);
+.obr input[type=email]:focus,.obr input[name=GRAD]:focus,.obr select:focus{outline:2px solid var(--plava);
   outline-offset:-1px}
 .obr button{width:100%;background:var(--plava);color:#fff;border:0;
   font-family:"Plex",sans-serif;font-weight:600;font-size:.98rem;
@@ -127,45 +158,102 @@ MJESTA = mjesta_po_zupaniji()
 
 
 def _skripta_grad():
-    """Puni izbornik gradova prema odabranoj zupaniji.
+    """Polje za grad: upisuje se, ne trazi kroz popis.
 
-    Popis gradova se ne salje cijeli u svaki <select> jer bi obrazac imao
-    80 opcija od kojih 75 ne vrijede. Umjesto toga red s gradom stoji
-    skriven dok covjek ne odabere zupaniju, pa se napuni samo njezinim
-    mjestima. Zupanija bez pracenih mjesta (Grad Zagreb) ga ne otvara."""
+    Popis ima 555 mjesta, a i unutar jedne zupanije ih zna biti 55
+    (Splitsko-dalmatinska). Izbornik s 55 stavki na mobitelu znaci dugo
+    listanje, pa je polje sada obicno tekstualno s prijedlozima: covjek
+    utipka "cep" i dobije Čepin. Popis prijedloga se puni tek kad se
+    odabere zupanija, pa su ponudena samo mjesta iz nje.
+
+    Dvije stvari koje upis donosi, a izbornik nije imao:
+
+    Kvacice se ne moraju pogoditi. "cepin" i "Cepin" nadu Čepin, jer se
+    usporeduje bez kvacica i bez velikih slova. Na mobilnoj tipkovnici to
+    je razlika izmedu prijave i odustajanja.
+
+    Ali upis znaci i da covjek moze utipkati bilo sto, a vrijednost mora
+    doslovno odgovarati polju `podrucje` u sources.json — inace natjecaj
+    nikad ne stigne. Zato se prije slanja upisano ime prevodi u sluzbeno
+    (pa "cepin" postane "Čepin"), a ako se ne poklopi ni s cim, slanje se
+    zaustavi uz poruku. Prazno polje i dalje znaci "preskoci"."""
     return """<script>
 (function(){
   if(window.__gradSpojen) return;
   window.__gradSpojen = true;
   var MJESTA = __MJESTA__;
+  var brojac = 0;
+
+  function gol(s){
+    s = (s || "").toLowerCase();
+    var a = "čćđšž", b = "ccdsz";
+    var out = "";
+    for(var i=0;i<s.length;i++){
+      var j = a.indexOf(s[i]);
+      out += j < 0 ? s[i] : b[j];
+    }
+    return out.replace(/\\s+/g, " ").trim();
+  }
 
   function spoji(zup){
     var obr = zup.form;
     if(!obr) return;
-    var grad = obr.querySelector("select[name=GRAD]");
+    var grad = obr.querySelector("input[name=GRAD]");
     if(!grad) return;
     var red = grad.closest(".red") || grad;
 
+    var lista = document.createElement("datalist");
+    lista.id = "popis-grad-" + (++brojac);
+    grad.setAttribute("list", lista.id);
+    grad.setAttribute("autocomplete", "off");
+    grad.parentNode.appendChild(lista);
+
+    var popis = [];
+
     function osvjezi(){
-      var popis = MJESTA[zup.value] || [];
-      grad.innerHTML = "";
-      var prvi = document.createElement("option");
-      prvi.value = "";
-      prvi.textContent = popis.length
-        ? "Preskoči — samo županijski natječaji"
-        : "—";
-      grad.appendChild(prvi);
+      popis = MJESTA[zup.value] || [];
+      lista.innerHTML = "";
       for(var i=0;i<popis.length;i++){
         var o = document.createElement("option");
-        o.value = popis[i]; o.textContent = popis[i];
-        grad.appendChild(o);
+        o.value = popis[i];
+        lista.appendChild(o);
       }
-      if(red.hasAttribute) {
+      grad.value = "";
+      grad.placeholder = popis.length
+        ? "Počni tipkati, npr. " + popis[0]
+        : "";
+      if(red.setAttribute){
         if(popis.length) red.removeAttribute("hidden");
-        else red.setAttribute("hidden","");
+        else red.setAttribute("hidden", "");
       }
     }
+
+    function sredi(){
+      var v = (grad.value || "").trim();
+      if(!v){ grad.value = ""; grad.setCustomValidity(""); return true; }
+      for(var i=0;i<popis.length;i++){
+        if(gol(popis[i]) === gol(v)){
+          grad.value = popis[i];        // upisano -> sluzbeno ime
+          grad.setCustomValidity("");
+          return true;
+        }
+      }
+      grad.setCustomValidity(
+        "Nema takvog mjesta u toj županiji. Odaberi iz prijedloga ili "
+        + "ostavi prazno.");
+      return false;
+    }
+
     zup.addEventListener("change", osvjezi);
+    grad.addEventListener("input", function(){ grad.setCustomValidity(""); });
+    grad.addEventListener("blur", sredi);
+    obr.addEventListener("submit", function(e){
+      if(!sredi()){
+        e.preventDefault();
+        grad.reportValidity();
+        grad.focus();
+      }
+    });
     osvjezi();
   }
 
@@ -219,12 +307,11 @@ def obrazac():
   <div class="red" id="red-grad" hidden>
     <label for="GRAD">Tvoj grad ili općina
       <span class="neo">— nije obavezno</span></label>
-    <select id="GRAD" name="GRAD">
-      <option value="">Preskoči — samo županijski natječaji</option>
-    </select>
-    <p class="pom">Ako ga odabereš, javljamo ti i kad tvoj grad ili općina
-      raspiše stipendiju — a takvih je kroz jesen daleko najviše. Ako tvog
-      mjesta nema na popisu, preskoči; ne gubiš ništa.</p>
+    <input id="GRAD" name="GRAD" type="text" autocomplete="off"
+           placeholder="Počni tipkati">
+    <p class="pom">Na popisu su svi hrvatski gradovi i općine. Ako odabereš
+      svoj, javljamo ti i kad on raspiše stipendiju — a takvih je kroz jesen
+      daleko najviše. Ako ga još ne pratimo, javit ćemo ti čim ga dodamo.</p>
   </div>
   <div class="red">
     <label for="TIP">Tko si</label>
@@ -265,7 +352,7 @@ def poziv(put=""):
   font-size:1.08rem;letter-spacing:-.012em;margin-bottom:.2rem}}
 .obp span{{display:block;font-size:.88rem;color:var(--tinta-2);margin-bottom:.9rem}}
 .obp form{{display:flex;gap:.6rem;flex-wrap:wrap}}
-.obp select{{flex:1;min-width:13rem;font-family:"Plex",sans-serif;font-size:.92rem;
+.obp select,.obp input[name=GRAD]{{flex:1;min-width:13rem;font-family:"Plex",sans-serif;font-size:.92rem;
   padding:.6rem .7rem;border:1px solid var(--linija);background:var(--papir);
   color:var(--tinta)}}
 .obp button{{background:var(--plava);color:#fff;border:0;font-family:"Plex",sans-serif;
@@ -384,7 +471,7 @@ def skocni():
 .sk b{{display:block;font-family:"Bricolage",sans-serif;font-weight:800;
   font-size:1.2rem;letter-spacing:-.015em;margin-bottom:.3rem;padding-right:1.6rem}}
 .sk .sk-p{{font-size:.89rem;color:var(--tinta-2);line-height:1.5;margin:0 0 1rem}}
-.sk input[type=email],.sk select{{width:100%;font-family:"Plex",sans-serif;
+.sk input[type=email],.sk input[name=GRAD],.sk select{{width:100%;font-family:"Plex",sans-serif;
   font-size:.95rem;padding:.62rem .7rem;margin-bottom:.6rem;
   border:1px solid var(--linija);background:var(--karta);color:var(--tinta)}}
 .sk button[type=submit]{{width:100%;background:var(--plava);color:#fff;border:0;
@@ -418,9 +505,8 @@ def skocni():
         {_opcije()}
       </select>
       <div class="red" hidden>
-        <select name="GRAD" aria-label="Tvoj grad ili općina">
-          <option value="">Preskoči — samo županijski natječaji</option>
-        </select>
+        <input name="GRAD" type="text" autocomplete="off"
+               aria-label="Tvoj grad ili općina" placeholder="Počni tipkati">
       </div>
       <select name="TIP" required aria-label="Tko si">
         <option value="">Učenik ili student?</option>
