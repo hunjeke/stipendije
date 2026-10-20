@@ -85,6 +85,11 @@ body{margin:0;background:var(--papir);color:var(--tinta);
 .ime{font-family:"Bricolage",sans-serif;font-weight:800;
   font-size:1.32rem;letter-spacing:-.022em}
 .ime span{color:var(--plava)}
+footer .teme-p{margin:0 0 1rem;padding-bottom:.9rem;font-size:.9rem;
+  border-bottom:1px solid var(--linija);line-height:2}
+footer .teme-p a{color:var(--tinta);text-decoration:none;
+  border-bottom:1px solid var(--linija)}
+footer .teme-p a:hover{color:var(--plava);border-bottom-color:var(--plava)}
 .nav{display:flex;gap:.2rem}
 .nav a{font-size:.86rem;color:var(--tinta-2);text-decoration:none;
   padding:.55rem .5rem;border-bottom:1.5px solid transparent;
@@ -453,8 +458,26 @@ def kolacici(put=""):
 
 
 def podnozje(broj_izvora, vrijeme, put=""):
+    """Podnozje svih stranica.
+
+    Nosi i poveznice na tematske stranice. Postoje zbog mjerljivog razloga:
+    studentske-stipendije.html i ucenicke-stipendije.html bile su
+    indeksirane, pune sadrzaja i s nula pojavljivanja u Googleu, jer na njih
+    nije vodila nijedna poveznica osim iz sitemapa. Podnozje je za to pravo
+    mjesto — stoji na svakoj stranici, ljudi ondje i traze takve poveznice,
+    a nista ne gura s vrha. Na naslovnici su prvo stajale ispod filtera, ali
+    su ondje dvostruko zbunjivale: "Učenici · Studenti" sto piksela ispod
+    gumba "Učenik | Student" izgleda kao ista kontrola."""
     imenica = oblik(broj_izvora, "izvor", "izvora", "izvora") + " "
+    teme = " &nbsp;·&nbsp; ".join(
+        f'<a href="{put}{a}">{n}</a>' for n, a in (
+            ("Učeničke stipendije", "ucenicke-stipendije.html"),
+            ("Studentske stipendije", "studentske-stipendije.html"),
+            ("Državna stipendija", "drzavna-stipendija.html"),
+            ("STEM stipendije", "stem-stipendije.html"),
+            ("Vodič", "vodic.html")))
     return f"""<footer><div class="w">
+  <p class="teme-p">{teme}</p>
   <p class="upoz-p"><strong>Provjeri prije prijave.</strong> Podatke prikupljamo
      automatski, pa su greške moguće. Vrijede rok i uvjeti sa službene stranice
      natječaja, na koju vodi poveznica uz svaki unos.</p>
