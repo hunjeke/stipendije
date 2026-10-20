@@ -178,6 +178,20 @@ CSS_INDEX = CSS_KARTICE + """
 .medja.vidljiva{display:block}
 /* sklapanje drzavnih izvora kad je odabrana zupanija */
 .k.drzavna.sklopljena{display:none}
+/* Red poveznica na tematske stranice. Postoji zbog mjerljivog razloga:
+   studentske-stipendije.html i ucenicke-stipendije.html imale su 7.000
+   rijeci sadrzaja i NULA pojavljivanja u Googleu, jer na njih nije vodila
+   nijedna poveznica osim iz sitemapa — linkale su samo jedna drugu.
+   Stranica bez unutarnjih poveznica Googleu izgleda kao da je ni sami ne
+   smatramo vaznom. Ovaj red to rjesava, a usput je i korisnicima precica. */
+.teme{margin:.9rem 0 .2rem;font-size:.9rem;color:var(--tinta-2);
+  display:flex;flex-wrap:wrap;gap:.1rem .55rem;align-items:baseline}
+.teme b{font-weight:600;color:var(--tinta);margin-right:.15rem}
+.teme a{color:var(--plava);text-decoration:none;
+  border-bottom:1px solid transparent;padding:.15rem 0}
+.teme a:hover{border-bottom-color:var(--plava)}
+.teme span{color:var(--linija)}
+@media(max-width:600px){.teme{font-size:.86rem;gap:.1rem .45rem}}
 .prekidac{order:2;display:none;background:var(--karta);
   border:1px dashed var(--linija);width:100%;padding:.75rem 1rem;
   font-family:"Plex",sans-serif;font-size:.88rem;color:var(--tinta-2);
@@ -900,6 +914,20 @@ def redak(r, podrucje, zupanija):
             f'<span class="rd-str">&rarr;</span></a>')
 
 
+def teme_poveznice(put=""):
+    """Red poveznica na tematske stranice.
+
+    Vodi na cetiri stranice koje odgovaraju na cetiri razlicita pitanja, a
+    do kojih se inace nije dalo doci ni s jedne druge stranice."""
+    stavke = [("Učenici", f"{put}ucenicke-stipendije.html"),
+              ("Studenti", f"{put}studentske-stipendije.html"),
+              ("Državna stipendija", f"{put}drzavna-stipendija.html"),
+              ("STEM", f"{put}stem-stipendije.html")]
+    veze = '<span>·</span>'.join(
+        f'<a href="{a}">{n}</a>' for n, a in stavke)
+    return f'<p class="teme"><b>Posebno:</b>{veze}</p>'
+
+
 def izbornik(podrucja):
     """Padajuci izbornik zupanija. Podrucje koje ne pripada nijednoj zupaniji
     (Grad Zagreb) stoji samo, s jasnom oznakom da je grad."""
@@ -1430,6 +1458,7 @@ def main():
     <p class="pojasnjenje">Uz odabranu županiju vide se i državne stipendije,
       na koje imaju pravo svi.</p>
   </div>
+  {teme_poveznice()}
 </div></section>
 <div class="w">{__obavijesti_poziv()}{sek_otv}{poziv_kanal()}{sek_zat}{sek_zup}</div>
 </main>
