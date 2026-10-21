@@ -46,7 +46,11 @@ jobs:
           BREVO_API_KEY: ${{ secrets.BREVO_API_KEY }}
           BREVO_UPDATE_FORM_ID: ${{ secrets.BREVO_UPDATE_FORM_ID }}
           BREVO_FROM: ${{ secrets.BREVO_FROM }}
+          # Lista se bira po ID-u; naziv je zaliha ako ID nije zadan.
+          BREVO_LISTA_ID: ${{ secrets.BREVO_LISTA_ID }}
           BREVO_LISTA: ${{ secrets.BREVO_LISTA }}
+          BREVO_FOLDER_ID: ${{ secrets.BREVO_FOLDER_ID }}
+          BREVO_DNEVNO: ${{ secrets.BREVO_DNEVNO }}
         run: |
           case "${{ inputs.nacin }}" in
             proba) python posalji.py ;;
