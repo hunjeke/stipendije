@@ -496,20 +496,43 @@ _ZA_STUDENTA = re.compile(r"student|studij|fakultet|visoko ucilis|visokih ucilis
                           r"preddiplom|diplomsk|poslijediplom|doktorand|akademsk")
 
 
+def _komu(tekst):
+    """(za_ucenike, za_studente) za jedan tekst."""
+    t = _kljuc_naslova(tekst)
+    return bool(_ZA_UCENIKA.search(t)), bool(_ZA_STUDENTA.search(t))
+
+
 def za_koga(r):
     """'ucenik' | 'student' | 'oba'.
 
     Kad nismo sigurni, vraca 'oba' — bolje pokazati natjecaj objema skupinama
-    nego ga sakriti onome tko na njega ima pravo."""
-    izvori = [r.get("naslov_natjecaja"), r.get("uvjeti"), r.get("naziv")]
-    izvori += [str(i.get("za") or "") for i in (r.get("iznosi") or [])]
-    t = _kljuc_naslova(" ".join(x for x in izvori if x))
-    uc = bool(_ZA_UCENIKA.search(t))
-    st = bool(_ZA_STUDENTA.search(t))
-    if uc and not st:
-        return "ucenik"
-    if st and not uc:
-        return "student"
+    nego ga sakriti onome tko na njega ima pravo.
+
+    Gleda se po redu, od najjaceg dokaza prema najslabijem, jer sve u jednom
+    tekstu zna dati pogresan odgovor: uvjeti Grada Pazina kazu "Ucenicki dio
+    istog natjecaja zatvoren je 30. rujna", a to je recenica o tome da
+    ucenicima NIJE za prijaviti. Zbrkano u isti tekst s naslovom, rijec
+    "ucenicki" pretvorila je studentski natjecaj u natjecaj za oboje — i
+    ucenik je dobio mail sa dvije stipendije za koje ne moze predati prijavu.
+
+      1. naslov — jedino mjesto gdje izvor sam kaze za koga je natjecaj
+      2. iznosi[].za — strukturiran podatak, ne proza
+      3. sve zajedno — zaliha kad prva dva ne kazu nista
+    """
+    uc, st = _komu(r.get("naslov_natjecaja") or "")
+    if uc != st:
+        return "ucenik" if uc else "student"
+
+    za = [str(i.get("za") or "") for i in (r.get("iznosi") or [])]
+    if any(za):
+        uc, st = _komu(" ".join(za))
+        if uc != st:
+            return "ucenik" if uc else "student"
+
+    izvori = [r.get("naslov_natjecaja"), r.get("uvjeti"), r.get("naziv")] + za
+    uc, st = _komu(" ".join(x for x in izvori if x))
+    if uc != st:
+        return "ucenik" if uc else "student"
     return "oba"
 
 
