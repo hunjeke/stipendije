@@ -16,6 +16,12 @@ on:
         type: choice
         options: [proba, nacrt, salji, pocisti]
 
+# Zadnji korak commita poslano.json natrag u repozitorij. Bez ovoga
+# github-actions[bot] dobije 403 na push: mailovi odu, ali se ne zabiljezi
+# da su otisli — i iduce pokretanje posalje sve jos jednom.
+permissions:
+  contents: write
+
 jobs:
   posalji:
     runs-on: ubuntu-latest
