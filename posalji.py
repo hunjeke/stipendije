@@ -40,7 +40,12 @@ from novosti import (novi_natjecaji, vec_javljeno, _spoji_iste, _kome,
                      _skupina, _iznos, _rok, _drzavna, _poruka, POSLANO)
 
 API = "https://api.brevo.com/v3"
-LISTA = os.environ.get("BREVO_LISTA", "Obavijesti #3")
+# Lista se bira po ID-u ako je zadan, inace po nazivu. ID je pouzdaniji:
+# naziv se trazi doslovno, pa "Obavijesti" i "Obavjesti" nisu ista stvar i
+# jedno slovo razlike zaustavi cijelo slanje. ID se u Brevu vidi u adresi
+# liste i ne mijenja se kad se lista preimenuje.
+LISTA_ID = os.environ.get("BREVO_LISTA_ID", "").strip()
+LISTA = os.environ.get("BREVO_LISTA", "Obavijesti")
 POSILJATELJ = {"name": "Stipendije.hr",
                "email": os.environ.get("BREVO_FROM", "obavijesti@stipendije.hr")}
 # Obrazac za promjenu postavki (EMAIL + GRAD). Bez njega {{ update_profile }}
@@ -53,6 +58,13 @@ DRZAVNA_STRANICA = "https://stipendije.hr/drzavna-stipendija.html"
 # Koliko najvise poruka smije otici u jednom pokretanju. Besplatni plan ima
 # 300 dnevno; ovo je zastita od petlje koja se otme, ne od plana.
 NAJVISE = 400
+
+# Koliko mailova Brevo pusti u jednom danu. Besplatni plan: 300.
+# Ovo nije sitnica nego jedina stvar koja dijeli ispravno slanje od tihog
+# gubitka: bez nje bi se kampanje slale redom dok Brevo ne pocne odbijati,
+# a poslano.json bi svejedno zapisao sve natjecaje kao poslane — pa se
+# zadnjim skupinama ne bi javilo ni sljedeci tjedan.
+DNEVNO = int(os.environ.get("BREVO_DNEVNO", "300") or 300)
 
 ZA_KOGA = {"ucenik": " — samo za učenike",
            "student": " — samo za studente",
@@ -85,6 +97,12 @@ def zovi(put, nacin="GET", tijelo=None, tiho=False):
 
 
 def id_liste(ime):
+    """ID liste. Ako je BREVO_LISTA_ID zadan, naziv se ne gleda."""
+    if LISTA_ID:
+        try:
+            return int(LISTA_ID)
+        except ValueError:
+            raise RuntimeError(f"BREVO_LISTA_ID nije broj: {LISTA_ID!r}")
     offset = 0
     while True:
         d = zovi(f"/contacts/lists?limit=50&offset={offset}")
@@ -93,7 +111,9 @@ def id_liste(ime):
                 return l["id"]
         offset += 50
         if offset >= d.get("count", 0):
-            raise RuntimeError(f"Lista {ime!r} ne postoji u Brevu.")
+            raise RuntimeError(
+                f"Lista {ime!r} ne postoji u Brevu. Provjeri točan naziv u "
+                f"Contacts → Lists, ili zadaj BREVO_LISTA_ID.")
 
 
 def kontakti(list_id):
@@ -339,8 +359,36 @@ def main():
         print("Kad su dobri:  python posalji.py --nacrt   pa  --salji")
         return
 
+    # Najhitniji prvi. Kad u dan ne stane sve, mora otici ono cemu rok
+    # istjece najranije — abecedni red bi ostavio Zagrebacku za sutra bez
+    # obzira sto joj rok istjece danas.
+    def hitnost(k):
+        r = [z.get("rok_iso") or "9999" for z in grupe[k]["zapisi"]]
+        return (min(r) if r else "9999", ime_skupine(k))
+
+    redom = sorted(grupe, key=hitnost)
+
+    stane, odgodeno, zbroj = [], [], 0
+    for k in redom:
+        n_ljudi = len(grupe[k]["ljudi"])
+        if salji and zbroj + n_ljudi > DNEVNO:
+            odgodeno.append(k)
+            continue
+        stane.append(k)
+        zbroj += n_ljudi
+
+    if odgodeno:
+        print(f"\n  Dnevna granica je {DNEVNO} poruka. Danas ide {zbroj}, "
+              f"a {len(odgodeno)} "
+              f"{_oblik(len(odgodeno), 'skupina ostaje', 'skupine ostaju', 'skupina ostaje')} "
+              f"za sutra:")
+        for k in odgodeno:
+            print(f"    - {ime_skupine(k)} ({len(grupe[k]['ljudi'])} "
+                  f"{_osoba(len(grupe[k]['ljudi']))})")
+        print("  Pokreni isti način sutra — poslano.json pamti što je otišlo.")
+
     napravljeno = []
-    for k in sorted(grupe, key=lambda k: ime_skupine(k)):
+    for k in stane:
         kid, lid = posalji_grupu(k, grupe[k], salji)
         napravljeno.append((ime_skupine(k), kid, lid))
         print(f"  {'poslano' if salji else 'nacrt  '}  "
@@ -348,13 +396,22 @@ def main():
         time.sleep(1)
 
     if salji:
-        slugovi = sorted({z["slug"] for g in grupe.values()
-                          for z in g["zapisi"] if z.get("slug")}
-                         | set(poslano) | set(ponovljeni))
+        # Natjecaj se smije oznaciti poslanim tek kad je otisao SVIMA kojih
+        # se tice. Isti natjecaj zna biti u vise skupina; ako je jedna
+        # odgodena, slug ceka — inace bi ga sutrasnje pokretanje preskocilo
+        # i ti ljudi ga ne bi dobili nikad.
+        ceka = {z.get("slug") for k in odgodeno
+                for z in grupe[k]["zapisi"] if z.get("slug")}
+        otislo = {z.get("slug") for k in stane
+                  for z in grupe[k]["zapisi"] if z.get("slug")} - ceka
+        slugovi = sorted(otislo | set(poslano) | set(ponovljeni))
         json.dump({"slugovi": slugovi}, open(POSLANO, "w", encoding="utf-8"),
                   ensure_ascii=False, indent=1)
         print(f"\nPoslano {len(napravljeno)} kampanja. "
               f"Zabilježeno u {POSLANO} — ne treba --potvrdi.")
+        if ceka:
+            print(f"  {len(ceka)} natječaja nije zabilježeno jer ih dio "
+                  f"ljudi još nije dobio.")
         print("Privremene liste ostaju u Brevu dok se slanje ne dovrši; "
               "obriši ih u sučelju kad kampanje pokažu statistiku.")
     else:
