@@ -19,7 +19,12 @@ on:
 jobs:
   posalji:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    # Slanje ide polako: pauza izmedu kampanja, cekanje da Brevo vidi
+    # kontakte u listi, i pauze kad odgovori 429. Prekid na pola je ovdje
+    # najgori mogu ishod — poslane kampanje se ne mogu povuci, a
+    # poslano.json se zapisuje tek na kraju, pa bi iduce pokretanje
+    # poslalo isto jos jednom. Zato je granica velikodusna.
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
 
