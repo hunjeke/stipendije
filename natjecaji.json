@@ -139,7 +139,7 @@
     "izvor_naziv": "Grad Velika Gorica — natječaji",
     "napomena": "Stipendija se dodjeljuje za период od 12 mjeseci počevši od 1. rujna 2026. godine. Za učenike predviđeno do 45 stipendija (20 po kriteriju izvrsnosti, 25 po socijalnom kriteriju), za studente do 30 stipendija (15 po svakom kriteriju). Kandidat može podnijeti molbu za obje vrste stipendija, ali može ostvariti pravo samo na jednu.",
     "naslov": "Stipendije Zagrebačke županije 2026./2027.",
-    "podrucje": "Velika Gorica",
+    "podrucje": "Zagrebačka županija",
     "potvrda": "",
     "poveznica": "https://gorica.hr/2026/10/natjecaj-za-dodjelu-stipendija-zagrebacke-zupanije-za-skolsku-akademsku-godinu-2026-2027-za-ucenike-i-studente/",
     "prvi_put": "2026-10-21",
@@ -242,94 +242,6 @@
     "zadnji_put": "2026-10-21",
     "zasto_rucno": "",
     "zupanija": "Zagrebačka županija"
-  },
-  "icm-osijek.info/natjecaji/objavljen-natjecaj-za-dodjelu-stipendija-ucenicima-i-studentima-u-osjecko-baranjskoj-zupaniji#total-count-wrapper|2026-10-21": {
-    "iznos": "100,00 eura mjesečno za učenike, 200,00 eura mjesečno za studente, 300,00 eura mjesečno za medicinske sestre",
-    "iznos_je_fond": false,
-    "iznosi": [
-      {
-        "do": false,
-        "eur": 100.0,
-        "mjeseci": 10,
-        "razdoblje": "mjesecno",
-        "za": "učenici"
-      },
-      {
-        "do": false,
-        "eur": 200.0,
-        "mjeseci": 9,
-        "razdoblje": "mjesecno",
-        "za": "studenti"
-      },
-      {
-        "do": false,
-        "eur": 300.0,
-        "mjeseci": null,
-        "razdoblje": "mjesecno",
-        "za": "učenici medicinska sestra/medicinski tehničar"
-      }
-    ],
-    "izvor_naziv": "Info centar za mlade Osijek — natječaji",
-    "napomena": "Natječaj je objavljen na mrežnoj stranici Osječko-baranjske županije, u Glasu Slavonije i na mrežnoj stranici Sveučilišta Josipa Jurja Strossmayera u Osijeku. Za medicinske sestre osigurano je 30 stipendija.",
-    "naslov": "Stipendije učenicima i studentima",
-    "podrucje": "Osijek",
-    "potvrda": "",
-    "poveznica": "https://icm-osijek.info/natjecaji/objavljen-natjecaj-za-dodjelu-stipendija-ucenicima-i-studentima-u-osjecko-baranjskoj-zupaniji#total-count-wrapper",
-    "prvi_put": "2026-10-12",
-    "rok_iso": "2026-10-21",
-    "rok_tekst": "do 21. listopada 2026. godine",
-    "rucni": false,
-    "slug": "osijek-stipendije-ucenicima-studentima-2026",
-    "upute_za_prijavu": "",
-    "url": "https://icm-osijek.info/natjecaji",
-    "uvjeti": "Stipendije se dodjeljuju učenicima srednjih škola i studentima u Osječko-baranjskoj županiji za 2026./2027. školsku odnosno akademsku godinu. Uvedene su i stipendije za učenike koji se obrazuju za zanimanje medicinska sestra opće njege/medicinski tehničar opće njege.",
-    "zadnji_put": "2026-10-15",
-    "zasto_rucno": "",
-    "zupanija": "Osječko-baranjska županija"
-  },
-  "icm-osijek.info/natjecaji/objavljen-natjecaj-za-dodjelu-stipendija-ucenicima-i-studentima-u-osjecko-baranjskoj-zupaniji|2026-10-21": {
-    "iznos": "100,00 eura mjesečno za učenike; 200,00 eura mjesečno za studente; 300,00 eura mjesečno za učenike medicinskih zanimanja",
-    "iznos_je_fond": false,
-    "iznosi": [
-      {
-        "do": false,
-        "eur": 100.0,
-        "mjeseci": 10,
-        "razdoblje": "mjesecno",
-        "za": "učenici"
-      },
-      {
-        "do": false,
-        "eur": 200.0,
-        "mjeseci": 9,
-        "razdoblje": "mjesecno",
-        "za": "studenti"
-      },
-      {
-        "do": false,
-        "eur": 300.0,
-        "mjeseci": null,
-        "razdoblje": "mjesecno",
-        "za": "učenici medicinskih zanimanja"
-      }
-    ],
-    "izvor_naziv": "Info centar za mlade Osijek — natječaji",
-    "napomena": "Uvedene su nove stipendije za učenike medicinskih zanimanja (medicinska sestra opće njege/medicinski tehničar opće njege) - 30 stipendija od 300 eura mjesečno. Učenici primaju stipendiju od 1. rujna 2026. do 30. lipnja 2027. (10 mjeseci), studenti od 1. listopada 2026. do 31. srpnja 2027. (9 mjeseci).",
-    "naslov": "Stipendije učenicima i studentima",
-    "podrucje": "Osijek",
-    "potvrda": "",
-    "poveznica": "https://icm-osijek.info/natjecaji/objavljen-natjecaj-za-dodjelu-stipendija-ucenicima-i-studentima-u-osjecko-baranjskoj-zupaniji",
-    "prvi_put": "2026-10-15",
-    "rok_iso": "2026-10-21",
-    "rok_tekst": "do 21. listopada 2026. godine",
-    "rucni": false,
-    "slug": "osijek-stipendije-ucenicima-studentima-2026",
-    "upute_za_prijavu": "",
-    "url": "https://icm-osijek.info/natjecaji",
-    "uvjeti": "Natječaj je namijenjen učenicima i studentima u Osječko-baranjskoj županiji za 2026./2027. školsku, odnosno akademsku godinu.",
-    "zadnji_put": "2026-10-16",
-    "zasto_rucno": "",
-    "zupanija": "Osječko-baranjska županija"
   },
   "kastav.hr/natjecaj-za-dodjelu-ucenickih-i-studentskih-stipendija-grada-kastva-3|2026-10-30": {
     "iznos": "110 eura za učenike, a studentske 150 eura mjesečno",
@@ -1116,7 +1028,7 @@
     ],
     "izvor_naziv": "Grad Vinkovci — natječaji",
     "napomena": "Stipendija se isplaćuje u 10 jednakih obroka. Dokumentacija ne smije biti starija od 3 mjeseca. Obrazac se može preuzeti u Upravnom odjelu društvenih djelatnosti ili online.",
-    "naslov": "Stipendije Grada Vinkovaca za академsku godinu",
+    "naslov": "Stipendije Grada Vinkovaca za akademsku godinu",
     "podrucje": "Vinkovci",
     "potvrda": "",
     "poveznica": "https://vinkovci.hr/novosti/natjecaj-za-dodjelu-stipendija-grada-vinkovaca-za-akademsku-godinu-2026-2027",
@@ -1154,7 +1066,7 @@
     "izvor_naziv": "Grad Vrbovec — obavijesti i natječaji",
     "napomena": "Stipendija se dodjeljuje za razdoblje od 12 mjeseci počevši od 1. rujna 2026. godine. Učenik/ca ili student/ica može podnijeti molbu za obje vrste stipendija, ali može ostvariti pravo samo na jednu. Sve izjave pod kaznenom i materijalnom odgovornošću trebaju biti ovjerene kod javnog bilježnika i ne smiju biti starije od dana objave natječaja. Nepotpune prijave neće se razmatrati.",
     "naslov": "Stipendije Zagrebačke županije 2026./2027.",
-    "podrucje": "Vrbovec",
+    "podrucje": "Zagrebačka županija",
     "potvrda": "",
     "poveznica": "https://vrbovec.hr/2026/10/20/natjecaj-za-dodjelu-stipendija-zagrebacke-zupanije-za-skolsku-akademsku-godinu-2026-2027-za-ucenike-i-studente/",
     "prvi_put": "2026-10-21",
@@ -1605,36 +1517,6 @@
     "zasto_rucno": "Natječaji su na drugoj stranici od one koju izvor gleda.",
     "zupanija": "Primorsko-goranska županija"
   },
-  "www.icm-vukovar.info/objavljen-natjecaj-za-12-150-drzavnih-stipendija-u-2026-i-2027-godini|2026-11-03": {
-    "iznos": "200 eura mjesečno",
-    "iznos_je_fond": false,
-    "iznosi": [
-      {
-        "do": false,
-        "eur": 200.0,
-        "mjeseci": 9,
-        "razdoblje": "mjesecno",
-        "za": "studenti"
-      }
-    ],
-    "izvor_naziv": "Info centar za mlade Vukovar — stipendije",
-    "napomena": "Natječaj je za 12.150 stipendija. Stipendija se isplaćuje u devet mjesečnih rata od listopada 2026. do lipnja 2027. godine. Isplata započinje najkasnije 31. prosinca 2026. godine.",
-    "naslov": "Državne stipendije za studente 2026./2027.",
-    "podrucje": "Vukovar",
-    "potvrda": "",
-    "poveznica": "https://www.icm-vukovar.info/objavljen-natjecaj-za-12-150-drzavnih-stipendija-u-2026-i-2027-godini/",
-    "prvi_put": "2026-10-21",
-    "rok_iso": "2026-11-03",
-    "rok_tekst": "3. studenoga 2026. godine do 12:00 sati",
-    "rucni": false,
-    "slug": "vukovar-drzavne-stipendije-studente-2026",
-    "upute_za_prijavu": "Prijava elektroničkim putem u sustavu Vidra | Prijava putem AAI@EduHR ili e-Građani vjerodajnica | Provjerite uvjete natječaja i pripremite svu potrebnu dokumentaciju | Rok: 3. studenoga 2026. do 12:00 sati | Ne šalju se tiskane prijave poštom",
-    "url": "https://www.icm-vukovar.info/category/stipendije/",
-    "uvjeti": "Studenti u redovitom statusu na visokim učilištima u Republici Hrvatskoj s dokazom državljanstva (hrvatski državljani, državljani EU, EGP, Švicarske, određene kategorije Hrvata van RH, azilanti ili osobe sa supsidijarnom zaštitom). Stipendije se dodjeljuju u tri kategorije: E (slabiji socioekonomski status), D (djeca poginulih/umrlih u Domovinskom ratu, invalidi rata) i P (studenti s invaliditetom, pod skrbništvom ili s pravom na socijalnu uslugu smještaja).",
-    "zadnji_put": "2026-10-21",
-    "zasto_rucno": "",
-    "zupanija": "Vukovarsko-srijemska županija"
-  },
   "www.istra-istria.hr/hr/clanci/istarska-zupanija-novosti/18240/objavljen-natjecaj-za-dodjelu-stipendija-studentima-istarske-zupanije-za-akademsku-godinu-20262027|2026-10-28": {
     "iznos": "300,00 EUR-a mjesečno",
     "iznos_je_fond": false,
@@ -1687,7 +1569,7 @@
     "izvor_naziv": "Grad Jastrebarsko — natječaji",
     "napomena": "Ukupno se dodjeljuje 75 novih stipendija (45 za učenike, 30 za studente). Stipendija se dodjeljuje 12 mjeseci godišnje. Rezultati će biti objavljeni u roku od 45 dana od isteka roka za prijave.",
     "naslov": "Stipendije Zagrebačke županije",
-    "podrucje": "Jastrebarsko",
+    "podrucje": "Zagrebačka županija",
     "potvrda": "",
     "poveznica": "https://www.jastrebarsko.hr/jaska_info/obavijesti/vijesti/otvoren_natjecaj_za_dodjelu_stipendija_zagrebacke_zupanije/",
     "prvi_put": "2026-10-21",
@@ -2143,50 +2025,6 @@
     "zadnji_put": "2026-10-21",
     "zasto_rucno": "",
     "zupanija": "Brodsko-posavska županija"
-  },
-  "www.slavonski-brod.hr/vijesti/17350-raspisani-natjecaji-za-stipendije-ucenicima-i-potpore-studentima-za-2026-2027-godinu|2026-10-31": {
-    "iznos": "",
-    "iznos_je_fond": false,
-    "iznosi": [],
-    "izvor_naziv": "Grad Slavonski Brod — natječaji",
-    "napomena": "Dva odvojena natječaja: jedan za stipendije učenicima (29 stipendija), drugi za potpore studentima. Učenici se boduju prema školskom uspjehu, postignućima na natjecanjima i prihodima kućanstva. Za studente sportaše izdvajaju se 10 posto sredstava.",
-    "naslov": "Grad Slavonski Brod — natječaji",
-    "podrucje": "Slavonski Brod",
-    "potvrda": "",
-    "poveznica": "https://www.slavonski-brod.hr/vijesti/17350-raspisani-natjecaji-za-stipendije-ucenicima-i-potpore-studentima-za-2026-2027-godinu",
-    "prvi_put": "2026-10-21",
-    "rok_iso": "2026-10-31",
-    "rok_tekst": "15 dana od dana objave natječaja na službenim stranicama Grada (učenici); 31. listopada 2026. godine (studenti)",
-    "rucni": false,
-    "slug": "slavonski-brod-grad-natjecaji-2026",
-    "upute_za_prijavu": "Preuzmite obrasce na službenim stranicama Grada ili u pisarnici Gradske uprave, Vukovarska 1 | Saberite potrebnu dokumentaciju prema popisu u tekstu natječaja | Predajte prijave u pisarnici ili pošaljite preporučeno poštom na Grad Slavonski Brod, Vukovarska 1, 35000 Slavonski Brod | Napišite na kojoj natječaj se prijavljujete",
-    "url": "https://www.slavonski-brod.hr/",
-    "uvjeti": "Učenici: redoviti učenici srednjih škola s prebivalištem u Slavonskom Brodu, hrvatski državljani, s prosjekom najmanje 3,0 iz prethodnog razreda, koji se obrazuju za deficitarna zanimanja. Studenti: redoviti studenti s prebivalištem u Slavonskom Brodu, hrvatski državljani, do 26 godina, koji ne primaju drugu stipendiju ili pomoć.",
-    "zadnji_put": "2026-10-21",
-    "zasto_rucno": "",
-    "zupanija": "Brodsko-posavska županija"
-  },
-  "www.tvz.hr/natjecaj-za-dodjelu-drzavnih-stipendija|2026-11-03": {
-    "iznos": "",
-    "iznos_je_fond": false,
-    "iznosi": [],
-    "izvor_naziv": "TVZ — obavijesti o stipendijama",
-    "napomena": "Raspisano je 12.150 stipendija. Natječaj je raspisao Ministarstvo znanosti, obrazovanja i mladih.",
-    "naslov": "Dodjela državnih stipendija 2026./2027.",
-    "podrucje": "Cijela Hrvatska",
-    "potvrda": "",
-    "poveznica": "https://www.tvz.hr/natjecaj-za-dodjelu-drzavnih-stipendija/",
-    "prvi_put": "2026-10-15",
-    "rok_iso": "2026-11-03",
-    "rok_tekst": "3. studenoga 2026. do 12.00 sati",
-    "rucni": false,
-    "slug": "drzavne-stipendije-studente-2026",
-    "upute_za_prijavu": "Prijava se provodi putem poveznice https://mzom.gov.hr/istaknute-teme/natjecaji-196/natjecaj-za-dodjelu-12-150-drzavnih-stipendija-za-akademsku-godinu-2026-2027-studentima-u-redovitom-statusu-koji-studiraju-na-visokim-ucilistima-u-republici-hrvatskoj/8096",
-    "url": "https://www.tvz.hr/natjecaj-za-dodjelu-drzavnih-stipendija/",
-    "uvjeti": "Natječaj je namijenjen redovitim studentima koji studiraju na visokim učilištima u Republici Hrvatskoj.",
-    "zadnji_put": "2026-10-15",
-    "zasto_rucno": "",
-    "zupanija": ""
   },
   "www.varazdinska-zupanija.hr/natjecaji/natjecaj-za-dodjelu-stipendija-varazdinske-zupanjie-za-skolsku-akadamensku-godinu-2026-2027.html|2026-10-29": {
     "iznos": "65,00 eura mjesečno za učenike, 130,00 eura mjesečno za studente",
