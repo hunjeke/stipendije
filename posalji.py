@@ -83,14 +83,39 @@ def _kljuc():
     return k
 
 
+# Koliko se puta ceka kad Brevo odgovori 429 (previse zahtjeva), i koliko
+# sekundi. Brevo racuna zahtjeve po minuti i po satu; "pocisti" pa odmah
+# "salji" potrosi stotinjak poziva u par sekundi i granica se dosegne na
+# prvoj kampanji. Bez cekanja cijelo pokretanje padne, a vec poslane
+# kampanje se ne mogu povuci — zato se ceka, ne odustaje.
+CEKANJA = (5, 15, 30, 60, 120, 120)
+
+
 def zovi(put, nacin="GET", tijelo=None, tiho=False):
     """Jedan poziv na Brevo. Puca glasno: tiha greska pri slanju je gora
-    od srusene skripte, jer se ne vidi je li posla posla ili nije."""
-    odg = requests.request(
-        nacin, API + put, timeout=60,
-        headers={"api-key": _kljuc(), "accept": "application/json",
-                 "content-type": "application/json"},
-        data=json.dumps(tijelo) if tijelo is not None else None)
+    od srusene skripte, jer se ne vidi je li posla posla ili nije.
+
+    Na 429 ceka i pokusava ponovo. Ako Brevo kaze koliko da ceka
+    (zaglavlje Retry-After), postuje se njegova brojka."""
+    for pokusaj, cekaj in enumerate((0,) + CEKANJA):
+        if cekaj:
+            time.sleep(cekaj)
+        odg = requests.request(
+            nacin, API + put, timeout=60,
+            headers={"api-key": _kljuc(), "accept": "application/json",
+                     "content-type": "application/json"},
+            data=json.dumps(tijelo) if tijelo is not None else None)
+        if odg.status_code != 429:
+            break
+        koliko = odg.headers.get("Retry-After") or odg.headers.get("retry-after")
+        if koliko and str(koliko).strip().isdigit():
+            cekanje = min(int(koliko), 300)
+            print(f"      Brevo traži pauzu od {cekanje} s "
+                  f"(pokušaj {pokusaj + 1})")
+            time.sleep(cekanje)
+        elif pokusaj < len(CEKANJA):
+            print(f"      Brevo odbija zbog prečestih zahtjeva, "
+                  f"čekam {CEKANJA[pokusaj]} s (pokušaj {pokusaj + 1})")
     if odg.status_code >= 400:
         if tiho:
             return None
@@ -622,7 +647,10 @@ def main():
         napravljeno.append((ime_skupine(k), kid, lid))
         print(f"  {'poslano' if salji else 'nacrt  '}  "
               f"{ime_skupine(k):44} kampanja {kid}")
-        time.sleep(1)
+        # Stvaranje kampanje je kod Brevoa skupa operacija s vlastitom
+        # granicom. Tri sekunde po skupini je oko dvije minute na 39
+        # skupina — jeftinije od pokretanja koje padne na pola poslanog.
+        time.sleep(3)
 
     if preskoceno:
         print(f"\n  {len(preskoceno)} "
