@@ -24,6 +24,7 @@ import os
 import re
 import sys
 from datetime import date
+from functools import lru_cache
 
 # Namjerno se posuduje iz web.py: "isti natjecaj" mora znaciti isto na
 # stranici i u mailu. Da novosti.py ima svoju usporedbu, jedno bi se
@@ -52,6 +53,10 @@ SVIMA = "cijela hrvatska"   # podrucje koje ide svim pretplatnicima
 BAZA = "https://stipendije.hr"
 MAPA_NATJECAJA = "natjecaj"
 
+# Potpis na dnu poruke. Dva reda, bez titule: ime zato sto ljudi odgovaraju
+# ljudima, adresa zato sto se mail prosljeduje dalje i tada je ime samo ime.
+POTPIS = "Erik\nstipendije.hr"
+
 # Natjecaj koji vrijedi za cijelu Hrvatsku i nema uvjet struke ide svima.
 # Ako se jednom pokaze da je toga previse, dosta je prebaciti na False —
 # tada nacionalni natjecaji ne idu nikome automatski, nego rukom.
@@ -76,6 +81,10 @@ DIJELI_PO_GRADU = False
 USKO_NASLOVI = (
     r"\brom[aieu]\b", r"\bromsk\w*\b",
     r"nacionaln\w+ manjin\w+",
+    # Vojna stipendija nosi obvezu sluzenja u Oruzanim snagama. MORH ju je
+    # objavio na dvije adrese, a oznaka "usko" stoji samo na jednoj — pa je
+    # drugi zapis prolazio kao natjecaj za cijelu Hrvatsku.
+    r"\bvojn\w*\b", r"\bvojsk\w*\b",
 )
 
 
@@ -645,14 +654,22 @@ _ZA_KOGA = {"ucenik": " — samo za učenike",
             "oba": ""}
 
 
-def _redak(z):
+def _redak(z, tip=""):
     """Jedan natjecaj u popisu — tri reda, ne lanac tockica.
+
+    `tip` je ono sto je primatelj upisao u obrascu ("ucenik" / "student").
+    Kad se poklapa sa skupinom natjecaja, oznaka "— samo za studente" se
+    ne pise: primatelj je student, svi natjecaji u njegovom mailu su za
+    studente, i oznaka bi stajala na svakom redu bez ikakve obavijesti.
+    Kod praznog tipa oznaka ostaje — tada mail nosi i jedno i drugo.
 
     Prije je sve islo u jedan red odvojeno s " · ": naslov, podrucje,
     iznos, rok. U mailu to izgleda kao izvod iz baze, a na mobitelu se
     prelomi na tri reda ionako — samo na pogresnim mjestima. Sada naslov
     ima svoj red, podaci svoj, poveznica svoj."""
-    naslov = f"**{z['naslov']}**" + _ZA_KOGA.get(_skupina(z), "")
+    skup = _skupina(z)
+    naslov = f"**{z['naslov']}**" + ("" if skup == tip
+                                     else _ZA_KOGA.get(skup, ""))
     pod = (z.get("podrucje") or "").strip()
     if pod and pod.lower() != SVIMA:
         naslov += f" ({pod})"
@@ -668,36 +685,6 @@ def _redak(z):
     if veza:
         redci.append(veza)
     return "\n".join(redci)
-
-
-def _hitnost(zapisi):
-    """Jedna ljudska recenica o najblizem roku, ili nista.
-
-    Ovo je jedini dio poruke koji nije prepisani podatak. Bez njega je
-    mail popis, s njim je savjet — a rokovi su stvarno toliko kratki da
-    je savjet tocan: potvrdu o redovnom studiju ili prijepis ocjena ne
-    dobijes isti dan kad ju zatrazis."""
-    rokovi = sorted(z["rok_iso"] for z in zapisi if (z.get("rok_iso") or ""))
-    if not rokovi:
-        return ""
-    try:
-        d = (date.fromisoformat(rokovi[0]) - date.today()).days
-    except ValueError:
-        return ""
-    sto = "Rok" if len(zapisi) == 1 else "Najbliži rok"
-    if d < 0:
-        return ""
-    if d == 0:
-        return f"{sto} je **danas** — ako se prijavljuješ, nemoj ostaviti za večer."
-    if d == 1:
-        return f"{sto} je **sutra**."
-    if d <= 7:
-        return (f"{sto} je za {d} dana. Dokumentaciju ne skupiš u jedan dan, "
-                "pa ako te zanima, počni danas.")
-    if d <= 21:
-        return ("Rokovi su kratki, a potvrde s fakulteta i iz škole ne dobiješ "
-                "isti dan kad ih zatražiš — bolje počni odmah.")
-    return ""
 
 
 def _predmet(zapisi, zup=None, drzavna=False):
@@ -731,7 +718,68 @@ def _predmet(zapisi, zup=None, drzavna=False):
     return osnova + (f", prvi rok {rok}" if rok else "")
 
 
-def _poruka(zapisi, kljuc):
+@lru_cache(maxsize=1)
+def _siroki_otvoreni():
+    """Otvoreni natjecaji za cijelu Hrvatsku koje mail ne javlja nikome.
+
+    To su zaklade, kadrovske stipendije tvrtki i stipendije stranih drzava.
+    _drzavna() objasnjava zasto ne idu mailom: svaki takav mail trosi
+    paznju koju treba sacuvati za natjecaj na koji se prijavljuje pola
+    zemlje. Ali "ne idu mailom" je dosad znacilo da pretplatnik o njima ne
+    sazna nista — stoje na stranici i covjek na njih naleti slucajno ili
+    nikad. Zato ih poruka prebroji i uputi na stranicu, bez popisa.
+
+    Usko usmjereni se ne racunaju: stipendija za pripadnike manjine ili za
+    jednu struku nije nesto cime se moze pozvati "pogledaj, ima jos".
+    """
+    _, _, otvoreni, _ = novi_natjecaji()
+    # Usko usmjeren natjecaj zna biti u arhivi i pod adresom koja nije
+    # oznacena kao uska — vojna IT stipendija dosla je s dva izvora, jedan
+    # oznacen, drugi ne. Tada bi neoznaceni zapis prosao kroz _usko() i
+    # ulazio u brojku. Zato se gleda i naslov: ako je to isti natjecaj kao
+    # neki oznaceni, otpada.
+    uski = [(z.get("naslov") or "").strip() for z in otvoreni.values()
+            if _usko(z) and (z.get("naslov") or "").strip()]
+    nasao, imena = [], []
+    for z in otvoreni.values():
+        if (z.get("podrucje") or "").strip().lower() != SVIMA:
+            continue
+        if _drzavna(z) or _usko(z):
+            continue
+        if any(_isti_natjecaj((z.get("naslov") or ""), u) for u in uski):
+            continue
+        # Isti natjecaj zna biti u arhivi dvaput, pod dva naslova koja je
+        # model procitao drugim rijecima ("Nacionalnoga stipendijskog
+        # programa Slovacke" i "Nacionalnog programa Slovacke"). Brojka u
+        # poruci mora biti broj natjecaja, ne zapisa, pa se usporeduje
+        # istom mjerom kojom i stranica spaja duplikate.
+        ime = (z.get("naslov") or "").strip()
+        if not ime or any(_isti_natjecaj(ime, p) for p in imena):
+            continue
+        imena.append(ime)
+        nasao.append(z)
+    return tuple(nasao)
+
+
+def _blok_siroki():
+    """Recenica: na stranici ima i natjecaja za cijelu Hrvatsku."""
+    n = len(_siroki_otvoreni())
+    if not n:
+        return "Sve otvorene stipendije u Hrvatskoj: https://stipendije.hr"
+    if n == 1:
+        return ("Uz ovo je otvoren i jedan natječaj koji vrijedi za cijelu "
+                "Hrvatsku, neovisno o mjestu stanovanja. Takve ne javljamo "
+                "mailom, ali stoje na stranici: https://stipendije.hr")
+    # "je otvoreno 3 natjecaja" nije hrvatski; za 2-4 glagol ide u mnozinu.
+    glagol = _mnozina(n, "je otvoren", "su otvorena", "je otvoreno")
+    return (f"Uz ovo {glagol} i {n} "
+            f"{_mnozina(n, 'natječaj', 'natječaja', 'natječaja')} koji "
+            "vrijede za cijelu Hrvatsku, neovisno o mjestu stanovanja. Takve "
+            "ne javljamo mailom, ali stoje na stranici: "
+            "https://stipendije.hr")
+
+
+def _poruka(zapisi, kljuc, tip=""):
     """Tekst maila za jednu skupinu primatelja.
 
     Poruka je pisana da ne izgleda kao automatska obavijest: prva recenica
@@ -746,13 +794,10 @@ def _poruka(zapisi, kljuc):
         predmet = _predmet(zapisi, drzavna=True)
         uvod = ("Otvorio se natječaj za državnu stipendiju:" if jedan
                 else "Otvorili su se natječaji za državne stipendije:")
-        dijelovi = [uvod, "\n\n".join(_redak(z) for z in zapisi)]
-        hit = _hitnost(zapisi)
-        if hit:
-            dijelovi.append(hit)
+        dijelovi = [uvod, "\n\n".join(_redak(z, tip) for z in zapisi)]
         dijelovi.append("Cijeli postupak prijave, uvjeti i bodovanje: "
                         "https://stipendije.hr/drzavna-stipendija.html")
-        dijelovi.append("Erik")
+        dijelovi.append(POTPIS)
         return predmet, "\n\n".join(dijelovi)
 
     _, zup, s_gradom = kljuc
@@ -775,7 +820,7 @@ def _poruka(zapisi, kljuc):
     naslovi = bool(zup_zapisi) and bool(grad_zapisi)
     if zup_zapisi:
         dijelovi.append((f"**{zup}**\n\n" if naslovi else "")
-                        + "\n\n".join(_redak(z) for z in zup_zapisi))
+                        + "\n\n".join(_redak(z, tip) for z in zup_zapisi))
     if grad_zapisi:
         po_gradu = {}
         for z in grad_zapisi:
@@ -787,13 +832,10 @@ def _poruka(zapisi, kljuc):
         najblizi = lambda g: (min((z.get("rok_iso") or "9999")
                                   for z in po_gradu[g]), g)
         for grad in sorted(po_gradu, key=najblizi):
-            redci.append("\n\n".join(_redak(z) for z in po_gradu[grad]))
+            redci.append("\n\n".join(_redak(z, tip)
+                                      for z in po_gradu[grad]))
         dijelovi.append(("**Gradovi i općine u tvojoj županiji**\n\n"
                          if naslovi else "") + "\n\n".join(redci))
-
-    hit = _hitnost(zapisi)
-    if hit:
-        dijelovi.append(hit)
 
     # Kad gradski natjecaji idu cijeloj zupaniji, vecini primatelja nijedan
     # nije iz njihovog mjesta. Umjesto da to ispadne promaseni mail, ista
@@ -816,20 +858,23 @@ def _poruka(zapisi, kljuc):
             uvjet + " Ako nije za tvoje mjesto, upiši ga i ubuduće ti šaljemo "
             "samo ono što vrijedi za tebe: {{ update_profile }}")
 
-    dijelovi.append("Sve otvorene stipendije u Hrvatskoj: https://stipendije.hr")
-    dijelovi.append("Erik")
+    dijelovi.append(_blok_siroki())
+    dijelovi.append(POTPIS)
     return predmet, "\n\n".join(dijelovi)
 
 
-def _filtar(kljuc):
+def _filtar(kljuc, tip=""):
     """Kako to podesiti u Brevu, recenicom koja se moze prepisati."""
+    uz_tip = f' I TIP jednako "{tip}"' if tip else ""
     if kljuc[0] == "drzavna":
-        return "svi u listi (državna stipendija vrijedi za cijelu Hrvatsku)"
+        return ("svi u listi (državna stipendija vrijedi za cijelu Hrvatsku)"
+                if not tip else f'TIP jednako "{tip}" (državna stipendija '
+                                f'vrijedi za cijelu Hrvatsku)')
     _, zup, s_gradom = kljuc
     if s_gradom is None:
-        return f'ZUPANIJA jednako "{zup}"  — i ništa drugo'
+        return f'ZUPANIJA jednako "{zup}"{uz_tip}  — i ništa drugo'
     return (f'ZUPANIJA jednako "{zup}" I GRAD '
-            + ("nije prazan" if s_gradom else "je prazan"))
+            + ("nije prazan" if s_gradom else "je prazan") + uz_tip)
 
 
 def _blok_vec_javljeno(ponovljeni):
