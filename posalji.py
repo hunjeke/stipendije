@@ -45,9 +45,10 @@ API = "https://api.brevo.com/v3"
 # jedno slovo razlike zaustavi cijelo slanje. ID se u Brevu vidi u adresi
 # liste i ne mijenja se kad se lista preimenuje.
 LISTA_ID = os.environ.get("BREVO_LISTA_ID", "").strip()
-LISTA = os.environ.get("BREVO_LISTA", "Obavijesti")
+LISTA = os.environ.get("BREVO_LISTA") or "Obavijesti"
 POSILJATELJ = {"name": "Stipendije.hr",
-               "email": os.environ.get("BREVO_FROM", "obavijesti@stipendije.hr")}
+               "email": (os.environ.get("BREVO_FROM")
+                         or "obavijesti@stipendije.hr")}
 # Obrazac za promjenu postavki (EMAIL + GRAD). Bez njega {{ update_profile }}
 # vodi na Brevov standardni obrazac u kojem nema polja za grad.
 OBRAZAC_ID = int(os.environ.get("BREVO_UPDATE_FORM_ID", "0") or 0)
@@ -287,7 +288,7 @@ def posalji_grupu(kljuc, grupa, salji):
 
     lista = zovi("/contacts/lists", "POST",
                  {"name": ime[:50], "folderId": int(os.environ.get(
-                     "BREVO_FOLDER_ID", "1"))})
+                     "BREVO_FOLDER_ID") or "1")})
     lista_id = lista["id"]
     try:
         emailovi = [c["email"] for c in grupa["ljudi"]]
