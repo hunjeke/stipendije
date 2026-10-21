@@ -232,6 +232,15 @@ def _skupina(z):
     })
 
 
+def _stem(z):
+    """Je li ovo drzavna stipendija za STEM podrucja."""
+    naslov = bez_kvacica(z.get("naslov") or "").lower()
+    if re.search(r"\bstem\b", naslov):
+        return True
+    spoj = " ".join((z.get(k) or "") for k in ("url", "poveznica")).lower()
+    return "stem-podrucjima" in spoj or "stem-podrucja" in spoj
+
+
 def _drzavna(z):
     """Je li ovo drzavna stipendija — socio-ekonomska ili STEM.
 
@@ -273,7 +282,15 @@ def _kome(z):
     zup = (z.get("zupanija") or "").strip()
 
     if pod.lower() == SVIMA:
-        return ("svi",) if (SIROKI_SVIMA and _drzavna(z)) else None
+        if not (SIROKI_SVIMA and _drzavna(z)):
+            return None
+        # Drzavne stipendije su dvije i ne ticu se istih ljudi. Na
+        # socio-ekonomsku se moze prijaviti svaki student koji zadovolji
+        # prihodovni uvjet — nju ima smisla poslati svima. STEM moze
+        # prijaviti samo tko je na STEM studiju, a toga nema u obrascu, pa
+        # bi mail otisao i svima koji na njega nemaju pravo. Ona ide na
+        # kanal, ne na mail.
+        return None if _stem(z) else ("svi",)
 
     # Grad Zagreb nema nadredenu zupaniju; podrucje mu je ujedno i odabir
     # u obrascu, pa ide kao zupanija.
