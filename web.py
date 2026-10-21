@@ -1317,7 +1317,22 @@ def main():
                            slug_natjecaja, stranica as stranica_natjecaja)
     from stranice import slug as _slug_zup
     arhiv = ucitaj_arhiv()
-    novih_natjecaja = azuriraj(arhiv, otvorene)
+    # Opisne stranice ministarstva ne ulaze u arhiv. Takav zapis nije
+    # natjecaj nego stranica koja opisuje postupak, a rok koji se s nje
+    # procita je rok MINISTRU da poziv raspise — ne rok za prijavu. Jednom
+    # u arhivu, dobio bi vlastitu stranicu s tim datumom i otisao u sitemap:
+    # stipendije.hr bi tvrdio da je rok za STEM 25.10., a stvarni je 11.11.
+    novih_natjecaja = azuriraj(
+        arhiv, [t for t in otvorene if not opisna_stranica(t[0])])
+    # Zapis koji je u arhiv usao prije ove provjere treba i izbaciti,
+    # zajedno s vec napisanom stranicom — inace ostaje stajati na svojoj
+    # adresi i poslije builda.
+    for s in [s for s, z in arhiv.items() if opisna_stranica(z)]:
+        stara = os.path.join(MAPA, "natjecaj", f"{arhiv[s].get('slug') or s}.html")
+        if os.path.exists(stara):
+            os.remove(stara)
+            print(f"  maknuta stranica opisne stranice: {os.path.basename(stara)}")
+        del arhiv[s]
     spremi_arhiv(arhiv)
 
     # adresa vlastite stranice po kljucu zapisa iz output.json
