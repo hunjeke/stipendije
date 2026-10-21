@@ -427,9 +427,30 @@ def posalji_grupu(kljuc, grupa, salji):
     lista_id = lista["id"]
     try:
         emailovi = [c["email"] for c in grupa["ljudi"]]
+        # Brevo na "add" vraca uspjele i neuspjele adrese, a dosad se odgovor
+        # nije ni gledao. Kad bi sve adrese pale, lista bi ostala prazna i
+        # pucalo bi tek stvaranje kampanje — porukom koja ne kaze ni koja je
+        # skupina ni koja adresa. Jedan takav kontakt zaustavio je cijelo
+        # pokretanje na 20. od 39 kampanja.
+        uspjelo, palo = 0, []
         for i in range(0, len(emailovi), 150):
-            zovi(f"/contacts/lists/{lista_id}/contacts/add", "POST",
-                 {"emails": emailovi[i:i + 150]})
+            dio = emailovi[i:i + 150]
+            odg = zovi(f"/contacts/lists/{lista_id}/contacts/add", "POST",
+                       {"emails": dio}, tiho=True)
+            k = (odg or {}).get("contacts") or {}
+            ok = k.get("success")
+            ne = k.get("failure")
+            # Stariji odgovor nema razradu; tada se vjeruje statusu poziva.
+            uspjelo += len(ok) if ok is not None else (len(dio) if odg else 0)
+            palo += list(ne or ([] if odg else dio))
+        if palo:
+            print(f"      Brevo nije primio {len(palo)} "
+                  f"{_oblik(len(palo), 'adresu', 'adrese', 'adresa')}: "
+                  + ", ".join(str(x) for x in palo[:5])
+                  + (" …" if len(palo) > 5 else ""))
+        if not uspjelo:
+            zovi(f"/contacts/lists/{lista_id}", "DELETE", tiho=True)
+            return None, None
 
         kampanja = {"name": ime, "subject": predmet, "sender": POSILJATELJ,
                     "htmlContent": html,
@@ -446,7 +467,50 @@ def posalji_grupu(kljuc, grupa, salji):
 
 
 # ---------------------------------------------------------------- main ----
+def pocisti():
+    """Obrise sve [auto] nacrte i privremene liste iz Brevoa.
+
+    Kad pokretanje stane na pola, u Brevu ostanu nacrti i liste od
+    dovrsenih skupina. Iduce pokretanje ih ne prepoznaje nego radi nove, pa
+    se u sucelju gomilaju dvostruke kampanje s istim imenom. Ovo pocisti
+    sve sto je skripta napravila, a nista drugo — gleda se predmetak
+    "[auto] " koji rucno napravljena kampanja nema."""
+    obrisano_k = obrisano_l = 0
+    offset = 0
+    while True:
+        d = zovi(f"/emailCampaigns?status=draft&limit=50&offset={offset}",
+                 tiho=True) or {}
+        kampanje = d.get("campaigns") or []
+        for k in kampanje:
+            if (k.get("name") or "").startswith("[auto] "):
+                zovi(f"/emailCampaigns/{k['id']}", "DELETE", tiho=True)
+                obrisano_k += 1
+        if len(kampanje) < 50:
+            break
+        offset += 50
+
+    offset = 0
+    liste = []
+    while True:
+        d = zovi(f"/contacts/lists?limit=50&offset={offset}", tiho=True) or {}
+        dio = d.get("lists") or []
+        liste += [l for l in dio if (l.get("name") or "").startswith("[auto] ")]
+        if len(dio) < 50:
+            break
+        offset += 50
+    for l in liste:
+        zovi(f"/contacts/lists/{l['id']}", "DELETE", tiho=True)
+        obrisano_l += 1
+
+    print(f"Obrisano: {obrisano_k} "
+          f"{_oblik(obrisano_k, 'nacrt', 'nacrta', 'nacrta')} i "
+          f"{obrisano_l} {_oblik(obrisano_l, 'lista', 'liste', 'lista')}.")
+
+
 def main():
+    if "--pocisti" in sys.argv:
+        pocisti()
+        return
     nacrt = "--nacrt" in sys.argv
     salji = "--salji" in sys.argv
     proba = not (nacrt or salji)
@@ -523,22 +587,37 @@ def main():
                   f"{_osoba(len(grupe[k]['ljudi']))})")
         print("  Pokreni isti način sutra — poslano.json pamti što je otišlo.")
 
-    napravljeno = []
+    napravljeno, preskoceno = [], []
     for k in stane:
         kid, lid = posalji_grupu(k, grupe[k], salji)
+        if kid is None:
+            preskoceno.append(k)
+            print(f"  PRESKOČENO  {ime_skupine(k):44} "
+                  f"Brevo nije primio nijednu adresu")
+            continue
         napravljeno.append((ime_skupine(k), kid, lid))
         print(f"  {'poslano' if salji else 'nacrt  '}  "
               f"{ime_skupine(k):44} kampanja {kid}")
         time.sleep(1)
+
+    if preskoceno:
+        print(f"\n  {len(preskoceno)} "
+              f"{_oblik(len(preskoceno), 'skupina nije dobila', 'skupine nisu dobile', 'skupina nije dobilo')}"
+              f" poruku jer im Brevo nije primio adrese:")
+        for k in preskoceno:
+            for c in grupe[k]["ljudi"]:
+                print(f"    - {ime_skupine(k)}: {c['email']}")
+        print("  Provjeri te kontakte u Brevu (Contacts → traži adresu). "
+              "Natječaji im NISU zabilježeni kao poslani, pa idu idući put.")
 
     if salji:
         # Natjecaj se smije oznaciti poslanim tek kad je otisao SVIMA kojih
         # se tice. Isti natjecaj zna biti u vise skupina; ako je jedna
         # odgodena, slug ceka — inace bi ga sutrasnje pokretanje preskocilo
         # i ti ljudi ga ne bi dobili nikad.
-        ceka = {z.get("slug") for k in odgodeno
+        ceka = {z.get("slug") for k in odgodeno + preskoceno
                 for z in grupe[k]["zapisi"] if z.get("slug")}
-        otislo = {z.get("slug") for k in stane
+        otislo = {z.get("slug") for k in stane if k not in preskoceno
                   for z in grupe[k]["zapisi"] if z.get("slug")} - ceka
         slugovi = sorted(otislo | set(poslano) | set(ponovljeni))
         json.dump({"slugovi": slugovi}, open(POSLANO, "w", encoding="utf-8"),
