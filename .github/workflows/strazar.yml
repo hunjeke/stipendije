@@ -1,72 +1,55 @@
-name: Stražar — državna stipendija
+name: Straža
 
-# Redovna provjera ide ponedjeljkom i četvrtkom. Za državnu stipendiju to je
-# premalo: ministarstvo je zna objaviti u utorak poslijepodne, a rok je kratak.
-# Ovaj posao gleda samo dvije stranice ministarstva, pet puta na radni dan.
+# Javi se čim se natječaj pojavi na izvoru koji čekamo.
 #
-# Ne troši Claude API — samo dohvati tekst stranice i potraži u njemu natječaj
-# za tekuću akademsku godinu. Kad nađe, otvori obavijest i sam pokrene punu
-# provjeru, pa se stranica prebaci bez čekanja na tebe.
+# Redovni scrape ide ponedjeljkom i četvrtkom, a poziv može izaći u
+# utorak. Ovo ide svakog jutra, ne troši model i ne dira stranicu —
+# samo pogleda izvor i otvori issue. GitHub o novom issueu šalje mail.
 
 on:
   schedule:
-    # Svakih pola sata, 06:00–15:30 UTC = 08:00–17:30 po hrvatskom ljetnom
-    # vremenu (zimi sat ranije). Dvadeset provjera po radnom danu.
-    #
-    # Zašto pola sata, a ne češće: GitHub odgađa česte cronove kad je
-    # opterećen, pa stvarni dobitak ispod toga nije pouzdan. Ovako je
-    # najgore kašnjenje oko 40 minuta.
-    # Minute 7 i 37 umjesto 0 i 30: na punoj i poloj uri GitHub ima najdulji
-    # red za zakazane poslove, pa posao zna kasniti ili biti preskocen.
-    - cron: '7,37 6-15 * * 1-5'
+    - cron: "40 5 * * *"      # svaki dan u 7:40 po hrvatskom (6:40 ljeti UTC+2)
   workflow_dispatch:
 
 permissions:
   contents: write
   issues: write
-  actions: write        # da može pokrenuti „Provjera stipendija”
 
 jobs:
-  strazari:
+  straza:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
-      - name: Preuzmi kod
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Postavi Python
-        uses: actions/setup-python@v5
+      - uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
+          python-version: "3.11"
 
-      # scraper.py se uvozi zbog dohvata stranice. Claude API se ne dira,
-      # pa paket anthropic ne treba — uvoz ga preskače ako ga nema.
-      - name: Instaliraj pakete
+      - name: Instaliraj knjižnice
         run: pip install requests beautifulsoup4
 
-      - name: Pogledaj stranice ministarstva
-        id: strazar
-        run: python strazar.py
+      - name: Pogledaj izvore
+        id: straza
+        continue-on-error: true
+        run: python straza.py
 
-      - name: Zapamti što je javljeno
-        if: always()
-        run: |
-          git config user.name "github-actions"
-          git config user.email "actions@github.com"
-          git add strazar.json || true
-          git diff --staged --quiet || git commit -m "Stražar $(date +'%d.%m.%Y %H:%M')"
-          git push || true
-
-      - name: Javi da je natječaj možda izašao
-        if: steps.strazar.outputs.naslo != '0' && steps.strazar.outputs.naslo != ''
+      # Issue se otvara samo kad straza nesto nade. GitHub o njemu salje
+      # mail vlasniku repozitorija — zato se ne treba nista dodatno slati.
+      - name: Javi
+        if: steps.straza.outcome == 'failure'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gh issue create \
-            --title "DRŽAVNA STIPENDIJA — moguća objava ($(date +'%d.%m.%Y %H:%M'))" \
-            --body-file strazar.md
+            --title "Straža: provjeri izvor ($(date +'%d.%m.%Y'))" \
+            --body-file straza.md
 
-      - name: Pokreni punu provjeru
-        if: steps.strazar.outputs.naslo != '0' && steps.strazar.outputs.naslo != ''
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh workflow run "Provjera stipendija" || true
+      # Otisak stranice se pamti da se ista promjena ne javlja svaki dan.
+      - name: Zapamti stanje
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add .straza.json
+          git diff --cached --quiet || git commit -m "straža: stanje izvora"
+          git push
