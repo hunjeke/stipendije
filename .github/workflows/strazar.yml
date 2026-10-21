@@ -1,14 +1,18 @@
-name: Straža
+name: Stražar
 
-# Javi se čim se natječaj pojavi na izvoru koji čekamo.
+# Gleda izlazi li natječaj za državnu stipendiju — socio-ekonomsku i STEM.
 #
-# Redovni scrape ide ponedjeljkom i četvrtkom, a poziv može izaći u
-# utorak. Ovo ide svakog jutra, ne troši model i ne dira stranicu —
-# samo pogleda izvor i otvori issue. GitHub o novom issueu šalje mail.
+# Redovni scrape ide ponedjeljkom i četvrtkom. Ministarstvo zna objaviti u
+# utorak poslijepodne, a rok je kratak, pa bi se saznalo tek u četvrtak
+# ujutro. Ovo ide triput na dan, ne troši model i ne dira stranicu — samo
+# pogleda izvor i, ako nešto nađe, otvori issue. GitHub o novom issueu
+# šalje mail.
 
 on:
   schedule:
-    - cron: "40 5 * * *"      # svaki dan u 7:40 po hrvatskom (6:40 ljeti UTC+2)
+    - cron: "20 5 * * *"       # 7:20 po hrvatskom (ljeti UTC+2)
+    - cron: "20 10 * * *"      # 12:20
+    - cron: "20 15 * * *"      # 17:20
   workflow_dispatch:
 
 permissions:
@@ -16,7 +20,7 @@ permissions:
   issues: write
 
 jobs:
-  straza:
+  strazar:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -30,26 +34,26 @@ jobs:
         run: pip install requests beautifulsoup4
 
       - name: Pogledaj izvore
-        id: straza
-        continue-on-error: true
-        run: python straza.py
+        id: gledaj
+        run: python strazar.py
 
-      # Issue se otvara samo kad straza nesto nade. GitHub o njemu salje
-      # mail vlasniku repozitorija — zato se ne treba nista dodatno slati.
-      - name: Javi
-        if: steps.straza.outcome == 'failure'
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          gh issue create \
-            --title "Straža: provjeri izvor ($(date +'%d.%m.%Y'))" \
-            --body-file straza.md
-
-      # Otisak stranice se pamti da se ista promjena ne javlja svaki dan.
-      - name: Zapamti stanje
+      # Pamćenje mora preživjeti pokretanje — bez ovoga bi isti natječaj
+      # javljao svakih pet sati dok ga ne ugasiš.
+      - name: Zabilježi javljeno
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
-          git add .straza.json
-          git diff --cached --quiet || git commit -m "straža: stanje izvora"
-          git push
+          git add strazar.json
+          git diff --cached --quiet || {
+            git commit -m "stražar: javljeno $(date +%F)"
+            git push
+          }
+
+      - name: Otvori issue
+        if: steps.gledaj.outputs.naslo != '0'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh issue create \
+            --title "Moguća objava državne stipendije — $(date +%d.%m.)" \
+            --body-file strazar.md
