@@ -10,11 +10,11 @@ on:
   workflow_dispatch:
     inputs:
       nacin:
-        description: "proba (ništa se ne šalje) · nacrt (kampanje u Brevu) · salji"
+        description: "proba · nacrt · salji · pocisti (briše [auto] nacrte i liste)"
         required: true
         default: proba
         type: choice
-        options: [proba, nacrt, salji]
+        options: [proba, nacrt, salji, pocisti]
 
 jobs:
   posalji:
@@ -60,6 +60,7 @@ jobs:
             proba) python posalji.py ;;
             nacrt) python posalji.py --nacrt ;;
             salji) python posalji.py --salji ;;
+            pocisti) python posalji.py --pocisti ;;
           esac
 
       - name: Spremi predpreglede
