@@ -658,6 +658,33 @@ def je_drzavna(r):
                 and "rome" not in naslov and "romsk" not in naslov)
 
 
+def je_drzavna_stem(r):
+    """Je li ovo drzavna stipendija za STEM podrucja.
+
+    Drzavne su dvije i obje idu na vrh popisa — za obje se prijavljuju
+    desetci tisuca ljudi iz cijele zemlje, pa im rok u Sibeniku nije
+    konkurencija. Ali su DVIJE, s razlicitim iznosom, brojem i rokom.
+    Zato stoji odvojeno od je_drzavna(): ondje se po toj oznaci i spajaju
+    duplikati, pa bi zajednicka oznaka slila socio-ekonomsku i STEM u
+    jednu karticu — a to su dva natjecaja i dvije prijave.
+    """
+    from scraper import bez_kvacica
+    adrese = set()
+    try:
+        from stem import POVEZNICA as STEM_POZIV
+        if STEM_POZIV:
+            adrese.add(STEM_POZIV.rstrip("/"))
+    except Exception:
+        pass
+    for k in ("url", "poveznica_natjecaj"):
+        if (r.get(k) or "").strip().rstrip("/") in adrese:
+            return True
+    naslov = bez_kvacica(r.get("naslov_natjecaja") or "").lower()
+    return bool(re.search(r"\bstem\b", naslov)
+                and ("drzavne stipendije" in naslov
+                     or "drzavnih stipendija" in naslov))
+
+
 def ima_iznos(r):
     """Zna li se koliko stipendija nosi.
 
@@ -742,7 +769,8 @@ def kartica(r, otvorena, podrucje, zupanija, vlastita=None):
 
     if otvorena:
         znak = '<span class="status otv" data-znak>Otvoreno</span>'
-        klasa = "k otv prvo" if je_drzavna(r) else "k otv"
+        klasa = ("k otv prvo" if (je_drzavna(r) or je_drzavna_stem(r))
+                 else "k otv")
     else:
         znak = '<span class="status zat">Zatvoreno</span>'
         klasa = "k"
@@ -1375,7 +1403,8 @@ def main():
     # najhitniji prvi, ali drzavna stipendija ispred svih dok je otvorena
     # Redoslijed: drzavna uvijek prva, pa natjecaji s poznatim iznosom, pa
     # oni bez njega. Unutar svake skupine po hitnosti roka.
-    otvorene.sort(key=lambda t: (0 if je_drzavna(t[0]) else 1,
+    otvorene.sort(key=lambda t: (0 if (je_drzavna(t[0])
+                                      or je_drzavna_stem(t[0])) else 1,
                                  0 if ima_iznos(t[0]) else 1,
                                  iso_rok(t[0].get("status") or "") or "9999",
                                  t[0].get("naziv") or ""))
