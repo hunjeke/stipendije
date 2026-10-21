@@ -131,6 +131,9 @@ def kontakti(list_id):
                 "email": c["email"],
                 "zupanija": (a.get("ZUPANIJA") or "").strip(),
                 "grad": (a.get("GRAD") or "").strip(),
+                # "ucenik" / "student", onako kako obrazac upisuje. Prazno
+                # kod starih prijava — tada covjek dobiva i jedno i drugo.
+                "tip": (a.get("TIP") or "").strip().lower(),
             })
         offset += 500
         if len(dio) < 500:
@@ -138,13 +141,30 @@ def kontakti(list_id):
 
 
 # ------------------------------------------------------------ publika ----
+def _za_tip(z, tip):
+    """Tice li se natjecaj onoga sto je covjek upisao u obrascu.
+
+    Prije se dijelilo samo po mjestu, pa je student dobivao i natjecaje s
+    oznakom "samo za ucenike". To nije bila greska u podatku nego mail koji
+    se ne tice primatelja — a takav mail sljedeci put nitko ne otvori.
+
+    Prazan tip (prijave starije od polja TIP) dobiva sve: bolje previse
+    nego sakriti natjecaj covjeku koji na njega ima pravo."""
+    if not tip:
+        return True
+    return _skupina(z) in (tip, "oba")
+
+
 def razvrstaj_po_ljudima(zapisi, ljudi):
     """{kljuc: {"ljudi": [...], "zapisi": [...]}} — jedna poruka po skupini.
 
     Kljucevi:
-      ("drzavna",)                 drzavna stipendija, svi
-      ("mjesto", zupanija, grad)   tko je upisao grad
-      ("zupanija", zupanija)       tko nije upisao grad
+      ("drzavna", tip)                  drzavna stipendija
+      ("mjesto", zupanija, grad, tip)   tko je upisao grad
+      ("zupanija", zupanija, tip)       tko nije upisao grad
+
+    Tip je dio kljuca, ne samo filtar: ucenik i student iz iste zupanije
+    dobivaju razlicite popise, pa to ne moze biti ista poruka.
     """
     drzavne, zupanijski, gradski = [], {}, {}
     for z in zapisi:
@@ -159,21 +179,27 @@ def razvrstaj_po_ljudima(zapisi, ljudi):
             gradski.setdefault(k[2], {}).setdefault(k[1], []).append(z)
 
     grupe = {}
-    if drzavne:
-        grupe[("drzavna",)] = {"ljudi": list(ljudi), "zapisi": drzavne}
+    for c in ljudi:
+        tip = c.get("tip", "")
+        moje_drzavne = [z for z in drzavne if _za_tip(z, tip)]
+        if moje_drzavne:
+            g = grupe.setdefault(("drzavna", tip),
+                                 {"ljudi": [], "zapisi": moje_drzavne})
+            g["ljudi"].append(c)
 
     for c in ljudi:
-        zup, grad = c["zupanija"], c["grad"]
+        zup, grad, tip = c["zupanija"], c["grad"], c.get("tip", "")
         if not zup:
             continue
         if grad:
             moji = zupanijski.get(zup, []) + gradski.get(zup, {}).get(grad, [])
-            kljuc = ("mjesto", zup, grad)
+            kljuc = ("mjesto", zup, grad, tip)
         else:
             moji = list(zupanijski.get(zup, []))
             for g in sorted(gradski.get(zup, {})):
                 moji += gradski[zup][g]
-            kljuc = ("zupanija", zup)
+            kljuc = ("zupanija", zup, tip)
+        moji = [z for z in moji if _za_tip(z, tip)]
         if not moji:
             continue
         g = grupe.setdefault(kljuc, {"ljudi": [], "zapisi": moji})
@@ -201,15 +227,70 @@ def _natjecaj(n):
     return _oblik(n, "natječaj", "natječaja", "natječaja")
 
 
-def ime_skupine(k):
+_TIP_IME = {"ucenik": "učenici", "student": "studenti", "": "bez upisanog tipa"}
+_TIP_KRATKO = {"ucenik": "učenici", "student": "studenti", "": "svi"}
+
+
+def kratko_ime(k):
+    """Ime privremene liste i kampanje u Brevu.
+
+    Brevo rezuce naziv liste na 50 znakova, a kampanje na 60. Puno ime
+    skupine ("Koprivnicko-krizevacka zupanija — bez upisanog mjesta,
+    studenti") tu se prelomi na pola, pa su se tri skupine iste zupanije u
+    sucelju zvale isto i nije se vidjelo koja je cija. Zato ovdje stoji
+    kratko ime: ono po cemu se skupine razlikuju — mjesto i tip — a rijec
+    "zupanija" otpada jer je u svakom nazivu ista."""
+    tip = _TIP_KRATKO.get(k[-1], k[-1])
     if k[0] == "drzavna":
-        return "Svi pretplatnici — državna stipendija"
+        return f"Državna · {tip}"
+    zup = k[1].replace(" županija", "").replace("Grad ", "")
+    # Tip ide prije zupanije: kad Brevo rezuce naziv, mjesto i tip su ono
+    # po cemu se skupine razlikuju, a zupanija se iz mjesta ionako zna.
     if k[0] == "mjesto":
-        return f"{k[2]} ({k[1]})"
-    return f"{k[1]} — bez upisanog mjesta"
+        # Dvojezicna istarska imena idu i do 38 znakova
+        # ("Kastelir-Labinci-Castelliere-S. Domenica") i sama pojedu cijeli
+        # naziv, pa tri skupine tog mjesta u Brevu izgledaju isto.
+        mjesto = k[2] if len(k[2]) <= 24 else k[2][:23] + "…"
+        return f"{mjesto} · {tip} ({zup})"
+    return f"{zup} · {tip}"
+
+
+def ime_skupine(k):
+    tip = _TIP_IME.get(k[-1], k[-1])
+    if k[0] == "drzavna":
+        return f"Državna stipendija — {tip}"
+    if k[0] == "mjesto":
+        return f"{k[2]} ({k[1]}) — {tip}"
+    return f"{k[1]} — bez upisanog mjesta, {tip}"
 
 
 # -------------------------------------------------------------- poruka ----
+# Zaglavlje u mailu — ista slika koja stoji u Brevovoj poruci za potvrdu
+# prijave (docs/zaglavlje.png, 1200x260, prikazuje se na najvise 520 px).
+#
+# Slika je u tamnoj traci s bijelim natpisom, a ne tamni natpis na bijelom.
+# Razlog: Gmail u tamnom nacinu pozadinu poruke zacrni, a tekst ostavi
+# tamnim — i natpis nestane. Slika nosi svoju pozadinu, pa izgleda isto u
+# oba nacina.
+#
+# Celija iza slike ima istu boju kao i slika. To nije ukras: vecina
+# klijenata ne prikaze slike dok ih covjek ne odobri, pa kad slike nema,
+# ostaje traka s bijelim zamjenskim natpisom umjesto prazne rupe.
+ZAGLAVLJE_SLIKA = "https://stipendije.hr/zaglavlje.png"
+
+ZNAK = f"""  <table role="presentation" width="100%" cellpadding="0" cellspacing="0"
+         border="0" style="border-collapse:collapse;background:#141b2d;
+         border-radius:6px;margin:0 0 26px">
+    <tr><td style="padding:0;line-height:0;font-size:0">
+      <a href="https://stipendije.hr" style="text-decoration:none">
+        <img src="{ZAGLAVLJE_SLIKA}" alt="Stipendije.hr" width="520"
+             style="display:block;width:100%;max-width:520px;height:auto;
+             border:0;outline:none;text-decoration:none;border-radius:6px;
+             font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,
+             Arial,sans-serif;font-size:22px;font-weight:700;line-height:66px;
+             color:#ffffff;padding-left:20px"></a>
+    </td></tr>
+  </table>"""
 _URL = re.compile(r"https?://[^\s<>]+")
 
 
@@ -248,22 +329,25 @@ def predmet_i_html(kljuc, zapisi):
     Kljucevi se razlikuju jer razvrstaj_po_ljudima dijeli po stvarnim
     pretplatnicima, a novosti.py po skupinama na koje se postavlja
     filtar u Brevu. Prevodi se ovdje."""
+    tip = kljuc[-1]
     if kljuc[0] == "drzavna":
         nk = ("drzavna",)
     elif kljuc[0] == "mjesto":
         nk = ("zup", kljuc[1], True)     # ima upisano mjesto
     else:
         nk = ("zup", kljuc[1], None)     # nema, dobiva cijelu zupaniju
-    predmet, tekst = _poruka(zapisi, nk)
+    predmet, tekst = _poruka(zapisi, nk, tip)
 
     tijelo = "".join(_odlomak(p) for p in tekst.split("\n\n") if p.strip())
     html = f"""<!doctype html>
 <html lang="hr"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1"></head>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="supported-color-schemes" content="light dark"></head>
 <body style="margin:0;background:#f7f8fa;font-family:-apple-system,
  BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;color:#141b2d">
 <div style="max-width:560px;margin:0 auto;padding:28px 20px">
-  <p style="margin:0 0 24px;font-size:15px;font-weight:700">Stipendije.hr</p>
+{ZNAK}
   <div style="font-size:15px;line-height:1.55">{tijelo}</div>
   <hr style="border:none;border-top:1px solid #e2e5ec;margin:28px 0 14px">
   <p style="margin:0;font-size:12px;color:#6b7280">
@@ -283,8 +367,8 @@ def posalji_grupu(kljuc, grupa, salji):
     Privremena lista postoji zato sto filtar u kampanji ne zna "samo ovaj
     grad". Brise se i kad slanje pukne, da se ne gomilaju u sucelju."""
     predmet, html = predmet_i_html(kljuc, grupa["zapisi"])
-    oznaka = date.today().isoformat()
-    ime = f"[auto] {oznaka} {ime_skupine(kljuc)}"[:60]
+    oznaka = date.today().strftime("%d.%m.")
+    ime = f"[auto] {kratko_ime(kljuc)} {oznaka}"[:60]
 
     lista = zovi("/contacts/lists", "POST",
                  {"name": ime[:50], "folderId": int(os.environ.get(
