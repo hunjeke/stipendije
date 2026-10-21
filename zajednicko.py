@@ -248,7 +248,19 @@ _DATUM_U_TEKSTU = re.compile(
     r"|(\d{1,2})\.\s*(\d{1,2})\.\s*(\d{4})", re.I)
 
 # "za učenike srednjih škola", "za studente" — oznaka skupine iza datuma.
-_ZA_SKUPINU = re.compile(r"^[\s,;:.–—-]*za\s+([a-zčćšđžA-ZČĆŠĐŽ][^;,.\n]{2,34})")
+# Znamenke su izvan oznake: bez toga "15.11. za studente i 31.10. za učenike"
+# daje oznaku "studente i 31", jer se hvatalo sve do prve tocke.
+_ZA_SKUPINU = re.compile(
+    r"^[\s,;:.–—-]*za\s+([a-zčćšđžA-ZČĆŠĐŽ][^;,.\n\d]{2,34})")
+
+# Veznik kojim recenica prelazi na sljedeci rok ostaje visjeti na kraju
+# oznake ("učenike srednjih škola te do"). Skida se s kraja, koliko ih ima.
+_VEZNIK_NA_KRAJU = re.compile(
+    r"(?:\s+(?:i|te|a|pa|do|od|zaključno|najkasnije))+\s*$", re.I)
+
+
+def _ocisti_oznaku(s):
+    return _VEZNIK_NA_KRAJU.sub("", s.strip().rstrip(".")).strip()
 
 
 def rokovi_po_skupinama(rok_tekst):
@@ -296,7 +308,10 @@ def rokovi_po_skupinama(rok_tekst):
         m = _ZA_SKUPINU.match(rep)
         if not m:
             return []
-        out.append((iso, vrijeme, "za " + m.group(1).strip().rstrip(".")))
+        oznaka = _ocisti_oznaku(m.group(1))
+        if not oznaka:
+            return []
+        out.append((iso, vrijeme, "za " + oznaka))
 
     # Dva roka za istu skupinu nisu rokovi po skupinama nego raspon.
     if len({o for _, _, o in out}) < len(out):
