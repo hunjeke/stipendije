@@ -1,142 +1,389 @@
 # -*- coding: utf-8 -*-
 """
-straza.py — javi se čim se natječaj pojavi na izvoru koji čekamo
+strazar.py — gleda izlazi li natjecaj za drzavnu stipendiju
 
-Zasto postoji. Stranica o STEM stipendijama tvrdi da javni poziv jos nije
-raspisan. To je tocno dok je tocno — a ministar ga po pravilniku mora
-raspisati do 25. listopada. Onog trenutka kad izade, a stranica i dalje
-tvrdi suprotno, ta se tvrdnja prenosi dalje: stipendije.hr vec citiraju
-i AI trazilice, uz Ministarstvo i Sveuciliste. Kriva tvrdnja onda ne
-steti samo nama nego ljudima kojima tada tece rok.
+Redovna provjera ide ponedjeljkom i cetvrtkom. Za drzavnu stipendiju to je
+premalo: ministarstvo je zna objaviti u utorak poslijepodne, a rok je kratak,
+pa bi se za nju saznalo tek u cetvrtak ujutro — dva dana kasnije, a to su
+dva dana od petnaest.
 
-Redovni scrape ide ponedjeljkom i cetvrtkom. Poziv moze izaci u utorak.
-Zato ova straza ide svaki dan, ne trosi model i ne dira stranicu — samo
-dohvati stranicu izvora i javi.
+Ova skripta zato gleda samo dvije stranice ministarstva, nekoliko puta na dan.
+Ne koristi Claude API — samo dohvati tekst i potrazi u njemu natjecaj za
+tekucu akademsku godinu. Zato je jeftina koliko i obican posjet stranici.
 
-Javlja se u dva slucaja:
-  1. na stranici se pojavi tekst koji izgleda kao poziv za ovu godinu
-  2. stranica se promijenila otkad smo je zadnji put gledali
+Radije lazna uzbuna nego propusten natjecaj: ako nesto samo lici na objavu,
+javlja. Pogledati i vidjeti da nije nista kosta minutu; propustiti objavu
+kosta cijeli dogadaj.
 
-Drugi slucaj postoji jer ne znamo kako ce poziv biti nazvan. Ministarstvo
-ga zna objaviti kao "Javni poziv", "Natjecaj" ili samo kao poveznicu na
-PDF. Promjena stranice je grublji znak, ali ne propusta.
+Kad nesto nade, ne stane na dojavi: otvori stranicu natjecaja, izvuce rok,
+iznos i broj stipendija, i napise gotove tekstove — poruku za kanal i mail
+pretplatnicima — s vec upisanim brojkama. Ti ih samo pogledas i posaljes.
+Sto nije uspjelo procitati ostavlja kao {ROK} ili {IZNOS}, da se vidi da
+tu treba upisati rukom, umjesto da ponudi brojku u koju se ne moze vjerovati.
 
-Stanje se pamti u .straza.json i mijenja se tek kad covjek potvrdi da je
-vidio — inace bi prva promjena ugasila stražu.
+Pokretanje:
+    python strazar.py           provjeri i javi ako ima novo
+    python strazar.py --reset   zaboravi sto je vec javljeno
 """
-import hashlib
 import json
 import os
 import re
 import sys
+from urllib.parse import urljoin
 
-import requests
-from bs4 import BeautifulSoup
+from scraper import fetch_content, bez_kvacica, parse_hr_date
 
-STANJE = ".straza.json"
-IZVJESTAJ = "straza.md"
-
-# Sto se gleda. (kljuc, naziv, adresa, godina koja znaci "ovogodisnji")
-STRAZE = [
-    ("stem", "STEM stipendije",
-     "https://mzom.gov.hr/drzavne-stipendije-za-studente-u-stem-podrucjima-znanosti/1562",
-     "2026"),
+# Stranice koje se gledaju.
+#
+# Drzavnih stipendija su DVIJE, ne jedna, i raspisuju se odvojeno:
+#   - na temelju socio-ekonomskoga statusa (kategorije D-1, E, P),
+#     natjecaj se po pravilniku raspisuje do 15. listopada
+#   - u STEM podrucjima znanosti, javni poziv ministar raspisuje
+#     do 25. listopada
+# Prva verzija strazara pratila je samo socio-ekonomsku i opci popis, pa bi
+# STEM poziv prosao neprimijeceno ako ne osvane i na popisu natjecaja.
+STRANICE = [
+    ("Drzavne stipendije (socio-ekonomski status)",
+     "https://mzom.gov.hr/istaknute-teme/odgoj-i-obrazovanje/visoko-obrazovanje/"
+     "drzavne-stipendije/drzavne-stipendije-za-studente-nizega-socio-"
+     "ekonomskoga-statusa/1563"),
+    ("Drzavne stipendije (STEM)",
+     "https://mzom.gov.hr/istaknute-teme/odgoj-i-obrazovanje/visoko-obrazovanje/"
+     "drzavne-stipendije/drzavne-stipendije-za-studente-u-stem-podrucjima-"
+     "znanosti/1562"),
+    ("Svi natjecaji ministarstva",
+     "https://mzom.gov.hr/natjecaji-196/196"),
 ]
 
-ZAGLAVLJE = {"User-Agent": "stipendije.hr straza (+https://stipendije.hr)"}
+# Sto je o ovoj akademskoj godini vec objavljeno, s datumom izvora. Stoji u
+# izvjestaju da ne moras svaki put kopati po ministarstvu. Vezano je uz
+# godinu, pa sljedece jeseni samo nestane umjesto da zavarava.
+POZNATO = {
+    2026: [
+        "Socio-ekonomske: 200,00 EUR mjesečno, devet mjeseci. Natječaj se "
+        "po pravilniku raspisuje do 15. listopada.",
+        "STEM: 1500 stipendija, za razdoblje od listopada 2026. do lipnja "
+        "2027. (Odluka ministra od 9. rujna 2026., objavljena 23. rujna). "
+        "Javni poziv se raspisuje do 25. listopada. Iznos nije u Odluci — "
+        "piše u javnom pozivu.",
+    ],
+}
+
+PAMCENJE = "strazar.json"
+
+# Akademska godina se pise na vise nacina; svi se svode na isto.
+GODINA = re.compile(r"20(\d\d)\s*\.?\s*/\s*\.?\s*20(\d\d)")
 
 
-def tekst(url):
-    r = requests.get(url, headers=ZAGLAVLJE, timeout=30)
-    r.raise_for_status()
-    if "charset" not in (r.headers.get("Content-Type") or ""):
-        r.encoding = r.apparent_encoding or r.encoding
-    s = BeautifulSoup(r.text, "html.parser")
-    for t in s(["script", "style", "nav", "footer", "header"]):
-        t.decompose()
-    redovi = [x.strip() for x in s.get_text("\n").splitlines() if x.strip()]
-    return "\n".join(redovi), r.text
+def _godina_se_poklapa(s, od):
+    """Je li u tekstu akademska godina koja pocinje ove jeseni."""
+    for m in GODINA.finditer(s):
+        if int("20" + m.group(1)) == od:
+            return True
+    return False
 
 
-def poziv_za_godinu(cist, html, godina):
-    """Izgleda li na stranici da je poziv za trazenu godinu vec objavljen.
+def _pocetna_godina():
+    """Akademska godina koja je u tijeku ili tek krece.
 
-    Trazi se poveznica ili recenica koja spominje i poziv i obje godine
-    akademske godine. Lanjski poziv ima lanjske godine, pa ne upada."""
-    sljedeca = str(int(godina) + 1)
-    kandidati = []
+    Od sijecnja do lipnja jos traje ona koja je pocela lani, ali natjecaj
+    koji tad izade odnosi se na sljedecu. Granicu stavljamo na srpanj."""
+    from datetime import date
+    d = date.today()
+    return d.year if d.month >= 7 else d.year - 1
+
+
+def nalazi(tekst, od):
+    """Retci koji izgledaju kao objava natjecaja za akademsku godinu 'od'."""
+    pogoci = []
+    for red in tekst.splitlines():
+        r = bez_kvacica(red)
+        if "stipendij" not in r:
+            continue
+        if not ("natjecaj" in r or "javni poziv" in r or "prijave" in r):
+            continue
+        if not _godina_se_poklapa(red, od):
+            continue
+        red = red.strip()
+        if 10 < len(red) < 400:
+            pogoci.append(red)
+    return pogoci
+
+
+# --- citanje pojedinosti iz natjecaja -------------------------------------
+
+HR_MJESEC = ("sijecnja|veljace|ozujka|travnja|svibnja|lipnja|srpnja|kolovoza|"
+             "rujna|listopada|studenoga|prosinca")
+
+_ROK = [
+    re.compile(r"\brok\s*:?\s*(\d{1,2}\.\s*(?:" + HR_MJESEC + r")\s*\d{4}\.?"
+               r"(?:\s*(?:godine)?\s*do\s*\d{1,2}[.:]\d{2})?)", re.I),
+    re.compile(r"rok za (?:podno[sš]enje|predaju|prijavu)[^.]{0,80}?je\s*"
+               r"(\d{1,2}\.\s*(?:" + HR_MJESEC + r")\s*\d{4})", re.I),
+    re.compile(r"prijave[^.]{0,60}?do\s*(\d{1,2}\.\s*(?:" + HR_MJESEC + r")\s*\d{4})", re.I),
+]
+_IZNOS = re.compile(r"iznos[^.\n]{0,120}?(\d[\d.\s]*,?\d*)\s*(?:EUR|eura|€)", re.I)
+_BROJ = re.compile(r"(?:dodijelit [cć]e se|dodjeljuje se|natje[cč]aj za dodjelu)\s*"
+                   r"([\d][\d.\s]{0,9}\d|\d)\s*(?:\w+\s+){0,3}stipendij", re.I)
+
+
+def _cisto(s):
+    return re.sub(r"\s+", " ", (s or "")).strip(" .,;")
+
+
+def detalji(url):
+    """Izvuci rok, iznose i broj stipendija sa stranice natjecaja.
+
+    Vraca rjecnik s onim sto je naslo. Polje koje nije naslo naprosto
+    izostaje — bolje prazno mjesto u tekstu nego brojka iz krive recenice."""
+    tekst, _, _ = fetch_content(url, tiho=True)
+    if not tekst:
+        return {}
+    d = {}
+
+    for uzorak in _ROK:
+        m = uzorak.search(tekst)
+        if m:
+            d["rok_tekst"] = _cisto(m.group(1))
+            datum = parse_hr_date(d["rok_tekst"])
+            if datum:
+                d["rok_iso"] = datum.isoformat()
+            break
+
+    iznosi = []
+    for red in tekst.splitlines():
+        m = _IZNOS.search(red)
+        if m and len(red) < 320:
+            iznosi.append(_cisto(red))
+        if len(iznosi) >= 4:
+            break
+    if iznosi:
+        d["iznos_redci"] = iznosi
+
+    m = _BROJ.search(tekst)
+    if m:
+        d["broj"] = _cisto(m.group(1))
+    return d
+
+
+def _popuni(sablona, d):
+    """Zamijeni {ROK}, {IZNOS} i {BROJ} ako su procitani; inace ostavi oznaku."""
+    rok = d.get("rok_tekst")
+    broj = d.get("broj")
+    iznos = None
+    for red in d.get("iznos_redci") or []:
+        m = re.search(r"(\d[\d.\s]*,?\d*)\s*(?:EUR|eura|€)", red, re.I)
+        if m:
+            iznos = _cisto(m.group(1)) + " EUR"
+            break
+    return (sablona
+            .replace("{ROK}", rok or "{ROK}")
+            .replace("{IZNOS}", iznos or "{IZNOS}")
+            .replace("{BROJ}", broj or "{BROJ}"))
+
+
+KANAL = """Državne stipendije su izašle 🎓
+
+{BROJ} stipendija, {IZNOS} mjesečno.
+Rok za prijavu: {ROK}
+
+Prijava ide preko sustava VIDRA — vidra.srce.hr
+
+Sve što trebaš znati, uvjeti i upute:
+stipendije.hr/drzavna-stipendija.html
+
+Ne ostavljaj za zadnji dan. Potvrdu o upisu referade ne izdaju
+na licu mjesta."""
+
+MAIL_PREDMET = "Državne stipendije su izašle — rok {ROK}"
+
+MAIL = """Natječaj za državne stipendije je objavljen.
+
+{BROJ} stipendija · {IZNOS} mjesečno · rok {ROK}
+
+Prijava se predaje preko sustava VIDRA (vidra.srce.hr), elektronički.
+Papirnata prijava se ne prima.
+
+Uvjeti, bodovanje i popis dokumenata:
+https://stipendije.hr/drzavna-stipendija.html
+
+Dvije stvari zbog kojih ljudi propuste:
+— potvrda o upisu se ne izdaje na licu mjesta, zatraži je odmah
+— rok nije u ponoć ako natječaj kaže drugačije, provjeri sat
+
+Sve ostale otvorene stipendije: https://stipendije.hr
+
+Još nešto: ako odabereš svoj grad, javljamo ti i kad tvoj grad ili
+općina raspiše stipendiju — a takvih je kroz jesen daleko najviše.
+Traje deset sekundi, obrazac je već popunjen: {{ update_profile }}
+
+Ovo dobivaš jer si se prijavio na obavijesti za svoju županiju."""
+
+
+# STEM ima svoje uvjete i svoj sustav prijave, pa ide svojim tekstom.
+# Zajednicki tekst bi studentu STEM-a rekao krivu stvar o tome gdje se
+# prijavljuje, a to je jedina recenica zbog koje ce otvoriti poruku.
+KANAL_STEM = """Državne STEM stipendije su izašle 🎓
+
+{BROJ} stipendija, {IZNOS} mjesečno.
+Rok za prijavu: {ROK}
+
+Samo za studente STEM studija — popis studija je u pozivu.
+Prijava ide u Sustavu državnih stipendija.
+
+Sve što trebaš znati:
+stipendije.hr/drzavna-stipendija.html
+
+Provjeri je li tvoj studij na popisu prije nego kreneš."""
+
+MAIL_PREDMET_STEM = "Državne STEM stipendije su izašle — rok {ROK}"
+
+MAIL_STEM = """Javni poziv za državne stipendije u STEM područjima je objavljen.
+
+{BROJ} stipendija · {IZNOS} mjesečno · rok {ROK}
+
+Ovo je zasebna stipendija, odvojena od one na temelju socio-ekonomskoga
+statusa. Na nju se prijavljuju studenti STEM studija — popis studija koji
+se priznaju objavljen je uz poziv i na njemu nisu svi tehnički studiji.
+
+Prijava se predaje u Sustavu državnih stipendija, elektronički.
+
+Uvjeti i popis dokumenata:
+https://stipendije.hr/drzavna-stipendija.html
+
+Dvije stvari zbog kojih ljudi propuste:
+— provjeri je li tvoj studij na popisu, prije svega ostalog
+— potvrda o upisu se ne izdaje na licu mjesta, zatraži je odmah
+
+Sve ostale otvorene stipendije: https://stipendije.hr
+
+Još nešto: ako odabereš svoj grad, javljamo ti i kad tvoj grad ili
+općina raspiše stipendiju — a takvih je kroz jesen daleko najviše.
+Traje deset sekundi, obrazac je već popunjen: {{ update_profile }}
+
+Ovo dobivaš jer si se prijavio na obavijesti za svoju županiju."""
+
+
+def _je_stem(red):
+    return "stem" in bez_kvacica(red)
+
+
+def _veza_na_natjecaj(sirovi_html, baza, naslov):
+    """Poveznica iza naslova natjecaja na popisnoj stranici.
+
+    Popis ministarstva nosi samo naslove; rok i iznos su jedan klik dalje.
+    Trazi se poveznica ciji se tekst poklapa s naslovom koji smo nasli."""
+    if not sirovi_html:
+        return None
+    cilj = bez_kvacica(naslov)[:60]
     for m in re.finditer(r'<a[^>]+href=["\']([^"\']+)["\'][^>]*>(.*?)</a>',
-                         html, re.I | re.S):
-        spoj = (m.group(1) + " " + re.sub(r"<[^>]+>", " ", m.group(2))).lower()
-        if (("poziv" in spoj or "natjeca" in spoj)
-                and godina in spoj and sljedeca in spoj):
-            kandidati.append(m.group(1))
-    for red in cist.splitlines():
-        n = red.lower()
-        if (("javni poziv" in n or "natječaj" in n)
-                and godina in n and sljedeca in n):
-            kandidati.append(red[:160])
-    return kandidati[:5]
+                         sirovi_html, re.I | re.S):
+        href, tekst = m.group(1), re.sub(r"<[^>]+>", " ", m.group(2))
+        if href.lower().startswith(("#", "mailto:", "tel:", "javascript:")):
+            continue
+        if cilj and cilj in bez_kvacica(tekst):
+            return urljoin(baza, href)
+    return None
+
+
+def _ucitaj():
+    try:
+        with open(PAMCENJE, encoding="utf-8") as f:
+            return set(json.load(f).get("javljeno", []))
+    except (OSError, ValueError):
+        return set()
+
+
+def _spremi(javljeno):
+    with open(PAMCENJE, "w", encoding="utf-8") as f:
+        json.dump({"javljeno": sorted(javljeno)}, f, ensure_ascii=False, indent=1)
+
+
+def _izlaz(kljuc, vrijednost):
+    """Posalji vrijednost u GitHub Actions, ako se ondje vrtimo."""
+    put = os.environ.get("GITHUB_OUTPUT")
+    if put:
+        with open(put, "a", encoding="utf-8") as f:
+            f.write(f"{kljuc}={vrijednost}\n")
 
 
 def main():
-    staro = {}
-    if os.path.exists(STANJE):
-        try:
-            staro = json.load(open(STANJE, encoding="utf-8"))
-        except ValueError:
-            staro = {}
+    if "--reset" in sys.argv:
+        _spremi(set())
+        print("Pamćenje očišćeno.")
+        return
 
-    javi, novo = [], dict(staro)
-    for kljuc, naziv, url, godina in STRAZE:
-        try:
-            cist, html = tekst(url)
-        except Exception as e:
-            print(f"  ! {naziv}: izvor se ne javlja ({e})")
+    od = _pocetna_godina()
+    javljeno = _ucitaj()
+    novo = []
+
+    for ime, url in STRANICE:
+        tekst, _, sirovi = fetch_content(url, tiho=True)
+        if not tekst:
+            print(f"  ! {ime}: stranica se ne da dohvatiti")
             continue
+        for red in nalazi(tekst, od):
+            kljuc = bez_kvacica(red)[:160]
+            if kljuc in javljeno:
+                continue
+            javljeno.add(kljuc)
+            # Poveznica na sam natjecaj, ako je ima — ondje su rok i iznos.
+            # Popisna stranica ima samo naslov.
+            veza = _veza_na_natjecaj(sirovi, url, red) or url
+            novo.append((ime, veza, red, detalji(veza)))
 
-        otisak = hashlib.sha256(cist.encode("utf-8")).hexdigest()[:16]
-        prije = staro.get(kljuc) or {}
-        nadeno = poziv_za_godinu(cist, html, godina)
-        promjena = bool(prije.get("otisak")) and prije["otisak"] != otisak
+    _spremi(javljeno)
 
-        novo[kljuc] = {"otisak": otisak, "url": url}
+    if not novo:
+        print(f"Nema novog natječaja za {od}./{od+1}.")
+        _izlaz("naslo", "0")
+        return
 
-        if nadeno:
-            javi.append((naziv, url, "Poziv za ovu godinu izgleda objavljen.",
-                         nadeno))
-            print(f"  ! {naziv}: nađen poziv za {godina}./{int(godina)+1}.")
-        elif promjena:
-            javi.append((naziv, url, "Stranica se promijenila. Ne znamo što "
-                                     "se promijenilo — pogledaj.", []))
-            print(f"  ! {naziv}: stranica se promijenila")
-        else:
-            print(f"  = {naziv}: bez promjene")
+    redci = [f"## Moguća objava natječaja — {od}./{od+1}.", "",
+             "Provjeri na izvoru prije nego išta pošalješ. Ovo je automatska "
+             "dojava i zna javiti natječaj koji nije državna stipendija.", ""]
+    if POZNATO.get(od):
+        redci += ["**Što je o ovoj godini već objavljeno**", ""]
+        redci += [f"- {x}" for x in POZNATO[od]]
+        redci += ["", "Ako se pročitana brojka s ovim ne slaže, vjeruj "
+                  "natječaju — ovo je iz ranijih odluka.", ""]
 
-    json.dump(novo, open(STANJE, "w", encoding="utf-8"),
-              ensure_ascii=False, indent=1)
+    for ime, url, red, d in novo:
+        redci += [f"### {_cisto(red)}", "", f"Izvor: {ime}", "", url, ""]
+        redci += ["| podatak | pročitano |", "|---|---|",
+                  f"| rok | {d.get('rok_tekst') or '— nije pročitano'} |",
+                  f"| broj stipendija | {d.get('broj') or '— nije pročitano'} |"]
+        for i, iz in enumerate(d.get("iznos_redci") or []):
+            redci.append(f"| iznos {i+1} | {iz} |")
+        if not d.get("iznos_redci"):
+            redci.append("| iznos | — nije pročitano |")
+        stem = _je_stem(red)
+        k, p, m = ((KANAL_STEM, MAIL_PREDMET_STEM, MAIL_STEM) if stem
+                   else (KANAL, MAIL_PREDMET, MAIL))
+        redci += ["", f"**Poruka za WhatsApp kanal**"
+                  + (" (STEM inačica)" if stem else ""), "", "```",
+                  _popuni(k, d), "```", "",
+                  "**Mail pretplatnicima**", "",
+                  f"Predmet: `{_popuni(p, d)}`", "", "```",
+                  _popuni(m, d), "```", ""]
 
-    if not javi:
-        if os.path.exists(IZVJESTAJ):
-            os.remove(IZVJESTAJ)
-        return 0
+    redci += ["---", "",
+              "### Redoslijed",
+              "",
+              "1. upiši `BROJ` i `IZNOS` u `drzavna.py` (`OTVOREN` ostavi `None`)",
+              "2. pokreni „Provjera stipendija”",
+              "3. provjeri stranicu",
+              "4. kanal → mail → Instagram → portali",
+              "",
+              "Gdje piše `{ROK}` ili `{IZNOS}`, pročitati nije uspjelo — "
+              "upiši rukom prije slanja.",
+              "",
+              "Puni tekstovi i dojava portalima: `drzavna-paket.md`."]
+    open("strazar.md", "w", encoding="utf-8").write("\n".join(redci) + "\n")
 
-    L = ["# Straža javlja", ""]
-    for naziv, url, zasto, nadeno in javi:
-        L += [f"## {naziv}", "", zasto, "", f"Izvor: {url}", ""]
-        if nadeno:
-            L += ["Što je nađeno:", ""]
-            L += [f"- `{x[:150]}`" for x in nadeno]
-            L.append("")
-    L += ["---", "",
-          "**Ako je poziv stvarno objavljen**, u `stem.py` postavi "
-          "`OTVOREN = True`, upiši `ROK` i `POVEZNICA`, pa pokreni "
-          "**Samo stranica**.", "",
-          "Dok to ne napraviš, stranica tvrdi da poziv nije raspisan — a tu "
-          "tvrdnju prenose dalje i tražilice.", ""]
-    open(IZVJESTAJ, "w", encoding="utf-8").write("\n".join(L) + "\n")
-    return 1
+    print(f"NAŠAO: {len(novo)} — zapisano u strazar.md")
+    _izlaz("naslo", str(len(novo)))
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    main()
