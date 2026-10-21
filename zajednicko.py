@@ -304,16 +304,51 @@ def rokovi_po_skupinama(rok_tekst):
     return out
 
 
-def rok_po_skupinama_tekst(rok_tekst):
+_OZNAKA_UCENIK = re.compile(r"ucenic|ucenik|srednjoskol|srednje skole|"
+                            r"srednjih skola|maturant")
+_OZNAKA_STUDENT = re.compile(r"student|studij|fakultet|preddiplom|diplomsk|"
+                             r"akademsk")
+
+
+def _oznaka_za(oznaka):
+    """Kojoj skupini pripada oznaka uz rok: "ucenik", "student" ili ""."""
+    t = oznaka.lower()
+    for a, b in (("č", "c"), ("ć", "c"), ("ž", "z"), ("š", "s"), ("đ", "d")):
+        t = t.replace(a, b)
+    uc = bool(_OZNAKA_UCENIK.search(t))
+    st = bool(_OZNAKA_STUDENT.search(t))
+    if uc and not st:
+        return "ucenik"
+    if st and not uc:
+        return "student"
+    return ""
+
+
+def _datum(iso, vrijeme):
+    g, m, d = iso.split("-")
+    return f"{d}.{m}.{g}." + (f" do {vrijeme}" if vrijeme else "")
+
+
+def rok_po_skupinama_tekst(rok_tekst, tip=""):
     """Rokovi po skupinama u jednom retku, ili "" kad ih nema.
 
-    "30.10.2026. za učenike srednjih škola · 20.11.2026. za studente"."""
-    dio = []
-    for iso, vrijeme, oznaka in rokovi_po_skupinama(rok_tekst):
-        g, m, d = iso.split("-")
-        dio.append(f"{d}.{m}.{g}." + (f" do {vrijeme}" if vrijeme else "")
-                   + f" {oznaka}")
-    return " · ".join(dio)
+    "30.10.2026. za učenike srednjih škola · 20.11.2026. za studente".
+
+    `tip` je skupina primatelja ("ucenik" / "student"). Kad je poznata i
+    kad joj pripada tocno jedan od rokova, ispisuje se samo taj i bez
+    oznake: studentu u studentskom mailu ucenicki rok ne treba, a datum
+    koji nije njegov je datum koji moze krivo zapamtiti. Na stranici tip
+    nije poznat, pa ondje i dalje stoje oba.
+
+    Ako filtriranje ne ostavi tocno jedan rok, ispisuju se svi — bolje
+    previse nego pogresan."""
+    redovi = rokovi_po_skupinama(rok_tekst)
+    if tip:
+        moji = [r for r in redovi if _oznaka_za(r[2]) == tip]
+        if len(moji) == 1:
+            return _datum(moji[0][0], moji[0][1])
+    return " · ".join(f"{_datum(iso, vrijeme)} {oznaka}"
+                      for iso, vrijeme, oznaka in redovi)
 
 
 def sredi_naslov(t):
