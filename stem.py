@@ -138,7 +138,7 @@ prijave traju do <strong>{ROK}</strong>.</p>
   <div><b>{STEM_NASTAVNICKI}</b><span>mjesečno, nastavnički STEM studiji</span></div>
   <div><b>{STEM_OSTALI}</b><span>mjesečno, ostali STEM studiji</span></div>
   <div><b>{STEM_BROJ}</b><span>stipendija za 2026./2027.</span></div>
-  <div><b>11.11.</b><span>rok, do 12 sati</span></div>
+  <div><b>{RATA}</b><span>rata, listopad 2026. – lipanj 2027.</span></div>
 </div>
 
 <h2>Ako si negdje pročitao „do {ROK_OBJAVE}” — to nije rok za prijavu</h2>
