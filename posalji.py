@@ -36,6 +36,9 @@ from datetime import date
 
 import requests
 
+from functools import lru_cache
+
+from scraper import bez_kvacica
 from novosti import (novi_natjecaji, vec_javljeno, _spoji_iste, _kome,
                      _skupina, _iznos, _rok, _drzavna, _poruka, POSLANO)
 
@@ -131,13 +134,55 @@ def kontakti(list_id):
                 "email": c["email"],
                 "zupanija": (a.get("ZUPANIJA") or "").strip(),
                 "grad": (a.get("GRAD") or "").strip(),
-                # "ucenik" / "student", onako kako obrazac upisuje. Prazno
-                # kod starih prijava — tada covjek dobiva i jedno i drugo.
-                "tip": (a.get("TIP") or "").strip().lower(),
+                # "ucenik" / "student", onako kako obrazac upisuje.
+                # Prazno kod starih prijava, a "oba" je zateceno iz ranije
+                # inacice obrasca. Oboje znaci isto — covjek nije rekao sto
+                # je, pa dobiva i ucenicke i studentske natjecaje. Da "oba"
+                # ostane kakvo jest, _za_tip bi ga shvatio kao TRECU skupinu
+                # i propustio bi samo natjecaje koji su izricito za oboje:
+                # u Primorsko-goranskoj bi dobio tri umjesto pet natjecaja.
+                "tip": _tip(a.get("TIP")),
             })
         offset += 500
         if len(dio) < 500:
             return out
+
+
+def _tip(v):
+    """TIP s kontakta sveden na "ucenik", "student" ili prazno."""
+    v = (v or "").strip().lower()
+    return v if v in ("ucenik", "student") else ""
+
+
+# Mjesta se usporeduju bez kvacica i bez velikih slova. Obrazac upisuje
+# sluzbeni naziv, ali u listi vec stoje i rucno upisana mjesta — "Velika
+# gorica" i "Velika Gorica" su bile dvije skupine i dvije kampanje s
+# istim sadrzajem.
+def _kljuc_grada(s):
+    return bez_kvacica((s or "").strip().lower())
+
+
+@lru_cache(maxsize=None)
+def _sluzbena_mjesta(zupanija):
+    """{usporedni kljuc: sluzbeni naziv} za jednu zupaniju."""
+    try:
+        from mjesta import MJESTA
+    except Exception:
+        return {}
+    return {_kljuc_grada(m): m for m in MJESTA.get(zupanija, ())}
+
+
+def _ime_mjesta(zupanija, grad, iz_natjecaja):
+    """Naziv mjesta za ime skupine — uvijek isti za isto mjesto.
+
+    Redom: naziv kakav nosi sam natjecaj, pa sluzbeni popis mjesta, pa ono
+    sto je covjek upisao. Bez ovoga su se "Velika Gorica", "velika gorica"
+    i "VELIKA GORICA" razlikovale samo u skupinama — tri kampanje i tri
+    privremene liste za jedno mjesto, s istim sadrzajem."""
+    kg = _kljuc_grada(grad)
+    return (iz_natjecaja.get(kg)
+            or _sluzbena_mjesta(zupanija).get(kg)
+            or grad.strip())
 
 
 # ------------------------------------------------------------ publika ----
@@ -167,6 +212,7 @@ def razvrstaj_po_ljudima(zapisi, ljudi):
     dobivaju razlicite popise, pa to ne moze biti ista poruka.
     """
     drzavne, zupanijski, gradski = [], {}, {}
+    imena_gradova = {}
     for z in zapisi:
         k = _kome(z)
         if k is None:
@@ -176,7 +222,11 @@ def razvrstaj_po_ljudima(zapisi, ljudi):
         elif k[0] == "zupanija":
             zupanijski.setdefault(k[1], []).append(z)
         else:
-            gradski.setdefault(k[2], {}).setdefault(k[1], []).append(z)
+            kg = _kljuc_grada(k[1])
+            gradski.setdefault(k[2], {}).setdefault(kg, []).append(z)
+            # Ime za prikaz uzimamo iz samog natjecaja, ne iz onoga sto je
+            # covjek upisao — natjecaj nosi sluzbeni naziv mjesta.
+            imena_gradova.setdefault(kg, k[1])
 
     grupe = {}
     for c in ljudi:
@@ -192,8 +242,9 @@ def razvrstaj_po_ljudima(zapisi, ljudi):
         if not zup:
             continue
         if grad:
-            moji = zupanijski.get(zup, []) + gradski.get(zup, {}).get(grad, [])
-            kljuc = ("mjesto", zup, grad, tip)
+            kg = _kljuc_grada(grad)
+            moji = zupanijski.get(zup, []) + gradski.get(zup, {}).get(kg, [])
+            kljuc = ("mjesto", zup, _ime_mjesta(zup, grad, imena_gradova), tip)
         else:
             moji = list(zupanijski.get(zup, []))
             for g in sorted(gradski.get(zup, {})):
