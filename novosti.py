@@ -312,7 +312,7 @@ def _ime_skupine(k):
     return k[1] + (" — s upisanim gradom" if k[2] else " — bez upisanog grada")
 
 
-def _rok(z):
+def _rok(z, tip=""):
     """Rok u mailu, isti oblik kao na stranici: 18.10.2026. do 23:59.
 
     Izvori rok pisu recenicom — "od 1. listopada 2026. godine od 7,00 sati do
@@ -325,7 +325,7 @@ def _rok(z):
     izvorni tekst — bolje nesto nego nista."""
     izvorni = (z.get("rok_tekst") or "").strip()
     # Jedan natjecaj, rok po skupini — tada jedan datum laze polovici ljudi.
-    po_skupinama = rok_po_skupinama_tekst(izvorni)
+    po_skupinama = rok_po_skupinama_tekst(izvorni, tip)
     if po_skupinama:
         return po_skupinama
     iso = z.get("rok_iso") or ""
@@ -695,7 +695,7 @@ def _redak(z, tip=""):
     iz = _iznos(z)
     if iz:
         redci.append(f"Iznos: {iz}")
-    rok = _rok(z)
+    rok = _rok(z, tip)
     if rok:
         redci.append(f"Rok: {rok}")
     veza = _veza(z)
