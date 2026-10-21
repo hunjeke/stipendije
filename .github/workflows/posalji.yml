@@ -46,11 +46,15 @@ jobs:
           BREVO_API_KEY: ${{ secrets.BREVO_API_KEY }}
           BREVO_UPDATE_FORM_ID: ${{ secrets.BREVO_UPDATE_FORM_ID }}
           BREVO_FROM: ${{ secrets.BREVO_FROM }}
-          # Lista se bira po ID-u; naziv je zaliha ako ID nije zadan.
-          BREVO_LISTA_ID: ${{ secrets.BREVO_LISTA_ID }}
-          BREVO_LISTA: ${{ secrets.BREVO_LISTA }}
-          BREVO_FOLDER_ID: ${{ secrets.BREVO_FOLDER_ID }}
-          BREVO_DNEVNO: ${{ secrets.BREVO_DNEVNO }}
+          # ID liste i mape NISU tajne i ne smiju biti tajne. GitHub u
+          # zapisniku zacrni svaku pojavu vrijednosti tajne, a ove su
+          # jednoznamenkaste — dok su stajale medu tajnama, svaka jedinica
+          # i trojka u ispisu postajale su "***": "Novih natjecaja: ***4",
+          # "poruka ukupno: ***65". Brojke se nisu dale procitati, a ni
+          # provjeriti prije slanja.
+          BREVO_LISTA_ID: "3"
+          BREVO_FOLDER_ID: "1"
+          BREVO_DNEVNO: "300"
         run: |
           case "${{ inputs.nacin }}" in
             proba) python posalji.py ;;
