@@ -552,6 +552,74 @@ OPISNE_STRANICE = {
 }
 
 
+# Cirilicna slova koja izgledaju isto kao latinicna. Model procitajuci
+# stranicu zna ubaciti koje medu latinicna — Vinkovci su dosli kao
+# "за академsku godinu". Ljudskom oku to je obicna rijec, ali trazilici,
+# citacu ekrana i nasoj usporedbi naslova to su druga slova: isti natjecaj
+# procitan dvaput ne bi se prepoznao kao isti.
+_CIRILICA = str.maketrans({
+    "А": "A", "В": "B", "Е": "E", "К": "K", "М": "M", "Н": "H", "О": "O",
+    "Р": "P", "С": "C", "Т": "T", "У": "Y", "Х": "X", "Ј": "J", "Ѕ": "S",
+    "І": "I", "Ү": "Y", "Ԍ": "G",
+    "а": "a", "в": "b", "е": "e", "к": "k", "м": "m", "н": "n", "о": "o",
+    "р": "p", "с": "c", "т": "t", "у": "y", "х": "x", "ј": "j", "ѕ": "s",
+    "і": "i", "д": "d", "и": "i", "л": "l", "г": "r", "п": "n", "б": "b",
+})
+
+
+def bez_cirilice(s):
+    """Zamijeni cirilicna slova latinicnima koja izgledaju isto."""
+    return (s or "").translate(_CIRILICA)
+
+
+def je_naslov_izvora(r):
+    """Je li "naslov natjecaja" zapravo naziv stranice s koje je procitan.
+
+    Kad model na rubrici ne nade naslov, zna vratiti naziv same rubrike —
+    "Grad Slavonski Brod — natjecaji". To nije natjecaj nego popis, i u
+    mailu bi stajalo kao da jest. Zapis se zato tretira kao zatvoren: izvor
+    ostaje pracen, ali se nista ne objavljuje ni salje dok se ne procita
+    pravi naslov."""
+    n = _kljuc_naslova(r.get("naslov_natjecaja") or "")
+    return bool(n) and n == _kljuc_naslova(r.get("naziv") or "")
+
+
+def _naslov_nosi_zupaniju(naslov, zupanija, podrucje):
+    """Govori li naslov da je natjecaj zupanijski, a ne gradski.
+
+    Gradske stranice prenose zupanijski natjecaj kao svoju vijest. Zapis
+    tada ima podrucje grada, a naslov kaze cije je: "Stipendije Zagrebacke
+    zupanije". Bez ovoga isti natjecaj stoji tri puta, pod Velikom Goricom,
+    Vrbovcem i Jastrebarskim, i pretplatnik ga u jednom mailu dobije tri
+    puta kao tri razlicite stipendije.
+
+    Ako naslov spominje i sam grad, ostaje gradski — tada je rijec o
+    natjecaju grada, makar se zupanija negdje spominjala."""
+    if not zupanija or zupanija == podrucje:
+        return False
+    n = _kljuc_naslova(bez_cirilice(naslov))
+    if not n or "zupanij" not in n:
+        return False
+    if podrucje and _kljuc_naslova(podrucje) in n:
+        return False
+    # "Zagrebacka zupanija" -> korijen "zagreback", koji pokriva i
+    # "zagrebacke" i "zagrebackoj".
+    korijen = _kljuc_naslova(zupanija.replace(" županija", ""))[:-1]
+    return bool(korijen) and korijen in n
+
+
+def zupanijski_umjesto_grada(parovi):
+    """Natjecaj zupanije vrati zupaniji, makar ga je objavio grad."""
+    out, vraceni = [], []
+    for r, pod, zup in parovi:
+        if _naslov_nosi_zupaniju(r.get("naslov_natjecaja") or "", zup, pod):
+            vraceni.append((r.get("naslov_natjecaja") or "", pod, zup))
+            out.append((r, zup, zup))
+        else:
+            out.append((r, pod, zup))
+    return out, vraceni
+
+
 def opisna_stranica(r):
     """Je li zapis nastao citanjem stranice koja samo opisuje postupak."""
     for k in ("poveznica_natjecaj", "poveznica", "url"):
@@ -824,15 +892,31 @@ def je_prenositelj(url):
 
 
 def izbaci_prenositelje(parovi):
-    """(preostali, izbaceni) — makni prenesene objave tudih natjecaja."""
-    sluzbeni = {(iso_rok(r.get("status") or ""), (zup or pod))
+    """(preostali, izbaceni) — makni prenesene objave tudih natjecaja.
+
+    Podrucje prenositelja ne znaci nista. ICM Vukovar je prenio drzavnu
+    stipendiju, a kako mu je podrucje Vukovar, a sluzbenom zapisu "Cijela
+    Hrvatska", usporedba po podrucju ih nije prepoznala kao isti natjecaj —
+    pa je drzavna stipendija stajala na stranici kao vukovarska i takva bi
+    otisla u mail ljudima u Vukovarsko-srijemskoj.
+
+    Zato se gleda samo rok i naslov: portal koji prenosi tude natjecaje ne
+    raspisuje vlastite, pa ako postoji sluzbeni zapis s istim rokom i istim
+    natjecajem u naslovu, prenesena objava je ista stvar bez obzira odakle
+    je prenesena."""
+    sluzbeni = [(iso_rok(r.get("status") or ""),
+                 r.get("naslov_natjecaja") or r.get("naziv") or "")
                 for r, pod, zup in parovi
-                if not je_prenositelj(r.get("url"))}
+                if not je_prenositelj(r.get("url"))]
     ostaje, van = [], []
     for par in parovi:
         r, pod, zup = par
-        kljuc = (iso_rok(r.get("status") or ""), (zup or pod))
-        if je_prenositelj(r.get("url")) and kljuc[0] and kljuc in sluzbeni:
+        rok = iso_rok(r.get("status") or "")
+        naslov = r.get("naslov_natjecaja") or r.get("naziv") or ""
+        dvojnik = rok and naslov and any(
+            rok == rok2 and _isti_natjecaj(naslov, n2)
+            for rok2, n2 in sluzbeni)
+        if je_prenositelj(r.get("url")) and dvojnik:
             van.append(par)
         else:
             ostaje.append(par)
@@ -1218,6 +1302,11 @@ def main():
         return
 
     d = json.load(open(ULAZ, encoding="utf-8"))
+    # Cirilicna slova iz naslova odmah van, prije ijedne usporedbe naslova.
+    for r in d:
+        for k in ("naslov_natjecaja", "naziv"):
+            if r.get(k):
+                r[k] = bez_cirilice(r[k])
     pod_map, zup_map, _, usko_map = ucitaj_izvore()
     # Adrese pracenih stranica, zapamcene PRIJE nego se u pod_map dopisu rucni
     # upisi — inace bi se rucni natjecaji brojali kao novi izvori.
@@ -1246,7 +1335,7 @@ def main():
             k = r["_izvor_url"].rstrip("/")
         par = (r, pod_map.get(k, SVI), zup_map.get(k, ""))
         # opisna stranica nije natjecaj; izvor ostaje na popisu pracenih
-        if opisna_stranica(r):
+        if opisna_stranica(r) or je_naslov_izvora(r):
             zatvorene.append(par)
         elif s.startswith("OTVORENO"):
             otvorene.append(par)
@@ -1268,6 +1357,13 @@ def main():
     # popisu "trenutno bez otvorenog natjecaja" Novi Vinodolski stajao tri
     # puta, a Sibenik dva — tri identicna retka, jer kartica sa starim rokom
     # ionako pokazuje ime izvora umjesto naslova natjecaja.
+    # Zupanijski natjecaj koji je objavio grad vrati zupaniji prije spajanja
+    # duplikata — inace se tri gradska zapisa ne mogu prepoznati kao jedan.
+    otvorene, vraceni = zupanijski_umjesto_grada(otvorene)
+    for naslov, pod, zup in vraceni:
+        print(f"  Županijski natječaj objavio grad, vraćeno županiji: "
+              f"{naslov[:46]} ({pod} -> {zup})")
+
     otvorene, preneseni = izbaci_prenositelje(otvorene)
     for r, pod, _ in preneseni:
         print(f"  Prenesena objava tudeg natjecaja, izbaceno: "
@@ -1324,14 +1420,36 @@ def main():
     # stipendije.hr bi tvrdio da je rok za STEM 25.10., a stvarni je 11.11.
     novih_natjecaja = azuriraj(
         arhiv, [t for t in otvorene if not opisna_stranica(t[0])])
+    # Isti popravci i nad zapisima koji su u arhiv usli prije njih. Arhiv
+    # cuva podrucje kakvo je bilo pri upisu, pa bi tri zagrebacke zupanijske
+    # stipendije ostale pod Velikom Goricom, Vrbovcem i Jastrebarskim i
+    # poslije popravka — a mail se slaze iz arhiva, ne iz output.json.
+    for s, zap in arhiv.items():
+        if zap.get("naslov"):
+            zap["naslov"] = bez_cirilice(zap["naslov"])
+        if _naslov_nosi_zupaniju(zap.get("naslov") or "",
+                                 zap.get("zupanija") or "",
+                                 zap.get("podrucje") or ""):
+            print(f"  Arhiv: {(zap.get('naslov') or '')[:42]} "
+                  f"({zap.get('podrucje')} -> {zap['zupanija']})")
+            zap["podrucje"] = zap["zupanija"]
+
     # Zapis koji je u arhiv usao prije ove provjere treba i izbaciti,
     # zajedno s vec napisanom stranicom — inace ostaje stajati na svojoj
-    # adresi i poslije builda.
-    for s in [s for s, z in arhiv.items() if opisna_stranica(z)]:
+    # adresi i poslije builda. Isto vrijedi za zapis kojemu je "naslov"
+    # zapravo naziv rubrike.
+    def _arhiv_nije_natjecaj(z):
+        n = _kljuc_naslova(z.get("naslov") or "")
+        return (opisna_stranica(z)
+                or je_prenositelj(z.get("url"))
+                or (bool(n) and n == _kljuc_naslova(z.get("izvor_naziv") or "")))
+
+    for s in [s for s, z in arhiv.items() if _arhiv_nije_natjecaj(s and z)]:
         stara = os.path.join(MAPA, "natjecaj", f"{arhiv[s].get('slug') or s}.html")
         if os.path.exists(stara):
             os.remove(stara)
-            print(f"  maknuta stranica opisne stranice: {os.path.basename(stara)}")
+            print(f"  maknuta stranica: {os.path.basename(stara)}")
+        print(f"  izbačeno iz arhiva: {(arhiv[s].get('naslov') or s)[:52]}")
         del arhiv[s]
     spremi_arhiv(arhiv)
 
