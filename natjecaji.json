@@ -701,43 +701,6 @@
     "zasto_rucno": "",
     "zupanija": ""
   },
-  "mzom.gov.hr/istaknute-teme/odgoj-i-obrazovanje/visoko-obrazovanje/drzavne-stipendije/162|2026-10-25": {
-    "iznos": "600 EUR za STEM nastavničke studije, 300 EUR za ostale STEM studije",
-    "iznos_je_fond": false,
-    "iznosi": [
-      {
-        "do": false,
-        "eur": 600.0,
-        "mjeseci": 9,
-        "razdoblje": "mjesecno",
-        "za": "STEM nastavnički studiji"
-      },
-      {
-        "do": false,
-        "eur": 300.0,
-        "mjeseci": 9,
-        "razdoblje": "mjesecno",
-        "za": "ostali STEM studiji"
-      }
-    ],
-    "izvor_naziv": "MZO — državne stipendije (socio-ekonomski status)",
-    "napomena": "Javni poziv se raspisuje svake godine do 25. listopada za tekuću akademsku godinu. Liste i rang-liste objavljuju se najkasnije nakon 60 dana od zatvaranja poziva. Za STEM nastavničke studije stipendije se dodjeljuju svim kvalificiranim studentima, dok se preostale dodjeljuju prema razini i godini studija.",
-    "naslov": "Državne stipendije za STEM područja",
-    "podrucje": "Cijela Hrvatska",
-    "potvrda": "",
-    "poveznica": "https://mzom.gov.hr/istaknute-teme/odgoj-i-obrazovanje/visoko-obrazovanje/drzavne-stipendije/162",
-    "prvi_put": "2026-10-15",
-    "rok_iso": "2026-10-25",
-    "rok_tekst": "do 25. listopada",
-    "rucni": false,
-    "slug": "drzavne-stipendije-stem-podrucja-2026",
-    "upute_za_prijavu": "Prijava se podnosi u Sustavu državnih stipendija https://vidra.srce.hr/ | Pristup s AAI@EduHr identitetom ili drugom vjerodajnicom | Odabir odgovarajućeg obrasca za prijavu | Provjera i unos osobnih podataka te podataka o studiju | Učitavanje obavezne dokumentacije ako je potrebna (za prvu godinu diplomskog studija) | Potvrda prijave klikom na 'Završi ispunjavanje obrasca'",
-    "url": "https://mzom.gov.hr/istaknute-teme/odgoj-i-obrazovanje/visoko-obrazovanje/drzavne-stipendije/162",
-    "uvjeti": "Redoviti studenti upisani na sveučilišne ili stručne studije u STEM područjima znanosti na visokim učilištima u Republici Hrvatskoj koji su hrvatski državljani, državljani država članica EU/EGP/Švicarske, Hrvati izvan RH, azilanti ili pod supsidijarnom zaštitom.",
-    "zadnji_put": "2026-10-15",
-    "zasto_rucno": "",
-    "zupanija": ""
-  },
   "mzom.gov.hr/javni-poziv-za-dodjelu-drzavnih-stipendija-u-stem-podrucjima-znanosti-za-akademsku-godinu-2026-2027-studentima-u-redovitom-statusu-koji-su-upisani-na-visoka-ucilista-u-republici-hrvatskoj/8114|2026-11-11": {
     "iznos": "600 EUR za STEM nastavničke studije, 300 EUR za ostale STEM studije",
     "iznos_je_fond": false,
