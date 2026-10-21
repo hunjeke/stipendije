@@ -11,8 +11,8 @@ socio-ekonomskoj drzavnoj stipendiji, pa Google na upit o STEM-u mora
 ponuditi stranicu koja je o necem drugom. Odlomak ne moze pobijediti
 stranicu.
 
-Javni poziv za 2026./2027. raspisan je 21.10.2026. u 12 sati; rok je
-11.11.2026. do 12 sati. Provjereno istoga dana na samom pozivu
+Javni poziv za 2026./2027. raspisan je 21.10.2026. u 12:00; rok je
+11.11.2026. do 12:00. Provjereno istoga dana na samom pozivu
 (KLASA 604-01/26-01/00006, potpisan 15.10.2026.).
 
 VAZNO, i dalje: "do 25. listopada" je rok DA MINISTAR RASPISE POZIV, a ne
@@ -36,8 +36,8 @@ from drzavna import (CSS, STEM_NASTAVNICKI, STEM_OSTALI, STEM_BROJ,
 # OTVOREN = False -> poziv jos nije raspisan
 # OTVOREN = True  -> poziv je vani; tada moraju biti popunjeni ROK i POVEZNICA
 OTVOREN = True
-ROK = "11. studenoga 2026. do 12 sati"
-OTVOREN_OD = "21. listopada 2026. u 12 sati"
+ROK = "11. studenoga 2026. do 12:00"
+OTVOREN_OD = "21. listopada 2026. u 12:00"
 POVEZNICA = ("https://mzom.gov.hr/javni-poziv-za-dodjelu-drzavnih-stipendija-"
              "u-stem-podrucjima-znanosti-za-akademsku-godinu-2026-2027-"
              "studentima-u-redovitom-statusu-koji-su-upisani-na-visoka-"
@@ -78,14 +78,18 @@ DOK_CEKAS = [
 
 def _blok_stanja():
     if OTVOREN:
-        rok = (f" Prijave su otvorene od {OTVOREN_OD}, a rok je "
-               f"<strong>{ROK}</strong>.") if ROK else ""
+        # Isti oblik recenice i isti natpis na gumbu kao na stranici o
+        # socio-ekonomskoj drzavnoj. Dvije su stranice o istoj stvari,
+        # covjek ih usporeduje jednu uz drugu, i razlicit oblik izgleda
+        # kao da je rijec o dva razlicita postupka — a nije.
+        rok = f" Rok prijave je <strong>{ROK}</strong>." if ROK else ""
+        kolko = f" Dodjeljuje se {STEM_BROJ} stipendija." if STEM_BROJ else ""
         gumb = (f'<a href="{POVEZNICA}" target="_blank" rel="noopener">'
-                f'Otvori poziv &rarr;</a>') if POVEZNICA else ""
+                f'Otvori natječaj &rarr;</a>') if POVEZNICA else ""
         return f"""<div class="stanje">
   <div class="txt">
-    <b>Javni poziv je raspisan — prijave su otvorene</b>
-    <span>Prijavljuje se elektronički, kroz Sustav državnih stipendija.{rok}</span>
+    <b>Natječaj je objavljen — prijave su otvorene</b>
+    <span>Prijavljuje se elektronički, kroz sustav VIDRA.{rok}{kolko}</span>
   </div>
   {gumb}
 </div>"""
@@ -184,7 +188,7 @@ dvije odvojene prijave na dva odvojena poziva.</p>
 
 <p class="napomena">Ovu stranicu održavamo ručno, a podatke provjeravamo na
 stranicama ministarstva; zadnji put {PROVJERENO}, na samom javnom pozivu
-(KLASA 604-01/26-01/00006). Rok je do <strong>12 sati</strong>, ne do kraja
+(KLASA 604-01/26-01/00006). Rok je do <strong>12:00</strong>, ne do kraja
 dana. Prije prijave provjeri rok i uvjete u pozivu — ako uočiš da je nešto
 zastarjelo, javi nam i ispravit ćemo.</p>
 </section>
