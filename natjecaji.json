@@ -150,7 +150,7 @@
     "upute_za_prijavu": "Preuzmi Obrazac prijave sa stranica Zagrebačke županije | Priloži sve tražene dokumente (životopis, dokaze o redovnom upisu, svjedodžbe, rodni list, osobnu iskaznicu, izjave) | Dostavi prijavu osobno u pisarnicu Zagrebačke županije ili poštom na Ulica grada Vukovara 72/V, 10000 Zagreb u zatvorenim omotnicama s naznakom \"Za natječaj za dodjelu stipendije\"",
     "url": "https://gorica.hr/category/sluzbene-obavijesti/natjecaji/",
     "uvjeti": "Učenici i studenti s prebivalištem na području Zagrebačke županije koji ispunjavaju uvjete prema kriteriju izvrsnosti (prosječna ocjena 4,5, nisu ponavljali razred) ili socijalnom kriteriju (prosječna ocjena 4,0 odnosno 2,8, neto prihod obitelji do 564,077 EUR, nisu ponavljali razred).",
-    "zadnji_put": "2026-10-21",
+    "zadnji_put": "2026-10-23",
     "zasto_rucno": "",
     "zupanija": "Zagrebačka županija"
   },
@@ -1064,7 +1064,7 @@
       }
     ],
     "izvor_naziv": "Grad Vrbovec — obavijesti i natječaji",
-    "napomena": "Stipendija se dodjeljuje za razdoblje od 12 mjeseci počevši od 1. rujna 2026. godine. Učenik/ca ili student/ica može podnijeti molbu za obje vrste stipendija, ali može ostvariti pravo samo na jednu. Sve izjave pod kaznenom i materijalnom odgovornošću trebaju biti ovjerene kod javnog bilježnika i ne smiju biti starije od dana objave natječaja. Nepotpune prijave neće se razmatrati.",
+    "napomena": "Stipendija se dodjeljuje za 12 mjeseci počevši od 1. rujna 2026. Učenik/student može podnijeti molbu za obje vrste stipendija ali može ostvariti pravo samo na jednu. Za deficitarna zanimanja dodatne stipendije (do 10). Sve izjave trebaju biti ovjerene kod javnog bilježnika i ne smiju biti starije od dana objave natječaja.",
     "naslov": "Stipendije Zagrebačke županije 2026./2027.",
     "podrucje": "Zagrebačka županija",
     "potvrda": "",
@@ -1074,10 +1074,10 @@
     "rok_tekst": "4. studenoga 2026.",
     "rucni": false,
     "slug": "vrbovec-stipendije-zagrebacke-zupanije-2026",
-    "upute_za_prijavu": "Popuniti i potpisati Obrazac prijave dostupan na https://www.zagrebacka-zupanija.hr/natjecaji/ | Prikupiti svu obveznu dokumentaciju (svjedodžbe, potvrde redovnog upisa, rodni list, osobnu iskaznicu, životopis) | Predati prijavu osobno u pisarnicu Zagrebačke županije ili poštom na Ulica grada Vukovara 72/V, 10000 Zagreb, u zatvorenim omotnicama s naznakom \"Za natječaj za dodjelu stipendije\" | Za detaljne upute kontaktirati Upravni odjel za odgoj i obrazovanje na sven.fabijancic@zagrebacka-zupanija.hr",
+    "upute_za_prijavu": "Preuzeti Obrazac prijave sa stranica Zagrebačke županije | Priložiti sve obavezne dokumente (svjedodžbe, izjave, dokaze statusa) | Popuniti i potpisati obrazac | Dostaviti osobno u pisarnicu ili poštom na Ulica grada Vukovara 72/V, 10000 Zagreb, u zatvorenim omotnicama",
     "url": "https://vrbovec.hr",
-    "uvjeti": "Učenici i studenti državljani RH s prebivalištem u Zagrebačkoj županiji mogu se prijaviti prema kriteriju izvrsnosti (prosječna ocjena najmanje 4,5 za učenike, minimalno 50 ECTS) ili socijalnom kriteriju (prosječna ocjena najmanje 4,0/2,8, neto prihod do 564,077 EUR po članu obitelji). Učenici ne smiju biti stariji od 20 godina, studenti do 26 godina.",
-    "zadnji_put": "2026-10-21",
+    "uvjeti": "Učenici i studenti državljani RH s prebivalištem na području Zagrebačke županije, redovni učenici/studenti, sa определenim prosječnim ocjenama, starosni limit do 20/26 godina. Dva kriterija: prema izvrsnosti i prema socijalnom kriteriju s dohodovnim pragom od 564,077 EUR po članu obitelji.",
+    "zadnji_put": "2026-10-23",
     "zasto_rucno": "",
     "zupanija": "Zagrebačka županija"
   },
@@ -1337,6 +1337,131 @@
     "zadnji_put": "2026-10-23",
     "zasto_rucno": "",
     "zupanija": "Splitsko-dalmatinska županija"
+  },
+  "www.dubrovnik.hr/natjecaji/natjecaj-za-dodjelu-stipendija-nadarenim-studentima-za-skolsku-godinu-2026-2027-21096|2026-11-03": {
+    "iznos": "140,00 eura mjesečno u Dubrovniku, 250,00 eura izvan Dubrovnika (bez srpnja i kolovoza)",
+    "iznos_je_fond": false,
+    "iznosi": [
+      {
+        "do": false,
+        "eur": 140.0,
+        "mjeseci": 10,
+        "razdoblje": "mjesecno",
+        "za": "studenti koji se školuju u Dubrovniku"
+      },
+      {
+        "do": false,
+        "eur": 250.0,
+        "mjeseci": 10,
+        "razdoblje": "mjesecno",
+        "za": "studenti koji se školuju izvan Dubrovnika"
+      }
+    ],
+    "izvor_naziv": "Grad Dubrovnik — natječaji",
+    "napomena": "Rok je izračunat kao 15 dana od objave natječaja na stranicama Grada Dubrovnika (19. listopada 2026.). Službeni rok teče od objave obavijesti u tjedniku Dubrovački vjesnik, pa može biti koji dan kasnije — ovo je najraniji mogući datum. Točan rok provjeri u Upravnom odjelu za obrazovanje, 020 640-826.",
+    "naslov": "Stipendije nadarenim studentima 2026./2027.",
+    "podrucje": "Dubrovnik",
+    "potvrda": "https://www.dubrovnik.hr/natjecaji/natjecaj-za-dodjelu-stipendija-nadarenim-studentima-za-skolsku-godinu-2026-2027-21096",
+    "poveznica": "",
+    "prvi_put": "2026-10-23",
+    "rok_iso": "2026-11-03",
+    "rok_tekst": "3. studenoga 2026.",
+    "rucni": true,
+    "slug": "dubrovnik-stipendije-nadarenim-studentima-2026",
+    "upute_za_prijavu": "Prijava se šalje poštom na Grad Dubrovnik, Upravni odjel za obrazovanje, socijalnu skrb i civilno društvo, Gundulićeva poljana 10, 20000 Dubrovnik. Prilažu se domovnica, potvrda o prebivalištu, potvrda o upisu, izjava o nepostojanju druge stipendije, svjedodžbe zadnje četiri godine i svjedodžba državne mature (prva godina) odnosno prijepis ocjena s ECTS bodovima (više godine). Obrazac je na dubrovnik.hr.",
+    "url": "https://www.dubrovnik.hr/natjecaji/natjecaj-za-dodjelu-stipendija-nadarenim-studentima-za-skolsku-godinu-2026-2027-21096",
+    "uvjeti": "Redoviti studenti, državljani RH s prebivalištem u Gradu Dubrovniku najmanje šest mjeseci prije raspisivanja natječaja, bez stipendije drugog davatelja. Uvjet uspjeha: prosjek najmanje 4,50 u posljednje četiri godine školovanja (prva godina studija) ili prosjek najmanje 3,50 po godini studija, ili jedno od prva tri mjesta na državnom natjecanju. Dodjeljuju se 22 stipendije: 10 za prirodne, tehničke, biotehničke i biomedicinske znanosti, 10 za društvene i humanističke, 2 za umjetničko područje.",
+    "zadnji_put": "2026-10-23",
+    "zasto_rucno": "Rok nije datum nego „15 dana od dana objave obavijesti u tjedniku Dubrovački vjesnik”, a datum te objave nije na stranici. Zato ga scraper ostavlja neodređenim i natječaj nije vidljiv nikome.",
+    "zupanija": "Dubrovačko-neretvanska županija"
+  },
+  "www.dubrovnik.hr/natjecaji/natjecaj-za-dodjelu-stipendija-studentima-koji-su-osobe-s-invaliditetom-za-skolsku-godinu-2026-2027-21097|2026-11-03": {
+    "iznos": "140,00 eura mjesečno u Dubrovniku, 250,00 eura izvan Dubrovnika (bez srpnja i kolovoza)",
+    "iznos_je_fond": false,
+    "iznosi": [
+      {
+        "do": false,
+        "eur": 140.0,
+        "mjeseci": 10,
+        "razdoblje": "mjesecno",
+        "za": "studenti koji se školuju u Dubrovniku"
+      },
+      {
+        "do": false,
+        "eur": 250.0,
+        "mjeseci": 10,
+        "razdoblje": "mjesecno",
+        "za": "studenti koji se školuju izvan Dubrovnika"
+      }
+    ],
+    "izvor_naziv": "Grad Dubrovnik — natječaji",
+    "napomena": "Rok je izračunat kao 15 dana od objave natječaja na stranicama Grada Dubrovnika (19. listopada 2026.). Službeni rok teče od objave obavijesti u tjedniku Dubrovački vjesnik, pa može biti koji dan kasnije — ovo je najraniji mogući datum. Točan rok provjeri u Upravnom odjelu za obrazovanje, 020 640-826.",
+    "naslov": "Stipendije studentima s invaliditetom 2026./2027.",
+    "podrucje": "Dubrovnik",
+    "potvrda": "https://www.dubrovnik.hr/natjecaji/natjecaj-za-dodjelu-stipendija-studentima-koji-su-osobe-s-invaliditetom-za-skolsku-godinu-2026-2027-21097",
+    "poveznica": "",
+    "prvi_put": "2026-10-23",
+    "rok_iso": "2026-11-03",
+    "rok_tekst": "3. studenoga 2026.",
+    "rucni": true,
+    "slug": "dubrovnik-stipendije-studentima-invaliditetom-2026",
+    "upute_za_prijavu": "Prijava poštom na Grad Dubrovnik, Upravni odjel za obrazovanje, socijalnu skrb i civilno društvo, Gundulićeva poljana 10, 20000 Dubrovnik. Obrazac je na dubrovnik.hr.",
+    "url": "https://www.dubrovnik.hr/natjecaji/natjecaj-za-dodjelu-stipendija-studentima-koji-su-osobe-s-invaliditetom-za-skolsku-godinu-2026-2027-21097",
+    "uvjeti": "Redoviti studenti sa statusom osobe s invaliditetom, državljani RH s prebivalištem u Gradu Dubrovniku najmanje šest mjeseci prije raspisivanja natječaja.",
+    "zadnji_put": "2026-10-23",
+    "zasto_rucno": "Rok nije datum nego „15 dana od dana objave obavijesti u tjedniku Dubrovački vjesnik”, a datum te objave nije na stranici. Zato ga scraper ostavlja neodređenim i natječaj nije vidljiv nikome.",
+    "zupanija": "Dubrovačko-neretvanska županija"
+  },
+  "www.dubrovnik.hr/natjecaji/natjecaj-za-dodjelu-stipendija-ucenicima-i-studentima-koji-su-djeca-stradalnika-iz-domovinskoga-rata-za-skolsku-godinu-2026-2027-21099|2026-11-03": {
+    "iznos": "učenici 90,00 eura u Dubrovniku / 170,00 izvan; studenti 140,00 eura u Dubrovniku / 250,00 izvan (mjesečno)",
+    "iznos_je_fond": false,
+    "iznosi": [
+      {
+        "do": false,
+        "eur": 90.0,
+        "mjeseci": 10,
+        "razdoblje": "mjesecno",
+        "za": "učenici u Dubrovniku"
+      },
+      {
+        "do": false,
+        "eur": 170.0,
+        "mjeseci": 10,
+        "razdoblje": "mjesecno",
+        "za": "učenici izvan Dubrovnika"
+      },
+      {
+        "do": false,
+        "eur": 140.0,
+        "mjeseci": 10,
+        "razdoblje": "mjesecno",
+        "za": "studenti u Dubrovniku"
+      },
+      {
+        "do": false,
+        "eur": 250.0,
+        "mjeseci": 10,
+        "razdoblje": "mjesecno",
+        "za": "studenti izvan Dubrovnika"
+      }
+    ],
+    "izvor_naziv": "Grad Dubrovnik — natječaji",
+    "napomena": "Rok je izračunat kao 15 dana od objave natječaja na stranicama Grada Dubrovnika (19. listopada 2026.). Službeni rok teče od objave obavijesti u tjedniku Dubrovački vjesnik, pa može biti koji dan kasnije — ovo je najraniji mogući datum. Točan rok provjeri u Upravnom odjelu za obrazovanje, 020 640-826.",
+    "naslov": "Stipendije za djecu stradalnika Domovinskog rata 2026./2027.",
+    "podrucje": "Dubrovnik",
+    "potvrda": "https://www.dubrovnik.hr/natjecaji/natjecaj-za-dodjelu-stipendija-ucenicima-i-studentima-koji-su-djeca-stradalnika-iz-domovinskoga-rata-za-skolsku-godinu-2026-2027-21099",
+    "poveznica": "",
+    "prvi_put": "2026-10-23",
+    "rok_iso": "2026-11-03",
+    "rok_tekst": "3. studenoga 2026.",
+    "rucni": true,
+    "slug": "dubrovnik-stipendije-djecu-stradalnika-domovinskog-rata-2026",
+    "upute_za_prijavu": "Prijava poštom na Grad Dubrovnik, Upravni odjel za obrazovanje, socijalnu skrb i civilno društvo, Gundulićeva poljana 10, 20000 Dubrovnik. Obrazac je na dubrovnik.hr.",
+    "url": "https://www.dubrovnik.hr/natjecaji/natjecaj-za-dodjelu-stipendija-ucenicima-i-studentima-koji-su-djeca-stradalnika-iz-domovinskoga-rata-za-skolsku-godinu-2026-2027-21099",
+    "uvjeti": "Učenici i studenti koji su djeca stradalnika iz Domovinskog rata, državljani RH s prebivalištem u Gradu Dubrovniku najmanje šest mjeseci prije raspisivanja natječaja.",
+    "zadnji_put": "2026-10-23",
+    "zasto_rucno": "Rok nije datum nego „15 dana od dana objave obavijesti u tjedniku Dubrovački vjesnik”, a datum te objave nije na stranici. Zato ga scraper ostavlja neodređenim i natječaj nije vidljiv nikome.",
+    "zupanija": "Dubrovačko-neretvanska županija"
   },
   "www.fer.unizg.hr/karijere/stipendije#news_93995|2026-10-18": {
     "iznos": "Redovitu mjesečnu stipendiju sa stimulativnim iznosima koji ovise o tvom uspjehu u studiju (u rasponu od 400 do čak 750 EUR)",
