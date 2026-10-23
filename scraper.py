@@ -689,13 +689,27 @@ _OBJAVA_UZORCI = (
 )
 
 
-def datum_objave(tekst, html=""):
+# Mnoge gradske stranice vrte WordPress, koji datum objave stavlja u samu
+# adresu: /2026/10/20/natjecaj-za-dodjelu-stipendija/. To je datum objave
+# po samoj gradi adrese, ne nagadanje — pouzdaniji od bilo cega u tekstu.
+_DATUM_U_ADRESI = re.compile(r"/(20\d\d)/(\d{1,2})/(\d{1,2})(?:/|$)")
+
+
+def datum_objave(tekst, html="", url=""):
     """Kad je natjecaj objavljen. None kad se ne da pouzdano procitati.
 
-    Redom se gleda ono sto je najmanje podlozno zabuni: strojni podatak u
-    HTML-u, pa izricita oznaka u tekstu. Bilo koji datum sa stranice NE
-    dolazi u obzir — na gradskim rubrikama ih ima desetak i svaki bi dao
-    drugi rok."""
+    Redom se gleda ono sto je najmanje podlozno zabuni: datum u adresi,
+    strojni podatak u HTML-u, pa izricita oznaka u tekstu. Bilo koji datum
+    sa stranice NE dolazi u obzir — na gradskim rubrikama ih ima desetak i
+    svaki bi dao drugi rok."""
+    m = _DATUM_U_ADRESI.search(url or "")
+    if m:
+        g, mj, d = int(m.group(1)), int(m.group(2)), int(m.group(3))
+        if 1 <= mj <= 12 and 1 <= d <= 31:
+            try:
+                return date(g, mj, d)
+            except ValueError:
+                pass
     for uzorak in (r'<time[^>]+datetime="(\d{4}-\d{2}-\d{2})',
                    r'property="article:published_time"[^>]+content="'
                    r'(\d{4}-\d{2}-\d{2})',
@@ -714,7 +728,7 @@ def datum_objave(tekst, html=""):
     return None
 
 
-def rok_iz_objave(rok_tekst, tekst, html=""):
+def rok_iz_objave(rok_tekst, tekst, html="", url=""):
     """Rok naveden kao "N dana od objave" pretvoren u datum.
 
     Dok se to nije racunalo, takav natjecaj nije imao rok pa se nigdje nije
@@ -733,7 +747,7 @@ def rok_iz_objave(rok_tekst, tekst, html=""):
     dani = int(m.group(1))
     if not 1 <= dani <= 90:
         return None, None
-    obj = datum_objave(tekst, html)
+    obj = datum_objave(tekst, html, url)
     if not obj:
         return None, None
     rok = obj + timedelta(days=dani)
@@ -1556,8 +1570,12 @@ def main():
         # tek na kraju, kad je poznato iz kojeg je teksta podatak dosao.
         if (ima_otvoren and extracted.get("rok_tekst")
                 and not parse_hr_date(extracted.get("rok_tekst"))):
+            # Adresa samog natjecaja, ne rubrike: datum je u njoj
+            # (/2026/10/20/...), a rubrika ga nema.
             nov, odakle = rok_iz_objave(
-                extracted["rok_tekst"], tekst_izvora, sirovi or "")
+                extracted["rok_tekst"], tekst_izvora, sirovi or "",
+                (izvor_natjecaja or _izravni(extracted.get("poveznica_natjecaj"), url)
+                 or url or ""))
             if nov:
                 print(f"  + rok izracunat iz datuma objave: {nov} ({odakle})")
                 extracted["_rok_izracunat"] = odakle
