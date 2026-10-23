@@ -10,7 +10,7 @@ Tehnicki statusi (GRESKA, PROVJERITI) se NE prikazuju javno.
 import json
 import os
 import re
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from zajednicko import (CSS_KARTICE, glava, navigacija, podnozje, oblik,
                         sredi_naslov, EMAIL, DOMENA, BAZA, WA_KANAL)
@@ -618,6 +618,31 @@ def zupanijski_umjesto_grada(parovi):
         else:
             out.append((r, pod, zup))
     return out, vraceni
+
+
+def _preusmjeri(mapa, stari, novi):
+    """Stranicu krivog citanja pretvori u preusmjerenje na ispravnu.
+
+    Brisanje bi dalo 404 svakome tko klikne poveznicu iz maila koji je vec
+    otisao, a ostavljanje bi ostavilo stranicu s krivim rokom. Preusmjerenje
+    rjesava oboje: stara adresa radi, a vodi na jedini tocan zapis."""
+    s_slug = (stari.get("slug") or "").strip()
+    n_slug = (novi.get("slug") or "").strip()
+    if not s_slug or not n_slug or s_slug == n_slug:
+        return
+    mapa_n = os.path.join(mapa, "natjecaj")
+    os.makedirs(mapa_n, exist_ok=True)
+    put = os.path.join(mapa_n, f"{s_slug}.html")
+    cilj = f"{n_slug}.html"
+    with open(put, "w", encoding="utf-8") as f:
+        f.write(f"""<!doctype html>
+<html lang="hr"><head><meta charset="utf-8">
+<title>Natječaj je premješten</title>
+<link rel="canonical" href="https://stipendije.hr/natjecaj/{cilj}">
+<meta name="robots" content="noindex">
+<meta http-equiv="refresh" content="0; url={cilj}"></head>
+<body><p>Ovaj natječaj sada stoji na
+<a href="{cilj}">ovoj stranici</a>.</p></body></html>""")
 
 
 def opisna_stranica(r):
@@ -1462,6 +1487,75 @@ def main():
             print(f"  Arhiv: {(zap.get('naslov') or '')[:42]} "
                   f"({zap.get('podrucje')} -> {zap['zupanija']})")
             zap["podrucje"] = zap["zupanija"]
+
+    # Isti natjecaj dvaput u arhivi, s dva procitana roka. Kljuc arhive je
+    # adresa + rok, pa kad model rok procita drukcije nego prosli put,
+    # nastane DRUGI zapis umjesto da se stari ispravi. Zapresic je tako
+    # stajao i s 23. i s 24. listopada; izvor kaze 23., a u mail je otislo
+    # 24. Kastav isto, s 30.10. i 20.11.
+    #
+    # Naslovi su prerazliciti da bi ih usporedba naslova spojila ("Stipendija
+    # ucenicima i studentima Grada Zapresica" i "Stipendije za ucenike i
+    # studente"), pa se gleda brojka: koliko zapisa izvor DANAS daje s te
+    # adrese, a koliko ih arhiva drzi otvorenih. Visak su stara citanja i
+    # idu van, najstarije vidjeni prvi.
+    #
+    # Izvor koji se danas nije dao procitati daje nula — tada se ne dira
+    # nista, inace bi jedan 403 obrisao cijelu arhivu tog grada.
+    from natjecaji import adresa_natjecaja
+    danas_iso = datetime.now().date().isoformat()
+
+    def _jos_otvoren(z):
+        r = z.get("rok_iso") or ""
+        return (not r) or r >= danas_iso
+
+    daje = {}
+    for r, _p, _z in otvorene:
+        ad = adresa_natjecaja({"poveznica": r.get("poveznica_natjecaj") or "",
+                               "url": r.get("url") or ""})
+        if ad:
+            daje[ad] = daje.get(ad, 0) + 1
+
+    drzi = {}
+    for s, zap in arhiv.items():
+        if not _jos_otvoren(zap):
+            continue
+        ad = adresa_natjecaja(zap)
+        if ad:
+            drzi.setdefault(ad, []).append(s)
+
+    # Uvjeti su namjerno tijesni. FER na jednoj adresi (s istim sidrom) drzi
+    # tri razlicite stipendije; kad ih scrape jednom procita samo jednu,
+    # sire pravilo bi ostale dvije proglasilo starim citanjem i obrisalo ih.
+    # Zato se cisti samo ocit slucaj: adresa s tocno dva zapisa od kojih
+    # izvor danas daje jedan, stari se nije javio tjedan dana, a novi jest
+    # u zadnja tri. Trostruki blizanac ostaje neocisten — to je u redu,
+    # bolje nego izbrisati natjecaj koji postoji.
+    prije_7 = (datetime.now().date() - timedelta(days=7)).isoformat()
+    prije_3 = (datetime.now().date() - timedelta(days=3)).isoformat()
+    for ad, slugovi in drzi.items():
+        n = daje.get(ad, 0)
+        if n != 1 or len(slugovi) != 2:
+            continue
+        slugovi.sort(key=lambda s: arhiv[s].get("zadnji_put") or "")
+        stari, novi_s = arhiv[slugovi[0]], arhiv[slugovi[1]]
+        if (stari.get("zadnji_put") or "9999") > prije_7:
+            continue
+        if (novi_s.get("zadnji_put") or "") < prije_3:
+            continue
+        ostaje = novi_s
+        for s in slugovi[:1]:
+            zap = arhiv[s]
+            print(f"  Staro čitanje istog natječaja, izbačeno: "
+                  f"{(zap.get('naslov') or s)[:40]} "
+                  f"(rok {zap.get('rok_iso')}, zadnji put viđen "
+                  f"{zap.get('zadnji_put')}) → ostaje rok "
+                  f"{ostaje.get('rok_iso')}")
+            try:
+                _preusmjeri(MAPA, zap, ostaje)
+            except OSError as e:
+                print(f"      (preusmjerenje nije napisano: {e})")
+            del arhiv[s]
 
     # Zapis koji je u arhiv usao prije ove provjere treba i izbaciti,
     # zajedno s vec napisanom stranicom — inace ostaje stajati na svojoj
