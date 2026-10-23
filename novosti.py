@@ -172,7 +172,17 @@ def _usko(z):
     for u in (z.get("url"), z.get("poveznica")):
         if u and (_adresa(u) in USKO or _bez_sidra(u) in USKO):
             return True
-    n = (z.get("naslov") or "").lower()
+    n = bez_kvacica((z.get("naslov") or "").lower())
+    # Demografska mjera nije stipendija nego pomoc obitelji, i prijavljuje
+    # ju roditelj, ne student. Splitsko-dalmatinska je objavila "Demografske
+    # mjere za obitelji s troje djece" — u mailu koji pocinje s "Otvorio se
+    # novi natjecaj za stipendiju" to je stavka na koju se primatelj ne moze
+    # prijaviti. Stoji na stranici, ne salje se.
+    #
+    # Natjecaj koji je stvarno stipendija, a opisan je kao demografska
+    # mjera, u naslovu ima rijec "stipendija" i prolazi dalje.
+    if re.search(r"\bdemografsk", n) and not re.search(r"stipendij", n):
+        return True
     return any(re.search(k, n) for k in USKO_NASLOVI)
 
 
