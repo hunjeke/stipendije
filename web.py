@@ -1015,6 +1015,16 @@ def spoji_duplikate(otvorene):
             # covjek napisao jedan po jedan i svaki je drugi natjecaj.
             if r.get("_rucni") and r2.get("_rucni"):
                 continue
+            # Dva zapisa koja vode na DVA razlicita teksta natjecaja su
+            # dva natjecaja, makar im se naslovi preklapali i rok bio isti.
+            # Grad Dubrovnik je istoga dana raspisao tri stipendije s istim
+            # rokom — "nadarenim studentima", "studentima s invaliditetom" i
+            # "djeci stradalnika" — i usporedba naslova ih je slila u jednu,
+            # jer dijele rijeci "stipendije", "studentima" i godinu.
+            v1 = (r.get("poveznica_natjecaj") or "").strip().rstrip("/")
+            v2 = (r2.get("poveznica_natjecaj") or "").strip().rstrip("/")
+            if v1 and v2 and v1 != v2:
+                continue
             if doslovno or (isti_rok and _isti_natjecaj(naslov, n2,
                                                         bez=_rijeci(p))):
                 if _popunjenost(r) > _popunjenost(r2):
