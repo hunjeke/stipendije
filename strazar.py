@@ -55,6 +55,39 @@ STRANICE = [
      "https://mzom.gov.hr/natjecaji-196/196"),
 ]
 
+# Zupanije u kojima stranica nema nijedan natjecaj, a izvori rade. Provjerom
+# 23.10.2026. pokazalo se da nisu prazne zbog greske nego zato sto te
+# zupanije raspisuju kasnije: Sibenik je lani objavio 24. listopada,
+# Sisacko-moslavacka 13. studenoga, Zadar 24. studenoga, Gospic tek u
+# prosincu. Redovni scrape ide ponedjeljkom i cetvrtkom, pa bi se objava
+# saznala s dva dana zakasnjenja — kod roka od 15 dana to je sedmina
+# vremena.
+#
+# Ovdje se samo gleda mijenja li se stranica. Straza ne zna sto je natjecaj;
+# javi promjenu, a ti pogledas. Lazna uzbuna kosta minutu, propustena
+# objava kosta cijelu zupaniju.
+PRAZNE_ZUPANIJE = [
+    ("Sibenik — stipendije",
+     "https://www.sibenik.hr/stranice/stipendije/135.html"),
+    ("Sibensko-kninska zupanija — pozivi i natjecaji",
+     "https://www.sibensko-kninska-zupanija.hr/pozivi-i-natjecaji"),
+    ("Zadar — stipendiranje",
+     "https://www.grad-zadar.hr/vijesti/odgoj-i-skolstvo--stipendiranje--"
+     "natjecaji-i-obrasci-59/1.html"),
+    ("Sisacko-moslavacka zupanija — natjecaji",
+     "https://www.smz.hr/natj/javni"),
+    ("Sisak — natjecaji i javni pozivi",
+     "https://sisak.hr/kategorija/natjecaji-i-javni-pozivi/"),
+    ("Licko-senjska zupanija — natjecaji",
+     "https://licko-senjska.hr/natjecaji-i-pozivi/"),
+    ("Pozesko-slavonska zupanija — otvoreni natjecaji",
+     "https://www.pszupanija.hr/natjecaji/otvoreni-natjecaji"),
+    ("Viroviticko-podravska zupanija — natjecaji",
+     "https://www.vpz.hr/natjecaji/"),
+]
+
+STRANICE += PRAZNE_ZUPANIJE
+
 # Sto je o ovoj akademskoj godini vec objavljeno, s datumom izvora. Stoji u
 # izvjestaju da ne moras svaki put kopati po ministarstvu. Vezano je uz
 # godinu, pa sljedece jeseni samo nestane umjesto da zavarava.
