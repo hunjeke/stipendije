@@ -589,10 +589,38 @@ def procitaj_natjecaj(client, page_text, samo_jeftino=False):
     odgovor = _pitaj_model(client, prompt, MODEL)
     if samo_jeftino:
         return odgovor
-    if "greska" not in odgovor and (odgovor.get("iznos")
-                                    or odgovor.get("rok_tekst")):
-        return odgovor
-    print(f"  . {MODEL} nije nasao ni iznos ni rok — pitam {MODEL_NATJECAJ}")
+
+    # Rok koji se ne da pretvoriti u datum jednako je neupotrebljiv kao da
+    # ga nema: natjecaj zavrsi u statusu "PROVJERITI RUCNO" i ne vidi ga
+    # nitko. Dosad se skupi model zvao samo kad jeftini ne bi nasao NI
+    # iznos NI rok, pa se za takve nije zvao nikad — rok_tekst je postojao,
+    # samo je glasio "15 dana od objave" ili "mjesec septembar".
+    #
+    # Na dan pisanja ovoga takvih je bilo 18 od 24 zaglavljena zapisa, medu
+    # njima tri dubrovacka natjecaja zbog kojih cijela Dubrovacko-neretvanska
+    # zupanija nije imala nijedan natjecaj na stranici.
+    rok = (odgovor.get("rok_tekst") or "").strip()
+    # "upotrebljiv" znaci: ili je datum, ili je "N dana od objave" sto se
+    # poslije pretvori u datum. Sve ostalo ("mjesec septembar", "12 dana")
+    # zavrsi kao PROVJERITI RUCNO.
+    upotrebljiv = bool(parse_hr_date(rok)) or bool(RELATIVAN_ROK.search(rok))
+
+    if "greska" not in odgovor:
+        if upotrebljiv:
+            return odgovor
+        if rok:
+            razlog = f"procitao rok koji nije datum ({rok[:40]!r})"
+        elif odgovor.get("iznos"):
+            # Iznos bez roka je cesto opisna stranica programa, ne natjecaj.
+            # Takve se ne eskaliraju — bilo bi to desetke poziva po prolazu
+            # na stranice na kojima roka ni nema.
+            return odgovor
+        else:
+            razlog = "nije nasao ni iznos ni rok"
+    else:
+        razlog = "nije odgovorio"
+
+    print(f"  . {MODEL} {razlog} — pitam {MODEL_NATJECAJ}")
     bolji = _pitaj_model(client, prompt, MODEL_NATJECAJ)
     SKUPIH_POZIVA += 1
     if "greska" in bolji and "JSON" not in str(bolji.get("greska")):
