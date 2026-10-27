@@ -1365,9 +1365,13 @@ def main():
         return
 
     d = json.load(open(ULAZ, encoding="utf-8"))
-    # Cirilicna slova iz naslova odmah van, prije ijedne usporedbe naslova.
+    # Cirilicna slova odmah van, prije ijedne usporedbe. Ne samo iz naslova:
+    # Makarska je dosla s "upisан u program deficitarnog zanimanja" u
+    # uvjetima, a uvjeti idu i na karticu i u mail. Oku je to obicna rijec,
+    # trazilici i citacu ekrana nije.
     for r in d:
-        for k in ("naslov_natjecaja", "naziv"):
+        for k in ("naslov_natjecaja", "naziv", "uvjeti", "upute_za_prijavu",
+                  "napomena", "iznos", "rok_tekst"):
             if r.get(k):
                 r[k] = bez_cirilice(r[k])
     pod_map, zup_map, _, usko_map = ucitaj_izvore()
