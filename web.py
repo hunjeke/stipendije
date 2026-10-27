@@ -1021,9 +1021,17 @@ def spoji_duplikate(otvorene):
             # rokom — "nadarenim studentima", "studentima s invaliditetom" i
             # "djeci stradalnika" — i usporedba naslova ih je slila u jednu,
             # jer dijele rijeci "stipendije", "studentima" i godinu.
+            #
+            # To vrijedi samo kad su oba zapisa s ISTOG izvora. Kad su s
+            # razlicitih, dvije adrese ne znace dva natjecaja nego dva mjesta
+            # koja objavljuju isti: stipendije Zagrebacke zupanije prenijeli
+            # su Jastrebarsko, Velika Gorica i Vrbovec, svaki na svojoj
+            # stranici, pa je ista zupanijska stipendija stajala na stranici
+            # tri puta — isti iznosi, isti rok.
             v1 = (r.get("poveznica_natjecaj") or "").strip().rstrip("/")
             v2 = (r2.get("poveznica_natjecaj") or "").strip().rstrip("/")
-            if v1 and v2 and v1 != v2:
+            if (v1 and v2 and v1 != v2
+                    and domena_izvora(r.get("url")) == domena_izvora(r2.get("url"))):
                 continue
             if doslovno or (isti_rok and _isti_natjecaj(naslov, n2,
                                                         bez=_rijeci(p))):
