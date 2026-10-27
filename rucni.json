@@ -832,5 +832,23 @@
     "napomena": "U natječaju rok stoji kao „15 dana od dana objave natječaja na službenim mrežnim stranicama i u tjednim novinama”. Natječaj je na stranicama županije objavljen 23. listopada 2026., pa je rok izračunat kao 7. studenoga 2026. Ako je objava u tjednim novinama kasnija, rok može biti koji dan dulji — ovo je najraniji mogući datum. Provjeri u Upravnom odjelu za obrazovanje, šport i kulturu.",
     "zasto_rucno": "Rok nije datum nego „15 dana od dana objave”, a datum objave ne stoji u tekstu natječaja — samo u popisu natječaja na stranicama županije. Automatsko čitanje ga zato nije moglo izračunati i natječaj je stajao u statusu PROVJERITI RUČNO, nevidljiv svima.",
     "potvrda": "https://www.bpz.hr/natje%C4%8Daji-21"
+  },
+  {
+    "naziv": "Karlovačka županija — stipendije za studente",
+    "naslov_natjecaja": "Stipendije Karlovačke županije za studente 2026./2027.",
+    "url": "https://kazup.hr/images/Tekst_natječaja_2026._2027._-_STUDENTI.pdf",
+    "poveznica_natjecaj": "https://kazup.hr/svi-javni-pozivi",
+    "podrucje": "Karlovačka županija",
+    "zupanija": "Karlovačka županija",
+    "kategorija": "Županija",
+    "iznos": "piše u Odluci o broju i visini stipendija, koja je prilog natječaju",
+    "iznosi": [],
+    "iznos_je_fond": false,
+    "rok_tekst": "29. listopada 2026.",
+    "uvjeti": "Stipendije se dodjeljuju u tri kategorije: za darovitost, za deficitarna zanimanja i po socijalnom statusu. Puni uvjeti (prebivalište, prosjek ocjena, godina studija) i broj stipendija po kategoriji su u tekstu natječaja i Pravilniku o stipendiranju, koji su prilog objavi.",
+    "upute_za_prijavu": "Prijava je isključivo elektronička, kroz sustav na som-natjecaj.eu — prvo registracija, pa prijava, a u padajućem izborniku treba odabrati „Karlovačka županija”. Prijava bez potpisane privole i suglasnosti ne uzima se u obzir. Uz prijavu se prilaže dokumentacija za odabranu kategoriju (darovitost, deficitarno zanimanje, socijalni status). Pitanja idu na stipendije@kazup.hr.",
+    "napomena": "Iznos i broj stipendija nisu u tekstu objave nego u posebnoj Odluci o broju i visini stipendija, koja je prilog natječaju — zato ih ovdje ne navodimo. Natječaj je objavljen 15. listopada 2026.",
+    "zasto_rucno": "Natječaj je objavljen na rubrici kazup.hr/svi-javni-pozivi, a pratila se druga rubrika županije, koja javlja da nema aktivnog natječaja — pa županijska stipendija nije bila na stranici. Sam tekst natječaja je PDF iz kojeg se podaci ne mogu automatski izvući.",
+    "potvrda": "https://kazup.hr/svi-javni-pozivi"
   }
 ]
