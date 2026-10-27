@@ -173,16 +173,25 @@ def _usko(z):
         if u and (_adresa(u) in USKO or _bez_sidra(u) in USKO):
             return True
     n = bez_kvacica((z.get("naslov") or "").lower())
-    # Demografska mjera nije stipendija nego pomoc obitelji, i prijavljuje
-    # ju roditelj, ne student. Splitsko-dalmatinska je objavila "Demografske
-    # mjere za obitelji s troje djece" — u mailu koji pocinje s "Otvorio se
-    # novi natjecaj za stipendiju" to je stavka na koju se primatelj ne moze
-    # prijaviti. Stoji na stranici, ne salje se.
+    # Pomoc obitelji nije stipendija: prijavljuje ju roditelj, ne student, i
+    # u mailu koji pocinje s "Otvorio se novi natjecaj za stipendiju" to je
+    # stavka na koju se primatelj ne moze prijaviti.
     #
-    # Natjecaj koji je stvarno stipendija, a opisan je kao demografska
-    # mjera, u naslovu ima rijec "stipendija" i prolazi dalje.
-    if re.search(r"\bdemografsk", n) and not re.search(r"stipendij", n):
-        return True
+    # Prvo je pravilo gledalo samo rijec "demografsk" i Splitsko-dalmatinska
+    # ga je prosla vec iduci tjedan: isti natjecaj se iz "Demografske mjere
+    # za obitelji s troje djece" prozvao "Pomoc obiteljima s troje i vise
+    # djece". Zato se gleda i "obitelj" i sama adresa — naslov se mijenja iz
+    # tjedna u tjedan, adresa ne.
+    #
+    # Natjecaj koji je stvarno stipendija ima "stipendij" u naslovu i prolazi
+    # dalje, makar bio opisan kao demografska mjera.
+    if not re.search(r"stipendij", n):
+        if re.search(r"\bdemografsk|\bobitelj", n):
+            return True
+        spoj = bez_kvacica(" ".join(
+            (z.get(k) or "") for k in ("url", "poveznica")).lower())
+        if "demografsk" in spoj:
+            return True
     return any(re.search(k, n) for k in USKO_NASLOVI)
 
 
