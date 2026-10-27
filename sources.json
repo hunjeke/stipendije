@@ -1053,5 +1053,201 @@
     "kategorija": "Sveučilište",
     "podrucje": "Pula",
     "zupanija": "Istarska županija"
+  },
+  {
+    "naziv": "Grad Duga Resa — natječaji",
+    "url": "https://dugaresa.hr/kategorija/natjecaji/",
+    "kategorija": "Grad",
+    "podrucje": "Duga Resa",
+    "zupanija": "Karlovačka županija"
+  },
+  {
+    "naziv": "Grad Ogulin — natječaji",
+    "url": "https://www.ogulin.hr/gradska-uprava/natjecaji/",
+    "kategorija": "Grad",
+    "podrucje": "Ogulin",
+    "zupanija": "Karlovačka županija"
+  },
+  {
+    "naziv": "Grad Ozalj — natječaji",
+    "url": "https://ozalj.hr/natjecaji/",
+    "kategorija": "Grad",
+    "podrucje": "Ozalj",
+    "zupanija": "Karlovačka županija"
+  },
+  {
+    "naziv": "Grad Slunj — gradske vijesti",
+    "url": "https://slunj.hr/gradske-vijesti/",
+    "kategorija": "Grad",
+    "podrucje": "Slunj",
+    "zupanija": "Karlovačka županija"
+  },
+  {
+    "naziv": "Karlovačka županija — svi javni pozivi",
+    "url": "https://kazup.hr/svi-javni-pozivi",
+    "kategorija": "Županija",
+    "podrucje": "Karlovačka županija",
+    "zupanija": "Karlovačka županija"
+  },
+  {
+    "naziv": "Grad Petrinja — pozivi",
+    "url": "https://petrinja.hr/category/pozivi/",
+    "kategorija": "Grad",
+    "podrucje": "Petrinja",
+    "zupanija": "Sisačko-moslavačka županija"
+  },
+  {
+    "naziv": "Grad Glina — natječaji",
+    "url": "https://www.grad-glina.hr/category/natjecaj/",
+    "kategorija": "Grad",
+    "podrucje": "Glina",
+    "zupanija": "Sisačko-moslavačka županija"
+  },
+  {
+    "naziv": "Grad Novska — javni pozivi i natječaji",
+    "url": "https://www.novska.hr/hr/javni-pozivi-i-natjecaji/",
+    "kategorija": "Grad",
+    "podrucje": "Novska",
+    "zupanija": "Sisačko-moslavačka županija"
+  },
+  {
+    "naziv": "Grad Benkovac — natječaji",
+    "url": "https://www.benkovac.hr/natjecaji-i-javna-nabava/natjecaji.html",
+    "kategorija": "Grad",
+    "podrucje": "Benkovac",
+    "zupanija": "Zadarska županija"
+  },
+  {
+    "naziv": "Grad Obrovac — natječaji",
+    "url": "https://www.obrovac.hr/natje%C4%8Daji-novi",
+    "kategorija": "Grad",
+    "podrucje": "Obrovac",
+    "zupanija": "Zadarska županija"
+  },
+  {
+    "naziv": "Grad Pag — natječaji",
+    "url": "https://www.pag.hr/index.php/gradska-uprava/natjecaji",
+    "kategorija": "Grad",
+    "podrucje": "Pag",
+    "zupanija": "Zadarska županija"
+  },
+  {
+    "naziv": "Grad Knin — službene stranice",
+    "url": "https://knin.hr/",
+    "kategorija": "Grad",
+    "podrucje": "Knin",
+    "zupanija": "Šibensko-kninska županija"
+  },
+  {
+    "naziv": "Grad Drniš — natječaji",
+    "url": "https://www.drnis.hr/dokumenti/natjecaji",
+    "kategorija": "Grad",
+    "podrucje": "Drniš",
+    "zupanija": "Šibensko-kninska županija"
+  },
+  {
+    "naziv": "Grad Skradin — vijesti",
+    "url": "https://www.skradin.hr/hr/vijesti/",
+    "kategorija": "Grad",
+    "podrucje": "Skradin",
+    "zupanija": "Šibensko-kninska županija"
+  },
+  {
+    "naziv": "Grad Vodice — studentske stipendije",
+    "url": "https://www.grad-vodice.hr/obrazovanje-i-sport/studentske-stipendije",
+    "kategorija": "Grad",
+    "podrucje": "Vodice",
+    "zupanija": "Šibensko-kninska županija"
+  },
+  {
+    "naziv": "Grad Zabok — pozivi i natječaji",
+    "url": "https://www.zabok.hr/natjecaji-lista/",
+    "kategorija": "Grad",
+    "podrucje": "Zabok",
+    "zupanija": "Krapinsko-zagorska županija"
+  },
+  {
+    "naziv": "Grad Zlatar — natječaji i javni pozivi",
+    "url": "https://zlatar.hr/natjecaji-i-javni-pozivi/",
+    "kategorija": "Grad",
+    "podrucje": "Zlatar",
+    "zupanija": "Krapinsko-zagorska županija"
+  },
+  {
+    "naziv": "Grad Donja Stubica — natječaji",
+    "url": "https://www.donjastubica.hr/natjecaji/",
+    "kategorija": "Grad",
+    "podrucje": "Donja Stubica",
+    "zupanija": "Krapinsko-zagorska županija"
+  },
+  {
+    "naziv": "Grad Klanjec — natječaji",
+    "url": "https://www.klanjec.hr/natjecaji/",
+    "kategorija": "Grad",
+    "podrucje": "Klanjec",
+    "zupanija": "Krapinsko-zagorska županija"
+  },
+  {
+    "naziv": "Općina Krapinske Toplice — natječaji",
+    "url": "https://www.krapinske-toplice.hr/category/natjecaji/",
+    "kategorija": "Općina",
+    "podrucje": "Krapinske Toplice",
+    "zupanija": "Krapinsko-zagorska županija"
+  },
+  {
+    "naziv": "Grad Otočac — oglasna ploča",
+    "url": "https://otocac.hr/oglasna-ploca/",
+    "kategorija": "Grad",
+    "podrucje": "Otočac",
+    "zupanija": "Ličko-senjska županija"
+  },
+  {
+    "naziv": "Grad Senj — natječaji",
+    "url": "https://www.senj.hr/natjecaji/",
+    "kategorija": "Grad",
+    "podrucje": "Senj",
+    "zupanija": "Ličko-senjska županija"
+  },
+  {
+    "naziv": "Grad Novalja — stipendije",
+    "url": "https://www.novalja.hr/54/stipendije.html",
+    "kategorija": "Grad",
+    "podrucje": "Novalja",
+    "zupanija": "Ličko-senjska županija"
+  },
+  {
+    "naziv": "Grad Garešnica — javni pozivi",
+    "url": "https://garesnica.eu/index.php/javni-poziv.html",
+    "kategorija": "Grad",
+    "podrucje": "Garešnica",
+    "zupanija": "Bjelovarsko-bilogorska županija"
+  },
+  {
+    "naziv": "Grad Grubišno Polje — javni pozivi u tijeku",
+    "url": "https://grubisnopolje.hr/natjecaji-i-pozivi/grad/javni-pozivi-u-tijeku",
+    "kategorija": "Grad",
+    "podrucje": "Grubišno Polje",
+    "zupanija": "Bjelovarsko-bilogorska županija"
+  },
+  {
+    "naziv": "Grad Slatina — službene stranice",
+    "url": "https://www.slatina.hr/",
+    "kategorija": "Grad",
+    "podrucje": "Slatina",
+    "zupanija": "Virovitičko-podravska županija"
+  },
+  {
+    "naziv": "Grad Orahovica — vijesti",
+    "url": "https://www.orahovica.hr/vijesti/",
+    "kategorija": "Grad",
+    "podrucje": "Orahovica",
+    "zupanija": "Virovitičko-podravska županija"
+  },
+  {
+    "naziv": "Grad Nova Gradiška — natječaji",
+    "url": "https://novagradiska.hr/natjecaji/",
+    "kategorija": "Grad",
+    "podrucje": "Nova Gradiška",
+    "zupanija": "Brodsko-posavska županija"
   }
 ]
