@@ -67,8 +67,8 @@ CACHE_FILE = ".cache.json"
 # Haiku radi dobro i vrti se 120 puta po radu, pa mora biti jeftin.
 # Druga razina cita sam natjecaj i iz njega vadi iznos, rok i uvjete. Ondje se
 # grijesi i ondje greska boli, a dogada se tek desetak puta po radu — zato Sonnet.
-MODEL = "claude-haiku-4-5-20251001"
-MODEL_NATJECAJ = "claude-sonnet-5"
+MODEL = "claude-haiku-5-5"
+MODEL_NATJECAJ = "claude-sonnet-5-5"
 REQUEST_TIMEOUT = 25
 DELAY_SEC = 2
 MAX_CHARS = 15000
