@@ -9,6 +9,13 @@ on:
     # Takav posao zna kasniti satima ili biti preskocen — 12.10.2026. ovaj se
     # uopce nije pokrenuo. Neobicna minuta cesto prode odmah.
     - cron: '17 6 * * 1,4'
+    # Dvije dopune istoga dana. Zakazani posao na GitHubu nije jamstvo nego
+    # mogucnost: 12.10. i 26.10.2026. jutarnji se nije pokrenuo uopce, pa je
+    # stranica tjedan dana pokazivala rokove koji su u meduvremenu istekli.
+    # Dopuna prvo pogleda jesu li podaci od danas i, ako jesu, odmah stane —
+    # kosta dvadesetak sekundi i nijedan poziv modelu.
+    - cron: '23 11 * * 1,4'
+    - cron: '41 16 * * 1,4'
   workflow_dispatch:
 
 permissions:
@@ -16,7 +23,36 @@ permissions:
   issues: write
 
 jobs:
+  # Prvi posao samo odgovara na pitanje "jesu li podaci vec od danas".
+  # Rucno pokretanje uvijek prolazi — kad covjek pritisne gumb, hoce da se
+  # radi, bez obzira na to sto je jutros vec proslo.
+  treba-li:
+    runs-on: ubuntu-latest
+    outputs:
+      ide: ${{ steps.p.outputs.ide }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: p
+        run: |
+          python - << 'PYEOF'
+          import json, os, datetime
+          rucno = os.environ.get("GITHUB_EVENT_NAME") == "workflow_dispatch"
+          try:
+              d = json.load(open("output.json", encoding="utf-8"))
+              zadnji = max((r.get("zadnje_provjereno") or "")[:10] for r in d)
+          except Exception:
+              zadnji = ""
+          danas = datetime.date.today().isoformat()
+          ide = "da" if (rucno or zadnji != danas) else "ne"
+          print(f"zadnji scrape: {zadnji or 'nepoznat'} | danas: {danas} | "
+                f"rucno: {rucno} -> {ide}")
+          with open(os.environ["GITHUB_OUTPUT"], "a") as f:
+              f.write(f"ide={ide}\n")
+          PYEOF
+
   provjeri:
+    needs: treba-li
+    if: needs.treba-li.outputs.ide == 'da'
     runs-on: ubuntu-latest
     steps:
       - name: Preuzmi kod
