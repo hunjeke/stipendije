@@ -17,6 +17,7 @@ tako i oznaceno, jer ove godine brojke mogu biti druge.
 import json
 import os
 import re
+from datetime import date
 
 from zajednicko import glava, navigacija, podnozje
 
@@ -121,6 +122,12 @@ MZO_STEM = "https://mzom.gov.hr/drzavne-stipendije-za-studente-u-stem-podrucjima
 # procitani — zato su upisani rukom umjesto da se ceka scraper.
 OTVOREN = True
 ROK = "3. studenoga 2026. do 12:00"
+# Dan nakon ovog datuma stranica sama prelazi u trece stanje: prijave su
+# zatvorene, ceka se rang-lista. Bez toga bi stranica koja nosi vise od
+# pola sve pretrage na sajtu jos tjednima pisala "prijave su otvorene" uz
+# rok koji je prosao. Kad izade natjecaj za sljedecu godinu, ovdje se
+# upise novi datum (ili ROK_ISO = "" da se stanje iskljuci).
+ROK_ISO = "2026-11-03"
 POVEZNICA = ("https://mzom.gov.hr/istaknute-teme/natjecaji-196/natjecaj-za-"
              "dodjelu-12-150-drzavnih-stipendija-za-akademsku-godinu-2026-"
              "2027-studentima-u-redovitom-statusu-koji-studiraju-na-visokim-"
@@ -452,6 +459,22 @@ def _blok_stanja():
     otvoren = citan_otvoren if OTVOREN is None else OTVOREN
     rok_txt = ROK or citan_rok
     veza = POVEZNICA or citana_veza
+
+    if otvoren and ROK_ISO and date.today().isoformat() > ROK_ISO:
+        return f"""<div class="stanje">
+  <div class="txt">
+    <b>Prijave su zatvorene \u2014 \u010deka se rang-lista</b>
+    <span>Rok je bio {rok_txt or ROK}. Ministarstvo rang-liste objavljuje na
+      svojim stranicama; datum nije unaprijed odre\u0111en. <strong>Od objave
+      rang-liste ima\u0161 sedam dana da u sustavu prihvati\u0161 uvjete
+      stipendiranja</strong> \u2014 tko to ne u\u010dini, smatra se da
+      stipendiju ne prihva\u0107a. Prigovor se podnosi u roku od osam dana od
+      objave. Isplata je 9 rata po 200,00 eura i po\u010dinje najkasnije
+      31. prosinca.</span>
+  </div>
+  <a href="https://whatsapp.com/channel/0029Vb8yRo75Ui2aMzBAjv1a"
+     target="_blank" rel="noopener">Javi mi kad izađe &rarr;</a>
+</div>"""
 
     if otvoren:
         rok = f" Rok prijave je <strong>{rok_txt}</strong>." if rok_txt else ""
