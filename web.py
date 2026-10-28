@@ -944,6 +944,34 @@ def je_prenositelj(url):
     return domena_izvora(url) in PRENOSITELJI
 
 
+# Objave koje nisu stipendija, a citaju se s rubrike na kojoj stipendije jesu.
+# Jednokratna pomoc nije stipendija: ne isplacuje se mjesecno, ne vezuje se uz
+# uspjeh i cesto ju trazi roditelj, a ne ucenik. Na popisu stipendija zavarava.
+#
+# Pise se kao (podrucje, dio naslova). Dio naslova se trazi bez kvacica i bez
+# obzira na velika slova, pa preziv i promjenu u "Jednokratne financijske
+# potpore ucenicima".
+NISU_STIPENDIJE = (
+    ("Makarska", "jednokratna financijska potpora"),
+)
+
+
+def nije_stipendija(r, podrucje):
+    from scraper import bez_kvacica
+    naslov = bez_kvacica((r.get("naslov_natjecaja") or r.get("naziv") or "").lower())
+    mjesto = bez_kvacica((podrucje or "").lower())
+    return any(bez_kvacica(p.lower()) == mjesto and bez_kvacica(n) in naslov
+               for p, n in NISU_STIPENDIJE)
+
+
+def izbaci_nestipendije(parovi):
+    """(preostali, izbaceni) — makni objave s popisa NISU_STIPENDIJE."""
+    ostaje, van = [], []
+    for par in parovi:
+        (van if nije_stipendija(par[0], par[1]) else ostaje).append(par)
+    return ostaje, van
+
+
 def izbaci_prenositelje(parovi):
     """(preostali, izbaceni) — makni prenesene objave tudih natjecaja.
 
@@ -1438,6 +1466,12 @@ def main():
     for naslov, pod, zup in vraceni:
         print(f"  Županijski natječaj objavio grad, vraćeno županiji: "
               f"{naslov[:46]} ({pod} -> {zup})")
+
+    otvorene, nisu = izbaci_nestipendije(otvorene)
+    zatvorene, nisu2 = izbaci_nestipendije(zatvorene)
+    for r, pod, _ in nisu + nisu2:
+        print(f"  Nije stipendija, izbaceno: "
+              f"{(r.get('naslov_natjecaja') or r.get('naziv') or '')[:50]} ({pod})")
 
     otvorene, preneseni = izbaci_prenositelje(otvorene)
     for r, pod, _ in preneseni:
