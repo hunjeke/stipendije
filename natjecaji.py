@@ -289,6 +289,116 @@ def _hr_datum(iso):
         return ""
 
 
+def _skolska_godina(rok_iso):
+    """"2026./2027." iz roka. Natjecaj s rokom u jesen vrijedi za godinu
+    koja tada pocinje; rok u prvoj polovici godine jos pripada tekucoj."""
+    try:
+        g, m = int(rok_iso[:4]), int(rok_iso[5:7])
+    except (TypeError, ValueError, IndexError):
+        return ""
+    prva = g if m >= 8 else g - 1
+    return f"{prva}./{prva + 1}."
+
+
+def _mjesto_vec_u(naslov, pod):
+    """Je li mjesto vec u naslovu, makar u drugom padezu.
+
+    "Stipendije Grada Zagreba" i podrucje "Grad Zagreb" su isto mjesto, ali
+    se po punoj rijeci ne poklapaju — zato se usporeduje korijen. Bez toga
+    je naslov glasio "Stipendije Grada Zagreba — Grad Zagreb"."""
+    n = _bez_kvacica(naslov).lower()
+    for rijec in re.findall(r"\w{4,}", _bez_kvacica(pod).lower()):
+        if rijec in ("grad", "opcina", "cijela", "zupanija"):
+            continue
+        if rijec[:-2] and rijec[:-2] in n:
+            return True
+    return False
+
+
+def _naslov_za_google(naslov, pod, rok_iso, otvoren):
+    """Naslov stranice u Googleovu ispisu.
+
+    Stari oblik je bio "{naslov} — {pod} | stipendije.hr" i imao tri mane,
+    koje se vide kad se usporedi sa zupanijskim stranicama: te imaju CTR
+    9,6%, a stranice po natjecaju 5,1% uz 17.681 prikaz.
+
+      1. Mjesto se ponavljalo ("Stipendije Grada Zagreba — Grad Zagreb"),
+         a Google pokazuje oko 60 znakova.
+      2. Nije bilo godine, a ljudi je tipkaju: "drzavna stipendija 2026 2027"
+         je jedan od najjacih upita na ovoj stranici.
+      3. Nije bilo roka. Rok je jedini podatak zbog kojeg netko klikne bas
+         na ovaj rezultat, a ne na sljedeci.
+
+    Sve preko 60 znakova Google odsijeca, pa se najprije gradi ono bitno, a
+    ime stranice se dodaje samo ako jos ima mjesta."""
+    sveopce = _bez_kvacica(pod or "").lower().strip() == "cijela hrvatska"
+    mjesto = "" if (not pod or sveopce or _mjesto_vec_u(naslov, pod)) else pod
+    god = _skolska_godina(rok_iso)
+    if god and re.search(r"\b20\d\d", naslov):
+        god = ""
+    rok = ""
+    if otvoren and rok_iso:
+        try:
+            d = datetime.strptime(rok_iso, "%Y-%m-%d")
+            rok = f"rok {d.day}.{d.month}."
+        except ValueError:
+            rok = ""
+
+    def slozi(s_mjestom, s_godinom, s_rokom, s_imenom):
+        t = naslov
+        if s_mjestom and mjesto:
+            t = f"{t} — {mjesto}"
+        if s_godinom and god:
+            t = f"{t} {god}"
+        if s_rokom and rok:
+            t = f"{t} — {rok}"
+        return f"{t} | stipendije.hr" if s_imenom else t
+
+    # Kad sve ne stane u 65 znakova, ispada ono najmanje vrijedno, redom:
+    # ime stranice, pa rok, pa godina. Mjesto ostaje najdulje — po njemu
+    # se natjecaj trazi ("stipendije Bakar"), a rok je samo razlog da se
+    # klikne na rezultat koji je ionako vec pronaden.
+    for kombinacija in ((1, 1, 1, 1), (1, 1, 1, 0), (1, 1, 0, 0),
+                        (1, 0, 0, 0), (0, 0, 0, 0)):
+        t = slozi(*kombinacija)
+        if len(t) <= 65:
+            return t
+    return naslov[:60].rsplit(" ", 1)[0] + "…"
+
+
+def _opis_za_google(z, rok_hr, otvoren):
+    """Opis ispod naslova u Googleovu ispisu.
+
+    Stari opis je pocinjao doslovnim ponavljanjem naslova, a zavrsavao
+    praznom recenicom "Uvjeti i upute za prijavu." — Google pokazuje oko
+    155 znakova, pa je pola prostora odlazilo na nista. Sad prvo ide ono
+    zbog cega netko klikne (iznos, rok), pa obecanje onoga sto na stranici
+    stvarno pise. Duze od 155 znakova Google odsijeca, pa se krati ovdje,
+    na razmaku, umjesto da recenica puca nasred rijeci."""
+    def skrati(d, n=152):
+        return d if len(d) <= n else d[:n].rsplit(" ", 1)[0] + "…"
+
+    iznos = (z.get("iznos") or "").strip()
+    if len(iznos) > 60:
+        iznos = iznos[:60].rsplit(" ", 1)[0] + "…"
+    if not otvoren:
+        d = "Natječaj je zatvoren. "
+        if iznos:
+            d += f"Iznos je bio: {iznos}. "
+        return skrati(d + "Javljamo čim izađe novi natječaj za ovo mjesto.")
+
+    # Rok po skupinama zna biti recenica od stotinjak znakova
+    # ("29.10.2026. do 13:00 za ucenike · 30.10.2026. ... za studente") —
+    # u opisu je dovoljan prvi datum, puni rok pise na samoj stranici.
+    rok = (rok_hr or "").strip()
+    if len(rok) > 32:
+        rok = _hr_datum(z.get("rok_iso")) or ""
+    d = f"Iznos: {iznos}. " if iznos else ""
+    if rok:
+        d += f"Rok prijave {rok.rstrip('. ')}. "
+    return skrati(d + "Tko se može prijaviti, koje dokumente treba i gdje se predaje.")
+
+
 def _strukturirano(z, naslov, pod, zup, slug_zup, opis, adresa):
     """JSON-LD za stranicu natjecaja.
 
@@ -410,12 +520,10 @@ def stranica(mapa, z, eur, iznos_polja_f, datumi_u_brojke, esc,
         put_gore = (f' &rsaquo; <a href="../zupanija/{slug_zup}.html">'
                     f'{esc(zup)}</a>')
 
-    opis = (f"{naslov} — {pod}. "
-            + (f"Iznos: {z.get('iznos')[:90]}. " if z.get("iznos") else "")
-            + (f"Rok prijave {rok_hr} " if rok_hr else "")
-            + "Uvjeti i upute za prijavu.")
+    naslov_seo = _naslov_za_google(naslov, pod, z.get("rok_iso"), otvoren)
+    opis = _opis_za_google(z, rok_hr, otvoren)
     adresa = f"{BAZA}/{MAPA_NATJECAJA}/{z['slug']}.html"
-    html = glava(f"{naslov} — {pod} | stipendije.hr", opis[:300], CSS,
+    html = glava(naslov_seo, opis[:300], CSS,
                  _strukturirano(z, naslov, pod, zup, slug_zup,
                                 opis[:300], adresa), "../")
     html += navigacija("natjecaji", "../")
