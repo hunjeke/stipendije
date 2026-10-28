@@ -111,9 +111,13 @@ PITANJA = [
 
 def vodic(mapa, broj, vrijeme):
     q = "".join(f'<div class="q"><h3>{n}</h3>{"".join(t)}</div>' for n, t in PITANJA)
-    html = glava("Kako do stipendije — stipendije.hr",
-                 "Rokovi, uvjeti i dokumentacija: što treba znati prije prijave "
-                 "na natječaj za stipendiju u Hrvatskoj.", CSS)
+    # Stari naslov je bio "Kako do stipendije — stipendije.hr": 2.719 prikaza
+    # u 90 dana i samo 62 klika, CTR 2,3% uz prosjek stranice 9,2%. Nije imao
+    # nijednu rijec koju ljudi tipkaju — ni "uvjeti", ni "dokumenti", ni
+    # godinu, a godina je u ovim pretragama posvuda.
+    html = glava("Uvjeti i dokumenti za stipendiju 2026./2027. — vodič",
+                 "Što se traži u natječajima za stipendije: prebivalište, prosjek "
+                 "ocjena, deficitarna zanimanja i koje dokumente pripremiti.", CSS)
     html += navigacija("vodic")
     html += f"""<main class="w"><section class="tekst">
 <h1>Kako do stipendije</h1>
