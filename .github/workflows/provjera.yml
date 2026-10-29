@@ -94,10 +94,34 @@ jobs:
           for f in output.html output.json output.csv .cache.json natjecaji.json .provjera-stanje.json docs; do
             git add -A "$f" || true
           done
-          git diff --staged --quiet || git commit -m "Rezultati provjere $(date +'%d.%m.%Y')"
-          git push || true
+          if git diff --staged --quiet; then
+            echo "nema promjena za spremiti"
+            exit 0
+          fi
+          git commit -m "Rezultati provjere $(date +'%d.%m.%Y')"
+          # Dok rad traje, netko moze gurnuti u main — runner je kod preuzeo
+          # na starijem commitu, pa mu push vise ne prolazi. 29.10.2026. se
+          # tocno to dogodilo: 21 minuta citanja, commit sa 119 datoteka, i
+          # "! [rejected] main -> main". Stari "git push || true" je taj kvar
+          # progutao, pa je rad ostao zelen, a rezultata nije bilo nigdje.
+          #
+          # Zato: tri pokusaja s rebaseom na ono sto je u meduvremenu doslo,
+          # a ako ni treci ne prode, korak pada glasno umjesto da sute.
+          for i in 1 2 3; do
+            if git pull --rebase --autostash origin main && git push; then
+              echo "spremljeno iz $i. pokusaja"
+              exit 0
+            fi
+            echo "push nije prosao ($i/3) — pokusavam ponovno"
+            sleep 5
+          done
+          echo "::error::Rezultati provjere nisu spremljeni — push odbijen tri puta"
+          exit 1
 
+      # Bez 'always()' bi pad spremanja odnio i jedini preostali primjerak
+      # rezultata — a bas tada je najpotrebniji.
       - name: Sacuvaj rezultate za preuzimanje
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: rezultati
