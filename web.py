@@ -1166,7 +1166,13 @@ JS_ROKOVI = """
     var z=k.querySelector("[data-znak]");
     if(!z) return;
     // tri stupnja: crveno kad gori, zuto kad se blizi, zeleno dok ima vremena
-    if(n===0){ z.className="status hitno"; z.textContent="Zadnji dan"; }
+    //
+    // Prva dva dana nose dan umjesto broja. "Zadnji dan" i "Još 1 dan" su
+    // stajali jedan ispod drugoga i nije se vidjelo koji je hitniji, a "još
+    // 1 dan" se k tome cita dvojako: je li to danas do ponoci ili sutra?
+    // "Danas" i "sutra" nemaju to pitanje.
+    if(n===0){ z.className="status hitno"; z.textContent="Ističe danas"; }
+    else if(n===1){ z.className="status hitno"; z.textContent="Ističe sutra"; }
     else if(n<=3){ z.className="status hitno";
       z.textContent="Još "+n+" "+oblik(n,"dan","dana","dana"); }
     else if(n<=14){ z.className="status uskoro";
