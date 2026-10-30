@@ -543,15 +543,46 @@ def pdf_poveznice(html, baza, maks=2, za_iznos=False):
     return kandidati
 
 
+# Koliko je puta koja greska API-ja vracena u ovom prolazu.
+#
+# Greska pojedinog izvora je normalna i rad se zbog nje ne prekida: jedna
+# stranica koja ne odgovara ne smije srusiti citanje ostalih 176. Ali kad se
+# ISTA greska ponovi desetak puta, to vise nije izvor nego kvar kod nas.
+# 29.10.2026. je promjena modela razbila citanje odgovora
+# ('ThinkingBlock' object has no attribute 'text') i palo je svako svjeze
+# citanje — a rad je zavrsio zeleno, jer je svaki pad bio "samo jos jedan
+# izvor". Dva puta po 25 minuta je otislo prije nego se vidjelo.
+GRESKE_API = {}
+PRAG_ISTE_GRESKE = 10
+
+
 def _pitaj_model(client, prompt, model):
     raw = ""
     try:
         response = client.messages.create(
             model=model,
-            max_tokens=1000,
+            # 1000 je bilo dovoljno dok je odgovor bio samo JSON. Modeli koji
+            # prvo razmisljaju trose isti proracun na razmisljanje, pa im uz
+            # staru granicu zna ponestati prostora prije nego dodu do
+            # odgovora. Place se samo ono sto se stvarno ispise, pa visa
+            # granica ne kosta nista dok nije potrebna.
+            max_tokens=4000,
             messages=[{"role": "user", "content": prompt}],
         )
-        raw = response.content[0].text.strip()
+        # Noviji modeli vracaju prvo blok razmisljanja, pa tek onda tekst.
+        # Staro `response.content[0].text` je na njima pucalo s
+        # "'ThinkingBlock' object has no attribute 'text'" — i to tiho, kao
+        # greska pojedinog izvora, pa je rad izgledao uspjesno dok nijedan
+        # svjeze procitan izvor nije dao nista. Zato se uzima prvi tekstualni
+        # blok, bez obzira koliko ih je ispred njega.
+        raw = ""
+        for blok in response.content:
+            if getattr(blok, "type", "") == "text" and getattr(blok, "text", ""):
+                raw = blok.text.strip()
+                break
+        if not raw:
+            print("  ! Model nije vratio tekst")
+            return {"greska": "odgovor bez teksta"}
         raw = re.sub(r"^```(json)?|```$", "", raw, flags=re.MULTILINE).strip()
         return json.loads(raw)
     except json.JSONDecodeError:
@@ -559,6 +590,8 @@ def _pitaj_model(client, prompt, model):
         return {"greska": "neispravan JSON", "sirovi_odgovor": raw[:300]}
     except Exception as e:
         print(f"  ! Greska API-ja: {e}")
+        kljuc = str(e)[:120]
+        GRESKE_API[kljuc] = GRESKE_API.get(kljuc, 0) + 1
         return {"greska": str(e)}
 
 
@@ -1766,6 +1799,21 @@ def main():
         print("\nZA RUCNU PROVJERU:")
         for r in needs_review:
             print(f"  - {r['naziv']}: {r['status']}")
+
+    # Namjerno tek ovdje, nakon sto su output.json i .cache.json vec
+    # zapisani: procitano se ne baca, a rad svejedno pada pa se stranica ne
+    # pregraduje s polovicnim podacima i kvar se vidi u Actionsima.
+    if GRESKE_API:
+        poruka, koliko = max(GRESKE_API.items(), key=lambda t: t[1])
+        if koliko >= PRAG_ISTE_GRESKE:
+            print(f"\n{'='*50}")
+            print(f"ZAUSTAVLJAM: ista greska API-ja ponovila se {koliko} puta")
+            print(f"  {poruka}")
+            print("Ovo nije kvar pojedinog izvora nego citanja odgovora "
+                  "ili pristupa modelu.")
+            print("Podaci i predmemorija su spremljeni; stranica nije "
+                  "pregradena.")
+            sys.exit(1)
 
 
 if __name__ == "__main__":
