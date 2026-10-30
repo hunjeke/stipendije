@@ -68,9 +68,9 @@ jobs:
           BREVO_DNEVNO: "300"
         run: |
           case "${{ inputs.nacin }}" in
-            proba) python posalji.py ;;
-            nacrt) python posalji.py --nacrt ;;
-            salji) python posalji.py --salji ;;
+            proba)   python posalji.py ;;
+            nacrt)   python posalji.py --nacrt ;;
+            salji)   python posalji.py --salji ;;
             pocisti) python posalji.py --pocisti ;;
           esac
 
@@ -90,5 +90,28 @@ jobs:
           git config user.name "github-actions"
           git config user.email "actions@github.com"
           git add poslano.json
-          git diff --cached --quiet || git commit -m "poslano: obavijesti $(date +%F)"
-          git push
+          if git diff --cached --quiet; then
+            echo "poslano.json nepromijenjen — nema sto zabiljeziti"
+            exit 0
+          fi
+          git commit -m "poslano: obavijesti $(date +%F)"
+          # Ovdje pad pusha boli vise nego igdje drugdje: mailovi su VEC
+          # otisli, a ako se poslano.json ne zapise, iduce pokretanje salje
+          # iste natjecaje istim ljudima jos jednom. To se dogodilo 21.10.
+          # 2026. (tada zbog 403), a 29.10. je isti push u provjeri pao jer
+          # je netko gurnuo u main dok je rad trajao.
+          #
+          # Zato: tri pokusaja s rebaseom na ono sto je u meduvremenu doslo.
+          # Ako ni treci ne prode, korak pada glasno — radije crveni rad i
+          # rucno zapisan poslano.json nego tiho dvostruko slanje.
+          for i in 1 2 3; do
+            if git pull --rebase --autostash origin main && git push; then
+              echo "zabiljezeno iz $i. pokusaja"
+              exit 0
+            fi
+            echo "push nije prosao ($i/3) — pokusavam ponovno"
+            sleep 5
+          done
+          echo "::error::Mailovi su poslani, ali poslano.json NIJE zapisan."
+          echo "::error::Ne pokreci slanje ponovno dok se to ne ispravi rucno."
+          exit 1
