@@ -1877,6 +1877,39 @@ def main():
                                 izvora_ukupno, vrijeme, popis)
         putevi.append((put, "0.8"))
 
+    # Zupanijska stranica koju build vise ne generira ostaje na disku
+    # zauvijek — prepisuje se samo ono sto se gradi. zupanija/zagreb.html
+    # je tako od 12.10. tri tjedna posluzivao star popis, a Google ga je
+    # za "stipendije Zagreb" nudio na poziciji 9,4 uz 727 pojavljivanja,
+    # dok je ziva grad-zagreb.html imala 693.
+    #
+    # Postupa se kao s premjestenim natjecajem: ne brise se, jer bi 404
+    # pogodio svakoga tko ima staru poveznicu, nego preusmjerava.
+    # Preimenovanja se upisuju ovdje; za sve ostalo vodi na popis.
+    PRESELJENE_ZUPANIJE = {"zagreb": "grad-zagreb"}
+    mapa_z = os.path.join(MAPA, "zupanija")
+    zive = {os.path.basename(p) for p, _ in putevi if p.startswith("zupanija/")}
+    for ime_d in sorted(os.listdir(mapa_z)) if os.path.isdir(mapa_z) else []:
+        if not ime_d.endswith(".html") or ime_d in zive:
+            continue
+        novi_slug = PRESELJENE_ZUPANIJE.get(ime_d[:-5], "")
+        if f"{novi_slug}.html" in zive:
+            cilj, kanon = f"{novi_slug}.html", f"zupanija/{novi_slug}.html"
+            tekst = "Stipendije za ovo područje sada stoje na"
+        else:
+            cilj, kanon = "../", ""
+            tekst = "Ova stranica vise ne postoji. Otvoreni natječaji su na"
+        with open(os.path.join(mapa_z, ime_d), "w", encoding="utf-8") as f:
+            f.write(f"""<!doctype html>
+<html lang="hr"><head><meta charset="utf-8">
+<title>Stranica je premještena</title>
+<link rel="canonical" href="https://stipendije.hr/{kanon}">
+<meta name="robots" content="noindex">
+<meta http-equiv="refresh" content="0; url={cilj}"></head>
+<body><p>{tekst}
+<a href="{cilj}">ovoj stranici</a>.</p></body></html>""")
+        print(f"  preusmjereno: zupanija/{ime_d} -> {cilj}")
+
     sitemap(MAPA, putevi + putevi_natjecaja)
     print("  stranica po zupanijama: %d" % len(sve_zup))
 
