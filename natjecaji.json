@@ -1781,6 +1781,57 @@
     "zasto_rucno": "Rok nije datum nego „15 dana od dana objave obavijesti u tjedniku Dubrovački vjesnik”, a datum te objave nije na stranici. Zato ga scraper ostavlja neodređenim i natječaj nije vidljiv nikome.",
     "zupanija": "Dubrovačko-neretvanska županija"
   },
+  "www.dubrovnik.hr/natjecaji/natjecaj-za-dodjelu-stipendija-ucenicima-i-studentima-iz-obitelji-slabijega-imovinskoga-stanja-za-skolsku-godinu-2026-2027-21098|2026-11-03": {
+    "iznos": "učenici 90,00 eura mjesečno u Dubrovniku i 170,00 eura izvan Dubrovnika; studenti 140,00 eura mjesečno u Dubrovniku i 250,00 eura izvan Dubrovnika (bez srpnja i kolovoza)",
+    "iznos_je_fond": false,
+    "iznosi": [
+      {
+        "do": false,
+        "eur": 90.0,
+        "mjeseci": 10,
+        "razdoblje": "mjesecno",
+        "za": "učenici koji se školuju u Dubrovniku"
+      },
+      {
+        "do": false,
+        "eur": 170.0,
+        "mjeseci": 10,
+        "razdoblje": "mjesecno",
+        "za": "učenici koji se školuju izvan Dubrovnika"
+      },
+      {
+        "do": false,
+        "eur": 140.0,
+        "mjeseci": 10,
+        "razdoblje": "mjesecno",
+        "za": "studenti koji se školuju u Dubrovniku"
+      },
+      {
+        "do": false,
+        "eur": 250.0,
+        "mjeseci": 10,
+        "razdoblje": "mjesecno",
+        "za": "studenti koji se školuju izvan Dubrovnika"
+      }
+    ],
+    "izvor_naziv": "Grad Dubrovnik — natječaji",
+    "napomena": "Rok je izračunat kao 15 dana od objave natječaja na stranicama Grada Dubrovnika (19. listopada 2026.). Službeni rok teče od objave obavijesti u tjedniku Dubrovački vjesnik, pa može biti koji dan kasnije — ovo je najraniji mogući datum. Nepravodobne i nepotpune prijave ne razmatraju se. Točan rok provjeri u Upravnom odjelu za obrazovanje, 020 640-826.",
+    "naslov": "Stipendije za učenike i studente slabijega imovinskog stanja 2026./2027.",
+    "podrucje": "Dubrovnik",
+    "potvrda": "https://www.dubrovnik.hr/natjecaji/natjecaj-za-dodjelu-stipendija-ucenicima-i-studentima-iz-obitelji-slabijega-imovinskoga-stanja-za-skolsku-godinu-2026-2027-21098",
+    "poveznica": "https://www.dubrovnik.hr/natjecaji/natjecaj-za-dodjelu-stipendija-ucenicima-i-studentima-iz-obitelji-slabijega-imovinskoga-stanja-za-skolsku-godinu-2026-2027-21098",
+    "prvi_put": "2026-11-02",
+    "rok_iso": "2026-11-03",
+    "rok_tekst": "3. studenoga 2026.",
+    "rucni": true,
+    "slug": "dubrovnik-stipendije-ucenike-studente-slabijega-imovinskog-stanja-2026",
+    "upute_za_prijavu": "Prijavnica se preuzima u Upravnom odjelu za obrazovanje, socijalnu skrb i civilno društvo ili na stranicama Grada. | Prilažu se domovnica, potvrda o prebivalištu ne starija od šest mjeseci ili preslika osobne iskaznice, potvrda o redovitom upisu, izjava o nepostojanju druge stipendije, dokazi o primanjima svih članova kućanstva za tri mjeseca prije prijave i potvrda Porezne uprave o dohotku za 2025., svjedodžbe posljednje četiri godine, a studenti i prijepis ocjena. | Po potrebi se prilažu dokazi o socijalnom položaju (odsutnost roditelja, pomoć Hrvatskog zavoda za socijalni rad, samohrani roditelj, obitelj s više djece). | Prijava se šalje na: Grad Dubrovnik, Upravni odjel za obrazovanje, socijalnu skrb i civilno društvo, Gundulićeva poljana 10, 20000 Dubrovnik.",
+    "url": "https://www.dubrovnik.hr/natjecaji/natjecaj-za-dodjelu-stipendija-ucenicima-i-studentima-iz-obitelji-slabijega-imovinskoga-stanja-za-skolsku-godinu-2026-2027-21098",
+    "uvjeti": "Dodjeljuje se 6 učeničkih i 10 studentskih stipendija. Hrvatski državljani s prebivalištem u Gradu Dubrovniku najmanje šest mjeseci prije raspisivanja natječaja, redoviti učenici ili studenti u Hrvatskoj, bez stipendije drugog davatelja. Prihod po članu kućanstva ne smije prelaziti: samac 660,00 eura, dvočlana obitelj 925,00 eura, tročlana 1.200,00 eura, četveročlana 1.450,00 eura, svaki daljnji član 265,00 eura više. Odabir se temelji na materijalnom i socijalnom položaju te općem uspjehu.",
+    "zadnji_put": "2026-11-02",
+    "zasto_rucno": "Rok nije datum nego „15 dana od dana objave obavijesti u tjedniku Dubrovački vjesnik”, a datum te objave nije na stranici. Zato ga scraper ostavlja neodređenim i natječaj nije vidljiv nikome.",
+    "zupanija": "Dubrovačko-neretvanska županija"
+  },
   "www.dubrovnik.hr/natjecaji/natjecaj-za-dodjelu-stipendija-ucenicima-i-studentima-koji-su-djeca-stradalnika-iz-domovinskoga-rata-za-skolsku-godinu-2026-2027-21099|2026-11-03": {
     "iznos": "učenici 90,00 eura u Dubrovniku / 170,00 izvan; studenti 140,00 eura u Dubrovniku / 250,00 izvan (mjesečno)",
     "iznos_je_fond": false,
@@ -2630,6 +2681,43 @@
     "zadnji_put": "2026-11-02",
     "zasto_rucno": "",
     "zupanija": "Istarska županija"
+  },
+  "www.rijeka.hr/natjecaji-za-stipendije-grada-rijeke-3|2026-11-10": {
+    "iznos": "300,00 eura mjesečno za učenike, 400,00 eura mjesečno za studente, 10 mjeseci",
+    "iznos_je_fond": false,
+    "iznosi": [
+      {
+        "do": false,
+        "eur": 300.0,
+        "mjeseci": 10,
+        "razdoblje": "mjesecno",
+        "za": "učenici"
+      },
+      {
+        "do": false,
+        "eur": 400.0,
+        "mjeseci": 10,
+        "razdoblje": "mjesecno",
+        "za": "studenti"
+      }
+    ],
+    "izvor_naziv": "Grad Rijeka — stipendije",
+    "napomena": "Natječaj raspisuje Upravni odjel za odgoj, obrazovanje, tehničku kulturu i mlade. Ostali uvjeti, kriteriji bodovanja i način podnošenja zahtjeva su u cjelovitom tekstu natječaja na stranici Grada. Pitanja: skolstvo@rijeka.hr, 051 209 572.",
+    "naslov": "Stipendije Grada Rijeke za učenike i studente 2026./2027.",
+    "podrucje": "Rijeka",
+    "potvrda": "https://www.rijeka.hr/natjecaji-za-stipendije-grada-rijeke-3/",
+    "poveznica": "https://www.rijeka.hr/natjecaji-za-stipendije-grada-rijeke-3/",
+    "prvi_put": "2026-11-02",
+    "rok_iso": "2026-11-10",
+    "rok_tekst": "10. studenoga 2026.",
+    "rucni": true,
+    "slug": "rijeka-stipendije-grada-rijeke-ucenike-studente-2026",
+    "upute_za_prijavu": "",
+    "url": "https://www.rijeka.hr/natjecaji-za-stipendije-grada-rijeke-3/",
+    "uvjeti": "Jedan natječaj s tri kategorije, ukupno 68 stipendija. Izvrsnost: 40 stipendija, 20 za srednjoškolce i 20 za studente. Deficitarna zanimanja: 9 stipendija — tri za edukacijsku rehabilitaciju, dvije za socijalnu pedagogiju, dvije za fiziku (nastavnički smjer), jedna za logopediju i jedna za geografiju (nastavnički smjer). Socio-ekonomski status: 19 stipendija, 12 za učenike i 7 za studente. Prijaviti se mogu učenici srednjih škola i redoviti studenti koji ispunjavaju uvjete pojedine kategorije.",
+    "zadnji_put": "2026-11-02",
+    "zasto_rucno": "Scraper je natječaj našao, ali rok nije pročitao jer je na rubrici stipendija razlomljen po kategorijama, pa je zapis stajao u statusu PROVJERITI RUČNO i nije bio vidljiv nikome.",
+    "zupanija": "Primorsko-goranska županija"
   },
   "www.rockwool.com/hr/o-nama/drustveno-odrzivo-poslovanje/stipendije|2026-11-03": {
     "iznos": "Studentima 4.820 EUR a učenicima 1.750 EUR u akademskoj/školskoj godini",
