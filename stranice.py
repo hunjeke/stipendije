@@ -206,7 +206,28 @@ def stranica_zupanije(mapa, ime, kartice_html, br_otv, br_uk,
 
     lok = lokativ(ime)
     god = datetime.now().year
-    naslov = f"Stipendije u {lok} {god}. — otvoreni natječaji | stipendije.hr"
+    # POKUS, pocet 2.11.2026., mijenja se SAMO Varazdinska.
+    #
+    # Naslov je dosad bio u lokativu ("Stipendije u Varazdinskoj zupaniji"),
+    # a ljudi traze u genitivu. U Search Consoleu se ta razlika vidi gola:
+    #
+    #   "stipendije Varazdinske zupanije"   pozicija 3,2
+    #   "varazdinska zupanija stipendije"   pozicija 7,3
+    #
+    # Ista zupanija, ista stranica, tri mjesta razlike. Uz to na slabijem
+    # upitu Google nudi i rubriku i stranicu natjecaja, pa si uzimaju
+    # mjesto jedna drugoj (7,9 prema 6,0).
+    #
+    # Mijenja se jedna zupanija da ostalih dvadeset ostanu mjerilo. Oko
+    # 1.12.2026. usporediti poziciju varazdinskih upita s ostalima: ako
+    # se popravila, genitiv ide na sve; ako nije, vraca se natrag i
+    # trazi se drugi uzrok.
+    GENITIV = {"Varaždinska županija": "Varaždinske županije"}
+    if ime in GENITIV:
+        naslov = (f"Stipendije {GENITIV[ime]} {god}./{god + 1}. "
+                  f"— svi otvoreni natječaji")
+    else:
+        naslov = f"Stipendije u {lok} {god}. — otvoreni natječaji | stipendije.hr"
     opis = (f"Svi natječaji za stipendije u {lok}: iznosi, rokovi prijave "
             f"i upute za prijavu. Izvore automatski provjeravamo dvaput tjedno.")
 
