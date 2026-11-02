@@ -168,7 +168,14 @@ USKO = _usko_adrese()
 
 
 def _usko(z):
-    """Je li natjecaj usko usmjeren."""
+    """Je li natjecaj usko usmjeren, ili uopce nije stipendija."""
+    # Isto pravilo koje stranica koristi da makarske jednokratne potpore ne
+    # stoje medu stipendijama. Dok je stajalo samo u web.py, sa stranice su
+    # nestale ali su i dalje isle mailom — a mail pocinje recenicom o novom
+    # natjecaju za stipendiju.
+    from zajednicko import nije_stipendija
+    if nije_stipendija(z.get("naslov") or "", z.get("podrucje") or ""):
+        return True
     for u in (z.get("url"), z.get("poveznica")):
         if u and (_adresa(u) in USKO or _bez_sidra(u) in USKO):
             return True
@@ -586,6 +593,39 @@ def _bez_prenositelja(otvoreni):
     return out
 
 
+def _kljuc_istog(z):
+    """Po cemu se dva zapisa prepoznaju kao isti natjecaj.
+
+    Mjesto + rok + naslov bez godine. Godina ispada jer isti natjecaj dode
+    s rubrika triju gradova pod tri imena: "Stipendije Zagrebacke zupanije
+    2026./2027." dvaput i "Stipendije Zagrebacke zupanije" jednom.
+    """
+    n = bez_kvacica(z.get("naslov") or "")
+    n = re.sub(r"\b20\d\d\.?(/\d{2,4}\.?)?", " ", n)   # makni godinu
+    n = re.sub(r"[^a-z0-9]+", " ", n).strip()
+    return (bez_kvacica(z.get("podrucje") or ""),
+            z.get("rok_iso") or "", n)
+
+
+def _bez_dvojnika(zapisi):
+    """Isti natjecaj s vise rubrika -> jedan zapis, onaj najbogatiji.
+
+    Stranica to vec radi, mail nije: 2.11.2026. su stipendije Zagrebacke
+    zupanije stajale u istoj poruci tri puta, jer su ih prenijeli
+    Jastrebarsko, Velika Gorica i Vrbovec, a uvod bi glasio "Otvorila su se
+    3 nova natjecaja".
+    """
+    najbolji = {}
+    for s, z in zapisi.items():
+        k = _kljuc_istog(z)
+        bod = sum(1 for p in ("iznos", "uvjeti", "upute_za_prijavu",
+                              "napomena", "poveznica") if z.get(p))
+        if k not in najbolji or bod > najbolji[k][1]:
+            najbolji[k] = (s, bod)
+    ostaju = {s for s, _ in najbolji.values()}
+    return {s: z for s, z in zapisi.items() if s in ostaju}
+
+
 def novi_natjecaji():
     # Arhiva je od sada kljucana adresom i rokom, a poslano.json pamti
     # slugove. Ovdje se gleda po slugu, pa oznake poslanog i dalje vrijede.
@@ -597,6 +637,7 @@ def novi_natjecaji():
     otvoreni = {s: z for s, z in arhiv.items()
                 if _otvoren(z) and not opisna_stranica(z)}
     otvoreni = _bez_prenositelja(otvoreni)
+    otvoreni = _bez_dvojnika(otvoreni)
     novi = {s: z for s, z in otvoreni.items() if s not in poslano}
     return arhiv, poslano, otvoreni, novi
 
