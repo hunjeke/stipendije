@@ -302,6 +302,37 @@ def _razlog_greske(e):
     return type(e).__name__
 
 
+# Znakovi po kojima se prepoznaje zastitni meduzaslon umjesto stranice.
+#
+# Dio gradskih stranica stoji iza zastite od botova. Ona vrati HTTP 200 i
+# kratku stranicu s porukom "provjeravamo vas zahtjev", a scraper ju
+# procita kao obicnu stranicu bez natjecaja i zapise NEMA AKTIVNOG
+# NATJECAJA. To je najgora vrsta promasaja: izgleda kao pokrivenost.
+# Klanjec je tako tjednima stajao kao prazan, a natjecaj za 2026./2027.
+# je cijelo vrijeme bio iza te provjere.
+#
+# Trazi se u prvih par tisuca znakova i samo na kratkim stranicama —
+# prava rubrika s natjecajima je uvijek dulja od ovoga.
+MEDUZASLON = (
+    "please wait while your request is being verified",
+    "checking your browser before accessing",
+    "just a moment...",
+    "enable javascript and cookies to continue",
+    "ddos protection by",
+    "attention required! | cloudflare",
+    "provjeravamo vas zahtjev",
+)
+MEDUZASLON_NAJVISE = 1200   # znakova; dulji tekst nije meduzaslon
+
+
+def _je_meduzaslon(tekst):
+    if len(tekst) > MEDUZASLON_NAJVISE:
+        return False
+    # bez kvacica jer hrvatska varijanta poruke dolazi i s njima i bez njih
+    n = bez_kvacica(tekst)
+    return any(k in n for k in MEDUZASLON)
+
+
 def fetch_content(url, retries=2, tiho=False):
     """Dohvati stranicu. Vraca (tekst, hash, sirovi_html).
 
@@ -385,6 +416,12 @@ def fetch_content(url, retries=2, tiho=False):
     if not cleaned:
         if not tiho:
             print("  ! Stranica dohvacena ali prazna nakon ciscenja")
+        return None, None, None
+    if _je_meduzaslon(cleaned):
+        ZADNJI_RAZLOG = "zastita od botova, stranica se ne da procitati"
+        if not tiho:
+            print("  ! Umjesto stranice je zastitni meduzaslon — "
+                  "izvor ide u rucnu provjeru, ne u 'nema natjecaja'")
         return None, None, None
     content_hash = hashlib.sha256(cleaned.encode("utf-8")).hexdigest()[:16]
     return cleaned, content_hash, sirovi
