@@ -19,7 +19,7 @@ import os
 import re
 from datetime import date
 
-from zajednicko import glava, navigacija, podnozje
+from zajednicko import glava, navigacija, podnozje, oblik
 
 # --- provjereni podaci (izvori su na dnu stranice) -------------------------
 IZNOS = "200 €"
@@ -177,6 +177,24 @@ CSS = """
   text-decoration:none;font-weight:600;font-size:.92rem;padding:.72rem 1.1rem;
   white-space:nowrap}
 .stanje a:hover{filter:brightness(1.12)}
+
+/* "otvoreno je sada" — stoji samo dok su prijave za drzavnu zatvorene.
+   Pola prometa stranice dolazi na ovu stranicu s upita "drzavna
+   stipendija"; kad rok prode, jedino sto im je stranica nudila bilo je
+   cekanje. Gradske i zupanijske stipendije traju i dalje. */
+.sada{border:1px solid var(--linija);background:var(--karta);
+  padding:1.1rem 1.15rem;margin:1rem 0 0}
+.sada b{display:block;font-family:"Bricolage",sans-serif;font-weight:700;
+  font-size:1.02rem;margin-bottom:.3rem}
+.sada p{margin:0 0 .8rem;font-size:.9rem;color:var(--tinta-2)}
+.popis-z{display:flex;flex-wrap:wrap;gap:.4rem}
+.popis-z a{display:inline-flex;align-items:baseline;gap:.4rem;
+  font-size:.85rem;text-decoration:none;color:var(--tinta);
+  border:1px solid var(--linija);padding:.34rem .6rem;background:var(--papir)}
+.popis-z a:hover{border-color:var(--plava);color:var(--plava)}
+.popis-z span{font-family:"PlexMono",monospace;font-size:.76rem;
+  color:var(--tinta-2)}
+@media(max-width:600px){.popis-z a{font-size:.82rem;padding:.32rem .5rem}}
 
 /* brojke */
 .cifre{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;
@@ -453,7 +471,38 @@ def izbor(tu):
             f'<div class="izbor">{a}{b}</div>')
 
 
-def _blok_stanja():
+def _blok_otvoreno(zupanije, ukupno):
+    """Popis zupanija s brojem otvorenih natjecaja.
+
+    `zupanije` je [(ime, slug, broj_lokalnih), ...] iz web.py — koliko je
+    natjecaja raspisano bas u toj zupaniji, bez onih za cijelu Hrvatsku.
+    S njima bi svaka zupanija imala istih devet i brojka ne bi govorila
+    nista. Zupanijska stranica ih prikazuje i broji, pa tekst ispod
+    naslova kaze sto ovdje broj znaci.
+
+    `ukupno` je stvaran broj otvorenih natjecaja; NE zbraja se iz brojeva
+    po zupanijama.
+
+    Vraca "" kad nema sto pokazati, pa stranica ostaje kakva je bila."""
+    if not zupanije or not ukupno:
+        return ""
+    veze = "".join(
+        f'<a href="zupanija/{sl}.html">{ime.replace(" županija", "")}'
+        + (f'<span>{n}</span>' if n else '') + '</a>'
+        for ime, sl, n in zupanije)
+    je = oblik(ukupno, "otvoren je", "otvorena su", "otvoreno je")
+    nat = oblik(ukupno, "natječaj", "natječaja", "natječaja")
+    return f"""<div class="sada">
+  <b>Dok čekaš rang-listu — ovo je otvoreno sada</b>
+  <p>Gradovi i županije raspisuju svoje stipendije kroz listopad i
+     studeni, neovisno o državnoj. {je.capitalize()} {ukupno} {nat}.
+     Broj uz županiju je koliko ih je raspisano baš ondje — uz njih
+     svima vrijede i natječaji za cijelu Hrvatsku.</p>
+  <div class="popis-z">{veze}</div>
+</div>"""
+
+
+def _blok_stanja(zupanije=(), ukupno=0):
     """Plavi okvir na vrhu — sam se prebaci kad scraper uhvati natjecaj."""
     citan_otvoren, citan_rok, citana_veza = _iz_podataka()
     otvoren = citan_otvoren if OTVOREN is None else OTVOREN
@@ -474,7 +523,7 @@ def _blok_stanja():
   </div>
   <a href="https://whatsapp.com/channel/0029Vb8yRo75Ui2aMzBAjv1a"
      target="_blank" rel="noopener">Javi mi kad izađe &rarr;</a>
-</div>"""
+</div>""" + _blok_otvoreno(zupanije, ukupno)
 
     if otvoren:
         rok = f" Rok prijave je <strong>{rok_txt}</strong>." if rok_txt else ""
@@ -499,9 +548,13 @@ def _blok_stanja():
 </div>"""
 
 
-def stranica(mapa, broj_izvora, vrijeme):
-    """Napise docs/drzavna-stipendija.html."""
-    blok_stanja = _blok_stanja()
+def stranica(mapa, broj_izvora, vrijeme, zupanije=(), ukupno=0):
+    """Napise docs/drzavna-stipendija.html.
+
+    `zupanije` je [(ime, slug, broj_otvorenih), ...], `ukupno` broj
+    otvorenih natjecaja; koriste se samo kad su prijave za drzavnu
+    zatvorene."""
+    blok_stanja = _blok_stanja(zupanije, ukupno)
     koraci = ""
     for i, (naslov, odlomci, upozorenje) in enumerate(KORACI, 1):
         tijelo = "".join(f"<p>{o}</p>" for o in odlomci)
