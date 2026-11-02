@@ -951,17 +951,10 @@ def je_prenositelj(url):
 # Pise se kao (podrucje, dio naslova). Dio naslova se trazi bez kvacica i bez
 # obzira na velika slova, pa preziv i promjenu u "Jednokratne financijske
 # potpore ucenicima".
-NISU_STIPENDIJE = (
-    ("Makarska", "jednokratna financijska potpora"),
-)
-
-
 def nije_stipendija(r, podrucje):
-    from scraper import bez_kvacica
-    naslov = bez_kvacica((r.get("naslov_natjecaja") or r.get("naziv") or "").lower())
-    mjesto = bez_kvacica((podrucje or "").lower())
-    return any(bez_kvacica(p.lower()) == mjesto and bez_kvacica(n) in naslov
-               for p, n in NISU_STIPENDIJE)
+    """Pravilo je u zajednicko.py jer mora vrijediti i za stranicu i za mail."""
+    from zajednicko import nije_stipendija as _pravilo
+    return _pravilo(r.get("naslov_natjecaja") or r.get("naziv") or "", podrucje)
 
 
 def izbaci_nestipendije(parovi):
