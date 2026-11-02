@@ -1778,8 +1778,23 @@ def main():
     vodic(MAPA, izvora_ukupno, vrijeme)
     # stranica o drzavnoj stipendiji — najveci natjecaj u godini, mora stajati
     # spremna tjednima prije nego natjecaj izade (vidi drzavna.py)
+    # Blok "otvoreno je sada" na stranici drzavne stipendije. Broji se
+    # samo ono sto je raspisano u toj zupaniji — natjecaji za cijelu
+    # Hrvatsku se NE zbrajaju, inace bi svaka zupanija imala istih
+    # devet i brojka ne bi govorila nista. Zupanijska stranica ih
+    # prikazuje i broji (tako i treba), pa blok uz sebe pise da uz
+    # lokalne svugdje vrijede i oni za cijelu Hrvatsku — isti broj s
+    # dva znacenja je ono sto zbunjuje, ne dva razlicita broja s dva
+    # jasno napisana znacenja.
+    sve_zup = sorted({z if z else p for _, p, z in otvorene + zatvorene
+                      if p != SVI})
+    zup_otvoreno = [(zup, _slug_zup(zup),
+                     sum(1 for _, p, z in otvorene
+                         if p != SVI and (z == zup or p == zup)))
+                    for zup in sve_zup]
     from drzavna import stranica as drzavna_stranica
-    drzavna_stranica(MAPA, izvora_ukupno, vrijeme)
+    drzavna_stranica(MAPA, izvora_ukupno, vrijeme, zup_otvoreno,
+                     len(otvorene))
     # STEM je odvojen natjecaj i trazi se odvojeno: Search Console pokazuje
     # 3.332 pojavljivanja na "stem stipendije" uz poziciju 6,7-9,2, jer je
     # STEM dosad bio samo odlomak na stranici o socio-ekonomskoj stipendiji.
@@ -1798,8 +1813,6 @@ def main():
 
     # --- zasebna stranica po zupaniji (za trazilice) ---
     putevi_natjecaja = []
-    sve_zup = sorted({z if z else p for _, p, z in otvorene + zatvorene
-                      if p != SVI})
     # stranice natjecaja u sitemap: otvoreni visoko, istekli nize ali ostaju
     for s, z in sorted(arhiv.items()):
         rel, otv = stranica_natjecaja(
