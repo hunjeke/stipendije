@@ -575,18 +575,31 @@ def _bez_prenositelja(otvoreni):
     Info centar za mlade Osijek prenio je natjecaj Osjecko-baranjske
     zupanije pod podrucjem "Osijek". U mailu su tako stajale dvije
     stipendije, a bila je jedna — i druga je izgledala kao gradska, sto
-    nije. Izbacuje se samo kad za isti rok u istoj zupaniji vec postoji
-    zapis s drugog izvora."""
+    nije.
+
+    Usporeduje se ROK I NASLOV, ne podrucje. Podrucje prenositelja ne
+    znaci nista: ICM Vukovar je prenio drzavnu stipendiju, kojoj je
+    sluzbeno podrucje "Cijela Hrvatska", pa usporedba po zupaniji ta dva
+    zapisa nije prepoznala kao isti natjecaj — i drzavna bi otisla mailom
+    kao vukovarska ljudima u Vukovarsko-srijemskoj. Stranica to pravilo
+    ima od tada (web.izbaci_prenositelje), mail ga do 2.11. nije imao:
+    isto pravilo na jednoj strani popravljeno, na drugoj zaboravljeno.
+
+    Portal koji prenosi tude natjecaje ne raspisuje vlastite, pa je
+    prenesena objava s istim rokom i istim natjecajem u naslovu ista
+    stvar bez obzira odakle je prenesena."""
     PRENESENO.clear()
-    sluzbeni = {((z.get("rok_iso") or ""),
-                 (z.get("zupanija") or z.get("podrucje") or "").strip())
+    sluzbeni = [((z.get("rok_iso") or ""), (z.get("naslov") or ""))
                 for z in otvoreni.values()
-                if not je_prenositelj(z.get("url"))}
+                if not je_prenositelj(z.get("url"))]
     out = {}
     for s, z in otvoreni.items():
-        kljuc = ((z.get("rok_iso") or ""),
-                 (z.get("zupanija") or z.get("podrucje") or "").strip())
-        if je_prenositelj(z.get("url")) and kljuc[0] and kljuc in sluzbeni:
+        rok = z.get("rok_iso") or ""
+        naslov = z.get("naslov") or ""
+        dvojnik = bool(rok and naslov and any(
+            rok == rok2 and _isti_natjecaj(naslov, n2)
+            for rok2, n2 in sluzbeni))
+        if je_prenositelj(z.get("url")) and dvojnik:
             PRENESENO.append(z)
         else:
             out[s] = z
