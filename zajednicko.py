@@ -544,3 +544,32 @@ def podnozje(broj_izvora, vrijeme, put=""):
 {kolacici(put)}
 </body>
 </html>"""
+
+
+# Objave koje nisu stipendija, a citaju se s rubrike na kojoj stipendije jesu.
+#
+# Jednokratna pomoc nije stipendija: ne isplacuje se mjesecno, ne vezuje se uz
+# uspjeh i cesto ju trazi roditelj, a ne ucenik.
+#
+# Pravilo stoji OVDJE, a ne u web.py, jer mora vrijediti i za stranicu i za
+# mail. Dok je stajalo samo u web.py, makarske jednokratne potpore su se
+# prestale prikazivati na stranici ali su i dalje isle mailom.
+#
+# Trazi se dio naslova, ne cijeli: 30.10.2026. je pravilo glasilo
+# "jednokratna financijska potpora" i Makarska ga je prosla vec idući tjedan
+# preimenovanjem u "Jednokratna studentska potpora". Zato samo "jednokratna".
+NISU_STIPENDIJE = (
+    ("Makarska", "jednokratna"),
+)
+
+
+def _bez_kv(s):
+    z = {"č": "c", "ć": "c", "ž": "z", "š": "s", "đ": "d"}
+    return "".join(z.get(x, x) for x in str(s).lower())
+
+
+def nije_stipendija(naslov, podrucje):
+    """Je li objava na popisu onih koje nisu stipendija."""
+    n = _bez_kv(naslov)
+    m = _bez_kv(podrucje)
+    return any(_bez_kv(p) == m and _bez_kv(k) in n for p, k in NISU_STIPENDIJE)
