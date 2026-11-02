@@ -129,18 +129,39 @@ jobs:
             output.html
             output.json
 
-      - name: Obavijest ako provjera nesto zaustavlja
-        if: steps.kontrola.outcome == 'failure'
+      # Jedna prijava koja se osvjezava, ne nova svaki put.
+      #
+      # 29.10.2026. su tri rada istoga dana otvorila tri jednake prijave, a
+      # do 2.11. ih se nakupilo 83 — nijednu nitko nije zatvorio ni citao.
+      # Kad je sve otvoreno, nista nije upozorenje. Zato se drzi jedna
+      # prijava po vrsti: osvjezi se dok problem traje i zatvori se sama
+      # kad prode, pa otvorena prijava opet nesto znaci.
+      - name: Prijava ako provjera nesto zaustavlja
+        if: always() && steps.kontrola.outcome == 'failure'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh issue create \
-            --title "Provjera zaustavlja slanje ($(date +'%d.%m.%Y'))" \
-            --body-file provjera.md \
-            --label "provjera" || \
-          gh issue create \
-            --title "Provjera zaustavlja slanje ($(date +'%d.%m.%Y'))" \
-            --body-file provjera.md
+          gh label create provjera --color d73a4a \
+            --description "Provjera zaustavlja slanje" 2>/dev/null || true
+          NASLOV="Provjera zaustavlja slanje ($(date +'%d.%m.%Y'))"
+          N=$(gh issue list --state open --label provjera --limit 1 \
+                --json number --jq '.[0].number // empty')
+          if [ -n "$N" ]; then
+            gh issue edit "$N" --title "$NASLOV" --body-file provjera.md
+          else
+            gh issue create --title "$NASLOV" --body-file provjera.md --label provjera
+          fi
+
+      # Kad provjera vise nista ne zaustavlja, prijava se zatvara sama.
+      - name: Zatvori prijavu kad provjera prode
+        if: always() && steps.kontrola.outcome == 'success'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          for N in $(gh issue list --state open --label provjera \
+                       --json number --jq '.[].number'); do
+            gh issue close "$N" --comment "Provjera je prošla bez zaustavljanja $(date +'%d.%m.%Y')."
+          done
 
       - name: Sacuvaj izvjestaj provjere
         if: always()
@@ -154,14 +175,23 @@ jobs:
         id: tisina
         run: python provjeri_tisinu.py
 
-      - name: Obavijest o tihim izvorima
+      # I ovdje jedna prijava koja se osvjezava — popis tihih izvora se
+      # mijenja iz tjedna u tjedan, pa je stara verzija bezvrijedna.
+      - name: Prijava o tihim izvorima
         if: steps.tisina.outputs.broj_tihih != ''
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh issue create \
-            --title "Izvori koji šute: ${{ steps.tisina.outputs.broj_tihih }} ($(date +'%d.%m.%Y'))" \
-            --body-file tisina.md
+          gh label create tisina --color fbca04 \
+            --description "Izvori koji šute" 2>/dev/null || true
+          NASLOV="Izvori koji šute: ${{ steps.tisina.outputs.broj_tihih }} ($(date +'%d.%m.%Y'))"
+          N=$(gh issue list --state open --label tisina --limit 1 \
+                --json number --jq '.[0].number // empty')
+          if [ -n "$N" ]; then
+            gh issue edit "$N" --title "$NASLOV" --body-file tisina.md
+          else
+            gh issue create --title "$NASLOV" --body-file tisina.md --label tisina
+          fi
 
       - name: Provjeri ima li otvorenih stipendija
         id: provjera
@@ -181,11 +211,20 @@ jobs:
           open("poruka.md", "w", encoding="utf-8").write("\n".join(redovi) or "nema")
           PYEOF
 
-      - name: Otvori obavijest ako ima otvorenih
+      # Popis otvorenih stipendija nije upozorenje nego pregled stanja —
+      # zato jedna prijava koja se prepisuje, a ne nova poslije svakog rada.
+      - name: Osvjezi pregled otvorenih stipendija
         if: steps.provjera.outputs.broj != '0'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh issue create \
-            --title "Otvorene stipendije: ${{ steps.provjera.outputs.broj }} ($(date +'%d.%m.%Y'))" \
-            --body-file poruka.md
+          gh label create pregled --color ededed \
+            --description "Pregled otvorenih stipendija" 2>/dev/null || true
+          NASLOV="Otvorene stipendije: ${{ steps.provjera.outputs.broj }} ($(date +'%d.%m.%Y'))"
+          N=$(gh issue list --state open --label pregled --limit 1 \
+                --json number --jq '.[0].number // empty')
+          if [ -n "$N" ]; then
+            gh issue edit "$N" --title "$NASLOV" --body-file poruka.md
+          else
+            gh issue create --title "$NASLOV" --body-file poruka.md --label pregled
+          fi
