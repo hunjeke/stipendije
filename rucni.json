@@ -851,5 +851,60 @@
     "napomena": "Iznos i broj stipendija nisu u tekstu objave nego u posebnoj Odluci o broju i visini stipendija, koja je prilog natječaju — zato ih ovdje ne navodimo. Natječaj je objavljen 15. listopada 2026.",
     "zasto_rucno": "Natječaj je objavljen na rubrici kazup.hr/svi-javni-pozivi, a pratila se druga rubrika županije, koja javlja da nema aktivnog natječaja — pa županijska stipendija nije bila na stranici. Sam tekst natječaja je PDF iz kojeg se podaci ne mogu automatski izvući.",
     "potvrda": "https://kazup.hr/svi-javni-pozivi"
+  },
+  {
+    "naziv": "Grad Orahovica — učeničke i studentske stipendije",
+    "naslov_natjecaja": "Stipendije Grada Orahovice za učenike i studente 2026./2027.",
+    "url": "https://www.orahovica.hr/2026/10/javni-natjecaj-za-dodjelu-ucenickih-studentskih-stipendija-2026-2027/",
+    "poveznica_natjecaj": "https://www.orahovica.hr/2026/10/javni-natjecaj-za-dodjelu-ucenickih-studentskih-stipendija-2026-2027/",
+    "podrucje": "Orahovica",
+    "zupanija": "Virovitičko-podravska županija",
+    "kategorija": "Grad",
+    "iznos": "60,00 eura mjesečno za učenike, 110,00 eura mjesečno za studente",
+    "iznosi": [
+      {
+        "eur": 60,
+        "razdoblje": "mjesecno",
+        "za": "učenici",
+        "do": false
+      },
+      {
+        "eur": 110,
+        "razdoblje": "mjesecno",
+        "za": "studenti",
+        "do": false
+      }
+    ],
+    "iznos_je_fond": false,
+    "rok_tekst": "3. studenoga 2026.",
+    "uvjeti": "Dodjeljuje se 10 stipendija. Pet učeničkih: dvije za prvu godinu srednje škole i tri za više razrede. Pet studentskih: dvije za prvu godinu sveučilišnog ili stručnog studija 1. i 2. razine i tri za drugu i više godina. Ostali uvjeti su u tekstu natječaja.",
+    "napomena": "U natječaju rok ne stoji kao datum nego kao „15 dana od dana objave Javnog natječaja na internetskoj stranici grada Orahovice”. Natječaj je objavljen 19. listopada 2026., pa je rok izračunat kao 3. studenoga 2026. Natječaj je objavljen i na oglasnoj ploči Grada te putem Radija Orahovica.",
+    "zasto_rucno": "Objava na stranicama Grada nosi samo naslov, a cijeli je natječaj u priloženim PDF-ovima iz kojih se tekst ne da automatski izvući. Zato je natječaj stajao u statusu PROVJERITI RUČNO i nije bio vidljiv nikome.",
+    "potvrda": "https://www.orahovica.hr/2026/10/javni-natjecaj-za-dodjelu-ucenickih-studentskih-stipendija-2026-2027/"
+  },
+  {
+    "naziv": "Holcim Hrvatska — stipendija i praksa",
+    "naslov_natjecaja": "Holcim stipendija i praksa za studente 2026./2027.",
+    "url": "https://www.holcim.hr/holcim-stipendija",
+    "poveznica_natjecaj": "https://www.holcim.hr/holcim-stipendija",
+    "podrucje": "Cijela Hrvatska",
+    "zupanija": "",
+    "kategorija": "Tvrtka",
+    "iznos": "6.720,00 eura godišnje",
+    "iznosi": [
+      {
+        "eur": 6720,
+        "razdoblje": "godisnje",
+        "za": "studenti",
+        "do": false
+      }
+    ],
+    "iznos_je_fond": false,
+    "rok_tekst": "6. studenoga 2026.",
+    "uvjeti": "Redoviti studenti 2. ili više godine preddiplomskog odnosno 1. ili više godine diplomskog studija iz područja strojarstva, kemije, elektrotehnike, rudarstva, građevine te sigurnosti i zaštite. Prosjek svih dosadašnjih ocjena 3,5 ili viši i prosječno 54 ECTS boda ili više po akademskoj godini. Kandidat ne smije biti u radnom odnosu ni primati drugu stipendiju.",
+    "upute_za_prijavu": "Prijava je elektronička, preko platforme HireVue — poveznica je na stranici programa. | Prilažu se životopis, potvrda o upisanom redovnom studiju, prijepis ocjena prethodnih godina, potvrda o stalnom prebivalištu, izjava da ne primate drugu stipendiju i izjava da niste u radnom odnosu. | Po želji se prilažu potvrde o postignućima na natjecanjima, priznanjima, nagradama i dodatnom obrazovanju.",
+    "napomena": "Uz stipendiju ide i praksa na jednoj od Holcimovih lokacija tijekom svake godine studija (srpanj i kolovoz 2027.) te mentor za osobni razvoj. Stipendija se zadržava do kraja diplomskog studija, a nakon završetka fakulteta moguće je zaposlenje u Holcimu ako za tim postoji potreba.",
+    "zasto_rucno": "Natječaj je stigao kao letak e-poštom, a stranica programa na holcim.hr nosi samo poziv bez roka i iznosa u tekstu koji se da automatski pročitati. Podaci su provjereni na toj istoj stranici.",
+    "potvrda": "https://www.holcim.hr/holcim-stipendija"
   }
 ]
