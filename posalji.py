@@ -483,23 +483,29 @@ def posalji_grupu(kljuc, grupa, salji):
         # uvijek, nego kad se poklopi: prvi put je puklo na 20. kampanji od
         # 39, drugi put na prvoj. Zato se lista procita natrag i ceka se da
         # brojka sjedne. Bez ovoga je ispravnost pokretanja stvar srece.
-        vidljivo = 0
-        for pokusaj in range(6):
+        # Koliko Brevu treba nije stalno: 2.11. je jedna lista sjela za
+        # 2 s, druga za 8, a treca ni za 12 — pa je skupina od cetiri
+        # osobe ostala bez poruke, a natjecaj nezabiljezen. Zato se ceka
+        # do minute, s razmakom koji raste: brza lista i dalje prolazi
+        # odmah, spora dobije vremena.
+        vidljivo, cekano = 0, 0
+        for razmak in (1, 2, 2, 3, 3, 4, 5, 5, 8, 8, 10, 10):
             stanje = zovi(f"/contacts/lists/{lista_id}", tiho=True) or {}
             vidljivo = (stanje.get("uniqueSubscribers")
                         or stanje.get("totalSubscribers") or 0)
             if vidljivo:
                 break
-            time.sleep(2)
+            time.sleep(razmak)
+            cekano += razmak
         if not vidljivo:
             print(f"      Brevo je primio {uspjelo} "
                   f"{_oblik(uspjelo, 'adresu', 'adrese', 'adresa')}, ali ih "
-                  f"ni nakon 12 s ne vidi u listi {lista_id}")
+                  f"ni nakon {cekano} s ne vidi u listi {lista_id}")
             zovi(f"/contacts/lists/{lista_id}", "DELETE", tiho=True)
             return None, None
-        if pokusaj:
+        if cekano:
             print(f"      lista {lista_id}: kontakti vidljivi nakon "
-                  f"{pokusaj * 2} s")
+                  f"{cekano} s")
 
         kampanja = {"name": ime, "subject": predmet, "sender": POSILJATELJ,
                     "htmlContent": html,
