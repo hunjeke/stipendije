@@ -44,16 +44,40 @@ jobs:
           git config user.name "github-actions"
           git config user.email "actions@github.com"
           git add strazar.json
-          git diff --cached --quiet || {
-            git commit -m "stražar: javljeno $(date +%F)"
-            git push
-          }
+          if git diff --cached --quiet; then
+            echo "strazar.json nepromijenjen"
+            exit 0
+          fi
+          git commit -m "stražar: javljeno $(date +%F)"
+          # Strazar se vrti tri puta dnevno pa najcesce od svih naleti na
+          # tudi commit u mainu. Bez rebasea push padne, a 29.10.2026. je
+          # upravo takav pad u provjeri progutao 21 minutu citanja.
+          for i in 1 2 3; do
+            if git pull --rebase --autostash origin main && git push; then
+              exit 0
+            fi
+            echo "push nije prosao ($i/3) — pokusavam ponovno"
+            sleep 5
+          done
+          echo "::error::strazar.json nije spremljen — push odbijen tri puta"
+          exit 1
 
-      - name: Otvori issue
+      # Jedna prijava koja se osvjezava umjesto nove pri svakom nalazu.
+      # Strazar gleda tri puta dnevno, pa je do 2.11.2026. sam otvorio
+      # cetiri jednake prijave koje nitko nije zatvorio. Zatvara je covjek
+      # kad obavi posao — dotad je samo jedna i zato se vidi.
+      - name: Prijava o mogucoj objavi
         if: steps.gledaj.outputs.naslo != '0'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh issue create \
-            --title "Moguća objava državne stipendije — $(date +%d.%m.)" \
-            --body-file strazar.md
+          gh label create strazar --color 0e8a16 \
+            --description "Stražar javlja moguću objavu" 2>/dev/null || true
+          NASLOV="Moguća objava državne stipendije — $(date +%d.%m.)"
+          N=$(gh issue list --state open --label strazar --limit 1 \
+                --json number --jq '.[0].number // empty')
+          if [ -n "$N" ]; then
+            gh issue edit "$N" --title "$NASLOV" --body-file strazar.md
+          else
+            gh issue create --title "$NASLOV" --body-file strazar.md --label strazar
+          fi
