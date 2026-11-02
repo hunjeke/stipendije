@@ -507,11 +507,31 @@ def stranica(mapa, z, eur, iznos_polja_f, datumi_u_brojke, esc,
         stanje = '<span class="stanje-n zat">Rok je istekao</span>'
         gumb = (f'<a class="izlaz" href="{esc(veza)}" target="_blank" '
                 f'rel="noopener">Službena stranica &rarr;</a>') if veza else ""
+        # Istekli natjecaj vodi na svoju zupaniju, ne na naslovnicu.
+        #
+        # Stranica natjecaja zivi jednu sezonu: rok prode, iduce godine
+        # nastaje novi natjecaj s novim slugom, i sve sto je ta stranica
+        # skupila ostaje na mrtvoj adresi. Zupanijska rubrika traje kroz
+        # godine i nikad nije prazna — izvan sezone pokazuje drzavne i
+        # nacionalne natjecaje. Zato svaki istekli natjecaj pokazuje na
+        # nju: s vremenom se dvadesetak mrtvih stranica slije u jednu
+        # koja raste, umjesto da se razlijevaju po naslovnici.
+        #
+        # Uz to, na upit "<zupanija> stipendije" Google trenutno nudi i
+        # rubriku i stranicu natjecaja, pa si same uzimaju mjesto:
+        # Varazdinska rubrika stoji na 7,9 a njezin natjecaj na 6,0,
+        # dok isti upit u genitivu, gdje se natjece samo jedna stranica,
+        # stoji na 3,2.
+        if zup and slug_zup:
+            kamo = (f'<a href="../zupanija/{slug_zup}.html">'
+                    f'popisu stipendija za {esc(zup)}</a>')
+        else:
+            kamo = '<a href="../">popisu otvorenih natječaja</a>'
         upoz = ('<p class="upoz-n">Ovaj natječaj više nije otvoren. Podaci su '
                 'zapisani onako kako su stajali dok je trajao, da se vidi koliki '
                 'je iznos bio i u kojem se dijelu godine objavljuje. Novi se '
                 'obično raspisuje u isto doba — čim izađe, pojavit će se na '
-                '<a href="../">popisu otvorenih natječaja</a>.</p>')
+                f'{kamo}.</p>')
 
     # Tko cita istekli natjecaj najvise treba obavijest kad izade novi.
     poziv = poziv_kanal() if poziv_kanal else ""
