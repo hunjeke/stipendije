@@ -1019,5 +1019,73 @@
   "usko": true,
   "zasto_rucno": "Na stranici poziva stoji samo početak prijava (12.10.2026.), pa je automatski zapis imao taj datum kao rok. Rok je pročitan iz cjelovitog teksta poziva 3.11.2026.",
   "potvrda": "https://split.hr/natjecaji/detalj-natjecaja/javni-poziv-za-dodjelu-potpora-za-ucenike-srednjih-skola-i-studente-s-invaliditetom-u-skolskojakademskoj-202627"
+ },
+ {
+  "naziv": "Grad Pakrac — javni natječaji i pozivi",
+  "naslov_natjecaja": "Stipendije za studente Grada Pakraca 2026./2027.",
+  "url": "https://pakrac.hr/javni-poziv-za-stipendiranje-studenata-grada-pakraca-u-akademskoj-godini-2026-2027/",
+  "poveznica_natjecaj": "https://pakrac.hr/javni-poziv-za-stipendiranje-studenata-grada-pakraca-u-akademskoj-godini-2026-2027/",
+  "podrucje": "Pakrac",
+  "zupanija": "Požeško-slavonska županija",
+  "kategorija": "Grad",
+  "iznos": "100,00 eura mjesečno, 10 mjeseci (od listopada 2026.)",
+  "iznosi": [
+   {
+    "eur": 100,
+    "razdoblje": "mjesecno",
+    "mjeseci": 10,
+    "za": null,
+    "do": false
+   }
+  ],
+  "iznos_je_fond": false,
+  "rok_tekst": "8. studenoga 2026. do 10:00",
+  "uvjeti": "Redoviti studenti koji nisu već stipendisti Grada Pakraca. Hrvatsko državljanstvo i prebivalište u Gradu Pakracu dulje od 3 godine, studij u Hrvatskoj, prosjek ocjena prethodne godine najmanje 3,0.",
+  "upute_za_prijavu": "Potpisani obrazac prijave, preslika osobne iskaznice, potvrda o prebivalištu (ne starija od 3 mjeseca), potvrda o upisu s prosjekom ocjena i potpisana izjava da ne primate drugi kredit ili stipendiju. Šalje se poštom ili predaje osobno na Grad Pakrac, Trg bana J. Jelačića 18, 34550 Pakrac, soba 128, radnim danom 8–14 h, u zatvorenoj omotnici s oznakom „Stipendiranje studenata 2026/2027.“",
+  "zasto_rucno": "Pronađeno ručno 4.11.2026.; izvor je dodan u sources.json.",
+  "potvrda": "https://pakrac.hr/javni-poziv-za-stipendiranje-studenata-grada-pakraca-u-akademskoj-godini-2026-2027/"
+ },
+ {
+  "naziv": "Grad Pakrac — javni natječaji i pozivi",
+  "naslov_natjecaja": "Stipendije za studente medicine Grada Pakraca 2026./2027.",
+  "url": "https://pakrac.hr/javni-poziv-za-stipendiranje-studenata-medicine-akademske-godine-2026-2027/",
+  "poveznica_natjecaj": "https://pakrac.hr/javni-poziv-za-stipendiranje-studenata-medicine-akademske-godine-2026-2027/",
+  "podrucje": "Pakrac",
+  "zupanija": "Požeško-slavonska županija",
+  "kategorija": "Grad",
+  "iznos": "170,00 eura mjesečno, 10 mjeseci (od listopada 2026.)",
+  "iznosi": [
+   {
+    "eur": 170,
+    "razdoblje": "mjesecno",
+    "mjeseci": 10,
+    "za": null,
+    "do": false
+   }
+  ],
+  "iznos_je_fond": false,
+  "rok_tekst": "8. studenoga 2026. do 10:00",
+  "uvjeti": "Redoviti studenti medicine od prve do pete godine, hrvatski državljani s prebivalištem u Gradu Pakracu najmanje dvije godine neprekinuto, studij u Hrvatskoj. Završna godina nije obuhvaćena.",
+  "upute_za_prijavu": "Pisana zamolba s osobnim podacima i prilozi: preslika osobne iskaznice, potvrda o prebivalištu (ne starija od 3 mjeseca), potvrda o upisu u tekuću godinu, potpisana izjava da nemate drugi kredit ili stipendiju (osim državne ili slične za uspjeh) i prijepis ocjena prethodne godine (brucoši dostavljaju ocjene iz srednje škole). Šalje se poštom ili predaje osobno na Grad Pakrac, Trg bana J. Jelačića 18, 34550 Pakrac, soba 128, radnim danom 8–14 h, u omotnici s oznakom „Stipendiranje studenata medicine 2026/2027.“",
+  "usko": true,
+  "zasto_rucno": "Pronađeno ručno 4.11.2026.; izvor je dodan u sources.json.",
+  "potvrda": "https://pakrac.hr/javni-poziv-za-stipendiranje-studenata-medicine-akademske-godine-2026-2027/"
+ },
+ {
+  "naziv": "Grad Belišće — natječaji",
+  "naslov_natjecaja": "Stipendije studentima Grada Belišća 2026./2027.",
+  "url": "https://belisce.hr/javni-natjecaj-za-dodjelu-stipendija-studentima-grada-belisca-za-akademsku-godinu-2026-2027/",
+  "poveznica_natjecaj": "https://belisce.hr/javni-natjecaj-za-dodjelu-stipendija-studentima-grada-belisca-za-akademsku-godinu-2026-2027/",
+  "podrucje": "Belišće",
+  "zupanija": "Osječko-baranjska županija",
+  "kategorija": "Grad",
+  "iznos": "",
+  "iznosi": [],
+  "iznos_je_fond": false,
+  "rok_tekst": "5. studenoga 2026.",
+  "uvjeti": "Studenti s područja Grada Belišća. Točni uvjeti i iznos nalaze se u cjelovitom tekstu natječaja i Pravilniku, koji su prilozi na stranici natječaja.",
+  "upute_za_prijavu": "Prijave se podnose elektronički putem poveznice na stranici natječaja, od 21. listopada do 5. studenoga 2026.",
+  "zasto_rucno": "Pronađeno ručno 4.11.2026. Iznos i uvjeti stoje samo u PDF prilozima, koje ne čitamo automatski.",
+  "potvrda": "https://belisce.hr/javni-natjecaj-za-dodjelu-stipendija-studentima-grada-belisca-za-akademsku-godinu-2026-2027/"
  }
 ]
