@@ -1440,7 +1440,16 @@ def main():
         if opisna_stranica(r) or je_naslov_izvora(r):
             zatvorene.append(par)
         elif s.startswith("OTVORENO"):
-            otvorene.append(par)
+            # Status stize iz zadnje provjere, a stranica se gradi i izmedu
+            # provjera (workflow "Samo stranica"). Natjecaj kojem je rok
+            # istekao jucer bio bi i dalje "otvoren" u brojkama, opisu i
+            # mailu: 4.11. je naslovnica brojala 39 otvorenih, a 7 ih je
+            # preglednik vec skrivao, pa je stvarno bilo 32.
+            rok = iso_rok(s)
+            if rok and rok < datetime.now().date().isoformat():
+                zatvorene.append(par)
+            else:
+                otvorene.append(par)
         elif s.startswith("ROK ISTEKAO") or s.startswith("NEMA AKTIVNOG"):
             zatvorene.append(par)
 
