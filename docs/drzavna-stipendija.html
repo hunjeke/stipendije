@@ -188,6 +188,24 @@ input:focus-visible,select:focus-visible{outline:2px solid var(--plava);outline-
   white-space:nowrap}
 .stanje a:hover{filter:brightness(1.12)}
 
+/* "otvoreno je sada" — stoji samo dok su prijave za drzavnu zatvorene.
+   Pola prometa stranice dolazi na ovu stranicu s upita "drzavna
+   stipendija"; kad rok prode, jedino sto im je stranica nudila bilo je
+   cekanje. Gradske i zupanijske stipendije traju i dalje. */
+.sada{border:1px solid var(--linija);background:var(--karta);
+  padding:1.1rem 1.15rem;margin:1rem 0 0}
+.sada b{display:block;font-family:"Bricolage",sans-serif;font-weight:700;
+  font-size:1.02rem;margin-bottom:.3rem}
+.sada p{margin:0 0 .8rem;font-size:.9rem;color:var(--tinta-2)}
+.popis-z{display:flex;flex-wrap:wrap;gap:.4rem}
+.popis-z a{display:inline-flex;align-items:baseline;gap:.4rem;
+  font-size:.85rem;text-decoration:none;color:var(--tinta);
+  border:1px solid var(--linija);padding:.34rem .6rem;background:var(--papir)}
+.popis-z a:hover{border-color:var(--plava);color:var(--plava)}
+.popis-z span{font-family:"PlexMono",monospace;font-size:.76rem;
+  color:var(--tinta-2)}
+@media(max-width:600px){.popis-z a{font-size:.82rem;padding:.32rem .5rem}}
+
 /* brojke */
 .cifre{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;
   background:var(--linija);border:1px solid var(--linija);margin:0 0 .6rem}
@@ -316,10 +334,24 @@ devet rata. Ovdje je kako se prijaviti, korak po korak.</p>
 
 <div class="stanje">
   <div class="txt">
-    <b>Natječaj je objavljen — prijave su otvorene</b>
-    <span>Prijavljuje se elektronički, kroz sustav VIDRA. Rok prijave je <strong>3. studenoga 2026. do 12:00</strong>. Dodjeljuje se 12.150 stipendija.</span>
+    <b>Prijave su zatvorene — čeka se rang-lista</b>
+    <span>Rok je bio 3. studenoga 2026. do 12:00. Ministarstvo rang-liste objavljuje na
+      svojim stranicama; datum nije unaprijed određen. <strong>Od objave
+      rang-liste imaš sedam dana da u sustavu prihvatiš uvjete
+      stipendiranja</strong> — tko to ne učini, smatra se da
+      stipendiju ne prihvaća. Prigovor se podnosi u roku od osam dana od
+      objave. Isplata je 9 rata po 200,00 eura i počinje najkasnije
+      31. prosinca.</span>
   </div>
-  <a href="https://mzom.gov.hr/istaknute-teme/natjecaji-196/natjecaj-za-dodjelu-12-150-drzavnih-stipendija-za-akademsku-godinu-2026-2027-studentima-u-redovitom-statusu-koji-studiraju-na-visokim-ucilistima-u-republici-hrvatskoj/8096" target="_blank" rel="noopener">Otvori natječaj &rarr;</a>
+  <a href="https://whatsapp.com/channel/0029Vb8yRo75Ui2aMzBAjv1a"
+     target="_blank" rel="noopener">Javi mi kad izađe &rarr;</a>
+</div><div class="sada">
+  <b>Dok čekaš rang-listu — ovo je otvoreno sada</b>
+  <p>Gradovi i županije raspisuju svoje stipendije kroz listopad i
+     studeni, neovisno o državnoj. Otvoreno je 39 natječaja.
+     Broj uz županiju je koliko ih je raspisano baš ondje — uz njih
+     svima vrijede i natječaji za cijelu Hrvatsku.</p>
+  <div class="popis-z"><a href="zupanija/bjelovarsko-bilogorska.html">Bjelovarsko-bilogorska<span>1</span></a><a href="zupanija/brodsko-posavska.html">Brodsko-posavska<span>1</span></a><a href="zupanija/dubrovacko-neretvanska.html">Dubrovačko-neretvanska<span>1</span></a><a href="zupanija/grad-zagreb.html">Grad Zagreb<span>1</span></a><a href="zupanija/istarska.html">Istarska<span>4</span></a><a href="zupanija/karlovacka.html">Karlovačka<span>1</span></a><a href="zupanija/koprivnicko-krizevacka.html">Koprivničko-križevačka</a><a href="zupanija/krapinsko-zagorska.html">Krapinsko-zagorska<span>1</span></a><a href="zupanija/licko-senjska.html">Ličko-senjska</a><a href="zupanija/medimurska.html">Međimurska<span>2</span></a><a href="zupanija/osjecko-baranjska.html">Osječko-baranjska<span>2</span></a><a href="zupanija/pozesko-slavonska.html">Požeško-slavonska<span>1</span></a><a href="zupanija/primorsko-goranska.html">Primorsko-goranska<span>3</span></a><a href="zupanija/sisacko-moslavacka.html">Sisačko-moslavačka<span>1</span></a><a href="zupanija/splitsko-dalmatinska.html">Splitsko-dalmatinska<span>6</span></a><a href="zupanija/varazdinska.html">Varaždinska</a><a href="zupanija/viroviticko-podravska.html">Virovitičko-podravska</a><a href="zupanija/vukovarsko-srijemska.html">Vukovarsko-srijemska<span>1</span></a><a href="zupanija/zadarska.html">Zadarska</a><a href="zupanija/zagrebacka.html">Zagrebačka<span>3</span></a><a href="zupanija/sibensko-kninska.html">Šibensko-kninska<span>1</span></a></div>
 </div>
 
 <div class="cifre">
@@ -520,7 +552,7 @@ zastarjelo, javi nam i ispravit ćemo.</p>
      Posebno nam je važno ako je netočan <strong>rok prijave</strong>.</p>
   <p>Ne procjenjujemo tvoje šanse za pojedinu stipendiju. Za to pitaj instituciju
      koja je natječaj objavila.</p>
-  <p class="sitno">Zadnja provjera 02.11.2026. &nbsp;·&nbsp; 178 izvora &nbsp;·&nbsp;
+  <p class="sitno">Zadnja provjera 04.11.2026. &nbsp;·&nbsp; 178 izvora &nbsp;·&nbsp;
      podaci prikupljeni automatski &nbsp;·&nbsp;
      <a class="tiho" href="impressum.html">Impressum</a> &nbsp;·&nbsp;
      <a class="tiho" href="privatnost.html">Privatnost</a></p>
