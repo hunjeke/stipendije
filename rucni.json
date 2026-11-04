@@ -1087,5 +1087,22 @@
   "upute_za_prijavu": "Prijave se podnose elektronički putem poveznice na stranici natječaja, od 21. listopada do 5. studenoga 2026.",
   "zasto_rucno": "Pronađeno ručno 4.11.2026. Iznos i uvjeti stoje samo u PDF prilozima, koje ne čitamo automatski.",
   "potvrda": "https://belisce.hr/javni-natjecaj-za-dodjelu-stipendija-studentima-grada-belisca-za-akademsku-godinu-2026-2027/"
+ },
+ {
+  "naziv": "Grad Korčula — natječaji za stipendije",
+  "naslov_natjecaja": "Stipendije studentima Grada Korčule 2026./2027.",
+  "url": "https://www.korcula.hr/natjecaji-za-dodjelu-stipendija-studenticama-studentima-za-akademsku-godinu-2026-2027/",
+  "poveznica_natjecaj": "https://www.korcula.hr/natjecaji-za-dodjelu-stipendija-studenticama-studentima-za-akademsku-godinu-2026-2027/",
+  "podrucje": "Korčula",
+  "zupanija": "Dubrovačko-neretvanska županija",
+  "kategorija": "Grad",
+  "iznos": "",
+  "iznosi": [],
+  "iznos_je_fond": false,
+  "rok_tekst": "27. studenoga 2026.",
+  "uvjeti": "Pet odvojenih natječaja za studente: darovite, za deficitarna zanimanja, iz obitelji slabijeg imovinskog stanja, branitelje i djecu branitelja te studente s invaliditetom. Iznosi i detaljni uvjeti stoje u cjelovitom tekstu svakog natječaja.",
+  "upute_za_prijavu": "Preuzmi natječaj i prijavnicu za svoju kategoriju s stranice natječaja i priloži izjavu studenta da ne prima drugu stipendiju. Rezultati se šalju prijavljenima u roku 60 dana od isteka roka. Pitanja: gradski ured, tel. 020 711 143 ili 020 711 184.",
+  "zasto_rucno": "Pronađeno ručno 5.11.2026.; izvor je dodan u sources.json. Iznosi stoje samo u prilozima natječaja.",
+  "potvrda": "https://www.korcula.hr/natjecaji-za-dodjelu-stipendija-studenticama-studentima-za-akademsku-godinu-2026-2027/"
  }
 ]
