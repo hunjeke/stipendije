@@ -1256,5 +1256,26 @@
     "kategorija": "Tvrtka",
     "podrucje": "Cijela Hrvatska",
     "zupanija": ""
+  },
+  {
+    "naziv": "Grad Pakrac — javni natječaji i pozivi",
+    "url": "https://pakrac.hr/javni-natjecaji-i-pozivi/",
+    "kategorija": "Grad",
+    "podrucje": "Pakrac",
+    "zupanija": "Požeško-slavonska županija"
+  },
+  {
+    "naziv": "Grad Našice — javni natječaji",
+    "url": "https://nasice.hr/glavni-dokumenti/javni-natjecaji/",
+    "kategorija": "Grad",
+    "podrucje": "Našice",
+    "zupanija": "Osječko-baranjska županija"
+  },
+  {
+    "naziv": "Grad Belišće — natječaji",
+    "url": "https://belisce.hr/",
+    "kategorija": "Grad",
+    "podrucje": "Belišće",
+    "zupanija": "Osječko-baranjska županija"
   }
 ]
