@@ -11,6 +11,7 @@ import json
 import os
 import re
 from datetime import datetime, timedelta
+from scraper import bez_kvacica
 
 from zajednicko import (CSS_KARTICE, glava, navigacija, podnozje, oblik,
                         sredi_naslov, EMAIL, DOMENA, BAZA, WA_KANAL)
@@ -618,6 +619,46 @@ def zupanijski_umjesto_grada(parovi):
         else:
             out.append((r, pod, zup))
     return out, vraceni
+
+
+_SIN = {"ucenicima": "ucenik", "ucenike": "ucenik", "ucenici": "ucenik",
+        "ucenik": "ucenik", "ucenicke": "ucenik", "studentima": "student",
+        "studente": "student", "studenti": "student", "studentske": "student",
+        "studentska": "student", "stipendije": "stip", "stipendija": "stip",
+        "stipendiju": "stip", "stipendiranje": "stip"}
+_BEZ_RIJECI = {"za", "i", "u", "od", "grad", "grada", "skolsku", "akademsku",
+               "godinu", "skolska", "akademska", "godina"}
+
+
+def _otisak_naslova(naslov):
+    """Naslov svean na skup rijeci bez godine, padeza i veznika.
+
+    "Stipendije ucenicima i studentima" i "Stipendije za ucenike i
+    studente" daju isti otisak; "Stipendije nadarenim studentima" i
+    "Stipendije studentima s invaliditetom" ne. _isti_natjecaj je ovdje
+    prelabav: 4.11. je Dubrovnikova cetiri razlicita poziva i Rovinjeva tri
+    s istim rokom proglasio istim natjecajem, pa se za brisanje stranice
+    trazi tocno poklapanje."""
+    t = re.sub(r"\b20\d\d\.?(/\d{2,4}\.?)?", " ", bez_kvacica(naslov or ""))
+    rijeci = [_SIN.get(x, x) for x in re.findall(r"[a-z0-9]+", t)]
+    return frozenset(x for x in rijeci if x not in _BEZ_RIJECI)
+
+
+def _istovjetni(arhiv):
+    """[[slug, ...], ...] — skupine zapisa koji su isti natjecaj.
+
+    Isto podrucje, isti rok i isti otisak naslova. Tri grada Zagrebacke
+    zupanije prenijela su isti natjecaj pa su postojale tri gotovo
+    identicne stranice koje su se s zupanijskom natjecale za isti upit."""
+    skupine = {}
+    for s, z in arhiv.items():
+        if not z.get("rok_iso"):
+            continue
+        k = (z.get("podrucje") or "", z["rok_iso"],
+             _otisak_naslova(z.get("naslov")))
+        if k[2]:
+            skupine.setdefault(k, []).append(s)
+    return [v for v in skupine.values() if len(v) > 1]
 
 
 def _preusmjeri(mapa, stari, novi):
@@ -1638,6 +1679,29 @@ def main():
             print(f"  maknuta stranica: {os.path.basename(stara)}")
         print(f"  izbačeno iz arhiva: {(arhiv[s].get('naslov') or s)[:52]}")
         del arhiv[s]
+    # Isti natjecaj pod vise adresa: ostaje najpotpuniji zapis, ostali se
+    # preusmjeravaju na njega (ne brisu se — stara poveznica iz maila ili iz
+    # Googlea mora raditi).
+    preusmjereno = {}
+    for skupina in _istovjetni(arhiv):
+        def _bodovi(s):
+            z = arhiv[s]
+            return (sum(1 for p in ("iznos", "uvjeti", "upute_za_prijavu",
+                                    "napomena", "poveznica") if z.get(p)),
+                    len(z.get("naslov") or ""), s)
+        ostaje = max(skupina, key=_bodovi)
+        for s in skupina:
+            if s == ostaje:
+                continue
+            zap = arhiv[s]
+            print(f"  Isti natječaj pod više adresa: {zap.get('slug') or s}"
+                  f" → {arhiv[ostaje].get('slug') or ostaje}")
+            try:
+                _preusmjeri(MAPA, zap, arhiv[ostaje])
+            except OSError as e:
+                print(f"      (preusmjerenje nije napisano: {e})")
+            preusmjereno[zap.get("slug") or s] = arhiv[ostaje].get("slug") or ostaje
+            del arhiv[s]
     spremi_arhiv(arhiv)
 
     # adresa vlastite stranice po kljucu zapisa iz output.json
@@ -1646,6 +1710,7 @@ def main():
         iso = iso_rok(r.get("status") or "")
         god = iso[:4] if iso else str(datetime.now().year)
         s = slug_natjecaja(r.get("naslov_natjecaja") or r.get("naziv") or "", p, god)
+        s = preusmjereno.get(s, s)
         adrese[id(r)] = f"natjecaj/{s}.html"
 
     # ---------- hero ----------
