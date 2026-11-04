@@ -1277,5 +1277,26 @@
     "kategorija": "Grad",
     "podrucje": "Belišće",
     "zupanija": "Osječko-baranjska županija"
+  },
+  {
+    "naziv": "Grad Korčula — natječaji za stipendije",
+    "url": "https://www.korcula.hr/",
+    "kategorija": "Grad",
+    "podrucje": "Korčula",
+    "zupanija": "Dubrovačko-neretvanska županija"
+  },
+  {
+    "naziv": "Grad Popovača — natječaji i javni pozivi",
+    "url": "https://www.popovaca.hr/natjeaji-i-javni-pozivi",
+    "kategorija": "Grad",
+    "podrucje": "Popovača",
+    "zupanija": "Sisačko-moslavačka županija"
+  },
+  {
+    "naziv": "Grad Ilok — natječaji i stipendije",
+    "url": "https://www.ilok.hr/",
+    "kategorija": "Grad",
+    "podrucje": "Ilok",
+    "zupanija": "Vukovarsko-srijemska županija"
   }
 ]
