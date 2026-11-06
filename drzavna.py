@@ -555,6 +555,28 @@ def stranica(mapa, broj_izvora, vrijeme, zupanije=(), ukupno=0):
     otvorenih natjecaja; koriste se samo kad su prijave za drzavnu
     zatvorene."""
     blok_stanja = _blok_stanja(zupanije, ukupno)
+    import stem as _stem  # kasni uvoz: stem.py uvozi ovaj modul
+    if _stem.OTVOREN:
+        stem_uvod = (f'Ako studiraš u STEM području, postoji drugi javni poziv, '
+                     f's većim iznosom i vlastitim rang-listama. '
+                     f'<strong>Prijave su otvorene do {_stem.ROK}.</strong> ')
+        stem_cetvrta = (f'<div><b>{_stem.ROK.split(" do ")[0].replace(" 2026.", "")}</b>'
+                        f'<span>rok prijave za STEM, do 12:00</span></div>')
+        stem_biljeska = ('Poziv je objavljen ' + _stem.OTVOREN_OD +
+                         ', a broj stipendija ministar je odlukom od '
+                         '23. rujna 2026. odredio na ' + STEM_BROJ +
+                         ', za razdoblje od listopada 2026. do lipnja 2027., '
+                         'u devet rata.')
+    else:
+        stem_uvod = ('Ako studiraš u STEM području, postoji drugi javni poziv, '
+                     's većim iznosom i vlastitim rang-listama. '
+                     'Prijavljuje se zasebno i izlazi kasnije od ovoga. ')
+        stem_cetvrta = ('<div><b>do 25.10.</b>'
+                        '<span>rok da ministar raspiše poziv</span></div>')
+        stem_biljeska = ('Broj je poznat prije poziva — ministar ga je odlukom '
+                         'od 23. rujna 2026. odredio na ' + STEM_BROJ +
+                         ' stipendija, za razdoblje od listopada 2026. do '
+                         'lipnja 2027., u devet rata.')
     koraci = ""
     for i, (naslov, odlomci, upozorenje) in enumerate(KORACI, 1):
         tijelo = "".join(f"<p>{o}</p>" for o in odlomci)
@@ -677,18 +699,14 @@ jednoj kategoriji:</p>
 kućanstva umjesto {PRAG_E}.</p>
 
 <h2>STEM stipendije su odvojen natječaj</h2>
-<p class="pod">Ako studiraš u STEM području, postoji drugi javni poziv, s većim
-iznosom i vlastitim rang-listama. Prijavljuje se zasebno i izlazi kasnije od
-ovoga. <a href="stem-stipendije.html"><b>Sve o STEM stipendijama &rarr;</b></a></p>
+<p class="pod">{stem_uvod}<a href="stem-stipendije.html"><b>Sve o STEM stipendijama &rarr;</b></a></p>
 <div class="cifre">
   <div><b>{STEM_NASTAVNICKI}</b><span>mjesečno, nastavnički STEM studiji</span></div>
   <div><b>{STEM_OSTALI}</b><span>mjesečno, ostali STEM studiji</span></div>
   <div><b>{STEM_BROJ}</b><span>stipendija ove godine</span></div>
-  <div><b>do 25.10.</b><span>rok da ministar raspiše poziv</span></div>
+  {stem_cetvrta}
 </div>
-<p class="pod">Broj je poznat prije poziva — ministar ga je odlukom od
-23. rujna 2026. odredio na {STEM_BROJ} stipendija, za razdoblje od listopada
-2026. do lipnja 2027., u devet rata.</p>
+<p class="pod">{stem_biljeska}</p>
 
 <p class="pod" style="margin-top:1.4rem"><b>Prije svega ostalog provjeri je li
 tvoj studij na popisu.</b> „STEM” ovdje nije isto što i tehnički fakultet —
