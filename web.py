@@ -1813,10 +1813,24 @@ def main():
                         "— iznosi, rokovi prijave i upute."),
     }, ensure_ascii=False)
 
+    # Broj otvorenih i akademska godina idu u naslov (od 9.11.2026.): dio
+    # upita nosi godinu ("stipendije za studente 2026 27"), a broj kaze da je
+    # popis ziv. Ucinak usporediti u Search Consoleu nakon dva tjedna.
+    n = len(otvorene)
+    if n % 10 == 1 and n % 100 != 11:
+        broj_txt = f"{n} otvoren natječaj"
+    elif n % 10 in (2, 3, 4) and n % 100 not in (12, 13, 14):
+        broj_txt = f"{n} otvorena natječaja"
+    else:
+        broj_txt = f"{n} otvorenih natječaja"
     html = glava(
-        "Stipendije u Hrvatskoj — otvoreni natječaji, iznosi i rokovi",
-        "Svi otvoreni natječaji za stipendije u Hrvatskoj na jednom mjestu. "
-        "Iznosi, rokovi prijave i upute — automatski ažurirano dvaput tjedno.",
+        (f"Stipendije 2026./2027. u Hrvatskoj — {broj_txt}" if n else
+         "Stipendije u Hrvatskoj — otvoreni natječaji, iznosi i rokovi"),
+        (f"Trenutno {broj_txt} za stipendije u Hrvatskoj, za studente i "
+         "učenike. Iznosi, rokovi prijave i upute na jednom mjestu — "
+         "provjeravamo dvaput tjedno." if n else
+         "Svi otvoreni natječaji za stipendije u Hrvatskoj na jednom mjestu. "
+         "Iznosi, rokovi prijave i upute — automatski ažurirano dvaput tjedno."),
         CSS_INDEX,
         '<script type="application/ld+json">' + ld + '</script>')
     html += navigacija("natjecaji")
