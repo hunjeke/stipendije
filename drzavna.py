@@ -502,6 +502,32 @@ def _blok_otvoreno(zupanije, ukupno):
 </div>"""
 
 
+def _naslov_i_opis():
+    """Naslov i opis stranice prema fazi natjecaja.
+
+    Naslov je ono sto covjek vidi u Googleu. Do 9.11.2026. stajao je
+    "kad kreću prijave" i kad su prijave vec bile zatvorene: stranica je bila
+    na 2.-5. mjestu za "drzavna stipendija 2026", a klikalo ju je 3-6 %
+    onih koji su je vidjeli. Nakon roka ljudi traze rezultate i rang-listu
+    ("rezultati drzavne stipendije 2026"), pa naslov mora reci da je to tu."""
+    danas = date.today().isoformat()
+    if OTVOREN and ROK_ISO and danas > ROK_ISO:
+        return ("Državna stipendija 2026./2027. — rezultati, rang-lista i isplata",
+                "Prijave za državnu stipendiju zatvorene su " +
+                ROK.split(" do ")[0] + " Kad izlazi rang-lista, kako je prihvatiti, "
+                "rok za prigovor i kad stiže prva isplata od 200 €.")
+    if OTVOREN:
+        return ("Državna stipendija 2026./2027. — prijave do " +
+                ROK.split(" do ")[0] + ", uvjeti i iznos",
+                "Prijave za državnu stipendiju su otvorene do " + ROK +
+                ". Kako se prijaviti u VIDRI korak po korak, što pripremiti, "
+                "tko ima pravo i koliko iznosi.")
+    return ("Državna stipendija 2026./2027. — kad kreću prijave, uvjeti i iznos",
+            "Kako se prijaviti na državnu stipendiju: korak po korak, što "
+            "pripremiti, koliko iznosi i kad se očekuje natječaj. Provjereno na "
+            "stranicama Ministarstva znanosti, obrazovanja i mladih.")
+
+
 def _blok_stanja(zupanije=(), ukupno=0):
     """Plavi okvir na vrhu — sam se prebaci kad scraper uhvati natjecaj."""
     citan_otvoren, citan_rok, citana_veza = _iz_podataka()
@@ -602,12 +628,7 @@ def stranica(mapa, broj_izvora, vrijeme, zupanije=(), ukupno=0):
                          for b, o in BODOVI_OSTALO)
     ne_moze = "".join(f"<li>{x}</li>" for x in NE_MOGU)
 
-    html = glava(
-        "Državna stipendija 2026./2027. — kad kreću prijave, uvjeti i iznos",
-        "Kako se prijaviti na državnu stipendiju: korak po korak, što pripremiti, "
-        "koliko iznosi i kad se očekuje natječaj. Provjereno na stranicama "
-        "Ministarstva znanosti, obrazovanja i mladih.",
-        CSS)
+    html = glava(*_naslov_i_opis(), CSS)
     html += navigacija("drzavna")
     # Poziv na obavijesti ide i ovdje. Ovo je adresa koja ide u medije i u
     # WhatsApp kanal, pa je cesto prva stranica koju covjek vidi — a dosad
