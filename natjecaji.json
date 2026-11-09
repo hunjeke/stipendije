@@ -295,6 +295,43 @@
     "zasto_rucno": "",
     "zupanija": "Zagrebačka županija"
   },
+  "grubisnopolje.hr/natjecaji-i-pozivi/grad/javni-natjecaji-u-tijeku|2026-11-19": {
+    "iznos": "200 eura mjesečno za studente; 120 eura mjesečno za učenike",
+    "iznos_je_fond": false,
+    "iznosi": [
+      {
+        "do": false,
+        "eur": 200.0,
+        "mjeseci": null,
+        "razdoblje": "mjesecno",
+        "za": "studenti"
+      },
+      {
+        "do": false,
+        "eur": 120.0,
+        "mjeseci": 10,
+        "razdoblje": "mjesecno",
+        "za": "učenici, deficitarna zanimanja"
+      }
+    ],
+    "izvor_naziv": "Grad Grubišno Polje — javni natječaji",
+    "napomena": "",
+    "naslov": "Stipendije Grada Grubišnoga Polja za studente i učenike 2026./2027.",
+    "podrucje": "Grubišno Polje",
+    "potvrda": "https://grubisnopolje.hr/novosti/detaljnije/raspisani-javni-natjecaji-za-dodjelu-stipendija-studentima-i-ucenicima-u-ovoj-akademskoj-odnosno-skolskoj-godini",
+    "poveznica": "https://grubisnopolje.hr/natjecaji-i-pozivi/grad/javni-natjecaji-u-tijeku",
+    "prvi_put": "2026-11-09",
+    "rok_iso": "2026-11-19",
+    "rok_tekst": "19. studenoga 2026.",
+    "rucni": true,
+    "slug": "grubisno-polje-stipendije-grada-grubisnoga-polja-studente-ucenike-2026",
+    "upute_za_prijavu": "Prijave s dokumentacijom dostavljaju se od 5. do 19. studenoga 2026. Natječaji s uvjetima i popisom dokumentacije su na stranici Grada, u rubrici Javni natječaji u tijeku.",
+    "url": "https://grubisnopolje.hr/novosti/detaljnije/raspisani-javni-natjecaji-za-dodjelu-stipendija-studentima-i-ucenicima-u-ovoj-akademskoj-odnosno-skolskoj-godini",
+    "uvjeti": "Osam novih studentskih stipendija (četiri za prvu godinu, četiri za više godine), za redovne studente s prebivalištem u Gradu koji ne primaju drugu stipendiju. Pet učeničkih stipendija za deficitarna zanimanja, uz prosjek najmanje 3,00 u prethodne dvije godine.",
+    "zadnji_put": "2026-11-09",
+    "zasto_rucno": "Grad je 5.11.2026. mailom javio da su natječaji raspisani; izvor je naslovnica, pa scraper rok nije pročitao.",
+    "zupanija": "Bjelovarsko-bilogorska županija"
+  },
   "kastav.hr/natjecaj-za-dodjelu-ucenickih-i-studentskih-stipendija-grada-kastva-3|2026-11-20": {
     "iznos": "110 eura za učenike, a studentske 150 eura mjesečno",
     "iznos_je_fond": false,
@@ -3525,6 +3562,43 @@
     "zadnji_put": "2026-11-02",
     "zasto_rucno": "",
     "zupanija": "Istarska županija"
+  },
+  "www.vpz.hr/wp-content/uploads/2026/11/javni-natjecaj.pdf|2026-11-19": {
+    "iznos": "200,00 eura mjesečno; 400,00 eura mjesečno za studente medicine",
+    "iznos_je_fond": false,
+    "iznosi": [
+      {
+        "do": false,
+        "eur": 200.0,
+        "mjeseci": null,
+        "razdoblje": "mjesecno",
+        "za": "studenti ostalih studijskih programa"
+      },
+      {
+        "do": false,
+        "eur": 400.0,
+        "mjeseci": null,
+        "razdoblje": "mjesecno",
+        "za": "studenti integriranog studija Medicina"
+      }
+    ],
+    "izvor_naziv": "Virovitičko-podravska županija — natječaji",
+    "napomena": "",
+    "naslov": "Stipendije Virovitičko-podravske županije 2026./2027.",
+    "podrucje": "Virovitičko-podravska županija",
+    "potvrda": "https://www.vpz.hr/wp-content/uploads/2026/11/Javni-natjecaj.pdf",
+    "poveznica": "https://www.vpz.hr/wp-content/uploads/2026/11/Javni-natjecaj.pdf",
+    "prvi_put": "2026-11-09",
+    "rok_iso": "2026-11-19",
+    "rok_tekst": "19. studenoga 2026.",
+    "rucni": true,
+    "slug": "viroviticko-podravska-zupanija-stipendije-podravske-zupanije-2026",
+    "upute_za_prijavu": "Prijava ide elektronički kroz aplikaciju som-natjecaj.eu (novi korisnici se prvo registriraju). Uz prijavu se prilažu izjave objavljene uz natječaj: o suglasnosti, da nisi korisnik druge stipendije i o broju članova kućanstva. Rok je 15 dana od objave natječaja 4. studenoga 2026.",
+    "url": "https://www.vpz.hr/2026/11/javni-natjecaj-za-dodjelu-stipendija-viroviticko-podravske-zupanije-u-akademskoj-2026-2027-godini/",
+    "uvjeti": "10 novih stipendija za studente ostalih studijskih programa, po bodovanju i rang-listi. Studenti integriranog studija Medicina dobivaju stipendiju izravno ako ispunjavaju opće uvjete, bez obzira na broj prijavljenih.",
+    "zadnji_put": "2026-11-09",
+    "zasto_rucno": "Pronađeno ručno 9.11.2026.; scraper je datum objave (4.11.) pročitao kao rok. Rok iz natječaja: 15 dana od objave 4.11.2026.",
+    "zupanija": "Virovitičko-podravska županija"
   },
   "zagreb.hr/natjecaj-za-dodjelu-stipendije-grada-zagreba-za-pr/224331|2026-10-30": {
     "iznos": "520,00 eura neto mjesečno",
