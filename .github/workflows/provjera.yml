@@ -22,6 +22,15 @@ permissions:
   contents: write
   issues: write
 
+# Dvije provjere ne smiju ici istodobno. GitHub zakazani posao zna krenuti
+# satima kasnije, pa se 9.11.2026. poklopio s rucno pokrenutom: obje su
+# radile pedeset minuta, a druga nije mogla spremiti rezultate (push odbijen
+# tri puta). Ovako druga ceka u redu, a kad krene, "treba-li" vidi da su
+# podaci vec od danas i stane za nekoliko sekundi.
+concurrency:
+  group: provjera
+  cancel-in-progress: false
+
 jobs:
   # Prvi posao samo odgovara na pitanje "jesu li podaci vec od danas".
   # Rucno pokretanje uvijek prolazi — kad covjek pritisne gumb, hoce da se
