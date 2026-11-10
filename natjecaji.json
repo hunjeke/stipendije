@@ -135,7 +135,7 @@
     "upute_za_prijavu": "Pročitajte cjelovite tekstove natječaja i obrasce zahtjeva u nastavku objave | Podnesite prijavu osobno u pisarnici Grada Đakova, poštom ili elektronički na adresu iz objave | Uz prijavu priložite potvrdu o upisu, a e-Zapis nije odgovarajuća potvrda",
     "url": "https://djakovo.hr/",
     "uvjeti": "Učenici srednjih škola i studenti. Studentske stipendije dodjeljuju se za darovite studente, deficitarna i umjetnička zanimanja te na temelju socio-ekonomskog statusa.",
-    "zadnji_put": "2026-11-09",
+    "zadnji_put": "2026-11-10",
     "zasto_rucno": "",
     "zupanija": "Osječko-baranjska županija"
   },
@@ -254,7 +254,7 @@
     "upute_za_prijavu": "Preuzmite obrazac prijave i Izjavu o članovima obitelji s web stranice www.grad-metkovic.hr | Pripremite preslik osobne iskaznice, potvrdu o upisu, uvjerenje MUP-a o prebivalištu i potvrdu o prosjeku ocjena | Priložite dokumente za svoju kategoriju (dokaz o uspjehu, potvrde o prihodima, dokaz o registraciji invaliditeta) | Dostavite prijavu na adresu Grad Metković, Povjerenstvo za provedbu postupka dodjele stipendija, Stjepana Radića 1, 20350 Metković, s naznakom 'Natječaj za dodjelu stipendija-ne otvarati' do 11. studenog 2026.",
     "url": "https://grad-metkovic.hr/kategorija/natjecaji/",
     "uvjeti": "Redoviti studenti, državljani RH, upisani na visoko učilište u RH ili izvan RH, koji imaju prebivalište kao i jedan od roditelja na području Grada Metkovića u zadnjih 5 godina i nisu stariji od 27 godina. Posebni uvjeti ovise o kategoriji (uspješni i daroviti, slabijeg socio-ekonomskog statusa, deficitarna zanimanja, studenti s invaliditetom).",
-    "zadnji_put": "2026-11-09",
+    "zadnji_put": "2026-11-10",
     "zasto_rucno": "",
     "zupanija": "Dubrovačko-neretvanska županija"
   },
@@ -328,7 +328,7 @@
     "upute_za_prijavu": "Prijave s dokumentacijom dostavljaju se od 5. do 19. studenoga 2026. Natječaji s uvjetima i popisom dokumentacije su na stranici Grada, u rubrici Javni natječaji u tijeku.",
     "url": "https://grubisnopolje.hr/novosti/detaljnije/raspisani-javni-natjecaji-za-dodjelu-stipendija-studentima-i-ucenicima-u-ovoj-akademskoj-odnosno-skolskoj-godini",
     "uvjeti": "Osam novih studentskih stipendija (četiri za prvu godinu, četiri za više godine), za redovne studente s prebivalištem u Gradu koji ne primaju drugu stipendiju. Pet učeničkih stipendija za deficitarna zanimanja, uz prosjek najmanje 3,00 u prethodne dvije godine.",
-    "zadnji_put": "2026-11-09",
+    "zadnji_put": "2026-11-10",
     "zasto_rucno": "Grad je 5.11.2026. mailom javio da su natječaji raspisani; izvor je naslovnica, pa scraper rok nije pročitao.",
     "zupanija": "Bjelovarsko-bilogorska županija"
   },
@@ -365,7 +365,7 @@
     "upute_za_prijavu": "Ispuniti obrazac prijave za dodjelu stipendije za 2026./2027. godinu | Za imovinski status priložiti obrazac izjave o broju članova kućanstva | Prijavu predati digitalno na https://kastav.otvorenigrad.hr/, osobno na adresu GRAD KASTAV, Trg sv. Lucije 1, 51215 Kastav, ili e-poštom na info@kastav.hr | Predati je do roka za svoju kategoriju (učenici ili studenti) | Dodatne informacije: Andrea Bralić, 051/691-016, andrea.bralic@kastav.hr",
     "url": "https://kastav.hr/",
     "uvjeti": "Natječaj je za učenike i studente, a stipendije se dodjeljuju prema kriterijima imovinskog statusa, izvrsnosti i sportskih postignuća. Točni kriteriji nalaze se u priloženim dokumentima (Kriteriji imovinski, izvrsni, sportaši).",
-    "zadnji_put": "2026-11-09",
+    "zadnji_put": "2026-11-10",
     "zasto_rucno": "",
     "zupanija": "Primorsko-goranska županija"
   },
@@ -497,7 +497,7 @@
     "upute_za_prijavu": "Preuzeti obrazac zahtjeva za odgovarajuću kategoriju s ove stranice | Ispuniti zahtjev | Predati zahtjev do 17. studenoga 2026. | Za detalje o dokumentaciji pogledati Pravilnik o dodjeli stipendija i jednokratnih potpora",
     "url": "https://krapina.hr/?s=stipendij",
     "uvjeti": "Učenici srednjih škola i studenti s područja Grada Krapine. Stipendije se dodjeljuju u tri kategorije: socijalni kriterij, uspješnost (nadareni) i deficitarna zanimanja odnosno deficitarna područja.",
-    "zadnji_put": "2026-11-09",
+    "zadnji_put": "2026-11-10",
     "zasto_rucno": "",
     "zupanija": "Krapinsko-zagorska županija"
   },
@@ -532,7 +532,7 @@
     "zupanija": "Koprivničko-križevačka županija"
   },
   "kzz.hr/natjecaj/natjecaj-za-dodjelu-stipendija-redovitim-studentima-krapinsko-zagorske-zupanije-za-akademsku-god-2026-2027|2026-11-23": {
-    "iznos": "120,00 eura mjesečno (kategorije A i B); 150,00 eura mjesečno (kategorija C)",
+    "iznos": "A i B: u iznosu od 120,00 eura mjesečno; C: u iznosu od 150,00 eura mjesečno",
     "iznos_je_fond": false,
     "iznosi": [
       {
@@ -540,38 +540,38 @@
         "eur": 120.0,
         "mjeseci": null,
         "razdoblje": "mjesecno",
-        "za": "nadareni studenti"
+        "za": "nadareni studenti (kategorija A)"
       },
       {
         "do": false,
         "eur": 120.0,
         "mjeseci": null,
         "razdoblje": "mjesecno",
-        "za": "studenti po socijalnom kriteriju"
+        "za": "studenti po socijalnom kriteriju (kategorija B)"
       },
       {
         "do": false,
         "eur": 150.0,
         "mjeseci": null,
         "razdoblje": "mjesecno",
-        "za": "studenti deficitarnih zanimanja"
+        "za": "studenti deficitarnih zanimanja (kategorija C)"
       }
     ],
     "izvor_naziv": "Krapinsko-zagorska županija — natječaji",
-    "napomena": "Iznos stipendije nije naveden u dostupnom tekstu stranice. Tekst natječaja s obrascima nalazi se na stranici ispod obavijesti, a ovdje nije priložen u cijelosti.",
+    "napomena": "Stranica ne navodi iznos stipendije. Tekst natječaja je skraćen u prikazu, pa se uvjeti, iznos i obrasci moraju provjeriti u punom tekstu natječaja. Rok je 15 dana od dana objave natječaja, a na stranici je naveden kao 23.11.2026.",
     "naslov": "Stipendije za redovite studente",
     "podrucje": "Krapinsko-zagorska županija",
     "potvrda": "",
     "poveznica": "https://kzz.hr/natjecaj/natjecaj-za-dodjelu-stipendija-redovitim-studentima-krapinsko-zagorske-zupanije-za-akademsku-god-2026-2027/",
     "prvi_put": "2026-11-09",
     "rok_iso": "2026-11-23",
-    "rok_tekst": "23.11.2026. godine",
+    "rok_tekst": "23.11.2026.",
     "rucni": false,
     "slug": "krapinsko-zagorska-zupanija-stipendije-redovite-studente-2026",
-    "upute_za_prijavu": "Preuzmite tekst natječaja s obrascima i prilozima ispod obavijesti | Zahtjev podnesite isključivo na propisanim obrascima | Podnesite zahtjev do 23.11.2026. godine",
+    "upute_za_prijavu": "Otvorite tekst natječaja ispod obavijesti | Preuzmite propisane obrasce i priloge | Zahtjev podnesite isključivo na propisanim obrascima | Podnesite zahtjev do 23.11.2026.",
     "url": "https://kzz.hr/natjecaj/",
-    "uvjeti": "Natječaj je namijenjen redovitim studentima Krapinsko-zagorske županije za akademsku godinu 2026./2027. Točni uvjeti nalaze se u tekstu natječaja.",
-    "zadnji_put": "2026-11-09",
+    "uvjeti": "Stipendije se dodjeljuju redovitim studentima Krapinsko-zagorske županije za akademsku godinu 2026./2027. Točni uvjeti nalaze se u tekstu natječaja ispod obavijesti.",
+    "zadnji_put": "2026-11-10",
     "zasto_rucno": "",
     "zupanija": "Krapinsko-zagorska županija"
   },
@@ -645,7 +645,7 @@
     "upute_za_prijavu": "Registracija s valjanom e-mail adresom | Prijava isključivo elektronskim putem kroz on-line obrazac u SOM sustavu | Odabir tipa natječaja iz padajućeg izbornika (Deficitarna zanimanja) | Prikupljanje i učitavanje potrebne dokumentacije",
     "url": "https://labin.hr/za-gradane/odgoj-i-obrazovanje/stipendiranje-ucenika-i-studenata",
     "uvjeti": "Pravo na stipendiju imaju učenici srednjih škola i studenti s prebivalištem na području Grada Labina u trajanju od najmanje 12 mjeseci do dana podnošenja zahtjeva za stipendiju, ukoliko ne primaju drugu stipendiju iz javnog izvora po bilo kojoj osnovi, te ukoliko nisu stariji od 26 godina.",
-    "zadnji_put": "2026-11-09",
+    "zadnji_put": "2026-11-10",
     "zasto_rucno": "",
     "zupanija": "Istarska županija"
   },
@@ -807,7 +807,7 @@
     "upute_za_prijavu": "Ispunite i potpišite obrazac prijave | Pribavite dokumente iz točke IV. natječaja (potvrda o upisu u srednju školu, osobna iskaznica, rodni listovi, dokazi o statusu i primanjima, izjave) | Pošaljite prijavu isključivo poštom na adresu: Međimurska županija, Upravni odjel za obrazovanje, kulturu i sport, Ruđera Boškovića 2, Čakovec, s naznakom „za učeničku stipendiju djeci hrvatskih branitelja“ | Prijava mora biti dostavljena do 16. studenoga 2026.",
     "url": "https://medjimurska-zupanija.hr/natjecaji-i-pozivi/",
     "uvjeti": "Djeca umrlih, smrtno stradalih i nestalih hrvatskih branitelja te djeca hrvatskih ratnih vojnih invalida iz Domovinskog rata, uz prosjek primanja po članu kućanstva do dvostrukog iznosa proračunske osnovice (441,44 eura). Djeca nezaposlenih ili umirovljenih hrvatskih branitelja uz prosjek do iznosa proračunske osnovice (za prvo i drugo dijete).",
-    "zadnji_put": "2026-11-09",
+    "zadnji_put": "2026-11-10",
     "zasto_rucno": "",
     "zupanija": "Međimurska županija"
   },
@@ -948,7 +948,7 @@
     "upute_za_prijavu": "Ispuniti i potpisati on-line obrazac na hrvatskome jeziku na mrežnoj stranici Agencije za mobilnost i programe EU-a | Ispuniti i potpisati on-line obrazac na engleskome jeziku na mrežnoj stranici Campus China (Program Category: A, Agency Number: 1911) | Pripremiti ostalu dokumentaciju (životopis, putovnicu, diplomu, prijepis ocjena, dokaz o jeziku, plan studija, uvjerenje o nekažnjavanju, zdravstveni obrazac i dr.) | Poslati prijavu u jednom primjerku na adresu Agencija za mobilnost i programe Europske unije, Frankopanska ulica 26, 10 000 Zagreb, s naznakom „Bilaterala - za stipendije NR Kine“ | Istodobno podnijeti prijavu za upis na kinesko sveučilište, koja je odvojeni postupak",
     "url": "https://mzom.gov.hr/natjecaji-196/196",
     "uvjeti": "Prijaviti se mogu hrvatski državljani za cjeloviti prijediplomski, diplomski ili poslijediplomski doktorski studij ili za jednogodišnje stručno usavršavanje na kineskim sveučilištima u akademskoj godini 2027./2028. Kandidati mlađi od 18 godina moraju dostaviti i dokument zakonskoga skrbnika u Kini, a za prijediplomski studij potrebno je položiti CSCA ispit.",
-    "zadnji_put": "2026-11-09",
+    "zadnji_put": "2026-11-10",
     "zasto_rucno": "",
     "zupanija": ""
   },
@@ -1380,7 +1380,7 @@
     "upute_za_prijavu": "Obrazac je na www.split.hr ili u pisarnici Grada Splita (radnim danom 8–15 h). Prilažu se preslike osobnih iskaznica podnositelja i jednog roditelja, potvrda o upisu, izjava o nekorištenju druge stipendije, dokaz o invaliditetu (nalaz Zavoda za vještačenje ili potvrda o inkluzivnom dodatku) i dokaz o izvanškolskim rezultatima, ako postoje. Predaje se preporučenom poštom na Grad Split, Upravni odjel za socijalnu skrb, branitelje i demografiju, Obala kneza Branimira 17, 21000 Split, osobno u pisarnici, na pisarnica@split.hr ili preko epodnesakprod.split.hr.",
     "url": "https://split.hr/natjecaji/detalj-natjecaja/javni-poziv-za-dodjelu-potpora-za-ucenike-srednjih-skola-i-studente-s-invaliditetom-u-skolskojakademskoj-202627",
     "uvjeti": "Učenik srednje škole ili student s invaliditetom, koji su, kao i jedan roditelj, udomitelj ili skrbnik, imali prebivalište u Splitu neprekinuto tri godine do objave poziva. Redovno upisan u 2026./2027., bez druge stipendije ili potpore za školovanje. Poziv je za nove korisnike. Kriteriji su invaliditet i težina oštećenja te priznati izvanškolski rezultati u znanosti, umjetnosti ili sportu.",
-    "zadnji_put": "2026-11-09",
+    "zadnji_put": "2026-11-10",
     "zasto_rucno": "Na stranici poziva stoji samo početak prijava (12.10.2026.), pa je automatski zapis imao taj datum kao rok. Rok je pročitan iz cjelovitog teksta poziva 3.11.2026.",
     "zupanija": "Splitsko-dalmatinska županija"
   },
@@ -1513,7 +1513,7 @@
     "upute_za_prijavu": "Pripremite ispis ocjena iz e-dnevnika ili potvrdu o prosjeku, potvrdu škole ili fakulteta o pohađanju/upisu, uvjerenje o prebivalištištu s naznakom trajanja, presliku osobne iskaznice i IBAN | Ispunite obrazac prijave i vlastoručno potpisanu izjavu da niste primatelji druge stipendije ili sličnog novčanog primanja (bez ovjere) | Prijavu s kompletnom dokumentacijom predajte Upravnom odjelu za društvene djelatnosti Grada Trogira, Put Muline 2, osobno ili poštom | Obrazac prijave i izjave preuzmite na www.trogir.hr ili kod Upravnog odjela",
     "url": "https://trogir.hr/stipendije-za-dake-i-studente/",
     "uvjeti": "Pravo se mogu ostvariti redoviti učenici II., III., IV. i V. razreda srednje škole s prosjekom ocjena najmanje 4,80 u prethodnoj godini te redoviti studenti s prebivalištem u Trogiru duže od jedne godine, uz uvjete o prosjeku ocjena, ECTS bodovima ili rangiranju na bodovnoj listi fakulteta. Ne mogu se prijaviti učenici I. razreda, oni koji se obrazuju uz rad i studenti stariji od 27 godina.",
-    "zadnji_put": "2026-11-09",
+    "zadnji_put": "2026-11-10",
     "zasto_rucno": "",
     "zupanija": "Splitsko-dalmatinska županija"
   },
@@ -1644,7 +1644,7 @@
     "zupanija": "Zagrebačka županija"
   },
   "vrbovec.hr/2026/11/02/natjecaj-za-dodjelu-stipendija-grada-vrbovca-za-skolsku-akademsku-2026-2027-godinu|2026-11-18": {
-    "iznos": "80,00 EUR mjesečno (učenici srednjih škola), 130,00 EUR mjesečno (studenti)",
+    "iznos": "80,00 EUR mjesečno (učenici) i 130,00 EUR mjesečno (studenti)",
     "iznos_je_fond": false,
     "iznosi": [
       {
@@ -1663,7 +1663,7 @@
       }
     ],
     "izvor_naziv": "Grad Vrbovec — obavijesti i natječaji",
-    "napomena": "Tekst sadrži nedosljednost u roku: navedeno je 15 dana od objave, ali i 'do 18.11.2026.' te 'najkasnije do 17.11.2026. u 23:59h'. Mjerodavan je najkasnije navedeni datum, ali bolje je provjeriti kod Grada. Stipendije se isplaćuju za deset mjeseci. Za deficitarna zanimanja (sveučilišni studij medicine i logopedije) može se donijeti posebna odluka izvan ovih iznosa.",
+    "napomena": "Rok je nedosljedan: tekst navodi 15 dana od objave, a istovremeno dva različita datuma (18.11.2026. i 17.11.2026.). Zbog toga je najsigurnije prijaviti se do 17.11.2026. Prijave izvan roka se odbacuju. Stipendije se isplaćuju za deset mjeseci, retroaktivno. Deficitarna zanimanja za 2026./2027.: sveučilišni studij medicine i sveučilišni studij logopedije.",
     "naslov": "Stipendije Grada Vrbovca 2026./2027.",
     "podrucje": "Vrbovec",
     "potvrda": "",
@@ -1673,10 +1673,10 @@
     "rok_tekst": "15 dana od dana objave natječaja na mrežnoj stranici Grada Vrbovca (do 18.11.2026., najkasnije do 17.11.2026. u 23:59h)",
     "rucni": false,
     "slug": "vrbovec-stipendija-grada-vrbovca-2026",
-    "upute_za_prijavu": "Preuzeti obrazac prijave u Pisarnici Grada Vrbovca ili na mrežnoj stranici Grada | Priložiti potvrdu o redovnom upisu, svjedodžbu ili ovjereni prijepis ocjena i dokaze o socijalnim uvjetima | Potpisati izjave o nekorištenju drugog novčanog primanja i o istinitosti podataka | Predati prijavu u zatvorenoj omotnici na adresu: Grad Vrbovec, Trg Petra Zrinskog 9, 10340 Vrbovec, s naznakom «Natječaj za dodjelu stipendije»",
+    "upute_za_prijavu": "Preuzmite obrazac u Pisarnici Grada Vrbovca ili na mrežnoj stranici Grada | Priložite potvrdu o redovnom upisu i svjedodžbu ili ovjereni prijepis ocjena | Priložite dokaze o socijalnim uvjetima i potpišite izjave koje su sastavni dio obrasca | Prijavu dostavite u zatvorenoj omotnici na adresu: Grad Vrbovec, Trg Petra Zrinskog 9, 10340 Vrbovec, s naznakom « Natječaj za dodjelu stipendije»",
     "url": "https://vrbovec.hr/2026/11/02/natjecaj-za-dodjelu-stipendija-grada-vrbovca-za-skolsku-akademsku-2026-2027-godinu/",
-    "uvjeti": "Redoviti učenici srednjih škola stariji najviše 20 godina i redoviti studenti stariji najviše 26 godina, hrvatski državljani s prebivalištem na području Grada Vrbovca najmanje šest mjeseci prije prijave, s prosjekom najmanje 3 i prihodom po članu obitelji ispod propisanog praga. Za učenike i studente koji ne ponavljaju razred/godinu.",
-    "zadnji_put": "2026-11-09",
+    "uvjeti": "Državljani Republike Hrvatske koji su redoviti učenici srednje škole do 20 godina ili redoviti studenti do 26 godina, bez ponavljanja razreda/godine, s prebivalištem u Vrbovcu najmanje šest mjeseci, s prosjekom najmanje 3 i prihodom po članu obitelji do 170 % neoporezivog dijela plaće.",
+    "zadnji_put": "2026-11-10",
     "zasto_rucno": "",
     "zupanija": "Zagrebačka županija"
   },
@@ -1786,7 +1786,7 @@
     "upute_za_prijavu": "Ispunite on-line obrazac na hrvatskom na mrežnoj stranici Agencije za mobilnost i programe EU-a | Ispunite on-line obrazac na engleskom na mrežnoj stranici Campus China, uz Program Category: Type A i Agency Number: 1911 | Pripremite ostalu dokumentaciju (životopis, putovnicu, diplomu, prijepis ocjena, dokaz o znanju jezika, plan studija, uvjerenje o nekažnjavanju, obrazac o zdravstvenom stanju i dr.) | Pošaljite prijavu u jednom primjerku na adresu: Agencija za mobilnost i programe Europske unije, Frankopanska ulica 26, 10 000 Zagreb, s naznakom „Bilaterala - za stipendije NR Kine”",
     "url": "https://www.ampeu.hr/natjecaji/natjecaj-za-stipendije-narodne-republike-kine-u-akademskoj-godini-2027-2028",
     "uvjeti": "Mogu se prijaviti hrvatski državljani za cjeloviti prijediplomski, diplomski ili poslijediplomski doktorski studij ili za jednogodišnje stručno usavršavanje na sveučilištima u NR Kini u akademskoj godini 2027./2028. Prednost imaju kandidati koji nisu bili dobitnici stipendija Vlade NR Kine i kandidati s prihvatnim pismom kineskog sveučilišta.",
-    "zadnji_put": "2026-11-09",
+    "zadnji_put": "2026-11-10",
     "zasto_rucno": "",
     "zupanija": ""
   },
@@ -1882,7 +1882,7 @@
     "upute_za_prijavu": "Pripremite dokumentaciju u obliku PDF ili JPG | Pripremite e-građanin i mTOKEN za prijavu | Prijavite se online kroz aplikaciju na https://eobrasci.bjelovar.hr | Unesite podatke i priložite potrebne dokumente (svjedodžbe ili prijepis ocjena, potvrde o primanjima i ostalo prema popisu iz natječaja)",
     "url": "https://www.bjelovar.hr/obrazovanje-i-skrb/stipendije/",
     "uvjeti": "Pravo prijave imaju redovni studenti preddiplomskih i diplomskih studija, državljani Republike Hrvatske, s prebivalištem na području Grada Bjelovara. Izvanredni studenti mogu se prijaviti pod uvjetom da nisu u radnom odnosu i da dohodak po članu obitelji ne prelazi 600,00 EUR mjesečno.",
-    "zadnji_put": "2026-11-09",
+    "zadnji_put": "2026-11-10",
     "zasto_rucno": "",
     "zupanija": "Bjelovarsko-bilogorska županija"
   },
@@ -2066,7 +2066,7 @@
     "upute_za_prijavu": "",
     "url": "https://www.dalmacija.hr/natjecaji",
     "uvjeti": "Obitelji s troje i više djece na školovanju. Točni uvjeti nisu navedeni na ovoj stranici.",
-    "zadnji_put": "2026-11-09",
+    "zadnji_put": "2026-11-10",
     "zasto_rucno": "",
     "zupanija": "Splitsko-dalmatinska županija"
   },
@@ -2075,7 +2075,7 @@
     "iznos_je_fond": false,
     "iznosi": [],
     "izvor_naziv": "Grad Donja Stubica — natječaji",
-    "napomena": "Iznos stipendija nije naveden na stranici; broj i visinu određuje Odluka Gradonačelnika, koja je najavljena na stranici ali nije prikazana u tekstu. Uvjeti i postupak prijave nisu u tekstu stranice, pa ih treba provjeriti u dokumentaciji natječaja.",
+    "napomena": "Na stranici nije naveden iznos stipendije. Stranica spominje odluku Gradonačelnika o broju i visini stipendija, ali njezin tekst nije dostupan. Uvjeti i način prijave nisu navedeni na ovoj stranici, pa ih treba provjeriti u samom natječaju.",
     "naslov": "Učeničke i studentske stipendije",
     "podrucje": "Donja Stubica",
     "potvrda": "",
@@ -2088,7 +2088,7 @@
     "upute_za_prijavu": "",
     "url": "https://www.donjastubica.hr/natjecaji/",
     "uvjeti": "Natječaj je namijenjen učenicima i studentima za školsku/akademsku godinu 2026./2027. Detaljni uvjeti nisu navedeni u tekstu stranice.",
-    "zadnji_put": "2026-11-09",
+    "zadnji_put": "2026-11-10",
     "zasto_rucno": "",
     "zupanija": "Krapinsko-zagorska županija"
   },
@@ -2405,7 +2405,7 @@
     "upute_za_prijavu": "Ispuniti prijavu putem aplikacije https://som.natjecaj.eu | Prikupiti dokumentaciju (osobna iskaznica, potvrda upisa, dokaz o prosjeku ocjena, potvrda o ECTS bodovima) | Dostaviti prijavu elektronički putem aplikacije do 15. studenog 2026. | Čekati obavijest o rezultatima u roku od 30 dana od zaključenja natječaja",
     "url": "https://www.grad-krk.hr/desnibanner/natjecaji",
     "uvjeti": "Redoviti studenti prve, druge, treće ili viših godina studija koji su državljani Republike Hrvatske, imaju prebivalište na području Grada Krka, nisu stariji od 25 godina te ispunjavaju uvjete akademskog uspjeha ili deficitarnog zanimanja.",
-    "zadnji_put": "2026-11-09",
+    "zadnji_put": "2026-11-10",
     "zasto_rucno": "",
     "zupanija": "Primorsko-goranska županija"
   },
@@ -2486,7 +2486,7 @@
     "upute_za_prijavu": "Otvorite e-uslugu „Stipendije” na portalu eZadrani (https://ezadrani.hr/stipendije) | Ispunite online obrazac i za učeničku stipendiju obavezno unesite OIB | Učitajte potvrdu o redovitom upisu u školsku/akademsku 2026./2027. godinu kao obvezni prilog | Priložite dokumentaciju o općem uspjehu (svjedodžba prethodnog razreda ili ovjereni prijepis ocjena) | Predajte prijavu do 23. studenoga 2026. do 23:59 sati",
     "url": "https://www.grad-zadar.hr/vijest/odgoj-i-skolstvo--stipendiranje--natjecaji-i-obrasci-59/objavljen-natjecaj-za-dodjelu-stipendija-ucenicima-i-studentima-za-skolskuakademsku-20262027-godinu-10114.html",
     "uvjeti": "Učenici srednjih škola i studenti preddiplomskih/diplomskih studija koji su državljani RH s prebivalištem na području Grada Zadra, imaju status redovnog učenika ili studenta, nemaju odobrenu stipendiju ili kredit od drugog subjekta i nisu stariji od 25 odnosno 27 godina (diplomski studij).",
-    "zadnji_put": "2026-11-09",
+    "zadnji_put": "2026-11-10",
     "zasto_rucno": "",
     "zupanija": "Zadarska županija"
   },
@@ -2523,7 +2523,7 @@
     "upute_za_prijavu": "Popunite prijavni obrazac dostupan na www.hep.hr | Priložite motivacijsko pismo, životopis i potvrdu o upisu u traženi smjer | Priložite svjedodžbe ili prijepis ocjena te dokaz o državljanstvu | Prijavu pošaljite na e-adresu stipendije@hep.hr",
     "url": "https://www.hep.hr/ljudski-potencijali/praksa-i-stipendije/110",
     "uvjeti": "Redovni učenici srednjih škola u Republici Hrvatskoj koji su u školskoj godini 2026./2027. upisali predzavršni ili završni razred traženog smjera, te redovni studenti 3. godine prijediplomskog ili 1. i 2. godine diplomskog studija čijim se završetkom stječe najmanje 300 ECTS bodova, do navršene 26. godine života. Obavezno hrvatsko državljanstvo.",
-    "zadnji_put": "2026-11-09",
+    "zadnji_put": "2026-11-10",
     "zasto_rucno": "",
     "zupanija": ""
   },
@@ -2643,7 +2643,7 @@
     "upute_za_prijavu": "Pripremite dokumentaciju (uvjerenje o upisu, uvjerenje o prebivalištu, domovnica, dokaz o primanjima članova domaćinstva) | Preuzmite obrasce privole i izjava iz natječaja | Prijavite se online putem aplikacije na http://javne-potrebe.istra-istria.hr | Priložite svu dokumentaciju u roku od 15 dana, u razdoblju od 30. listopada 2026. do 13. studenog 2026. do 24:00 sata",
     "url": "https://www.istra-istria.hr/hr/natjecaji/",
     "uvjeti": "Redoviti studenti, državljani Republike Hrvatske, koji redovito studiraju na visokim učilištima u RH i imaju prebivalište na području gradova ili općina Istarske županije najmanje 5 godina prije objave natječaja. Ne smiju istovremeno biti korisnici stipendije grada/općine ili stipendije iz drugih izvora.",
-    "zadnji_put": "2026-11-09",
+    "zadnji_put": "2026-11-10",
     "zasto_rucno": "",
     "zupanija": "Istarska županija"
   },
@@ -2687,7 +2687,7 @@
     "upute_za_prijavu": "Preuzmi natječaj i prijavnicu za svoju kategoriju s stranice natječaja i priloži izjavu studenta da ne prima drugu stipendiju. Rezultati se šalju prijavljenima u roku 60 dana od isteka roka. Pitanja: gradski ured, tel. 020 711 143 ili 020 711 184.",
     "url": "https://www.korcula.hr/natjecaji-za-dodjelu-stipendija-studenticama-studentima-za-akademsku-godinu-2026-2027/",
     "uvjeti": "Pet odvojenih natječaja za studente: darovite, za deficitarna zanimanja, iz obitelji slabijeg imovinskog stanja, branitelje i djecu branitelja te studente s invaliditetom. Iznosi i detaljni uvjeti stoje u cjelovitom tekstu svakog natječaja.",
-    "zadnji_put": "2026-11-09",
+    "zadnji_put": "2026-11-10",
     "zasto_rucno": "Pronađeno ručno 5.11.2026.; izvor je dodan u sources.json. Iznosi stoje samo u prilozima natječaja.",
     "zupanija": "Dubrovačko-neretvanska županija"
   },
@@ -3114,7 +3114,7 @@
     "upute_za_prijavu": "Registrirajte se u sustavu e-Prijave | Odaberite natječaj i ispunite obrazac prijave | Priložite obveznu dokumentaciju i zaključajte prijavu | Potpisani obrazac prijave pošaljite e-poštom na adresu županije uz predmet 'Stipendije PSZ za ak. god. 2026./2027.'",
     "url": "https://www.pszupanija.hr/natjecaji/otvoreni-natjecaji",
     "uvjeti": "Redoviti studenti upisani na sveučilišni ili stručni studij (prijediplomski, diplomski, integrirani ili kratki) s državljanstvom RH, koji su završili posljednja dva razreda srednje škole s ocjenom najmanje 3,5 (prva godina studija) odnosno prethodnu godinu studija s prosjekom najmanje 3,0 (viši studenti). Ne mogu se prijaviti studenti u radnom odnosu, korisnici druge stipendije, studenti na mirovanju ili koji ponavljaju godinu.",
-    "zadnji_put": "2026-11-09",
+    "zadnji_put": "2026-11-10",
     "zasto_rucno": "",
     "zupanija": "Požeško-slavonska županija"
   },
@@ -3136,7 +3136,7 @@
     "upute_za_prijavu": "Registrirati se u sustav e-prijavnica na https://som-natjecaj.eu/authentication/register | Postojeći korisnici prijavljuju se na https://som-natjecaj.eu/authentication/login | Svu dokumentaciju priložiti isključivo u PDF formatu | Odabrati opciju „Pošalji zahtjev“ i pričekati automatsku potvrdu o zaprimanju",
     "url": "https://www.pula.hr/hr/novosti/",
     "uvjeti": "Mogu se prijaviti redoviti studenti s prebivalištem na području Grada Pule. Stipendije se dodjeljuju u kategorijama općeg uspjeha, deficitarnih zanimanja i za studente s invaliditetom, a uvjeti prosjeka ocjena razlikuju se po kategoriji i godini studija.",
-    "zadnji_put": "2026-11-09",
+    "zadnji_put": "2026-11-10",
     "zasto_rucno": "",
     "zupanija": "Istarska županija"
   },
@@ -3173,7 +3173,7 @@
     "upute_za_prijavu": "",
     "url": "https://www.rijeka.hr/natjecaji-za-stipendije-grada-rijeke-3/",
     "uvjeti": "Jedan natječaj s tri kategorije, ukupno 68 stipendija. Izvrsnost: 40 stipendija, 20 za srednjoškolce i 20 za studente. Deficitarna zanimanja: 9 stipendija — tri za edukacijsku rehabilitaciju, dvije za socijalnu pedagogiju, dvije za fiziku (nastavnički smjer), jedna za logopediju i jedna za geografiju (nastavnički smjer). Socio-ekonomski status: 19 stipendija, 12 za učenike i 7 za studente. Prijaviti se mogu učenici srednjih škola i redoviti studenti koji ispunjavaju uvjete pojedine kategorije.",
-    "zadnji_put": "2026-11-09",
+    "zadnji_put": "2026-11-10",
     "zasto_rucno": "Scraper je natječaj našao, ali rok nije pročitao jer je na rubrici stipendija razlomljen po kategorijama, pa je zapis stajao u statusu PROVJERITI RUČNO i nije bio vidljiv nikome.",
     "zupanija": "Primorsko-goranska županija"
   },
@@ -3306,7 +3306,7 @@
     "upute_za_prijavu": "Pripremite dokumente iz natječaja (privola, izjava o istinitosti podataka, izjava o neprimanju druge stipendije) | U obrascu prijave navedite kategoriju i kriterij za koji se natječete | Priložite dokaze, a studenti prve godine i svjedodžbu o državnoj maturi | Prijavu podnesite elektroničkim putem preko sustava SOM natječaji na poveznici https://som-natjecaj.eu/authentication/login",
     "url": "https://www.sibenik.hr/stranice/stipendije/135.html",
     "uvjeti": "Pravo prijave imaju redoviti studenti, hrvatski državljani s prebivalištem na području Grada Šibenika, koji studiraju na sveučilišnim ili stručnim studijima čiji je osnivač Republika Hrvatska. Uz to moraju ispunjavati uvjete pojedine kategorije (prosjek ocjena, ECTS bodovi, socijalno-ekonomski status ili invaliditet).",
-    "zadnji_put": "2026-11-09",
+    "zadnji_put": "2026-11-10",
     "zasto_rucno": "",
     "zupanija": "Šibensko-kninska županija"
   },
@@ -3343,7 +3343,7 @@
     "upute_za_prijavu": "Prijavite se na https://e.skz.hr/login | Čekajte da davatelj sredstava odobri prijavu stipendista u sustavu | Predajte propisanu dokumentaciju elektroničkim putem do 24.11.2026. do 15:00h | Ili predajte papirnatu prijavu u zatvorenoj omotnici u pisarnicu ili preporučenom poštom (žig pošte do 24.11.2026.) | Obrasce preuzmite uz natječaj",
     "url": "https://www.sibensko-kninska-zupanija.hr/pozivi-i-natjecaji",
     "uvjeti": "Redoviti učenici i studenti Šibensko-kninske županije u akademskoj godini 2026./2027., prema naslovu natječaja. Detalji o uvjetima nisu navedeni na ovoj stranici.",
-    "zadnji_put": "2026-11-09",
+    "zadnji_put": "2026-11-10",
     "zasto_rucno": "",
     "zupanija": "Šibensko-kninska županija"
   },
@@ -3500,7 +3500,7 @@
     "upute_za_prijavu": "Prijavite se svojim elektroničkim identitetom (AAI@EduHr) na www.unizg.hr/stipendije | Odaberite jednu kategoriju i ispunite elektroničku aplikaciju | Priložite potrebne dokumente za odabranu kategoriju (potvrde o nagradama, dokaze o statusu, potvrde iz ISVU-a ili ručni unos) | Prijave su moguće od 16. studenoga 2026. u 12 sati do 7. prosinca 2026. do 12 sati",
     "url": "https://www.unizg.hr/studiji-i-studiranje/upisi-stipendije-priznavanja/stipendije/",
     "uvjeti": "Redoviti studenti sveučilišnih i stručnih prijediplomskih i diplomskih te integriranih studija Sveučilišta u Zagrebu, s prosjekom ocjena najmanje 4,0 (za D kategoriju 3,0). Student se može prijaviti samo u jednoj od kategorija A, B, C, D ili E, koje imaju posebne kriterije.",
-    "zadnji_put": "2026-11-09",
+    "zadnji_put": "2026-11-10",
     "zasto_rucno": "",
     "zupanija": ""
   },
@@ -3596,7 +3596,7 @@
     "upute_za_prijavu": "Prijava ide elektronički kroz aplikaciju som-natjecaj.eu (novi korisnici se prvo registriraju). Uz prijavu se prilažu izjave objavljene uz natječaj: o suglasnosti, da nisi korisnik druge stipendije i o broju članova kućanstva. Rok je 15 dana od objave natječaja 4. studenoga 2026.",
     "url": "https://www.vpz.hr/2026/11/javni-natjecaj-za-dodjelu-stipendija-viroviticko-podravske-zupanije-u-akademskoj-2026-2027-godini/",
     "uvjeti": "10 novih stipendija za studente ostalih studijskih programa, po bodovanju i rang-listi. Studenti integriranog studija Medicina dobivaju stipendiju izravno ako ispunjavaju opće uvjete, bez obzira na broj prijavljenih.",
-    "zadnji_put": "2026-11-09",
+    "zadnji_put": "2026-11-10",
     "zasto_rucno": "Pronađeno ručno 9.11.2026.; scraper je datum objave (4.11.) pročitao kao rok. Rok iz natječaja: 15 dana od objave 4.11.2026.",
     "zupanija": "Virovitičko-podravska županija"
   },
@@ -3723,7 +3723,7 @@
     "upute_za_prijavu": "Preuzmite obrazac A2, B2, C2 ili E s www.zaklada-branitelja.hr | Popunite standardiziranu Izjavu o sastavu zajedničkog kućanstva na obrascu Zaklade | Priložite potvrdu o OIB-u za sve članove kućanstva i ovjereni prijepis ocjena ili presliku svjedodžbe | Prijavu pošaljite poštom na adresu Zaklade, Park Stara Trešnjevka 4, 10000 Zagreb, s naznakom 'Natječaj za potporu za obrazovanje', do 23.11.2026.",
     "url": "https://zaklada-branitelja.hr/",
     "uvjeti": "Redoviti studenti preddiplomskih, diplomskih, integriranih, kratkih stručnih i specijalističkih diplomskih stručnih studija mogu se prijaviti u kategorijama A2 (djeca smrtno stradalih i nestalih hrvatskih branitelja), B2 (izvrsnost) i C2 (slabiji socioekonomski status), uz uvjete o prosjeku ocjena i prihodima po članu kućanstva. Poslijediplomski studenti mogu se prijaviti za naknadu dijela troškova školarine (kategorija E).",
-    "zadnji_put": "2026-11-09",
+    "zadnji_put": "2026-11-10",
     "zasto_rucno": "",
     "zupanija": ""
   },
@@ -3849,7 +3849,7 @@
     "upute_za_prijavu": "Preuzmite natječajnu dokumentaciju s ove stranice | Odaberite odgovarajući zahtjev (za nadarene, po socijalnom kriteriju ili za deficitarna zanimanja) | Priložite izjavu o neprimanju stipendija, izjavu o privoli za obradu podataka i izjavu o zajedničkom kućanstvu | Podnesite prijavu zaključno do 24. studenog 2026.",
     "url": "https://zlatar.hr/natjecaji-i-javni-pozivi/",
     "uvjeti": "Učenici srednjih škola i studenti. Stipendije se dodjeljuju u kategorijama za nadarene učenike i studente, po socijalnom kriteriju te za deficitarna zanimanja.",
-    "zadnji_put": "2026-11-09",
+    "zadnji_put": "2026-11-10",
     "zasto_rucno": "",
     "zupanija": "Krapinsko-zagorska županija"
   }
