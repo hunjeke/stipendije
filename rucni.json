@@ -1168,5 +1168,30 @@
   "upute_za_prijavu": "Prijave s dokumentacijom dostavljaju se od 5. do 19. studenoga 2026. Natječaji s uvjetima i popisom dokumentacije su na stranici Grada, u rubrici Javni natječaji u tijeku.",
   "zasto_rucno": "Grad je 5.11.2026. mailom javio da su natječaji raspisani; izvor je naslovnica, pa scraper rok nije pročitao.",
   "potvrda": "https://grubisnopolje.hr/novosti/detaljnije/raspisani-javni-natjecaji-za-dodjelu-stipendija-studentima-i-ucenicima-u-ovoj-akademskoj-odnosno-skolskoj-godini"
+ },
+ {
+  "naziv": "Ministarstvo znanosti, obrazovanja i mladih — natječaji",
+  "naslov_natjecaja": "Potpora za prijevoz studenata s invaliditetom 2026./2027.",
+  "url": "https://mzom.gov.hr/istaknute-teme/natjecaji-196/javni-poziv-za-dodjelu-novcane-potpore-za-pokrice-dijela-troskova-prijevoza-za-studente-s-invaliditetom-za-akademsku-godinu-2026-2027-8168/8168",
+  "poveznica_natjecaj": "https://mzom.gov.hr/istaknute-teme/natjecaji-196/javni-poziv-za-dodjelu-novcane-potpore-za-pokrice-dijela-troskova-prijevoza-za-studente-s-invaliditetom-za-akademsku-godinu-2026-2027-8168/8168",
+  "podrucje": "Cijela Hrvatska",
+  "zupanija": "",
+  "kategorija": "Ministarstvo",
+  "iznos": "250,00 eura mjesečno, 10,5 mjesečnih rata",
+  "iznosi": [
+   {
+    "eur": 250,
+    "razdoblje": "mjesecno",
+    "mjeseci": null,
+    "za": "studenti s invaliditetom",
+    "do": false
+   }
+  ],
+  "iznos_je_fond": false,
+  "rok_tekst": "13. siječnja 2027. do 12:00",
+  "uvjeti": "Za redovite studente na visokim učilištima u Hrvatskoj s najmanje 60 % utvrđenog oštećenja organizma ili najmanje III. stupnjem oštećenja funkcionalnih sposobnosti, upisane u Registar osoba s invaliditetom. Pravo traje propisano trajanje studija uvećano za godinu; tko ponavlja godinu, mora imati najmanje 30 ECTS bodova u prethodnoj. Ne mogu se prijaviti studenti u radnom odnosu ili s mirovanjem prava i obveza. Isplata od listopada 2026. do rujna 2027., osim od 16. srpnja do 31. kolovoza 2027.",
+  "upute_za_prijavu": "Prijava od 12. studenoga 2026. u 12:00 do 13. siječnja 2027. do 12:00, isključivo elektronički na vidra.srce.hr uz AAI@EduHr identitet; na kraju klikni „Završi ispunjavanje obrasca”. Ništa se ne šalje poštom. Studenti s prebivalištem izvan Hrvatske prilažu potvrdu o statusu osobe s invaliditetom nadležne ustanove u inozemstvu. Pitanja: studentski-standard@mzom.hr, 01/4594-142.",
+  "zasto_rucno": "Upisano 13.11.2026. da kartica nosi iznos mjesečno i pune uvjete (scraper je zapisao samo '250,00 EUR'); provjereno na stranici poziva.",
+  "potvrda": "https://mzom.gov.hr/istaknute-teme/natjecaji-196/javni-poziv-za-dodjelu-novcane-potpore-za-pokrice-dijela-troskova-prijevoza-za-studente-s-invaliditetom-za-akademsku-godinu-2026-2027-8168/8168"
  }
 ]
