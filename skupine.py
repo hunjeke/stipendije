@@ -294,6 +294,8 @@ korisnije znati u kojem mjesecu gledati nego provjeravati svaki tjedan.</p>
 {poziv}
 {sek_zat}
 <a class="prijelaz" href="{drugi_put}">Tražiš {drugi_naziv}? &rarr;</a>
+<a class="prijelaz" style="margin-top:.5rem;padding-top:0;border-top:0"
+ href="potpore-invaliditet.html">Potpore za osobe s invaliditetom &rarr;</a>
 </section></main>"""
     html += podnozje(broj_izvora, vrijeme)
     with open(os.path.join(mapa, k["datoteka"]), "w", encoding="utf-8") as f:
