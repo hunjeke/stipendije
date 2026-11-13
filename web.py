@@ -1710,6 +1710,15 @@ def main():
         iso = iso_rok(r.get("status") or "")
         god = iso[:4] if iso else str(datetime.now().year)
         s = slug_natjecaja(r.get("naslov_natjecaja") or r.get("naziv") or "", p, god)
+        # Adresa stranice je slug iz arhiva (zadrzava se od prvog puta), a ne
+        # svjeze izracunat iz naslova: model naslov cita svaki put malo drukcije,
+        # pa je poveznica s kartice vodila na stranicu koje nema (13.11.2026.
+        # Search Console: 29 "Not found", medu njima Vrbovec i Split).
+        from natjecaji import kljuc_zapisa
+        kz = kljuc_zapisa({"poveznica": r.get("poveznica_natjecaj") or "",
+                           "url": r.get("url") or "", "rok_iso": iso or ""},
+                          pricuva=s)
+        s = (arhiv.get(kz) or {}).get("slug") or s
         s = preusmjereno.get(s, s)
         adrese[id(r)] = f"natjecaj/{s}.html"
 
