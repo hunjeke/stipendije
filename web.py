@@ -1921,7 +1921,13 @@ def main():
                          oblik, glava, navigacija, podnozje, izvora_ukupno,
                          vrijeme, _slug_zup, adrese, poziv_kanal)
 
+    from invaliditet import stranica as stranica_invaliditet
+    stranica_invaliditet(MAPA, otvorene, zatvorene, kartica, oblik, glava,
+                         navigacija, podnozje, izvora_ukupno, vrijeme,
+                         adrese, poziv_kanal)
+
     putevi = [("", "1.0"), ("drzavna-stipendija.html", "0.9"),
+              ("potpore-invaliditet.html", "0.6"),
               ("stem-stipendije.html", "0.9"),
               ("ucenicke-stipendije.html", "0.9"),
               ("studentske-stipendije.html", "0.9"), ("vodic.html", "0.7"),
