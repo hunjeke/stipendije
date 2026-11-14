@@ -582,7 +582,19 @@ def stranica(mapa, broj_izvora, vrijeme, zupanije=(), ukupno=0):
     zatvorene."""
     blok_stanja = _blok_stanja(zupanije, ukupno)
     import stem as _stem  # kasni uvoz: stem.py uvozi ovaj modul
-    if _stem.OTVOREN:
+    if _stem.zatvoren():
+        stem_uvod = ('Ako studiraš u STEM području, postoji drugi javni poziv, '
+                     's većim iznosom i vlastitim rang-listama. '
+                     f'<strong>Prijave su zatvorene {_stem.ROK.split(" do ")[0]}'
+                     '</strong> Čeka se rang-lista. ')
+        stem_cetvrta = ('<div><b>zatvoreno</b>'
+                        f'<span>rok je bio {_stem.ROK.split(" do ")[0]}</span></div>')
+        stem_biljeska = ('Poziv je objavljen ' + _stem.OTVOREN_OD +
+                         ', a broj stipendija ministar je odlukom od '
+                         '23. rujna 2026. odredio na ' + STEM_BROJ +
+                         ', za razdoblje od listopada 2026. do lipnja 2027., '
+                         'u devet rata.')
+    elif _stem.OTVOREN:
         stem_uvod = (f'Ako studiraš u STEM području, postoji drugi javni poziv, '
                      f's većim iznosom i vlastitim rang-listama. '
                      f'<strong>Prijave su otvorene do {_stem.ROK}.</strong> ')
