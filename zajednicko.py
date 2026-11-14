@@ -526,6 +526,7 @@ def podnozje(broj_izvora, vrijeme, put=""):
             ("Državna stipendija", "drzavna-stipendija.html"),
             ("STEM stipendije", "stem-stipendije.html"),
             ("VIDRA", "vidra.html"),
+            ("Rokovi", "stipendije-rokovi.html"),
             ("Deficitarna zanimanja", "stipendije-deficitarna-zanimanja.html"),
             ("Tvrtke i zaklade", "stipendije-tvrtki-i-zaklada.html"),
             ("Osobe s invaliditetom", "potpore-invaliditet.html"),
