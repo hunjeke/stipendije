@@ -661,6 +661,69 @@ def _istovjetni(arhiv):
     return [v for v in skupine.values() if len(v) > 1]
 
 
+# Stare adrese stranica natjecaja -> danasnja stranica (put od korijena).
+STARE_ADRESE = {
+    "vukovar-drzavne-stipendije-studente-2026":
+        "drzavna-stipendija.html",
+    "drzavne-stipendije-studente-2026":
+        "drzavna-stipendija.html",
+    "dodjela-drzavnih-stipendija-2026":
+        "drzavna-stipendija.html",
+    "drzavne-stipendije-stem-podrucja-2026":
+        "stem-stipendije.html",
+    "osijek-drzavne-stipendije-stem-podrucjima-2026":
+        "stem-stipendije.html",
+    "drzavne-stipendije-studente-romske-nacionalne-manjine-2026":
+        "natjecaj/drzavne-stipendije-studente-roma-2026.html",
+    "osijek-stipendije-ucenicima-studentima-2026":
+        "natjecaj/osijek-stipendije-grada-osijeka-2026.html",
+    "vrbovec-stipendije-grada-vrbovca-2026":
+        "natjecaj/vrbovec-stipendije-ucenike-studente-2026.html",
+    "dakovo-ucenicke-studentske-stipendije-2026":
+        "natjecaj/dakovo-ucenicke-studentske-stipendije-grada-dakova-2026.html",
+    "karlovac-stipendije-ucenike-studente-2026":
+        "natjecaj/karlovac-stipendije-redovitim-ucenicima-studentima-2026.html",
+    "makarska-stipendije-ucenicima-srednjih-skola-deficitarnih-zanimanja-2026":
+        "natjecaj/makarska-stipendije-ucenicima-deficitarnih-zanimanja-2026.html",
+    "makarska-jednokratna-potpora-ucenicima-srednjih-skola-2027":
+        "natjecaj/makarska-jednokratna-financijska-potpora-ucenicima-srednjih-skola-2027.html",
+    "makarska-jednokratna-potpora-uceniku-srednje-skole-2027":
+        "natjecaj/makarska-jednokratna-financijska-potpora-ucenicima-srednjih-skola-2027.html",
+    "kastela-stipendije-grada-ucenicima-studentima-2026":
+        "natjecaj/kastela-stipendije-ucenicima-studentima-2026.html",
+    "novigrad-stipendije-redovite-studente-2026":
+        "natjecaj/novigrad-stipendije-redovitim-studentima-2026.html",
+    "novigrad-stipendije-redovitim-studentima-akademske-godine-2026":
+        "natjecaj/novigrad-stipendije-redovitim-studentima-2026.html",
+    "stipendije-studentima-informacijsko-komunikacijskih-tehnologija-2026":
+        "natjecaj/stipendije-vojne-studente-it-2026.html",
+    "stipendije-vojne-stipendiste-it-2026":
+        "natjecaj/stipendije-vojne-studente-it-2026.html",
+    "kastav-stipendije-ucenicima-studentima-grada-kastva-2026":
+        "natjecaj/kastav-ucenicke-studentske-stipendije-grada-kastva-2026.html",
+    "vinkovci-stipendije-grada-vinkovaca-studente-2026":
+        "natjecaj/vinkovci-stipendije-grada-vinkovaca-sku-godinu-2026.html",
+    "vinkovci-stipendije-grada-vinkovaca-2026":
+        "natjecaj/vinkovci-stipendije-grada-vinkovaca-sku-godinu-2026.html",
+    "vinkovci-stipendije-grada-vinkovaca-akademsku-godinu-2026":
+        "natjecaj/vinkovci-stipendije-grada-vinkovaca-sku-godinu-2026.html",
+    "sinj-studentske-stipendije-grad-2026":
+        "natjecaj/sinj-studentske-stipendije-grada-sinja-2026.html",
+    "sveta-nedelja-stipendije-skolsku-akademsku-godinu-2026":
+        "natjecaj/sveta-nedelja-stipendije-skolsku-godinu-2026.html",
+    "zagrebacka-zupanija-stipendije-zagrebacke-zupanije-2026":
+        "natjecaj/vrbovec-stipendije-zagrebacke-zupanije-2026.html",
+    "splitsko-dalmatinska-zupanija-pomoc-obiteljima-troje-vise-djece-2026":
+        "natjecaj/splitsko-dalmatinska-zupanija-pomoc-obiteljima-troje-vise-djece-skolov-2026.html",
+    "splitsko-dalmatinska-zupanija-potpora-obiteljima-troje-vise-djece-2026":
+        "natjecaj/splitsko-dalmatinska-zupanija-pomoc-obiteljima-troje-vise-djece-skolov-2026.html",
+    "zapresic-stipendija-ucenicima-studentima-grada-zapresica-2026":
+        "natjecaj/zapresic-stipendije-ucenicima-studentima-2026.html",
+    "slavonski-brod-grad-natjecaji-2026":
+        "zupanija/brodsko-posavska.html",
+}
+
+
 def _preusmjeri(mapa, stari, novi):
     """Stranicu krivog citanja pretvori u preusmjerenje na ispravnu.
 
@@ -1935,7 +1998,18 @@ def main():
                          navigacija, podnozje, izvora_ukupno, vrijeme,
                          adrese, poziv_kanal)
 
+    from teme import stranice as stranice_tema
+    tematske = stranice_tema(MAPA, otvorene, zatvorene, kartica, oblik, glava,
+                             navigacija, podnozje, izvora_ukupno, vrijeme,
+                             adrese, poziv_kanal)
+    from vidra import stranica as stranica_vidra
+    stranica_vidra(MAPA, arhiv, glava, navigacija, podnozje, izvora_ukupno,
+                   vrijeme)
+
     putevi = [("", "1.0"), ("drzavna-stipendija.html", "0.9"),
+              ("vidra.html", "0.8"),
+              ("stipendije-deficitarna-zanimanja.html", "0.8"),
+              ("stipendije-tvrtki-i-zaklada.html", "0.8"),
               ("potpore-invaliditet.html", "0.6"),
               ("stem-stipendije.html", "0.9"),
               ("ucenicke-stipendije.html", "0.9"),
@@ -2012,6 +2086,46 @@ def main():
 <body><p>{tekst}
 <a href="{cilj}">ovoj stranici</a>.</p></body></html>""")
         print(f"  preusmjereno: zupanija/{ime_d} -> {cilj}")
+
+    # Stare adrese koje je Google zapamtio, a stranice vise nema (Search
+    # Console 13.11.2026.: 29 "Not found"). Nastale su dok se adresa racunala
+    # iz naslova koji je model svaki put citao malo drukcije. Svaka vodi na
+    # danasnju stranicu istog natjecaja; cilj je put od korijena stranice.
+    for stari_slug, cilj in STARE_ADRESE.items():
+        put_s = os.path.join(MAPA, "natjecaj", stari_slug + ".html")
+        if os.path.exists(put_s):
+            continue                      # adresa je opet ziva, ne diraj
+        if not os.path.exists(os.path.join(MAPA, cilj)):
+            print(f"  ! stara adresa bez cilja: {stari_slug} -> {cilj}")
+            continue
+        with open(put_s, "w", encoding="utf-8") as f:
+            f.write(f"""<!doctype html>
+<html lang="hr"><head><meta charset="utf-8">
+<title>Natječaj je premješten</title>
+<link rel="canonical" href="https://stipendije.hr/{cilj}">
+<meta name="robots" content="noindex">
+<meta http-equiv="refresh" content="0; url=../{cilj}"></head>
+<body><p>Ovaj natječaj sada stoji na
+<a href="../{cilj}">ovoj stranici</a>.</p></body></html>""")
+
+    # Provjera unutarnjih poveznica: svaka poveznica na stranicu natjecaja
+    # mora voditi na datoteku koja postoji. Ispisuje se u zapisnik builda.
+    import re as _re
+    mrtve = set()
+    for korijen, _, dat in os.walk(MAPA):
+        for ime_f in dat:
+            if not ime_f.endswith(".html"):
+                continue
+            pf = os.path.join(korijen, ime_f)
+            with open(pf, encoding="utf-8") as f:
+                tekst = f.read()
+            for h in _re.findall(r'href="((?:\.\./)?(?:natjecaj/)?[^"#:?]+\.html)"', tekst):
+                c = os.path.normpath(os.path.join(korijen, h))
+                if not os.path.exists(c):
+                    mrtve.add((os.path.relpath(pf, MAPA), h))
+    print(f"  provjera poveznica: {len(mrtve)} mrtvih")
+    for odakle, kamo in sorted(mrtve)[:20]:
+        print(f"    ! {odakle} -> {kamo}")
 
     sitemap(MAPA, putevi + putevi_natjecaja)
     print("  stranica po zupanijama: %d" % len(sve_zup))
