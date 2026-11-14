@@ -525,6 +525,10 @@ def podnozje(broj_izvora, vrijeme, put=""):
             ("Studentske stipendije", "studentske-stipendije.html"),
             ("Državna stipendija", "drzavna-stipendija.html"),
             ("STEM stipendije", "stem-stipendije.html"),
+            ("VIDRA", "vidra.html"),
+            ("Deficitarna zanimanja", "stipendije-deficitarna-zanimanja.html"),
+            ("Tvrtke i zaklade", "stipendije-tvrtki-i-zaklada.html"),
+            ("Osobe s invaliditetom", "potpore-invaliditet.html"),
             ("Vodič", "vodic.html")))
     return f"""<footer><div class="w">
   <p class="teme-p">{teme}</p>
