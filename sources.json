@@ -181,8 +181,9 @@
     "naziv": "Sveučilište u Zagrebu — stipendije",
     "url": "https://www.unizg.hr/studiji-i-studiranje/upisi-stipendije-priznavanja/stipendije/",
     "kategorija": "Sveučilište",
-    "podrucje": "Grad Zagreb",
-    "zupanija": ""
+    "podrucje": "Cijela Hrvatska",
+    "zupanija": "",
+    "usko": true
   },
   {
     "naziv": "Sveučilište u Rijeci — stipendije i potpore",
@@ -202,8 +203,9 @@
     "naziv": "Zaklada Sveučilišta u Zagrebu — natječaji",
     "url": "https://www.unizg.hr/suradnja/alumni-i-zaklada-sveucilista/zaklada-sveucilista-u-zagrebu/natjecaji/",
     "kategorija": "Zaklada",
-    "podrucje": "Grad Zagreb",
-    "zupanija": ""
+    "podrucje": "Cijela Hrvatska",
+    "zupanija": "",
+    "usko": true
   },
   {
     "naziv": "Zaklada Adris — natječaji",
