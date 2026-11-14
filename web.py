@@ -2002,12 +2002,17 @@ def main():
     tematske = stranice_tema(MAPA, otvorene, zatvorene, kartica, oblik, glava,
                              navigacija, podnozje, izvora_ukupno, vrijeme,
                              adrese, poziv_kanal)
+    from rokovi import stranica as stranica_rokovi
+    stranica_rokovi(MAPA, otvorene, kartica, oblik, glava, navigacija,
+                    podnozje, izvora_ukupno, vrijeme, iso_rok, adrese,
+                    poziv_kanal)
     from vidra import stranica as stranica_vidra
     stranica_vidra(MAPA, arhiv, glava, navigacija, podnozje, izvora_ukupno,
                    vrijeme)
 
     putevi = [("", "1.0"), ("drzavna-stipendija.html", "0.9"),
               ("vidra.html", "0.8"),
+              ("stipendije-rokovi.html", "0.8"),
               ("stipendije-deficitarna-zanimanja.html", "0.8"),
               ("stipendije-tvrtki-i-zaklada.html", "0.8"),
               ("potpore-invaliditet.html", "0.6"),
