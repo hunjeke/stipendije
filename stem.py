@@ -37,6 +37,11 @@ from drzavna import (CSS, STEM_NASTAVNICKI, STEM_OSTALI, STEM_BROJ,
 # OTVOREN = True  -> poziv je vani; tada moraju biti popunjeni ROK i POVEZNICA
 OTVOREN = True
 ROK = "11. studenoga 2026. do 12:00"
+# Dan roka strojno. Dan poslije, stranica sama prelazi u stanje "prijave su
+# zatvorene, ceka se rang-lista" — bez toga je do 14.11.2026. tri dana nakon
+# roka i dalje pisalo "prijave su otvorene". Za novi poziv upisi novi datum.
+ROK_ISO = "2026-11-11"
+RANG_LISTA_DANA = 60      # rang-liste najkasnije 60 dana od zatvaranja poziva
 OTVOREN_OD = "21. listopada 2026. u 12:00"
 POVEZNICA = ("https://mzom.gov.hr/javni-poziv-za-dodjelu-drzavnih-stipendija-"
              "u-stem-podrucjima-znanosti-za-akademsku-godinu-2026-2027-"
@@ -76,7 +81,31 @@ DOK_CEKAS = [
 ]
 
 
+def zatvoren():
+    """Je li rok prijave prosao (poziv je bio raspisan, vise se ne prima)."""
+    from datetime import date
+    return bool(OTVOREN and ROK_ISO and date.today().isoformat() > ROK_ISO)
+
+
+def _rang_lista_do():
+    from datetime import date, timedelta
+    d = date.fromisoformat(ROK_ISO) + timedelta(days=RANG_LISTA_DANA)
+    mj = ("siječnja", "veljače", "ožujka", "travnja", "svibnja", "lipnja",
+          "srpnja", "kolovoza", "rujna", "listopada", "studenoga", "prosinca")
+    return f"{d.day}. {mj[d.month - 1]} {d.year}."
+
+
 def _blok_stanja():
+    if zatvoren():
+        return f"""<div class="stanje">
+  <div class="txt">
+    <b>Prijave su zatvorene — čeka se rang-lista</b>
+    <span>Rok je bio {ROK}. Rang-liste Ministarstvo objavljuje najkasnije
+      {RANG_LISTA_DANA} dana od zatvaranja poziva, dakle do
+      {_rang_lista_do()}</span>
+  </div>
+  <a href="{POVEZNICA}" target="_blank" rel="noopener">Otvori poziv &rarr;</a>
+</div>"""
     if OTVOREN:
         # Isti oblik recenice i isti natpis na gumbu kao na stranici o
         # socio-ekonomskoj drzavnoj. Dvije su stranice o istoj stvari,
@@ -118,13 +147,29 @@ def stranica(mapa, broj_izvora, vrijeme):
     except Exception:
         prijava = ""
 
-    html = glava(
-        "STEM stipendije 2026./2027. — rok 11. studenoga, iznos i uvjeti",
-        f"Javni poziv je raspisan, rok za prijavu je {ROK}. Državne STEM "
-        f"stipendije: {STEM_NASTAVNICKI} mjesečno za nastavničke i "
-        f"{STEM_OSTALI} za ostale STEM studije, {STEM_BROJ} stipendija. "
-        "Provjereno na stranicama Ministarstva znanosti, obrazovanja i mladih.",
-        CSS)
+    zatv = zatvoren()
+    if zatv:
+        naslov_str = "STEM stipendije 2026./2027. — rezultati, rang-lista i iznos"
+        opis_str = (f"Prijave za državnu STEM stipendiju zatvorene su "
+                    f"{ROK.split(' do ')[0]} Rang-lista izlazi najkasnije "
+                    f"{RANG_LISTA_DANA} dana od zatvaranja poziva. Iznos: "
+                    f"{STEM_NASTAVNICKI} za nastavničke i {STEM_OSTALI} za "
+                    f"ostale STEM studije, {STEM_BROJ} stipendija.")
+        lead_rok = (f"prijave su zatvorene <strong>{ROK.split(' do ')[0]}"
+                    f"</strong> Sada se čeka rang-lista")
+    else:
+        naslov_str = "STEM stipendije 2026./2027. — rok 11. studenoga, iznos i uvjeti"
+        opis_str = (f"Javni poziv je raspisan, rok za prijavu je {ROK}. Državne STEM "
+                    f"stipendije: {STEM_NASTAVNICKI} mjesečno za nastavničke i "
+                    f"{STEM_OSTALI} za ostale STEM studije, {STEM_BROJ} stipendija. "
+                    "Provjereno na stranicama Ministarstva znanosti, obrazovanja i mladih.")
+        lead_rok = f"prijave traju do <strong>{ROK}</strong>"
+    prije_prijave = "" if zatv else f"""<h2>Provjeri ovo troje prije nego kreneš</h2>
+<p class="pod">Rok je {ROK}, a ovo troje ne rješava se u jedan dan — svako
+od njih zna zaustaviti prijavu zadnji dan.</p>
+<ul class="sam">{cekanje}</ul>
+"""
+    html = glava(naslov_str, opis_str, CSS)
     html += navigacija("drzavna")
 
     html += f"""<main class="w"><section class="ds">
@@ -132,7 +177,7 @@ def stranica(mapa, broj_izvora, vrijeme):
 <p class="lead">Državna stipendija za studente u STEM područjima znanosti.
 Odvojen je natječaj od one za niži socio-ekonomski status, s većim iznosom i
 vlastitim rang-listama. Ove godine dodjeljuje se {STEM_BROJ} stipendija, a
-prijave traju do <strong>{ROK}</strong>.</p>
+{lead_rok}.</p>
 
 {izbor("stem")}
 
@@ -159,11 +204,7 @@ zadovolje uvjete iz pravilnika — ne ovisi o rang-listi. Tek se ostatak
 stipendija dijeli po rang-listama, po unaprijed određenim postocima:</p>
 <ul class="spremi">{kvote}</ul>
 
-<h2>Provjeri ovo troje prije nego kreneš</h2>
-<p class="pod">Rok je {ROK}, a ovo troje ne rješava se u jedan dan — svako
-od njih zna zaustaviti prijavu zadnji dan.</p>
-<ul class="sam">{cekanje}</ul>
-
+{prije_prijave}
 <h2>Prijava ide kroz Sustav državnih stipendija</h2>
 <p class="pod">Prijave se ne šalju mailom ni poštom nego se predaju
 elektronički, u Sustavu državnih stipendija na
