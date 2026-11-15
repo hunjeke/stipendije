@@ -1193,5 +1193,38 @@
   "upute_za_prijavu": "Prijava od 12. studenoga 2026. u 12:00 do 13. siječnja 2027. do 12:00, isključivo elektronički na vidra.srce.hr uz AAI@EduHr identitet; na kraju klikni „Završi ispunjavanje obrasca”. Ništa se ne šalje poštom. Studenti s prebivalištem izvan Hrvatske prilažu potvrdu o statusu osobe s invaliditetom nadležne ustanove u inozemstvu. Pitanja: studentski-standard@mzom.hr, 01/4594-142.",
   "zasto_rucno": "Upisano 13.11.2026. da kartica nosi iznos mjesečno i pune uvjete (scraper je zapisao samo '250,00 EUR'); provjereno na stranici poziva.",
   "potvrda": "https://mzom.gov.hr/istaknute-teme/natjecaji-196/javni-poziv-za-dodjelu-novcane-potpore-za-pokrice-dijela-troskova-prijevoza-za-studente-s-invaliditetom-za-akademsku-godinu-2026-2027-8168/8168"
+ },
+ {
+  "naziv": "Općina Murter-Kornati — stipendije učenicima i studentima",
+  "naslov_natjecaja": "Natječaj za dodjelu stipendija redovnim učenicima i studentima za školsku/akademsku godinu 2026./2027.",
+  "url": "https://murter.hr/natjecaji/natjecaj-za-dodjelu-stipendija-redovnim-ucenicima-i-studentima-za-skolsku-akademsku-godinu-2026-2027/",
+  "poveznica_natjecaj": "https://murter.hr/wp-content/uploads/2026/11/Natjecaj-za-dodjelu-stipendija.pdf",
+  "podrucje": "Murter-Kornati",
+  "zupanija": "Šibensko-kninska županija",
+  "kategorija": "Općina",
+  "iznos": "60,00 eura mjesečno za učenike srednjih škola; 100,00 eura mjesečno za studente",
+  "iznosi": [
+   {
+    "eur": 60,
+    "razdoblje": "mjesecno",
+    "mjeseci": null,
+    "za": "učenici srednjih škola",
+    "do": false
+   },
+   {
+    "eur": 100,
+    "razdoblje": "mjesecno",
+    "mjeseci": null,
+    "za": "studenti",
+    "do": false
+   }
+  ],
+  "iznos_je_fond": false,
+  "rok_tekst": "1. prosinca 2026.",
+  "uvjeti": "Ukupno 13 stipendija: 4 za učenike srednjih škola i 9 za studente. Redoviti učenici i studenti koji nisu ponavljali godinu (osim iz zdravstvenih razloga), hrvatski državljani, bez druge stipendije, s prebivalištem duljim od 5 godina na području Općine Murter-Kornati. Prosjek ocjena najmanje 3,50 za učenike (za 1. razred prosjek 7. i 8. razreda OŠ), a za studente najmanje 2,50 (za 1. godinu prosjek završne srednje škole najmanje 3,50). Učenici privatnih srednjih škola i studenti privatnih visokih učilišta ne mogu sudjelovati.",
+  "upute_za_prijavu": "Pisana prijava u zatvorenoj omotnici na adresu: Općina Murter-Kornati, Butina 2, 22243 Murter, s naznakom „PRIJAVA NA NATJEČAJ ZA DODJELU STIPENDIJA”. Prilaže se: potvrda o upisu (original); za učenike svjedodžbe prethodnih razreda (preslike); za studente potvrda fakulteta o prosjeku (original), a za 1. godinu preslike svjedodžbi srednje škole i mature; uvjerenje o prebivalištu (MUP); preslike domovnice i osobne iskaznice; potpisana izjava da ne primaš drugu stipendiju; dokaz o otežanom materijalnom položaju obitelji i dokazi o natjecanjima (ako postoje). Pitanja: 022/435-599, info@murter.hr.",
+  "napomena": "Sat isteka roka nije naveden u natječaju. Natječaj je objavljen 12.11.2026.",
+  "zasto_rucno": "Dodano ručno 15.11.2026. na Erikov upozor; pročitano na murter.hr (stranica natječaja i PDF). Izvor murter.hr još nije u sources.json.",
+  "potvrda": "https://murter.hr/natjecaji/natjecaj-za-dodjelu-stipendija-redovnim-ucenicima-i-studentima-za-skolsku-akademsku-godinu-2026-2027/"
  }
 ]
