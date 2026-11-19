@@ -667,7 +667,39 @@ def _istovjetni(arhiv):
 
 
 # Stare adrese stranica natjecaja -> danasnja stranica (put od korijena).
+_POCETAK_BUILDA = __import__("time").time() - 1
+
 STARE_ADRESE = {
+    # Stare stranice koje web.py vise ne gradi (19.11.2026.): ostale su sa
+    # zastarjelim sadrzajem, pa vode na sadasnju stranicu istog natjecaja.
+    "ceepus-freemover-stipendije-ljetni-semestar-2026":
+        "natjecaj/ceepus-freemover-stipendije-2026.html",
+    "drzavne-stipendije-studente-pripadnike-romske-nacionalne-manjine-2026":
+        "natjecaj/drzavne-stipendije-studente-roma-2026.html",
+    "drzavne-stipendije-studente-rome-2026":
+        "natjecaj/drzavne-stipendije-studente-roma-2026.html",
+    "kastav-ucenicke-studentske-stipendije-2026":
+        "natjecaj/kastav-ucenicke-studentske-stipendije-grada-kastva-2026.html",
+    "kraljevica-stipendije-ucenicima-studentima-2026":
+        "natjecaj/kraljevica-nagrade-stipendije-ucenicima-studentima-2026.html",
+    "krk-stipendije-grada-krka-ucenike-2026":
+        "natjecaj/krk-stipendije-ucenicima-skolsku-2026.html",
+    "stipendije-nacionalnog-stipendijskog-programa-slovacke-2026":
+        "natjecaj/stipendije-nacionalnog-programa-slovacke-2026.html",
+    "stipendije-studente-elektrotehnika-2026":
+        "natjecaj/stipendija-studente-elektrotehnike-2026.html",
+    "stipendije-studente-ikt-tehnologija-2026":
+        "natjecaj/stipendije-ministarstva-obrane-studente-informacijsko-komunikacijskih-2026.html",
+    "stipendije-vojne-stipendiste-studente-it-2026":
+        "natjecaj/stipendije-vojne-studente-it-2026.html",
+    "stipendije-vojnim-stipendistima-it-a-2026":
+        "natjecaj/stipendije-vojne-studente-it-2026.html",
+    "stipendije-zavrsar-d-st-2026":
+        "stipendije-tvrtki-i-zaklada.html",
+    "viskovo-stipendije-ucenike-studente-2026":
+        "natjecaj/viskovo-stipendije-ucenicima-studentima-2026.html",
+    "zapresic-stipendije-ucenicima-studentima-grada-zapresica-2026":
+        "natjecaj/zapresic-stipendije-ucenicima-studentima-2026.html",
     "potpore-prijevoz-studenata-invaliditetom-2027":
         "natjecaj/potpora-prijevoz-studenata-invaliditetom-2027.html",
     "vukovar-drzavne-stipendije-studente-2026":
@@ -2110,7 +2142,9 @@ def main():
     # danasnju stranicu istog natjecaja; cilj je put od korijena stranice.
     for stari_slug, cilj in STARE_ADRESE.items():
         put_s = os.path.join(MAPA, "natjecaj", stari_slug + ".html")
-        if os.path.exists(put_s):
+        # Ziva je samo stranica napisana u ovom buildu. Stara datoteka koju
+        # build vise ne pise (19.11.2026.: 14 takvih) dobiva preusmjerenje.
+        if os.path.exists(put_s) and os.path.getmtime(put_s) >= _POCETAK_BUILDA:
             continue                      # adresa je opet ziva, ne diraj
         if not os.path.exists(os.path.join(MAPA, cilj)):
             print(f"  ! stara adresa bez cilja: {stari_slug} -> {cilj}")
