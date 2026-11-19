@@ -1020,7 +1020,7 @@
     "rucni": true,
     "slug": "potpora-prijevoz-studenata-invaliditetom-2027",
     "upute_za_prijavu": "Prijava od 12. studenoga 2026. u 12:00 do 13. siječnja 2027. do 12:00, isključivo elektronički na vidra.srce.hr uz AAI@EduHr identitet; na kraju klikni „Završi ispunjavanje obrasca”. Ništa se ne šalje poštom. Studenti s prebivalištem izvan Hrvatske prilažu potvrdu o statusu osobe s invaliditetom nadležne ustanove u inozemstvu. Pitanja: studentski-standard@mzom.hr, 01/4594-142.",
-    "url": "https://mzom.gov.hr/istaknute-teme/odgoj-i-obrazovanje/visoko-obrazovanje/potpore-studentima/164",
+    "url": "https://mzom.gov.hr/istaknute-teme/natjecaji-196/javni-poziv-za-dodjelu-novcane-potpore-za-pokrice-dijela-troskova-prijevoza-za-studente-s-invaliditetom-za-akademsku-godinu-2026-2027-8168/8168",
     "uvjeti": "Za redovite studente na visokim učilištima u Hrvatskoj s najmanje 60 % utvrđenog oštećenja organizma ili najmanje III. stupnjem oštećenja funkcionalnih sposobnosti, upisane u Registar osoba s invaliditetom. Pravo traje propisano trajanje studija uvećano za godinu; tko ponavlja godinu, mora imati najmanje 30 ECTS bodova u prethodnoj. Ne mogu se prijaviti studenti u radnom odnosu ili s mirovanjem prava i obveza. Isplata od listopada 2026. do rujna 2027., osim od 16. srpnja do 31. kolovoza 2027.",
     "zadnji_put": "2026-11-19",
     "zasto_rucno": "Upisano 13.11.2026. da kartica nosi iznos mjesečno i pune uvjete (scraper je zapisao samo '250,00 EUR'); provjereno na stranici poziva.",
@@ -1120,36 +1120,6 @@
     "url": "https://mzom.gov.hr/istaknute-teme/odgoj-i-obrazovanje/visoko-obrazovanje/drzavne-stipendije/drzavne-stipendije-za-studente-nizega-socio-ekonomskoga-statusa/1563",
     "uvjeti": "Studenti u redovitom statusu koji studiraju na visokim učilištima u Republici Hrvatskoj. Kategorije: djeca poginulih osoba iz Domovinskog rata, studenti slabijega socio-ekonomskog statusa (prosječni mjesečni prihodi po članu kućanstva ne smiju prelaziti 160% proračunske osnovice), studenti s invaliditetom i studenti pod skrbništvom na doktorskim studijama.",
     "zadnji_put": "2026-11-04",
-    "zasto_rucno": "",
-    "zupanija": ""
-  },
-  "mzom.gov.hr/istaknute-teme/odgoj-i-obrazovanje/visoko-obrazovanje/potpore-studentima/164|2027-01-16": {
-    "iznos": "250,00 eura",
-    "iznos_je_fond": false,
-    "iznosi": [
-      {
-        "do": false,
-        "eur": 250.0,
-        "mjeseci": null,
-        "razdoblje": "mjesecno",
-        "za": "studenti"
-      }
-    ],
-    "izvor_naziv": "MZO — državne stipendije (socio-ekonomski status)",
-    "napomena": "Ovo je javni poziv za akademsku godinu 2025./2026. Iznos je mjesečan. Studenti kojima nije dodijeljena potpora mogu podnijeti prigovor u roku od 8 dana od objave odluke.",
-    "naslov": "Potpore za prijevoz studenata s invaliditetom",
-    "podrucje": "Cijela Hrvatska",
-    "potvrda": "",
-    "poveznica": "https://mzom.gov.hr/istaknute-teme/odgoj-i-obrazovanje/visoko-obrazovanje/potpore-studentima/164",
-    "prvi_put": "2026-11-17",
-    "rok_iso": "2027-01-16",
-    "rok_tekst": "16. siječnja do 12.00 sati",
-    "rucni": false,
-    "slug": "potpore-prijevoz-studenata-invaliditetom-2027",
-    "upute_za_prijavu": "Prijaviti se preko AAI@EduHr korisničkog identiteta | Završiti prijavu u mrežnoj aplikaciji https://vidra.srce.hr/ | Rok za prijavu: 16. siječnja do 12.00 sati",
-    "url": "https://mzom.gov.hr/istaknute-teme/odgoj-i-obrazovanje/visoko-obrazovanje/potpore-studentima/164",
-    "uvjeti": "Hrvatski državljani, državljani članica EU ili osobe pod međunarodnom zaštitom, studenti u redovitom statusu na visokim učilištima u RH, te studenti s invaliditetom s najmanje 60% utvrđenog oštećenja organizma.",
-    "zadnji_put": "2026-11-19",
     "zasto_rucno": "",
     "zupanija": ""
   },
