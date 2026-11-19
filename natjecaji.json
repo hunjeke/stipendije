@@ -1009,7 +1009,7 @@
       }
     ],
     "izvor_naziv": "Ministarstvo znanosti, obrazovanja i mladih — natječaji",
-    "napomena": "Iznos potpore nije naveden na stranici; detalje treba provjeriti u samom javnom pozivu. Na popisu je i natječaj za stipendije Narodne Republike Kine u akademskoj godini 2027./2028. s rokom 29. siječnja 2027.",
+    "napomena": "Iznos nije naveden na popisu, a natječaj se čita s vlastite podstranice koja nije u tekstu. Na popisu je i Natječaj za stipendije Narodne Republike Kine za akademsku godinu 2027./2028. (rok 29. siječnja 2027.), koji također može biti relevantan.",
     "naslov": "Potpora za prijevoz studenata s invaliditetom 2026./2027.",
     "podrucje": "Cijela Hrvatska",
     "potvrda": "https://mzom.gov.hr/istaknute-teme/natjecaji-196/javni-poziv-za-dodjelu-novcane-potpore-za-pokrice-dijela-troskova-prijevoza-za-studente-s-invaliditetom-za-akademsku-godinu-2026-2027-8168/8168",
@@ -1020,7 +1020,7 @@
     "rucni": true,
     "slug": "potpora-prijevoz-studenata-invaliditetom-2027",
     "upute_za_prijavu": "Prijava od 12. studenoga 2026. u 12:00 do 13. siječnja 2027. do 12:00, isključivo elektronički na vidra.srce.hr uz AAI@EduHr identitet; na kraju klikni „Završi ispunjavanje obrasca”. Ništa se ne šalje poštom. Studenti s prebivalištem izvan Hrvatske prilažu potvrdu o statusu osobe s invaliditetom nadležne ustanove u inozemstvu. Pitanja: studentski-standard@mzom.hr, 01/4594-142.",
-    "url": "https://mzom.gov.hr/istaknute-teme/natjecaji-196/javni-poziv-za-dodjelu-novcane-potpore-za-pokrice-dijela-troskova-prijevoza-za-studente-s-invaliditetom-za-akademsku-godinu-2026-2027-8168/8168",
+    "url": "https://mzom.gov.hr/istaknute-teme/odgoj-i-obrazovanje/visoko-obrazovanje/potpore-studentima/164",
     "uvjeti": "Za redovite studente na visokim učilištima u Hrvatskoj s najmanje 60 % utvrđenog oštećenja organizma ili najmanje III. stupnjem oštećenja funkcionalnih sposobnosti, upisane u Registar osoba s invaliditetom. Pravo traje propisano trajanje studija uvećano za godinu; tko ponavlja godinu, mora imati najmanje 30 ECTS bodova u prethodnoj. Ne mogu se prijaviti studenti u radnom odnosu ili s mirovanjem prava i obveza. Isplata od listopada 2026. do rujna 2027., osim od 16. srpnja do 31. kolovoza 2027.",
     "zadnji_put": "2026-11-19",
     "zasto_rucno": "Upisano 13.11.2026. da kartica nosi iznos mjesečno i pune uvjete (scraper je zapisao samo '250,00 EUR'); provjereno na stranici poziva.",
