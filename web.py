@@ -550,6 +550,11 @@ def za_koga(r):
 OPISNE_STRANICE = {
     "https://mzom.gov.hr/istaknute-teme/odgoj-i-obrazovanje/visoko-obrazovanje"
     "/drzavne-stipendije/162",
+    # Rubrika "potpore studentima": uz poziv za tekucu godinu nosi i tekst
+    # proslih, pa je model 19.11.2026. procitao rok "16. sijecnja" umjesto
+    # 13.1.2027. Poziv je upisan rukom (rucni.json) s adresom samog natjecaja.
+    "https://mzom.gov.hr/istaknute-teme/odgoj-i-obrazovanje/visoko-obrazovanje"
+    "/potpore-studentima/164",
 }
 
 
@@ -663,6 +668,8 @@ def _istovjetni(arhiv):
 
 # Stare adrese stranica natjecaja -> danasnja stranica (put od korijena).
 STARE_ADRESE = {
+    "potpore-prijevoz-studenata-invaliditetom-2027":
+        "natjecaj/potpora-prijevoz-studenata-invaliditetom-2027.html",
     "vukovar-drzavne-stipendije-studente-2026":
         "drzavna-stipendija.html",
     "drzavne-stipendije-studente-2026":
@@ -1781,7 +1788,12 @@ def main():
         kz = kljuc_zapisa({"poveznica": r.get("poveznica_natjecaj") or "",
                            "url": r.get("url") or "", "rok_iso": iso or ""},
                           pricuva=s)
-        s = (arhiv.get(kz) or {}).get("slug") or s
+        # Zapis kojega nema u arhivu nema ni svoju stranicu (19.11.2026.:
+        # HEP-ov natjecaj prenesen s TVZ-a vodio je s 24 stranice na adresu
+        # koja ne postoji) — kartica tada ostaje bez poveznice "Detalji".
+        if kz not in arhiv:
+            continue
+        s = arhiv[kz].get("slug") or s
         s = preusmjereno.get(s, s)
         adrese[id(r)] = f"natjecaj/{s}.html"
 
