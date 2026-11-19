@@ -436,6 +436,7 @@ def glava(naslov, opis, dodatni_css="", dodatni_head="", put=""):
 <link rel="preload" href="{put}f/bricolage-800.woff2" as="font" type="font/woff2" crossorigin>
 {dodatni_head}
 <style>{PISMA_CSS.replace("{put}", put)}{CSS}{dodatni_css}</style>
+<script data-goatcounter="https://stipendije.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
 <body>"""
 
