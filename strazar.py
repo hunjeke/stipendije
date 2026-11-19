@@ -143,6 +143,25 @@ def nalazi(tekst, od):
     return pogoci
 
 
+def rang_nalazi(tekst, od):
+    """Retci koji izgledaju kao objava rang-liste ili rezultata za godinu 'od'.
+
+    Natjecaj je zatvoren (3.11.2026.), a ministarstvo datum rang-liste ne
+    najavljuje. Od objave student ima sedam dana da prihvati uvjete, pa je
+    vazno javiti isti dan."""
+    pogoci = []
+    for red in tekst.splitlines():
+        r = bez_kvacica(red)
+        if not ("rang" in r or "rezultat" in r or "dobitni" in r):
+            continue
+        if not _godina_se_poklapa(red, od):
+            continue
+        red = red.strip()
+        if 10 < len(red) < 400:
+            pogoci.append(red)
+    return pogoci
+
+
 # --- citanje pojedinosti iz natjecaja -------------------------------------
 
 HR_MJESEC = ("sijecnja|veljace|ozujka|travnja|svibnja|lipnja|srpnja|kolovoza|"
@@ -349,12 +368,20 @@ def main():
     od = _pocetna_godina()
     javljeno = _ucitaj()
     novo = []
+    rang = []
 
     for ime, url in STRANICE:
         tekst, _, sirovi = fetch_content(url, tiho=True)
         if not tekst:
             print(f"  ! {ime}: stranica se ne da dohvatiti")
             continue
+        if "drzavne-stipendije" in url:
+            for red in rang_nalazi(tekst, od):
+                kljuc = "rang:" + bez_kvacica(red)[:155]
+                if kljuc in javljeno:
+                    continue
+                javljeno.add(kljuc)
+                rang.append((ime, _veza_na_natjecaj(sirovi, url, red) or url, red))
         for red in nalazi(tekst, od):
             kljuc = bez_kvacica(red)[:160]
             if kljuc in javljeno:
@@ -367,8 +394,25 @@ def main():
 
     _spremi(javljeno)
 
+    if rang and not novo:
+        redci = [f"## Moguća objava rang-liste — {od}./{od+1}.", "",
+                 "Provjeri na izvoru. Od objave rang-liste student ima "
+                 "**sedam dana** da u sustavu prihvati uvjete, a prigovor "
+                 "ide u osam dana — zato kanal, mail i Instagram isti dan.", ""]
+        for ime, url, red in rang:
+            redci += [f"### {_cisto(red)}", "", f"Izvor: {ime}", "", url, ""]
+        redci += ["---", "", "### Redoslijed", "",
+                  "1. otvori izvor i provjeri da je to rang-lista za ovu godinu",
+                  "2. javi mi pa osvježim stranicu državne stipendije "
+                  "(rok za prihvaćanje, prigovor)",
+                  "3. kanal → mail → Instagram"]
+        open("strazar.md", "w", encoding="utf-8").write("\n".join(redci) + "\n")
+        print(f"NAŠAO RANG-LISTU: {len(rang)} — zapisano u strazar.md")
+        _izlaz("naslo", str(len(rang)))
+        return
+
     if not novo:
-        print(f"Nema novog natječaja za {od}./{od+1}.")
+        print(f"Nema novog natječaja ni rang-liste za {od}./{od+1}.")
         _izlaz("naslo", "0")
         return
 
