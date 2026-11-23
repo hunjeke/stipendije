@@ -425,6 +425,11 @@ def predmet_i_html(kljuc, zapisi):
 <div style="max-width:560px;margin:0 auto;padding:28px 20px">
 {ZNAK}
   <div style="font-size:15px;line-height:1.55">{tijelo}</div>
+  <p style="margin:22px 0 0;font-size:14px;color:#374151">Rokove koji ističu
+    objavljujemo i na <a href="https://www.instagram.com/stipendije.hr/"
+    style="color:#1D4ED8">Instagramu @stipendije.hr</a> i
+    <a href="https://whatsapp.com/channel/0029Vb8yRo75Ui2aMzBAjv1a"
+    style="color:#1D4ED8">WhatsApp kanalu</a>.</p>
   <hr style="border:none;border-top:1px solid #e2e5ec;margin:28px 0 14px">
   <p style="margin:0;font-size:12px;color:#6b7280">
     Podatke prikupljamo automatski — rok i uvjete provjeri na službenoj
