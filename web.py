@@ -14,7 +14,8 @@ from datetime import datetime, timedelta
 from scraper import bez_kvacica
 
 from zajednicko import (CSS_KARTICE, glava, navigacija, podnozje, oblik,
-                        sredi_naslov, EMAIL, DOMENA, BAZA, WA_KANAL)
+                        sredi_naslov, EMAIL, DOMENA, BAZA, WA_KANAL,
+                        INSTAGRAM)
 
 ULAZ = "output.json"
 IZVORI = "sources.json"
@@ -1531,7 +1532,8 @@ def poziv_kanal():
 <aside class="kanal">
   <div class="kanal-txt">
     <b>Ne propusti novi natječaj</b>
-    <span>Rokovi su često samo 15 dana. Javimo ti na WhatsAppu čim se neki otvori.</span>
+    <span>Rokovi su često samo 15 dana. Javimo ti na WhatsAppu čim se neki otvori.
+      Rokove koji ističu objavljujemo i na <a href="{INSTAGRAM}" target="_blank" rel="noopener">Instagramu</a>.</span>
   </div>
   <a class="kanal-gumb" href="{WA_KANAL}" target="_blank" rel="noopener">Prati na WhatsAppu &rarr;</a>
 </aside>"""
