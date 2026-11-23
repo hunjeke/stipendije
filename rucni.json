@@ -1226,5 +1226,78 @@
   "napomena": "Sat isteka roka nije naveden u natječaju. Natječaj je objavljen 12.11.2026.",
   "zasto_rucno": "Dodano ručno 15.11.2026. na Erikov upozor; pročitano na murter.hr (stranica natječaja i PDF). Izvor murter.hr još nije u sources.json.",
   "potvrda": "https://murter.hr/natjecaji/natjecaj-za-dodjelu-stipendija-redovnim-ucenicima-i-studentima-za-skolsku-akademsku-godinu-2026-2027/"
+ },
+ {
+  "naziv": "Grad Stari Grad — stipendije učenicima i studentima",
+  "naslov_natjecaja": "Natječaj za dodjelu stipendija studentima i učenicima za školsku/akademsku godinu 2026./2027.",
+  "url": "https://stari-grad.hr/stipendije",
+  "poveznica_natjecaj": "https://stari-grad.hr/media/document/130/javni-natjecaj-za-dodjelu-stipendija-studentima-i-ucenicima-za-skolsku.pdf",
+  "podrucje": "Stari Grad",
+  "zupanija": "Splitsko-dalmatinska županija",
+  "kategorija": "Grad",
+  "iznos": "Učenici 60,00 eura mjesečno (školovanje na Hvaru) ili 80,00 eura mjesečno (izvan Hvara); studenti 110,00 eura mjesečno",
+  "iznosi": [
+   {
+    "eur": 60,
+    "razdoblje": "mjesecno",
+    "mjeseci": 10,
+    "za": "učenici koji se školuju na otoku Hvaru",
+    "do": false
+   },
+   {
+    "eur": 80,
+    "razdoblje": "mjesecno",
+    "mjeseci": 10,
+    "za": "učenici koji se školuju izvan otoka Hvara",
+    "do": false
+   },
+   {
+    "eur": 110,
+    "razdoblje": "mjesecno",
+    "mjeseci": 10,
+    "za": "studenti",
+    "do": false
+   }
+  ],
+  "iznos_je_fond": false,
+  "rok_tekst": "25. studenoga 2026.",
+  "uvjeti": "10 učeničkih i 10 studentskih stipendija, po uspjehu, za deficitarna zanimanja i po imovinskom statusu. Hrvatski državljani s prebivalištem u Starom Gradu najmanje posljednje 3 godine; svi članovi kućanstva moraju imati prebivalište u Starom Gradu. Ne mogu se prijaviti studenti koji ponavljaju godinu, imaju mirovanje ili prosječno manje od 45 ECTS bodova po godini, ni sadašnji korisnici stipendije Grada.",
+  "upute_za_prijavu": "Prijava na obrascu s https://stari-grad.hr/stipendije (ili u pisarnici Grada), preporučenom poštom ili osobno na adresu: Grad Stari Grad, Novo Riva 3, 21460 Stari Grad, s naznakom „Natječaj za dodjelu stipendija Grada Staroga Grada”. Prilaže se: osobna iskaznica, domovnica, uvjerenje o prebivalištu (posljednje 3 godine), potvrda o upisu (ne starija od 3 mjeseca), svjedodžbe ili potvrda o prosjeku i ECTS bodovima, izjava o članovima kućanstva, suglasnost za objavu osobnih podataka; za imovinski status i potvrde Porezne uprave i HZZ-a.",
+  "napomena": "Rok je 15 dana od objave natječaja, najkasnije 25. studenoga 2026. Nepotpune i zakašnjele prijave se ne razmatraju.",
+  "zasto_rucno": "Dodano ručno 23.11.2026.; natječaj je skenirani PDF iz kojeg scraper ne može pročitati tekst. Pročitano s PDF-a (Klasa 604-01/26-01/15, raspisan 10.11.2026.).",
+  "potvrda": "https://stari-grad.hr/media/document/130/javni-natjecaj-za-dodjelu-stipendija-studentima-i-ucenicima-za-skolsku.pdf"
+ },
+ {
+  "naziv": "Grad Otočac — stipendije za deficitarna zanimanja",
+  "naslov_natjecaja": "Javni natječaj za dodjelu stipendija za akademsku godinu 2026./2027. (deficitarna zanimanja)",
+  "url": "https://otocac.hr/oglasna-ploca/",
+  "poveznica_natjecaj": "https://otocac.hr/wp-content/uploads/2026/11/Javni-natjecaj-za-dodjelu-stipendija-za-akademsku-godinu-2026-2027.pdf",
+  "podrucje": "Otočac",
+  "zupanija": "Ličko-senjska županija",
+  "kategorija": "Grad",
+  "iznos": "400,00 eura mjesečno za studij predškolskog odgoja; 150,00 eura mjesečno za ostale deficitarne studije",
+  "iznosi": [
+   {
+    "eur": 400,
+    "razdoblje": "mjesecno",
+    "mjeseci": 10,
+    "za": "studenti predškolskog odgoja",
+    "do": false
+   },
+   {
+    "eur": 150,
+    "razdoblje": "mjesecno",
+    "mjeseci": 10,
+    "za": "studenti ostalih deficitarnih studija",
+    "do": false
+   }
+  ],
+  "iznos_je_fond": false,
+  "rok_tekst": "6. prosinca 2026.",
+  "uvjeti": "Najviše 30 stipendija za redovne studente deficitarnih studija: Medicina, Matematika, Fizika, Glazbena pedagogija, Logopedija, Kemija, Sestrinstvo i Predškolski odgoj. Hrvatski državljani s neprekinutim prebivalištem u Otočcu najmanje 5 godina, do 26 godina, bez druge stipendije ili kredita s obilježjem stipendije, nisu na ponavljanju ni u mirovanju.",
+  "upute_za_prijavu": "Pisana prijava s prilozima osobno u Pisarnici (Kralja Zvonimira 10, 53220 Otočac), poštom na tu adresu ili e-poštom na info@otocac.hr. Prilaže se osobna iskaznica, uvjerenje o prebivalištu, potvrde o upisu i prosjeku te vlastoručna izjava da ne koristiš drugu stipendiju.",
+  "napomena": "Rok je 30 dana od objave na oglasnoj ploči i web stranici Grada. Natječaj nosi datum 6.11.2026., pa je navedeni rok najraniji mogući — provjeri točan datum objave na stranici Grada.",
+  "zasto_rucno": "Dodano ručno 23.11.2026.; scraper nije mogao izračunati rok (30 dana od objave). Rok je računat od datuma na natječaju (6.11.2026.).",
+  "potvrda": "https://otocac.hr/wp-content/uploads/2026/11/Javni-natjecaj-za-dodjelu-stipendija-za-akademsku-godinu-2026-2027.pdf"
  }
 ]
