@@ -288,6 +288,53 @@ PRAVILA = [rok_u_proslosti, rok_predaleko, rok_bez_godine, izmisljen_mjesec,
            svima_a_nije_drzavna, nagla_promjena, previse_gresaka]
 
 
+# --------------------------------------------------------- za pregled ----
+# Natjecaj koji je scraper procitao, a rok nije razumio ("15 dana od objave"),
+# ostaje na "PROVJERITI RUCNO" i ne ide ni na stranicu ni na mail. Tako su
+# 2026. promaknuli Valpovo (rok 16.11.) i Velika (rok 13.11.) — procitani na
+# vrijeme, a nitko ih nije pogledao. Ovdje se skupljaju nakon svake provjere,
+# a datoteka se sprema u repozitorij da ih se pregleda i upise u rucni.json.
+ZA_PREGLED = "za-pregled.md"
+_GOD = re.compile(r"20(\d{2})\s*[./-]+\s*(?:20)?(\d{2})")
+
+
+def _stara_godina(r):
+    """Spominje li zapis samo neku proslu akademsku godinu (stari natjecaj)."""
+    from datetime import date as _d
+    d = _d.today()
+    od = d.year if d.month >= 7 else d.year - 1
+    tekst = " ".join(str(r.get(k) or "") for k in
+                     ("naslov_natjecaja", "poveznica_natjecaj", "url", "napomena"))
+    godine = {2000 + int(m.group(1)) for m in _GOD.finditer(tekst)}
+    return bool(godine) and od not in godine and od + 1 not in godine
+
+
+def _za_pregled(svi):
+    rucni = set()
+    for r in _ucitaj("rucni.json", []):
+        rucni |= _adrese(r)
+    kandidati = []
+    for r in svi:
+        if not str(r.get("status") or "").startswith("PROVJERITI"):
+            continue
+        if r.get("rucni") or opisna_stranica(r) or _stara_godina(r):
+            continue
+        if _adrese(r) & rucni:
+            continue
+        kandidati.append(r)
+    L = [f"# Za ručni pregled — {date.today().strftime('%d.%m.%Y.')}", "",
+         "Natječaji koje je scraper pročitao, a rok nije razumio. Nisu ni na "
+         "stranici ni u mailu dok se ne upišu u rucni.json.", ""]
+    for r in kandidati:
+        L += [f"- **{r.get('naziv')}** — {_naslov(r)}",
+              f"  - poveznica: {r.get('poveznica_natjecaj') or r.get('url')}",
+              f"  - rok kako piše: {r.get('rok_tekst') or '—'}",
+              f"  - napomena: {str(r.get('napomena') or '—')[:220]}"]
+    if not kandidati:
+        L.append("Nema ničega za pregled.")
+    io.open(ZA_PREGLED, "w", encoding="utf-8", newline="\n").write("\n".join(L) + "\n")
+
+
 # -------------------------------------------------------------- main ----
 def main():
     tiho = "--tiho" in sys.argv
@@ -333,6 +380,8 @@ def main():
     if not nalazi:
         L += ["Sve provjere prolaze.", ""]
     io.open(IZLAZ, "w", encoding="utf-8", newline="\n").write("\n".join(L) + "\n")
+
+    _za_pregled(svi)
 
     json.dump({"otvorenih": otvorenih,
                "gresaka": sum(1 for r in zapisi
