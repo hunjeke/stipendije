@@ -328,7 +328,128 @@ korisnije znati u kojem mjesecu gledati nego provjeravati svaki tjedan.</p>
 <a class="prijelaz" href="studentske-stipendije.html">Tražiš studentske stipendije? &rarr;</a>
 <a class="prijelaz" style="margin-top:.5rem;padding-top:0;border-top:0"
  href="potpore-invaliditet.html">Potpore za osobe s invaliditetom &rarr;</a>
-</section></main><footer><div class="w">
+</section></main><script>
+(function(){
+  // 1 dan / 2-4 dana / 5+ dana; pazi na 11-14 i na 21, 31...
+  function oblik(n,jd,gjd,gmn){
+    var z=Math.abs(n)%10, d=Math.abs(n)%100;
+    if(d>=11&&d<=14) return gmn;
+    if(z===1) return jd;
+    if(z>=2&&z<=4) return gjd;
+    return gmn;
+  }
+
+  // Cijeli dani do roka po lokalnom kalendaru:
+  //   n > 0  jos ima dana,  n === 0  danas je zadnji dan,  n < 0  rok je prosao.
+  // Usporeduju se ponoci, pa doba dana i ljetno/zimsko vrijeme ne pomicu racun.
+  function dana(iso){
+    if(!iso) return null;
+    var d=/^(\d{4})-(\d{2})-(\d{2})$/.exec(iso);
+    if(!d) return null;
+    var rok=new Date(+d[1], +d[2]-1, +d[3]);
+    var s=new Date(), danas=new Date(s.getFullYear(), s.getMonth(), s.getDate());
+    return Math.round((rok-danas)/86400000);
+  }
+
+  var istekle=0, najblizi=null, najveci=0;
+  document.querySelectorAll(".k.otv[data-rok]").forEach(function(k){
+    var n=dana(k.getAttribute("data-rok"));
+    if(n===null) return;
+    if(n>=0){
+      if(najblizi===null||n<najblizi) najblizi=n;
+      var e=parseInt(k.getAttribute("data-eur")||"0",10);
+      if(e>najveci) najveci=e;
+    }
+    if(n<0){                       // rok je prosao — van iz otvorenih
+      k.classList.add("isteklo");
+      k.style.display="none";
+      istekle++;
+      return;
+    }
+    var z=k.querySelector("[data-znak]");
+    if(!z) return;
+    // tri stupnja: crveno kad gori, zuto kad se blizi, zeleno dok ima vremena
+    //
+    // Prva dva dana nose dan umjesto broja. "Zadnji dan" i "Još 1 dan" su
+    // stajali jedan ispod drugoga i nije se vidjelo koji je hitniji, a "još
+    // 1 dan" se k tome cita dvojako: je li to danas do ponoci ili sutra?
+    // "Danas" i "sutra" nemaju to pitanje.
+    if(n===0){ z.className="status hitno"; z.textContent="Ističe danas"; }
+    else if(n===1){ z.className="status hitno"; z.textContent="Ističe sutra"; }
+    else if(n<=3){ z.className="status hitno";
+      z.textContent="Još "+n+" "+oblik(n,"dan","dana","dana"); }
+    else if(n<=14){ z.className="status uskoro";
+      z.textContent="Još "+n+" "+oblik(n,"dan","dana","dana"); }
+    else if(n<=30){ z.textContent="Još "+n+" "+oblik(n,"dan","dana","dana"); }
+  });
+
+  // Traka na vrhu: brojke se racunaju ovdje, a ne pri gradnji stranice.
+  // Stranica se gradi dvaput tjedno, pa bi "jos 3 dana" drugi dan bilo netocno.
+  // Brojke i traka na vrhu moraju pratiti ono sto je NA EKRANU, a ne sve sto
+  // postoji. Kad se odabere "Ucenik" ili zupanija, dio kartica se sakrije, pa
+  // bi stari broj tvrdio da je otvoreno deset natjecaja dok se vidi troje.
+  // Zato racun stoji u funkciji koju filter poziva nakon svake promjene.
+  function osvjeziBrojke(){
+    var otvB=0, zatB=0, blizi=null, maks=0;
+    document.querySelectorAll(".k:not(.isteklo):not(.skriveno)").forEach(function(k){
+      if(k.classList.contains("otv")){
+        otvB++;
+        var n=dana(k.getAttribute("data-rok"));
+        if(n!==null && n>=0 && (blizi===null || n<blizi)) blizi=n;
+        var e=parseInt(k.getAttribute("data-eur")||"0",10);
+        if(e>maks) maks=e;
+      } else { zatB++; }
+    });
+    document.querySelectorAll("[data-broj-otv]").forEach(function(b){
+      b.textContent = otvB+" "+oblik(otvB,"natječaj","natječaja","natječaja");
+    });
+    document.querySelectorAll("[data-broj-otv-n]").forEach(function(b){
+      b.textContent = otvB;
+    });
+    document.querySelectorAll("[data-broj-zat]").forEach(function(b){
+      b.textContent = zatB+" "+oblik(zatB,"izvor","izvora","izvora");
+    });
+    document.querySelectorAll("[data-broj-zat-n]").forEach(function(b){
+      b.textContent = zatB;
+    });
+    var bNaj=document.querySelector("[data-najblizi]");
+    if(bNaj){
+      bNaj.textContent = blizi===null ? "\u2014"
+        : (blizi===0 ? "danas" : blizi+" "+oblik(blizi,"dan","dana","dana"));
+      bNaj.className = (blizi!==null && blizi<=3) ? "hitno" : "";
+    }
+    var bEur=document.querySelector("[data-najveci]");
+    if(bEur) bEur.textContent = maks>0 ? maks+" \u20AC/mj." : "\u2014";
+  }
+  window.__osvjeziBrojke = osvjeziBrojke;
+  osvjeziBrojke();
+
+  if(!istekle) return;
+
+  var ziv=document.querySelectorAll(".k.otv:not(.isteklo)").length;
+  if(ziv>0) return;
+
+  var sek=document.getElementById("sek-otv");
+  if(sek) sek.style.display="none";
+  var prazno=document.getElementById("nema-otvorenih");
+  if(prazno) prazno.style.display="";
+  var sazetak=document.getElementById("sazetak-zup");
+  if(sazetak && sazetak.getAttribute("data-nema"))
+    sazetak.textContent=sazetak.getAttribute("data-nema");
+})();
+
+// "vise / manje" na skracenoj recenici o uvjetima. Gumb se pokazuje tek kad
+// je JS ziv, jer bez njega nema sto otvoriti.
+(function(){
+  document.documentElement.className += " js";
+  document.addEventListener("click", function(e){
+    var b = e.target.closest ? e.target.closest("[data-vise]") : null;
+    if(!b) return;
+    var dd = b.parentNode;
+    b.textContent = dd.classList.toggle("skrati") ? "više" : "manje";
+  });
+})();
+</script><footer><div class="w">
   <p class="teme-p"><a href="ucenicke-stipendije.html">Učeničke stipendije</a> &nbsp;·&nbsp; <a href="studentske-stipendije.html">Studentske stipendije</a> &nbsp;·&nbsp; <a href="drzavna-stipendija.html">Državna stipendija</a> &nbsp;·&nbsp; <a href="stem-stipendije.html">STEM stipendije</a> &nbsp;·&nbsp; <a href="vidra.html">VIDRA</a> &nbsp;·&nbsp; <a href="stipendije-rokovi.html">Rokovi</a> &nbsp;·&nbsp; <a href="stipendije-deficitarna-zanimanja.html">Deficitarna zanimanja</a> &nbsp;·&nbsp; <a href="stipendije-tvrtki-i-zaklada.html">Tvrtke i zaklade</a> &nbsp;·&nbsp; <a href="potpore-invaliditet.html">Osobe s invaliditetom</a> &nbsp;·&nbsp; <a href="vodic.html">Vodič</a></p>
   <p class="upoz-p"><strong>Provjeri prije prijave.</strong> Podatke prikupljamo
      automatski, pa su greške moguće. Vrijede rok i uvjeti sa službene stranice
