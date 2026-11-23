@@ -100,7 +100,7 @@ jobs:
           git config user.email "actions@github.com"
           # Zasebno, iz istog razloga: jedna datoteka koja jos ne postoji
           # inace odnese cijeli git add i run zavrsi "uspjesno" bez icega.
-          for f in output.html output.json output.csv .cache.json natjecaji.json .provjera-stanje.json docs; do
+          for f in output.html output.json output.csv .cache.json natjecaji.json .provjera-stanje.json za-pregled.md docs; do
             git add -A "$f" || true
           done
           if git diff --staged --quiet; then
