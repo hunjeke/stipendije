@@ -156,6 +156,7 @@ def kontakti(list_id):
                 continue
             a = c.get("attributes") or {}
             out.append({
+                "id": c.get("id"),
                 "email": c["email"],
                 "zupanija": (a.get("ZUPANIJA") or "").strip(),
                 "grad": (a.get("GRAD") or "").strip(),
@@ -415,7 +416,12 @@ def predmet_i_html(kljuc, zapisi):
     predmet, tekst = _poruka(zapisi, nk, tip)
 
     tijelo = "".join(_odlomak(p) for p in tekst.split("\n\n") if p.strip())
-    html = f"""<!doctype html>
+    return predmet, _omot(tijelo)
+
+
+def _omot(tijelo):
+    """Zajednicki okvir maila: znak, tijelo, Instagram/WhatsApp, odjava."""
+    return f"""<!doctype html>
 <html lang="hr"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="color-scheme" content="light dark">
@@ -438,7 +444,6 @@ def predmet_i_html(kljuc, zapisi):
     &nbsp;·&nbsp;
     <a href="{{{{ unsubscribe }}}}" style="color:#6b7280">Odjavi se</a></p>
 </div></body></html>"""
-    return predmet, html
 
 
 # -------------------------------------------------------------- slanje ----
@@ -450,13 +455,17 @@ def posalji_grupu(kljuc, grupa, salji):
     predmet, html = predmet_i_html(kljuc, grupa["zapisi"])
     oznaka = date.today().strftime("%d.%m.")
     ime = f"[auto] {kratko_ime(kljuc)} {oznaka}"[:60]
+    return _kampanja(ime, predmet, html,
+                     [c["email"] for c in grupa["ljudi"]], salji)
 
+
+def _kampanja(ime, predmet, html, emailovi, salji):
+    """Privremena lista s ovim adresama -> kampanja -> slanje."""
     lista = zovi("/contacts/lists", "POST",
                  {"name": ime[:50], "folderId": int(os.environ.get(
                      "BREVO_FOLDER_ID") or "1")})
     lista_id = lista["id"]
     try:
-        emailovi = [c["email"] for c in grupa["ljudi"]]
         # Brevo na "add" vraca uspjele i neuspjele adrese, a dosad se odgovor
         # nije ni gledao. Kad bi sve adrese pale, lista bi ostala prazna i
         # pucalo bi tek stvaranje kampanje — porukom koja ne kaze ni koja je
@@ -567,6 +576,63 @@ def pocisti():
           f"{obrisano_l} {_oblik(obrisano_l, 'lista', 'liste', 'lista')}.")
 
 
+# ---------------------------------------------------------- obavijest ----
+# Jednokratna poruka svim pretplatnicima (npr. "izasla je rang-lista
+# drzavne stipendije"), rasporedena na vise dana jer besplatni Brevo pusti
+# 300 mailova dnevno, a pretplatnika je vise od 1000. Pise se u
+# obavijest.json; svako pokretanje u nacinu "salji" posalje danasnji dio,
+# a obavijest-stanje.json pamti kome je vec otislo (Brevov ID kontakta,
+# ne adresa — repozitorij je javan).
+OBAVIJEST = "obavijest.json"
+OBAVIJEST_STANJE = "obavijest-stanje.json"
+
+
+def obavijest(salji, proba):
+    """Posalji danasnji dio obavijesti. Vraca broj poruka (za dnevni zbroj)."""
+    if not os.path.exists(OBAVIJEST):
+        return 0
+    o = json.load(open(OBAVIJEST, encoding="utf-8"))
+    stanje = {}
+    if os.path.exists(OBAVIJEST_STANJE):
+        stanje = json.load(open(OBAVIJEST_STANJE, encoding="utf-8"))
+    if stanje.get("id") != o["id"]:
+        stanje = {"id": o["id"], "poslano": []}
+    vec = set(stanje["poslano"])
+    ljudi = kontakti(id_liste(LISTA))
+    ostali = [c for c in ljudi if c.get("id") is not None and c["id"] not in vec]
+    if not ostali:
+        print(f"Obavijest '{o['id']}': dovršena, otišla je svima.")
+        return 0
+    # Studenti i oni bez upisanog tipa prvi: rang-lista drzavne tice se
+    # studenata, ucenici je dobivaju zadnji dan.
+    ostali.sort(key=lambda c: 1 if c["tip"] == "ucenik" else 0)
+    dana = max(1, int(o.get("dana") or 4))
+    kvota = min(DNEVNO, -(-len(ljudi) // dana))
+    danas = ostali[:kvota]
+    tijelo = "".join(_odlomak(p) for p in o["tekst"].split("\n\n") if p.strip())
+    html = _omot(tijelo)
+    print(f"Obavijest '{o['id']}': danas {len(danas)} od preostalih "
+          f"{len(ostali)} (ukupno {len(ljudi)}, raspoređeno na {dana} dana)")
+    if proba:
+        os.makedirs("pregled-maila", exist_ok=True)
+        open("pregled-maila/obavijest.html", "w", encoding="utf-8").write(
+            f"<!-- PREDMET: {o['predmet']} -->\n" + html)
+        return len(danas)
+    if not salji:
+        print("  (nacrt obavijesti se ne radi — samo proba ili salji)")
+        return 0
+    ime = f"[auto] {o['id']} {date.today().strftime('%d.%m.')}"[:60]
+    kid, _lid = _kampanja(ime, o["predmet"], html,
+                          [c["email"] for c in danas], True)
+    if kid is None:
+        print("  Brevo nije primio adrese — obavijest danas nije poslana.")
+        return 0
+    stanje["poslano"] = sorted(vec | {c["id"] for c in danas})
+    json.dump(stanje, open(OBAVIJEST_STANJE, "w", encoding="utf-8"), indent=1)
+    print(f"  poslano, kampanja {kid}")
+    return len(danas)
+
+
 def main():
     if "--pocisti" in sys.argv:
         pocisti()
@@ -574,6 +640,11 @@ def main():
     nacrt = "--nacrt" in sys.argv
     salji = "--salji" in sys.argv
     proba = not (nacrt or salji)
+
+    # Obavijest (rang-lista i sl.) ide prije natjecaja i trosi dio dnevne
+    # granice; ono sto ne stane od natjecaja ide sutra.
+    iskoristeno = obavijest(salji, proba)
+    dnevno = max(0, DNEVNO - iskoristeno)
 
     arhiv, poslano, otvoreni, novi = novi_natjecaji()
     ponovljeni = vec_javljeno(novi, arhiv, poslano)
@@ -631,21 +702,21 @@ def main():
     stane, odgodeno, zbroj = [], [], 0
     for k in redom:
         n_ljudi = len(grupe[k]["ljudi"])
-        if salji and zbroj + n_ljudi > DNEVNO:
+        if salji and zbroj + n_ljudi > dnevno:
             odgodeno.append(k)
             continue
         stane.append(k)
         zbroj += n_ljudi
 
     if odgodeno:
-        print(f"\n  Dnevna granica je {DNEVNO} poruka. Danas ide {zbroj}, "
+        print(f"\n  Dnevna granica je {DNEVNO} poruka (obavijest {iskoristeno}). Danas ide {zbroj}, "
               f"a {len(odgodeno)} "
               f"{_oblik(len(odgodeno), 'skupina ostaje', 'skupine ostaju', 'skupina ostaje')} "
               f"za sutra:")
         for k in odgodeno:
             print(f"    - {ime_skupine(k)} ({len(grupe[k]['ljudi'])} "
                   f"{_osoba(len(grupe[k]['ljudi']))})")
-        print("  Pokreni isti način sutra — poslano.json pamti što je otišlo.")
+        print("  Idu sutra: slanje se pokreće samo svaki dan, a poslano.json pamti što je otišlo.")
 
     napravljeno, preskoceno = [], []
     for k in stane:
