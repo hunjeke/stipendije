@@ -2031,24 +2031,31 @@ def main():
     # stranice po skupini: "ucenicke stipendije" i "studentske stipendije" su
     # medu najtrazenijim upitima, a naslovnica se za njih natjecala zajedno sa
     # svime ostalim
+    # Stranice s popisom kartica (ucenici, studenti, teme, rokovi) racunaju
+    # dane do roka u pregledniku kao naslovnica i zupanije: "jos 2 dana",
+    # "danas zadnji dan", a istekli nestaju. Bez toga je kartica s rokom
+    # koji istjece danas pisala samo "OTVORENO" (23.11.2026., Zadar).
+    def podnozje_s_rokovima(*a, **k):
+        return "<script>" + JS_ROKOVI + "</script>" + podnozje(*a, **k)
+
     from skupine import stranica as stranica_skupine
     for kljuc in ("ucenik", "student"):
         stranica_skupine(MAPA, kljuc, otvorene, zatvorene, za_koga, kartica,
-                         oblik, glava, navigacija, podnozje, izvora_ukupno,
+                         oblik, glava, navigacija, podnozje_s_rokovima, izvora_ukupno,
                          vrijeme, _slug_zup, adrese, poziv_kanal)
 
     from invaliditet import stranica as stranica_invaliditet
     stranica_invaliditet(MAPA, otvorene, zatvorene, kartica, oblik, glava,
-                         navigacija, podnozje, izvora_ukupno, vrijeme,
+                         navigacija, podnozje_s_rokovima, izvora_ukupno, vrijeme,
                          adrese, poziv_kanal)
 
     from teme import stranice as stranice_tema
     tematske = stranice_tema(MAPA, otvorene, zatvorene, kartica, oblik, glava,
-                             navigacija, podnozje, izvora_ukupno, vrijeme,
+                             navigacija, podnozje_s_rokovima, izvora_ukupno, vrijeme,
                              adrese, poziv_kanal)
     from rokovi import stranica as stranica_rokovi
     stranica_rokovi(MAPA, otvorene, kartica, oblik, glava, navigacija,
-                    podnozje, izvora_ukupno, vrijeme, iso_rok, adrese,
+                    podnozje_s_rokovima, izvora_ukupno, vrijeme, iso_rok, adrese,
                     poziv_kanal)
     from vidra import stranica as stranica_vidra
     stranica_vidra(MAPA, arhiv, glava, navigacija, podnozje, izvora_ukupno,
