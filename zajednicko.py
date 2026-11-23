@@ -4,6 +4,7 @@ import re
 
 EMAIL = "erik.hunjek@gmail.com"
 WA_KANAL = "https://whatsapp.com/channel/0029Vb8yRo75Ui2aMzBAjv1a"
+INSTAGRAM = "https://www.instagram.com/stipendije.hr/"
 DOMENA = "stipendije.hr"
 
 # Puna adresa stranice — koristi se za sliku u pregledu linka.
@@ -538,6 +539,8 @@ def podnozje(broj_izvora, vrijeme, put=""):
      automatski, pa su greške moguće. Vrijede rok i uvjeti sa službene stranice
      natječaja, na koju vodi poveznica uz svaki unos.</p>
   <p><strong>Kontakt:</strong> <a href="mailto:{EMAIL}">{EMAIL}</a></p>
+  <p><strong>Prati nas:</strong> <a href="{WA_KANAL}" target="_blank" rel="noopener">WhatsApp kanal</a>
+     &nbsp;·&nbsp; <a href="{INSTAGRAM}" target="_blank" rel="noopener">Instagram @stipendije.hr</a></p>
   <p>Nedostaje neka stipendija ili je podatak netočan? Javi nam — ispravljamo brzo.
      Posebno nam je važno ako je netočan <strong>rok prijave</strong>.</p>
   <p>Ne procjenjujemo tvoje šanse za pojedinu stipendiju. Za to pitaj instituciju
