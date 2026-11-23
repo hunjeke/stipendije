@@ -2,11 +2,22 @@ name: Pošalji obavijesti
 
 # Slanje mailova pretplatnicima kroz Brevo API.
 #
-# Zadano je proba: ispiše kome bi što otišlo i ne pošalje ništa.
-# Tek "salji" stvarno šalje. Pokreće se rukom, nikad po rasporedu —
-# mail koji ode ne može se povući.
+# Rucno: zadano je proba (ispise kome bi sto otislo, ne salje nista).
+# Po rasporedu (od 23.11.2026.): svako jutro samo u nacinu "salji" — salje
+# nove natjecaje i danasnji dio obavijesti (obavijest.json). Zastite:
+# provjera.py zaustavlja slanje kad nesto ne valja, poslano.json i
+# obavijest-stanje.json pamte sto je otislo, a BREVO_DNEVNO drzi granicu.
 
 on:
+  # Odmah nakon provjere: novi natjecaji idu isti dan.
+  workflow_run:
+    workflows: ["Provjera stipendija"]
+    types: [completed]
+  # I svako jutro, samo za nastavak: grupe koje jucer nisu stale u 300
+  # mailova i sljedeci dio obavijesti (rang-lista kroz 4 dana). Kad nista
+  # ne ceka, zavrsi za par sekundi i ne salje nista.
+  schedule:
+    - cron: "53 6 * * *"
   workflow_dispatch:
     inputs:
       nacin:
@@ -22,9 +33,18 @@ on:
 permissions:
   contents: write
 
+# Rucno i po rasporedu ne smiju slati istodobno.
+concurrency:
+  group: posalji
+  cancel-in-progress: false
+
 jobs:
   posalji:
     runs-on: ubuntu-latest
+    # Nakon provjere samo ako je provjera uspjela.
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+    env:
+      NACIN: ${{ inputs.nacin || 'salji' }}
     # Slanje ide polako: pauza izmedu kampanja, cekanje da Brevo vidi
     # kontakte u listi, i pauze kad odgovori 429. Prekid na pola je ovdje
     # najgori mogu ishod — poslane kampanje se ne mogu povuci, a
@@ -44,7 +64,7 @@ jobs:
       # Mailovi se ne salju ako provjera nesto zaustavlja. Proba i nacrt
       # prolaze uvijek — oni nista ne salju, a korisni su upravo tada.
       - name: Provjeri podatke
-        if: inputs.nacin == 'salji'
+        if: env.NACIN == 'salji'
         run: |
           python provjera.py || {
             echo "::error::Provjera zaustavlja slanje. Pogledaj provjera.md."
@@ -67,7 +87,7 @@ jobs:
           BREVO_FOLDER_ID: "1"
           BREVO_DNEVNO: "300"
         run: |
-          case "${{ inputs.nacin }}" in
+          case "$NACIN" in
             proba)   python posalji.py ;;
             nacrt)   python posalji.py --nacrt ;;
             salji)   python posalji.py --salji ;;
@@ -75,7 +95,7 @@ jobs:
           esac
 
       - name: Spremi predpreglede
-        if: inputs.nacin == 'proba'
+        if: env.NACIN == 'proba'
         uses: actions/upload-artifact@v4
         with:
           name: pregled-maila
@@ -85,11 +105,12 @@ jobs:
       # Poslije slanja poslano.json nosi nove slugove — bez ovoga bi isti
       # natječaji otišli i idući tjedan.
       - name: Zabilježi poslano
-        if: inputs.nacin == 'salji'
+        if: env.NACIN == 'salji'
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
           git add poslano.json
+          git add obavijest-stanje.json 2>/dev/null || true
           if git diff --cached --quiet; then
             echo "poslano.json nepromijenjen — nema sto zabiljeziti"
             exit 0
