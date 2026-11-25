@@ -63,8 +63,13 @@ jobs:
 
       # Mailovi se ne salju ako provjera nesto zaustavlja. Proba i nacrt
       # prolaze uvijek — oni nista ne salju, a korisni su upravo tada.
+      # Jutarnji nastavak ne provjerava ponovno: output.json je od zadnje
+      # provjere, pa bi svaki natjecaj kojem je rok u medjuvremenu prosao
+      # bio "otvoren, a rok je prosao" i zaustavio slanje (25.11.2026.).
+      # Ono sto jutro salje (odgodjene grupe, nastavak obavijesti) proslo je
+      # provjeru kad je krenulo.
       - name: Provjeri podatke
-        if: env.NACIN == 'salji'
+        if: env.NACIN == 'salji' && github.event_name != 'schedule'
         run: |
           python provjera.py || {
             echo "::error::Provjera zaustavlja slanje. Pogledaj provjera.md."
