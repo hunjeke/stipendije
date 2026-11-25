@@ -1299,5 +1299,31 @@
   "napomena": "Rok je 30 dana od objave na oglasnoj ploči i web stranici Grada. Natječaj nosi datum 6.11.2026., pa je navedeni rok najraniji mogući — provjeri točan datum objave na stranici Grada.",
   "zasto_rucno": "Dodano ručno 23.11.2026.; scraper nije mogao izračunati rok (30 dana od objave). Rok je računat od datuma na natječaju (6.11.2026.).",
   "potvrda": "https://otocac.hr/wp-content/uploads/2026/11/Javni-natjecaj-za-dodjelu-stipendija-za-akademsku-godinu-2026-2027.pdf"
+ },
+ {
+  "naziv": "Grad Sisak — stipendije za studente",
+  "naslov_natjecaja": "Natječaj za dodjelu stipendija redovitim studentima s područja grada Siska 2026./2027.",
+  "url": "https://sisak.hr/natjecaj-za-dodjelu-stipendija-redovitim-studentima-s-podrucja-grada-siska-4/",
+  "poveznica_natjecaj": "https://sisak.hr/natjecaj-za-dodjelu-stipendija-redovitim-studentima-s-podrucja-grada-siska-4/",
+  "podrucje": "Sisak",
+  "zupanija": "Sisačko-moslavačka županija",
+  "kategorija": "Grad",
+  "iznos": "140,00 eura mjesečno",
+  "iznosi": [
+   {
+    "eur": 140,
+    "razdoblje": "mjesecno",
+    "mjeseci": null,
+    "za": "redoviti studenti",
+    "do": false
+   }
+  ],
+  "iznos_je_fond": false,
+  "rok_tekst": "4. prosinca 2026.",
+  "uvjeti": "25 stipendija za redovite studente s područja Grada Siska u akademskoj godini 2026./2027. Uz natječaj je objavljena i Odluka o deficitarnim studijima. Detaljni uvjeti i kriteriji su u Pravilniku o stipendiranju studenata Grada Siska, priloženom uz natječaj.",
+  "upute_za_prijavu": "Prijava na propisanom obrascu (Prijavni obrazac uz natječaj) s propisanom dokumentacijom, do 4. prosinca 2026. Način dostave i popis dokumenata navedeni su u Odluci o raspisivanju natječaja i Pravilniku na stranici natječaja.",
+  "napomena": "Sat isteka roka nije naveden. Natječaj je objavljen 24.11.2026.",
+  "zasto_rucno": "Dodano ručno 25.11.2026. prije redovne provjere; podaci sa stranice natječaja na sisak.hr (PDF-ovi su skenirani, pa uvjeti nisu prepisani).",
+  "potvrda": "https://sisak.hr/natjecaj-za-dodjelu-stipendija-redovitim-studentima-s-podrucja-grada-siska-4/"
  }
 ]
