@@ -838,7 +838,7 @@
       }
     ],
     "izvor_naziv": "Grad Mali Lošinj — studentske stipendije",
-    "napomena": "Iznos se uvećava za 40 % za korisnike iz obitelji u stanju socijalne potrebe. Nepotpune prijave, prijave predane izvan roka i prijave koje nisu podnesene na propisani način neće se razmatrati. Ukupno je deset stipendija.",
+    "napomena": "Nepotpune prijave, prijave predane izvan roka i prijave koje nisu podnesene na propisani način neće se razmatrati. Natječaj je za deset (10) stipendija. Iznos se uvećava za 40 % za korisnike iz obitelji u stanju socijalne potrebe.",
     "naslov": "Učeničke stipendije za učenike srednjih škola",
     "podrucje": "Mali Lošinj",
     "potvrda": "",
@@ -848,9 +848,9 @@
     "rok_tekst": "30. studeni 2026. godine",
     "rucni": false,
     "slug": "mali-losinj-ucenicke-stipendije-ucenike-srednjih-skola-2026",
-    "upute_za_prijavu": "Pripremite obrazac i dokumentaciju (presliku osobne iskaznice, uvjerenje o prebivalištu, uvjerenje o upisu, uvjerenje o prosjeku ocjena i ručno pisanu izjavu) | Prijavite se elektronički na poveznici https://som-natjecaj.eu/authentication/login ili predajte pisani obrazac | Pisane prijave dostavite u zatvorenoj omotnici na adresu Grad Mali Lošinj, Upravni odjel za opće, pravne poslove i samoupravu, Riva lošinjskih kapetana 7, 51550 Mali Lošinj, s naznakom „Prijava na natječaj za dodjelu učeničke stipendije“ | Pazite da prijava stigne do krajnjeg roka 30. studeni 2026.",
+    "upute_za_prijavu": "Pripremite obrazac i dokumentaciju (presliku osobne iskaznice, uvjerenje o prebivalištu izdano nakon objave natječaja, uvjerenje o redovitom upisu, uvjerenje o prosjeku ocjena, ručno pisanu izjavu) | Prijavu podnesite elektronički putem poveznice https://som-natjecaj.eu/authentication/login ili u pisanom obliku | Pisanu prijavu pošaljite u zatvorenoj omotnici na adresu Grad Mali Lošinj, Upravni odjel za opće, pravne poslove i samoupravu, Riva lošinjskih kapetana 7, 51550 Mali Lošinj, s naznakom „Prijava na natječaj za dodjelu učeničke stipendije“ | Kod elektroničke prijave pričekajte e-mail o uspješnosti prijave",
     "url": "https://mali-losinj.hr/poduzetnici/potpore-i-stipendije/lista-studentske-stipendije/",
-    "uvjeti": "Učenici srednjih škola koji su državljani Republike Hrvatske, imaju prebivalište na području Grada Malog Lošinja najmanje šest mjeseci i srednju školu pohađaju izvan područja Malog Lošinja i Cresa, a željeno zanimanje ne mogu steći na tom području. Moraju redovito pohađati školu, ne smiju koristiti drugu domaću novčanu stipendiju i moraju ostvariti potreban broj bodova.",
+    "uvjeti": "Učenici srednjih škola koji su državljani Republike Hrvatske, imaju prebivalište na području Grada Malog Lošinja najmanje šest mjeseci prije podnošenja zahtjeva, srednju školu pohađaju izvan Grada Malog Lošinja i Grada Cresa te redovito pohađaju školu. Željeno zanimanje ne mogu steći školovanjem na području Malog Lošinja i Cresa.",
     "zadnji_put": "2026-11-26",
     "zasto_rucno": "",
     "zupanija": "Primorsko-goranska županija"
@@ -3918,6 +3918,36 @@
     "zadnji_put": "2026-10-29",
     "zasto_rucno": "Iznosi stoje u prilogu 'Odluka o iznosima stipendija' koji scraper nije uspio pročitati — prilozi nisu u PDF-u. Iznose je 15.10.2026. provjerio Erik na stranici natječaja.",
     "zupanija": "Varaždinska županija"
+  },
+  "www.virovitica.hr/2026/11/grad-virovitica-raspisao-je-natjecaj-za-15-novih-studentskih-stipendija-2|2026-12-04": {
+    "iznos": "200,00 eura mjesečno",
+    "iznos_je_fond": false,
+    "iznosi": [
+      {
+        "do": false,
+        "eur": 200.0,
+        "mjeseci": 12,
+        "razdoblje": "mjesecno",
+        "za": null
+      }
+    ],
+    "izvor_naziv": "Grad Virovitica — stipendije",
+    "napomena": "Iznos je 200,00 eura mjesečno po studentu, a isplaćuje se svih 12 mjeseci do završetka posljednjeg semestra studija. Poveznica na tekst natječaja i obrazac nije navedena kao URL, pa je označena riječju OVDJE u tekstu.",
+    "naslov": "15 novih studentskih stipendija",
+    "podrucje": "Virovitica",
+    "potvrda": "",
+    "poveznica": "https://www.virovitica.hr/2026/11/grad-virovitica-raspisao-je-natjecaj-za-15-novih-studentskih-stipendija-2/",
+    "prvi_put": "2026-11-26",
+    "rok_iso": "2026-12-04",
+    "rok_tekst": "u roku od 8 dana od objave natječaja u „Virovitičkom listu“ (do 4. prosinca)",
+    "rucni": false,
+    "slug": "virovitica-15-novih-studentskih-stipendija-2026",
+    "upute_za_prijavu": "Preuzmite tekst natječaja, uvjete i obrazac prijave (poveznica OVDJE) | Ispunite obrazac prijave | Podnesite prijavu isključivo elektroničkim putem u sustavu SOM – natječaji u roku od 8 dana od objave | Pitanja uputite Upravnom odjelu za društvene djelatnosti na anja.dursot@virovitica.hr",
+    "url": "https://www.virovitica.hr/",
+    "uvjeti": "Stipendije su namijenjene studentima s područja Grada Virovitice za akademsku godinu 2026./2027. Detaljni uvjeti i kriteriji nalaze se u tekstu natječaja i obrascu koji se preuzimaju s poveznice na stranici.",
+    "zadnji_put": "2026-11-26",
+    "zasto_rucno": "",
+    "zupanija": "Virovitičko-podravska županija"
   },
   "www.vodnjan-dignano.hr/hr/djeca-i-mladi/stipendije-grada|2026-10-31": {
     "iznos": "",
