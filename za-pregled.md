@@ -1,27 +1,27 @@
-# Za ručni pregled — 24.11.2026.
+# Za ručni pregled — 26.11.2026.
 
 Natječaji koje je scraper pročitao, a rok nije razumio. Nisu ni na stranici ni u mailu dok se ne upišu u rucni.json.
 
 - **Grad Zagreb — stipendije** — Stipendija Grada Zagreba za deficitarna zanimanja
   - poveznica: https://www.zagreb.hr/stipendija-grada-zagreba-za-deficitarna-zanimanja/180282
   - rok kako piše: —
-  - napomena: Tekst opisuje pravila stipendije, ali ne navodi konkretan rok za podnošenje prijava. Prema tekstu, gradonačelnik natječaj raspisuje svake godine najkasnije do kraja rujna (učenici i studenti prve godine), odnosno do kraj
-- **Grad Split — stipendiranje učenika i studenata** — Stipendije darovitim studentima doktorskih studija
+  - napomena: Na stranici nije naveden konkretan rok prijave. Natječaj se raspisuje najkasnije do kraja rujna za učenike i studente prve godine, a za studente ostalih godina do kraja listopada. Gradonačelnik svake godine utvrđuje list
+- **Grad Split — stipendiranje učenika i studenata** — Stipendiranje darovitih studenata
   - poveznica: https://split.hr/natjecaji/detalj-natjecaja/natjecaj-za-stipendiranje-darovitih-studenata-i-dodjelu-naknade-dijela-troskova-skolarine-studentima-poslijediplomskih-doktorskih-studija-u-akademskoj-20262027-godini
   - rok kako piše: 15 dana od dana objave na web stranici Grada Splita
-  - napomena: Prijave na natječaj traju od 4.11.2026. Iznos stipendije ni naknade u tekstu nije naveden; potrebno je pogledati Tekst javnog poziva.
+  - napomena: Prijave su otvorene od 4.11.2026. Iznos stipendije ni naknade nije naveden u tekstu stranice, nego je vjerojatno u prilozima (Tekst javnog poziva, PDF). Dokumenti su: Tekst javnog poziva, Obavijest o objavi javnog poziva
 - **Grad Rijeka — stipendije** — Stipendija prema kategoriji izvrsnosti
   - poveznica: https://www.rijeka.hr/teme-za-gradane/odgoj-i-obrazovanje/stipendije/stipendiranje-ucenika-srednjih-skola-i-studenata-prema-kriteriju-izvrsnosti/
   - rok kako piše: —
   - napomena: Na stranici nisu navedeni iznos stipendije ni rok prijave. Visinu mjesečnog iznosa i broj stipendija svake godine određuje Gradonačelnik. Stipendija se prima kroz 10 mjeseci, dok se ispunjavaju uvjeti. Stipendist ne smij
+- **Grad Zadar — stipendiranje, natječaji i obrasci** — Stipendije za učenike i studente
+  - poveznica: https://www.grad-zadar.hr/vijesti/odgoj-i-skolstvo--stipendiranje--natjecaji-i-obrasci-59/1.html
+  - rok kako piše: 23. studenoga
+  - napomena: Na stranici je objavljen natječaj za 2026./2027. godinu (objava od 09. studenog 2026.). Ostali prikazani natječaji su arhivirani (2022.–2025.) i nisu relevantni. Iznos nije razdvojen po kategoriji (učenici/studenti), pa 
 - **Zaklada Adris — natječaji** — Stipendija Zaklade Adris
   - poveznica: http://www.adris.hr/odnosi-s-javnoscu/zaklada-adris/stipendije/
   - rok kako piše: —
   - napomena: Broj stipendija određen je ovisno o godišnjem proračunu Zaklade. Stipendija se dodjeljuje za jednu školsku/akademsku godinu. Stipendije se mogu revalorizirati s obzirom na inflaciju. Stipendisti postaju članovi Alumni kl
-- **Brodsko-posavska županija — natječaji** — Stipendije redovitim studentima 2022.
-  - poveznica: https://www.bpz.hr/upravna-tijela/upravni-odjel-za-obrazovanje,-šport-i-kulturu/stipendije
-  - rok kako piše: 15 dana od dana objave natječaja
-  - napomena: Tekst ne navodi iznos stipendije. Dodjeljuje se 48 stipendija (za deficitarna zanimanja i za darovite studente). Datum objave natječaja nije naveden u tekstu, pa se zadnji dan roka ne može odrediti iz teksta. Prijave koj
 - **Grad Umag — studiranje i sustav stipendiranja** — Studentske stipendije Grada Umaga
   - poveznica: https://umag.hr/it/informacije/stipendije-196
   - rok kako piše: krajem listopada ili početkom studenog tekuće godine
@@ -34,34 +34,14 @@ Natječaji koje je scraper pročitao, a rok nije razumio. Nisu ni na stranici ni
   - poveznica: https://www.unist.hr/upisi-stipendije-nagrade/54
   - rok kako piše: —
   - napomena: Svake se godine dodjeljuje do 137 stipendija za razdoblje od 1. listopada do 30. rujna tekuće akademske godine. Na stranici nisu navedeni iznos ni rok prijave, a ona djeluje kao pregled s poveznicom "Saznaj više" na cjel
-- **Grad Zaprešić — dokumenti i natječaji** — Stipendije Grada Zaprešića
-  - poveznica: https://zapresic.hr/dokumenti/natjecaj-za-dodjelu-stipendija-ucenicima-srednjih-skola-i-studentima/
-  - rok kako piše: do 23. listopada
-  - napomena: Dodjeljuje se ukupno 60 stipendija: 28 učenicima srednjih škola i 32 studentima. Stipendija se dodjeljuje za dvanaest mjeseci, počevši od 1. listopada 2026. Godina roka nije izričito navedena u tekstu.
-- **Grad Vrbovec — obavijesti i natječaji** — Stipendije Zagrebačke županije
-  - poveznica: https://vrbovec.hr/2026/10/20/natjecaj-za-dodjelu-stipendija-zagrebacke-zupanije-za-skolsku-akademsku-godinu-2026-2027-za-ucenike-i-studente/
-  - rok kako piše: 15 dana od dana objave u dnevnom listu
-  - napomena: Datum objave u dnevnom listu nije naveden u tekstu, pa se konačni rok od 15 dana ne može sam izračunati. Stipendija se dodjeljuje za 12 mjeseci od 1. rujna 2026. Ima 45 učeničkih i 30 studentskih stipendija. Nepotpune pr
-- **Grad Valpovo — studentske stipendije** — Učeničke stipendije Grada Valpova
-  - poveznica: https://valpovo.hr/jedinstveni-digitalni-pristupnik/ucenicke-stipendije/
-  - rok kako piše: u roku od petnaest (15) dana od dana objave Javnog natječaja
-  - napomena: Visina stipendije nije navedena u tekstu; određuje se Odlukom Gradonačelnika za svaku pedagošku godinu. Datum objave natječaja nije naveden u tekstu, pa rok od 15 dana treba računati od dana objave. Uvjerenje o prebivali
 - **RIT Croatia — financijska potpora i stipendije** — Financijska potpora i stipendije RIT Croatia
   - poveznica: https://www.rit.edu/croatia/hr/financijska-potpora-i-stipendije
   - rok kako piše: do 15. veljače
   - napomena: Stranica opisuje više vrsta stipendija s različitim kriterijima (Stipendija za izvrsnost, za poduzetničku zvijezdu u usponu, za umjetnost i kreativnost, za društveni angažman, za izvannastavna postignuća, Dobrodošli u Hr
-- **Sveučilište Libertas — stipendije** — Stipendije za diplomske studije Libertas
-  - poveznica: https://www.libertas.hr/digitalni-upisni-centar/skolarine-i-financijske-pogodnosti/stipendije/
-  - rok kako piše: Prijave se zaprimaju od dana objave Natječaja. Nakon što se dodijele sva predviđena sredstva iz stipendijskog fonda, daljnje prijave kandidata neće se razmatrati.
-  - napomena: Navedeni iznos je ukupni stipendijski fond, ne iznos po korisniku. Prijave se zaprimaju do raspodjele svih sredstava iz fonda, nema fiksnog datuma isteka roka. Stipendije pokrivaju cjelokupne troškove školarine ili njiho
 - **Hrvatska školska zaklada (Croatian Scholarship Fund)** — Stipendija Hrvatske školske zaklade
   - poveznica: https://www.croatianscholarship.org/na-hrvatskom/uvjeti-za-primanje-stipendije/
   - rok kako piše: —
   - napomena: Stranica opisuje uvjete za studente kojima je stipendija već dodijeljena, a ne javni poziv za prijavu. Rok za prijavu nije naveden. Isplata se vrši jednom godišnje, počevši od listopada. Stipendija se ukida ako student p
-- **Općina Velika — stipendije** — Stipendije za učenike i studente
-  - poveznica: https://www.opcina-velika.hr/
-  - rok kako piše: —
-  - napomena: Na stranici je objavljen Javni natječaj za dodjelu učeničkih i studentskih stipendija za 2026./2027. godinu, ali je tekst u izvatku skraćen i rok prijave nije vidljiv. Provjerite rok i potpune uvjete u cjelovitom tekstu 
 - **Hrvatsko katoličko sveučilište — natječaji** — Stipendije u akademskoj godini 2026./2027.
   - poveznica: https://www.unicath.hr/o-sveucilistu/natjecaji/nagrade-i-priznanja
   - rok kako piše: —
@@ -81,4 +61,4 @@ Natječaji koje je scraper pročitao, a rok nije razumio. Nisu ni na stranici ni
 - **Grad Vodice — studentske stipendije** — Stipendije za redovne studente
   - poveznica: https://www.grad-vodice.hr/obrazovanje-i-sport/studentske-stipendije
   - rok kako piše: —
-  - napomena: Stranica navodi da je Gradonačelnik raspisao natječaj 13. listopada 2026., ali na stranici nije naveden rok prijave ni iznos stipendije. Provjerite tekst natječaja (PDF) za te podatke.
+  - napomena: Natječaj je raspisan 13. listopada 2026. za akademsku 2026./2027. godinu, ali na stranici nisu navedeni rok prijave ni iznos stipendije. Provjerite cijeli Tekst natječaja i obrasce u prilozima.
