@@ -1099,6 +1099,29 @@ def ucitaj_prethodno(putanja=None):
 
 
 
+def ucitaj_prethodne_dodatne(putanja=None):
+    """Dodatni natjecaji prethodnog rada (oni s podstranica), po adresi izvora.
+
+    ucitaj_prethodno pamti jedan zapis po adresi, a izvor kao MZO ili AMPEU
+    daje vise natjecaja s iste rubrike. Kad rubrika jednom ne odgovori, glavni
+    zapis se zadrzao, a ovi su nestajali: 26.11.2026. tako su sa stranice
+    otisle Kina (rok 29.1.) i Makarska (28.2.) jer je server vratio zaslon
+    zastite od botova."""
+    putanja = putanja or OUTPUT_JSON
+    out = {}
+    if not os.path.exists(putanja):
+        return out
+    try:
+        with open(putanja, "r", encoding="utf-8") as f:
+            for r in json.load(f):
+                izvor = r.get("_izvor_url")
+                if izvor and r.get("url") != izvor:
+                    out.setdefault(izvor, []).append(r)
+    except (json.JSONDecodeError, OSError, AttributeError):
+        return {}
+    return out
+
+
 # Koliko natjecaja smije doci s jedne rubrike uz onaj glavni. Zagreb ih ima
 # pet, Rovinj tri; bez granice bi jedna losa stranica mogla povuci desetke
 # poziva modelu.
@@ -1373,6 +1396,7 @@ def main():
 
     cache = {} if args.force else load_cache()
     prethodno = ucitaj_prethodno()
+    prethodni_dodatni = ucitaj_prethodne_dodatne()
     zadrzanih = 0
     results, needs_review, skipped = [], [], 0
     pdf_procitano = 0
@@ -1410,6 +1434,14 @@ def main():
                 print(f"  = stranica nedostupna, ali rok jos traje -> zadrzan "
                       f"zapis od {r.get('_zadnja_potvrda')}")
             results.append(r); needs_review.append(r)
+            # i natjecaji s podstranica iste rubrike, dok im rok traje
+            for stari in prethodni_dodatni.get(url, []):
+                dz, ok = zadrzi_ako_je_nestao(
+                    {"status": "GREŠKA", "zadnje_provjereno": now}, stari)
+                if ok:
+                    zadrzanih += 1
+                    results.append(dz)
+                    print(f"  = zadrzan i {str(dz.get('naslov_natjecaja'))[:50]}")
             continue
 
         # Ako je natjecaj samo najavljen, a sam tekst je u PDF-u iza poveznice,
