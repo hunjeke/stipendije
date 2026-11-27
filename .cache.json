@@ -2542,7 +2542,7 @@
     "dodatni": []
   },
   "https://www.vukovar.hr/gradske-vijesti/344-upravni-odjel-za-obrazovanje-sport-i-branitelje": {
-    "hash": "v3:e5b226362e34750b",
+    "hash": "v3:fe2320699a370980",
     "dopuna": 2,
     "result": {
       "naziv": "Grad Vukovar — natječaji za stipendije",
@@ -2555,10 +2555,10 @@
       "rok_tekst": null,
       "uvjeti": null,
       "upute_za_prijavu": null,
-      "napomena": null,
+      "napomena": "Na stranici nema natječaja za stipendije ni školovanje. Navedeni javni pozivi odnose se na radna mjesta, turističke potpore, zakup površina i direktora turističke zajednice.",
       "poveznica_natjecaj": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-11-26T21:26",
+      "zadnje_provjereno": "2026-11-27T00:53",
       "_ima_otvoren": false,
       "_dopuna_pokusana": false
     },
@@ -3039,7 +3039,7 @@
     }
   },
   "https://zelina.hr/": {
-    "hash": "v3:4be7e6b87ab42d4a",
+    "hash": "v3:2ccb802ef66baca8",
     "dopuna": 2,
     "result": {
       "naziv": "Grad Sveti Ivan Zelina — natječaji",
@@ -3055,7 +3055,7 @@
       "napomena": null,
       "poveznica_natjecaj": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-11-26T17:07",
+      "zadnje_provjereno": "2026-11-27T00:55",
       "_ima_otvoren": false,
       "_dopuna_pokusana": false
     },
@@ -3131,7 +3131,7 @@
     "dodatni": []
   },
   "https://www.matulji.hr/": {
-    "hash": "v3:ce59d806bed652a2",
+    "hash": "v3:ba52fb0ff5e9a166",
     "dopuna": 2,
     "result": {
       "naziv": "Općina Matulji — natječaji",
@@ -3144,10 +3144,10 @@
       "rok_tekst": null,
       "uvjeti": null,
       "upute_za_prijavu": null,
-      "napomena": "Na stranici se spominje 'Konačne liste kandidata za dodjelu učeničkih i studentskih stipendija za 2026./2027. godinu', ali to je objava rezultata, a ne otvoren natječaj s rokom za prijavu. Stranica je inače navigacija i popis novosti.",
+      "napomena": "Na stranici se spominje samo objava 'Konačne liste kandidata za dodjelu učeničkih i studentskih stipendija za 2026./2027. godinu', što je objava rezultata, a ne otvoren natječaj. Nema roka prijave ni iznosa.",
       "poveznica_natjecaj": null,
       "status": "NEMA AKTIVNOG NATJEČAJA (opća stranica)",
-      "zadnje_provjereno": "2026-11-26T17:07",
+      "zadnje_provjereno": "2026-11-27T00:55",
       "_ima_otvoren": false,
       "_dopuna_pokusana": false
     },
@@ -5694,7 +5694,7 @@
     ]
   },
   "https://www.grad-zadar.hr/vijesti/odgoj-i-skolstvo--stipendiranje--natjecaji-i-obrasci-59/1.html": {
-    "hash": "v3:9a8df1a9ebe64851",
+    "hash": "v3:75cf8d9cc947d334",
     "dopuna": 2,
     "result": {
       "naziv": "Grad Zadar — stipendiranje, natječaji i obrasci",
@@ -5705,27 +5705,27 @@
       "iznosi": [
         {
           "eur": 70.0,
-          "razdoblje": null,
+          "razdoblje": "mjesecno",
           "mjeseci": null,
-          "za": null,
+          "za": "učenici i studenti",
           "do": false
         },
         {
           "eur": 180.0,
-          "razdoblje": null,
+          "razdoblje": "mjesecno",
           "mjeseci": null,
-          "za": null,
+          "za": "učenici i studenti",
           "do": true
         }
       ],
       "iznos_je_fond": false,
       "rok_tekst": "23. studenoga",
-      "uvjeti": "Stipendije su namijenjene učenicima i studentima za školsku/akademsku 2026./2027. godinu. Detaljni uvjeti nisu navedeni u kratkoj najavi na stranici.",
+      "uvjeti": "Stipendije su namijenjene učenicima i studentima za školsku/akademsku 2026./2027. godinu. Detaljni uvjeti nisu navedeni na ovoj stranici.",
       "upute_za_prijavu": null,
-      "napomena": "Na stranici je objavljen natječaj za 2026./2027. godinu (objava od 09. studenog 2026.). Ostali prikazani natječaji su arhivirani (2022.–2025.) i nisu relevantni. Iznos nije razdvojen po kategoriji (učenici/studenti), pa je polje 'za' prazno. Rok je naveden bez godine u rečenici, a objava je iz 2026. godine.",
+      "napomena": "Stranica sadrži i arhivirane natječaje za prethodne školske/akademske godine (2022./2023. do 2025./2026.), koji nisu otvoreni za prijavu. Godina roka nije izričito navedena u tekstu, a stranica je objavljena 09. studenog 2026.",
       "poveznica_natjecaj": null,
-      "status": "OTVORENO — rok za 14 dana (2026-11-23)",
-      "zadnje_provjereno": "2026-11-09T16:11",
+      "status": "PROVJERITI RUČNO (rok nije jasno parsiran)",
+      "zadnje_provjereno": "2026-11-27T00:47",
       "_ima_otvoren": true,
       "_dopuna_pokusana": false
     },
@@ -5748,14 +5748,14 @@
             "eur": 120.0,
             "razdoblje": "mjesecno",
             "mjeseci": null,
-            "za": "studenti u mjestu prebivališta",
+            "za": "studenti koji studiraju u mjestu prebivališta",
             "do": false
           },
           {
             "eur": 150.0,
             "razdoblje": "mjesecno",
             "mjeseci": null,
-            "za": "studenti izvan mjesta prebivališta",
+            "za": "studenti koji studiraju izvan mjesta prebivališta",
             "do": false
           },
           {
@@ -5767,13 +5767,13 @@
           }
         ],
         "iznos_je_fond": false,
-        "rok_tekst": "od ponedjeljka, 9. studenoga, do ponedjeljka, 23. studenoga 2026. godine, u 23:59 sati",
-        "uvjeti": "Učenici srednjih škola i studenti preddiplomskih/diplomskih studija koji su državljani RH s prebivalištem na području Grada Zadra, imaju status redovnog učenika ili studenta, nemaju odobrenu stipendiju ili kredit od drugog subjekta i nisu stariji od 25 odnosno 27 godina (diplomski studij).",
-        "upute_za_prijavu": "Otvorite e-uslugu „Stipendije” na portalu eZadrani (https://ezadrani.hr/stipendije) | Ispunite online obrazac i za učeničku stipendiju obavezno unesite OIB | Učitajte potvrdu o redovitom upisu u školsku/akademsku 2026./2027. godinu kao obvezni prilog | Priložite dokumentaciju o općem uspjehu (svjedodžba prethodnog razreda ili ovjereni prijepis ocjena) | Predajte prijavu do 23. studenoga 2026. do 23:59 sati",
-        "napomena": "Ukupno 145 novih stipendija; stipendije se dodjeljuju za jednu godinu školovanja odnosno studija i nepovratne su. Trajanje isplate nije navedeno. Dodatne informacije: 023/208-068 ili martina.lenkic@grad-zadar.hr.",
+        "rok_tekst": "od 9. studenoga 2026. do 23. studenoga 2026. (do 23:59 sati)",
+        "uvjeti": "Mogu se prijaviti učenici srednjih škola i studenti preddiplomskih/diplomskih studija koji su državljani RH s prebivalištem na području Grada Zadra, imaju status redovnog učenika ili studenta i nemaju odobrenu stipendiju ili kredit od drugog subjekta. Studenti ne smiju biti stariji od 25 godina (preddiplomski), odnosno 27 godina (diplomski).",
+        "upute_za_prijavu": "Pripremite dokumentaciju (potvrda o redovitom upisu, svjedodžba prethodnog razreda ili ovjereni prijepis ocjena, dokazi za dodatne bodove) | Prijavite se putem e-usluge „Stipendije“ na portalu eZadrani (https://ezadrani.hr/stipendije) | Učenici su obvezni unijeti OIB u obrazac | Potvrdu o upisu učitajte kao obvezni prilog | Prijavu podnesite do 23. studenoga 2026. do 23:59 sati",
+        "napomena": "Stipendije se dodjeljuju za jednu godinu školovanja i nepovratne su. Studenti deficitarnih zvanja natječu se na obje liste (redovnoj i deficitarnoj). Kriteriji bodovanja i popis dokumentacije nalaze se u priloženom PDF-u natječaja. Dodatne informacije: Martina Lenkić, 023/208-068.",
         "poveznica_natjecaj": "https://www.grad-zadar.hr/vijest/odgoj-i-skolstvo--stipendiranje--natjecaji-i-obrasci-59/objavljen-natjecaj-za-dodjelu-stipendija-ucenicima-i-studentima-za-skolskuakademsku-20262027-godinu-10114.html",
-        "status": "OTVORENO — rok za 14 dana (2026-11-23)",
-        "zadnje_provjereno": "2026-11-09T16:11",
+        "status": "ROK ISTEKAO (2026-11-23) — čeka se novi ciklus",
+        "zadnje_provjereno": "2026-11-27T00:47",
         "_ima_otvoren": true,
         "_dopuna_pokusana": true,
         "_izvor_url": "https://www.grad-zadar.hr/vijesti/odgoj-i-skolstvo--stipendiranje--natjecaji-i-obrasci-59/1.html"
@@ -5782,7 +5782,7 @@
         "naziv": "Grad Zadar — stipendiranje, natječaji i obrasci",
         "url": "https://www.grad-zadar.hr/vijest/odgoj-i-skolstvo--stipendiranje--natjecaji-i-obrasci-59/n-a-t-j-e-c-a-j-za-dodjelu-stipendija-ucenicima-i-studentima-za-skolskuakademsku-20252026-godinu-9057.html",
         "kategorija": "Grad",
-        "naslov_natjecaja": "Stipendije učenicima i studentima 2025./2026.",
+        "naslov_natjecaja": "Stipendije učenicima i studentima",
         "iznos": "Stipendija za učenike iznosi 70,00 eura mjesečno, za studente koji studiraju u mjestu prebivališta 120,00 eura mjesečno, za studente koji studiraju izvan mjesta prebivališta 150,00 eura mjesečno, a za studente koji se školuju za deficitarna zvanja 180,00 eura mjesečno.",
         "iznosi": [
           {
@@ -5810,18 +5810,18 @@
             "eur": 180.0,
             "razdoblje": "mjesecno",
             "mjeseci": null,
-            "za": "studenti koji se školuju za deficitarna zvanja",
+            "za": "studenti deficitarnih zvanja",
             "do": false
           }
         ],
         "iznos_je_fond": false,
-        "rok_tekst": "od 24. studenoga 2025. do 8. prosinca 2025. (do 23:59 sati)",
-        "uvjeti": "Učenici srednjih škola i studenti preddiplomskih/diplomskih studija, državljani RH s prebivalištem na području Grada Zadra, koji imaju status redovnog učenika ili studenta, nemaju odobrenu stipendiju ili kredit drugog subjekta i nisu ostvarili pravo na apsolventski staž.",
-        "upute_za_prijavu": "1. Pripremiti potrebnu dokumentaciju (potvrda o redovitom upisu, svjedodžba ili ovjereni prijepis ocjena, dokazi o socijalnom stanju i natjecanjima ako se traže) | 2. Prijaviti se putem e-usluge „Stipendije“ na poveznici https://ezadrani.hr/stipendije | 3. Učenici u obrazac unose OIB; studentima se OIB preuzima iz NIAS prijave | 4. Učitati obvezne priloge u online obrazac | 5. Pratiti privremenu i konačnu bodovnu listu na službenoj web stranici Grada Zadra",
-        "napomena": "Ukupno se dodjeljuje 145 stipendija (20 učenicima srednjih škola, 20 učenicima strukovnih zanimanja, 30 studentima prve godine, 35 studentima starijih godina i 40 studentima deficitarnih zvanja). Studenti deficitarnih zvanja natječu se na obje liste. Prijava je isključivo online. Za informacije: Martina Lenkić, 023/208-068, martina.lenkic@grad-zadar.hr.",
+        "rok_tekst": "od 24. studenog 2025. do 8. prosinca 2025. (do 23:59 sati)",
+        "uvjeti": "Učenici srednjih škola i studenti preddiplomskih/diplomskih studija koji su državljani RH s prebivalištem na području Grada Zadra, imaju status redovnog učenika ili studenta i nemaju odobrenu drugu stipendiju ili kredit, a nisu ostvarili pravo na apsolventski staž.",
+        "upute_za_prijavu": "Pripremite potrebnu dokumentaciju (potvrda o redovitom upisu, svjedodžba prethodnog razreda ili ovjereni prijepis ocjena i dokazi za dodatne bodove) | Prijavu podnesite putem e-usluge „Stipendije“ na portalu eZadrani.hr (https://ezadrani.hr/stipendije) do 8. prosinca 2025. | Učenici u obrazac unose OIB, a studenti se OIB preuzima iz NIAS prijave | Potvrdu o upisu učitajte kao obvezni prilog (studenti je moraju dobiti sa svog fakulteta, ne iz e-građana) | Dodatne informacije: Martina Lenkić, 023/208-068, martina.lenkic@grad-zadar.hr",
+        "napomena": "Grad Zadar dodjeljuje ukupno 145 novih stipendija (20 učenicima srednjih škola, 20 učenicima strukovnih zvanja, 30 studentima prve godine, 35 studentima starijih godišta i 40 studentima deficitarnih zvanja). Na stranici se nalazi i novija objava natječaja za 2026./2027. godinu, pa provjerite jeste li na pravom natječaju.",
         "poveznica_natjecaj": "https://www.grad-zadar.hr/vijest/odgoj-i-skolstvo--stipendiranje--natjecaji-i-obrasci-59/n-a-t-j-e-c-a-j-za-dodjelu-stipendija-ucenicima-i-studentima-za-skolskuakademsku-20252026-godinu-9057.html",
         "status": "ROK ISTEKAO (2025-12-08) — čeka se novi ciklus",
-        "zadnje_provjereno": "2026-11-09T16:11",
+        "zadnje_provjereno": "2026-11-27T00:47",
         "_ima_otvoren": true,
         "_dopuna_pokusana": true,
         "_izvor_url": "https://www.grad-zadar.hr/vijesti/odgoj-i-skolstvo--stipendiranje--natjecaji-i-obrasci-59/1.html"
@@ -5864,12 +5864,12 @@
         ],
         "iznos_je_fond": false,
         "rok_tekst": "od 22.11.2024. do 06. prosinca 2024. (do 23:59 sati)",
-        "uvjeti": "Mogu se prijaviti učenici srednjih škola i studenti preddiplomskih/diplomskih studija koji su državljani RH s prebivalištem na području Grada Zadra, imaju status redovitog učenika ili studenta te nemaju odobrenu drugu stipendiju ili kredit. Studenti ne smiju imati ostvareno pravo na apsolventski staž, a studenti preddiplomskih studija ne smiju biti stariji od 25 godina (diplomskih 27).",
-        "upute_za_prijavu": "Pripremite potvrdu o redovitom upisu, svjedodžbe ili ovjereni prijepis ocjena te dokumente za dokazivanje dodatnih bodova | Otvorite e-uslugu Stipendije na poveznici https://ezadrani.hr/stipendije | Unesite OIB u obrazac (kod učeničkih stipendija obavezno) i učitajte potrebne priloge | Predajte prijavu do 06. prosinca 2024. do 23:59 sati",
-        "napomena": "Natječaj za školsku/akademsku 2024./2025. godinu, objavljen 21. studenoga 2024., dodjeljuje 145 stipendija. Tekst na stranici ne navodi broj mjeseci isplate. Stranica također spominje noviji natječaj za 2025./2026. godinu, pa treba provjeriti koji je aktualan. Dio teksta u PDF-u sadrži prijelome riječi (npr. 'prebi vališta'), pa su navedeni citati uzeti iz dijela koji je čitljiv.",
+        "uvjeti": "Učenici srednjih škola i studenti preddiplomskih/diplomskih studija, državljani RH s prebivalištem na području Grada Zadra, koji imaju status redovitog učenika ili studenta i nemaju odobrenu stipendiju ili kredit drugog subjekta.",
+        "upute_za_prijavu": "Prijava putem e-usluge „Stipendije“ na poveznici https://ezadrani.hr/stipendije | Za učeničku stipendiju obavezno unijeti OIB u online obrazac | Učitati potvrdu o redovitom upisu kao obvezni prilog | Učitati svjedodžbu prethodnog razreda ili ovjereni prijepis ocjena i dokaze o uspjehu po potrebi | Predati prijavu do 06. prosinca 2024. do 23:59 sati",
+        "napomena": "Natječaj je za školsku/akademsku 2024./2025. godinu, a na stranici su navedeni i noviji natječaji (2025./2026. i 2026./2027.). Studenti ne unose OIB ručno jer se povlači iz NIAS prijave.",
         "poveznica_natjecaj": "https://www.grad-zadar.hr/vijest/odgoj-i-skolstvo--stipendiranje--natjecaji-i-obrasci-59/natjecaj-za-dodjelu-stipendija-ucenicima-i-studentima-za-skolskuakademsku-20242025-godinu-8636.html",
         "status": "ROK ISTEKAO (2024-12-06) — čeka se novi ciklus",
-        "zadnje_provjereno": "2026-11-09T16:11",
+        "zadnje_provjereno": "2026-11-27T00:47",
         "_ima_otvoren": true,
         "_dopuna_pokusana": true,
         "_izvor_url": "https://www.grad-zadar.hr/vijesti/odgoj-i-skolstvo--stipendiranje--natjecaji-i-obrasci-59/1.html"
